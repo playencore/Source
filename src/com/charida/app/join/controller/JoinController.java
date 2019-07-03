@@ -17,7 +17,6 @@ public class JoinController {
 	@RequestMapping("/join/join-main.do")
 	public String home(Locale locale, Model model,HttpServletRequest req) {
 		System.out.println(req.getParameter("aa"));
-		TestService.tt();
 		
 		//model.addAttribute("serverTime", formattedDate );
 		
