@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>cus-main 구매자 회원가입</title>
 </head>
 <body>
@@ -18,6 +19,7 @@
 				<td><input type="password" id="passwd"></td>
 			</tr>
 		</table>
+		<input type="hidden" name="type" value="${param.type}">
 	</form>
 </body>
 </html>
