@@ -13,4 +13,3 @@
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
-assas한글고재량추가 
