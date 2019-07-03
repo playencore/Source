@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="selectTest" resultType="int">
+		SELECT COUNT(*) FROM DBTEST
+	</select>
+	<update id="updateTest">
+		UPDATE DBTEST SET PASSWD='142413' WHERE ID = 'ccc'
+	</update>
+	<update id="updateTest2">
+		UPDATE DBTEST SET id='qwe' WHERE ID = 'qwe121'
+	</update>
+</mapper>

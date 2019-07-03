@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-4.3.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-4.3.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">		
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- JDBC 연결 정보 -->
+	<util:properties id="dbResource" location="/WEB-INF/spring/dbResource.properties"/>
+	
+	<!-- 커넥션 풀 -->
+	<bean id="OriginDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="#{dbResource['driverClassName']}" />
+		<property name="url" value="#{dbResource['url']}" />
+		<property name="username" value="#{dbResource['username']}" />
+		<property name="password" value="#{dbResource['password']}" />
+		<property name="maxActive" value="50" />
+		<property name="maxWait" value="2000" />
+	</bean>
+	
+	<!-- Log4j sql 로그 -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="OriginDataSource" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="[SQL] : " />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Mybatis 팩토리빈 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="configLocation" value="classpath:/mybatis-config.xml" /> -->
+		<!-- Mapper 스캔 -->
+		<property name="mapperLocations" value="classpath:/com/charida/app/**/*Sql.xml" />
+	</bean>
+	
+	<!-- SQL 세션 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!--  트랙젝션 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!--  트랜잭션 AOP -->
+	<!-- proxy-target-class = true란 Spring AOP 는 기본적으로 인터페이스 계층에서 작동하지만
+		CGLIB 를사용해 CLASS 계층에서 작동하도록 하는 것 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="serviceOperation" expression="execution(* com.charida.app..service.*Service.*(..))" /> 
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceOperation" advice-ref="txAdvice"/> 
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> 
+			<!-- <tx:method name="insert*" rollback-for="Exception"/> 
+			<tx:method name="update*" rollback-for="Exception"/> 
+			<tx:method name="delete*" rollback-for="Exception"/> -->
+			<tx:method name="*Tx" rollback-for="Exception"/>
+		</tx:attributes> 
+	</tx:advice>
+	
+	<!-- 컴포넌트 스캔  Repository,Service 
+	      기본적으로 Root-Context는 웹관련(controller 등) 설정을 제외한 설정을 잡니다.-->
+	<context:component-scan base-package="com.charida.app" use-default-filters="false">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
+	</context:component-scan>
+	
+</beans>
