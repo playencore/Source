@@ -2,94 +2,60 @@
     pageEncoding="UTF-8"%>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-  <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
+<!-- material css-->
+<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
+<!--  -->
+<script src = "/js/jquery-3.4.1.js"></script>
+<script src = "/js/materialize.js"></script>
 
-    main {
-      flex: 1 0 auto;
-    }
-
-    body {
-      background: #fff;
-    }
-
-    .input-field input[type=date]:focus + label,
-    .input-field input[type=text]:focus + label,
-    .input-field input[type=email]:focus + label,
-    .input-field input[type=password]:focus + label {
-      color: #e91e63;
-    }
-
-    .input-field input[type=date]:focus,
-    .input-field input[type=text]:focus,
-    .input-field input[type=email]:focus,
-    .input-field input[type=password]:focus {
-      border-bottom: 2px solid #e91e63;
-      box-shadow: none;
-    }
-  </style>
+  
+  <script type="text/javascript">
+  //<!--
+   $(document).ready(function(){
+    $('.modal').modal();
+  });         
+  //-->
+  </script>
 </head>
 
-<body>
-  <div class="section"></div>
-  <main>
-    <center>
-      <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" />
-      <div class="section"></div>
-
-      <h5 class="indigo-text">로 그 인</h5>
-      <div class="section"></div>
-
-      <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-
-          <form class="col s12" method="post">
-            <div class='row'>
-              <div class='col s12'>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class='validate' type='email' name='email' id='email' />
-                <label for='email'>Enter your email</label>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class='validate' type='password' name='password' id='password' />
-                <label for='password'>Enter your password</label>
-              </div>
-              <label style='float: right;'>
-								<a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-							</label>
-            </div>
-
-            <br />
-            <center>
-              <div class='row'>
-                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>
-              </div>
-            </center>
-          </form>
-        </div>
-      </div>
-      <a href="#!">Create account</a>
-    </center>
-
-    <div class="section"></div>
-    <div class="section"></div>
-  </main>
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<body>  
+	<div class="section"></div>
+	<div class="section"></div>
+	<div class="section"></div>
+	<div class="row">
+		<div class="col s12">
+		<div class="col s4"></div>
+			<div class="col s4">
+				<h4>Cha-Ri-Da</h4>로그인
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<div class="col s4"></div>
+			<div class="input-field col s4">
+				<input id="id" type="text" class="validate">
+				<label for="id">아이디</label>
+			</div>
+		</div>	
+		<div class="col s12">
+			<div class="col s4"></div>
+			<div class="input-field col s4">
+				<input id="password" type="password" class="validate">
+				<label for="password">비밀번호</label>
+			</div>
+		</div>
+		<div class="col s12">
+			<div class="col s4"></div>
+			<div class="col s3">
+			<a href="#"> 아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#">비밀번호 찾기</a><br>
+			<a href="#">차리다 회원가입</a>
+			</div>
+			<div class="input-field col s4">
+				<input type="submit" value="로그인" class="waves-effect waves-light btn">
+			</div>
+		</div>		
+	</div>	  
 </body>
-
 </html>
