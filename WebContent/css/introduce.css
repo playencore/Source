@@ -1,118 +1,36 @@
 @charset "utf-8";
 
-@font-face {
-    font-family: NanumSquareR;
-    src: url(../font/NanumSquareR.woff) format('woff');
-}
-
-@font-face {
-    font-family: NanumSquareL;
-    src: url(../font/NanumSquareL.woff) format('woff');
-}
-
-@font-face {
-    font-family: NanumSquareB;
-    src: url(../font/NanumSquareB.woff) format('woff');
-}
-
-h1, h2, h3, h4, h5, p {
-    font-family: NanumSquareR, sans-serif;
-    font-weight: 500;
-    color: #333;
-}
-
-h1, h3 {
-    margin-top: 35px;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-body{
-    padding-bottom: 100px;
-}
-
-#top_navbar {
-    background: rgba(0,0,0,0.7);
-}
-
-#top_navbar-nav > li > a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.separator {
-    background: #59e;
-    margin-top: 80px;
-    padding: 21px;
-    text-align: center;
-    color: #fff;
-}
-
-.red {
-    background: #fcc;
-    border: #eaa solid 4px;
-}
-
-.yellow {
-    background: #f6f6c0;
-    border: #dd7 solid 4px;
-}
-
-.green {
-    background: #bfc;
-    border: #ada solid 4px;
-}
-
-.bluegreen {
-    background: #aee;
-    border: #8dd solid 4px;
-}
-
-.blue {
-    background: #bcf;
-    border: #9ae solid 4px;
-}
-
-/*  풀어주기   */
-.pet_image {
-    width: 100%;
-}
-
-.carousel-caption * {
-    color: white;
-}
-
 #desc_section .left_think{
     min-height: 40%;
-    background: url('../img/think.jpg');
+    background: url('/WEB-INF/views/intro/think.jpg');
     background-size: cover;
     background-position: center;
 }
 
 #desc_section .left_same{
     min-height: 40%;
-    background: url('../img/same.png');
+    background: url('/WEB-INF/views/intro/same.png');
     background-size: cover;
     background-position: center;
 }
 
 #desc_section .left_day{
     min-height: 40%;
-    background: url('../img/day.jpg');
+    background: url('/WEB-INF/views/intro/day.jpg');
     background-size: cover;
     background-position: center;
 }
 
 #desc_section .left_connection{
     min-height: 40%;
-    background: url('../img/connection.png');
+    background: url('/WEB-INF/views/intro/connection.png');
     background-size: cover;
     background-position: center;
 }
 
 #desc_section .left_charida{
     min-height: 40%;
-    background: url('../img/charida.jpg');
+    background: url('/WEB-INF/views/intro/charida.jpg');
     background-size: cover;
     background-position: center;
 }
