@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -6,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
        
@@ -27,7 +29,7 @@
     <nav class="navbar navbar-expand-xl bg-primary navbar-dark">
         <div class="container">
             <!-- 브랜드 로고 -->
-            <a href="http://playdata.io" class="navbar-brand"><img src="./img/play_data_white.png" alt="playdata"></a>
+           <!--  <a href="http://playdata.io" class="navbar-brand"><img src="./img/play_data_white.png" alt="playdata"></a> -->
             <!-- 햄버거 버튼 -->
             <button class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
                 <span class="navbar-toggler-icon"></span>
