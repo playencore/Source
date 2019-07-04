@@ -16,6 +16,8 @@
   });         
   //-->
   </script>
+  <title>차리다 로그인</title>
+  
 </head>
 
 <body>  
@@ -52,7 +54,7 @@
 			<a href="#">비밀번호 찾기</a><br>
 			<a href="#">차리다 회원가입</a>
 			</div>
-			<div class="input-field col s4">
+			<div class="input-field col s4 ">
 				<input type="submit" value="로그인" class="waves-effect waves-light btn">
 			</div>
 		</div>		
