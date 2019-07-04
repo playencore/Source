@@ -12,4 +12,8 @@
 	<update id="updateTest2">
 		UPDATE DBTEST SET id='qwe' WHERE ID = 'qwe121'
 	</update>
+	<insert id="insertSupplier" parameterType="com.charida.app.supplier.dto.SupplierDto">
+		INSERT INTO CRD_COMPANY 
+		VALUES(#{mem_id}, #{regist_num}, #{explanation}, #{name}, #{maximum_seating}, #{cert_file_id}, #{telegram_id}) 
+	</insert>
 </mapper>

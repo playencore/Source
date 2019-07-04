@@ -36,10 +36,16 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinSupplierInput" enctype="multipart/form-data" method = "post" action = "/joinUser/joinSupplierPro.do"  >
+				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do"  >
 					<div class = "col s12">
 						<div class="input-field col s12">
-				          <input name="supplierName" id="supplierName" type="text" class="validate" autofocus>
+				          <input name="supplierId" id="supplierid" type="text" class="validate" autofocus>
+				          <label for="supplierid">*업체 아이디</label>
+				        </div>
+			        </div>
+					<div class = "col s12">
+						<div class="input-field col s12">
+				          <input name="supplierName" id="supplierName" type="text" class="validate">
 				          <label for="supplierName">*업체 이름</label>
 				        </div>
 			        </div>
@@ -51,8 +57,8 @@
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
-				        	<textarea name="SupplierIntro" id="SupplierIntro" class="materialize-textarea" row = "2"></textarea>
-          					<label for="SupplierIntro">*업체 소개</label>
+				        	<textarea name="supplierInfo" id="supplierInfo" class="materialize-textarea" row = "2"></textarea>
+          					<label for="SupplierInfo">*업체 소개</label>
 				        </div>
 			        </div>
 			         <div class = "col s12">
@@ -234,7 +240,7 @@
       						</label>
 			        	</div>
 			        </div>
-			       	 	 <button class="btn waves-effect waves-light" type="submit" name="action">
+			       	 	 <button class="btn waves-effect waves-light" type="submit" >
     						<i class="material-icons left">send</i>
     						판매자회원가입
   						</button>
