@@ -70,11 +70,4 @@ public class TestController {
 		}
 		return null;
 	}
-	@RequestMapping("/joinUser/joinSupplier.do")
-	public String joinSupplier(HttpServletRequest req, HttpServletResponse resp) {
-		
-		return "/joinUser/joinSupplier";
-	}
-	
-	
 }

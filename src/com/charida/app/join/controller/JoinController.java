@@ -22,4 +22,5 @@ public class JoinController {
 		
 		return "/join/cus-main";
 	}
+	
 }
