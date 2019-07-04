@@ -24,11 +24,11 @@
 	</script>
 </head>
 <body>
-	<form action="" name="dForm" method="get">
+	<form action="" name="dForm" method="post">
 		<h4> 회원가입 선택 </h4>
 		<input type="hidden" name="type">
 		<input type="button" id="cus" value="구매자(cus)" onclick="test(1)">
 		<input type="button" id="sup" value="판매자(sup)" onclick="test(2)">
 	</form>
-</body>
+</body>//////////
 </html>
