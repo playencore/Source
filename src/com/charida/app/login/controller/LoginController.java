@@ -1,4 +1,4 @@
-package com.chrida.app.login.controller;
+package com.charida.app.login.controller;
 
 import java.util.Locale;
 
