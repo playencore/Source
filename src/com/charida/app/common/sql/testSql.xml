@@ -19,4 +19,10 @@
 	<select id = "checkSupplierName" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM CRD_COMPANY WHERE NAME = #{supplierName}
 	</select>
+	<select id="countId" resultType="int" parameterType="String">
+ 		select count(*) from CRD_MEM where MEM_id = #{id}
+	</select>
+	<select id="checkPasswd" resultType="String" parameterType="String">
+		select PASSWD from CRD_MEM where MEM_id = #{id}
+	</select>
 </mapper>
