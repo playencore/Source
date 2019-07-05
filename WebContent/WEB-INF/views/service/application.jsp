@@ -11,6 +11,8 @@
   	<link rel="stylesheet" href="/css/materialize.css">
   	<link rel="stylesheet" href="/css/free.css">
   	<link rel="stylesheet" href="/css/free-v4-shims.css">
+  	<link rel="stylesheet" href="/css/nouislider.css">
+  	
     <style media="screen">
       @font-face {
         font-family: NanumSquareR;
@@ -47,6 +49,8 @@
 	<script src="/js/jquery-3.4.1.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/js/materialize.js"></script>
+	<script type="text/javascript" src="/js/moment.min.js"></script>
+	<script type="text/javascript" src="/js/nouislider.js"></script>
     <!--js-->
     <script type="text/javascript">
 
@@ -132,7 +136,8 @@
         $(document).ready(function(){
         	elems = document.querySelectorAll('.datepicker');
         	instances = M.Datepicker.init(elems, {
-        	  format:'yyyy-mm-dd'
+        	   minDate:new Date(moment().add(7,'days').format())
+        	  ,format:'yyyy-mm-dd'
         	  ,i18n:{
           		  cancel:'닫기',
           		  clear:'초기화',
@@ -185,10 +190,21 @@
 				}
 			});
         });
+        
+        function next(){
+        	var cStep = $('input:hidden[name=step]').val();
+        	if(cStep=="1"){
+        		$('#step1_1').css('display','none');
+        		$('#step1_2').css('display','none');
+        		
+        		$('#step2_1').css('display','block');
+        	}
+        	
+        	$('input:hidden[name=step]').val(cStep +1);
+        }
 	</script>
 </head>
 <body style="background-color: #dfdfdd6b">
-	s
 	<!-- 네비게이션 바-->
 	<ul id="dropdown1" class="dropdown-content">
 	  <li><a href="#!">드롭다운 메뉴1</a></li>
@@ -220,94 +236,185 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col m1"></div>
-			<div class="col m11">
-				<h5 style="margin-bottom: 50px">행사장위치 입력</h5>
-				
-				<div class="row" style="margin-bottom: 0px;">
-					<div class="col s1"></div>
-					<div class="col m10" style="padding-right: 0px">
-						
-						<div class="row" id="sec_addr" style="margin-bottom: 0px;">
-							<div class="col m9">
-								<div class="input-field">
-									<input type="hidden" id="zipcode" name="zipcode">
-									<input disabled value="검색 버튼을 눌러주세요." id="addr" name="addr" type="text" class="validate">
-				          			<label for="addr" style="font-size: 30px;line-height:0.5px;font-weight: bold;">행사 위치</label>
+		<form action="" method="post">
+			<div class="row" id="step1_1">
+				<div class="col m1"></div>
+				<div class="col m11">
+					<h5 style="margin-bottom: 50px">행사장위치 입력</h5>
+					
+					<div class="row" style="margin-bottom: 0px;">
+						<div class="col s1"></div>
+						<div class="col m10" style="padding-right: 0px">
+							
+							<div class="row" id="sec_addr" style="margin-bottom: 0px;">
+								<div class="col m9">
+									<div class="input-field">
+										<input type="hidden" id="zipcode" name="zipcode">
+										<input disabled value="검색 버튼을 눌러주세요." id="addr" name="addr" type="text" class="validate">
+					          			<label for="addr" style="font-size: 30px;line-height:0.5px;font-weight: bold;">행사 위치</label>
+				          			</div>
+			          			</div>
+			          			<div class="col m3">
+			          				<a class="btn waves-effect waves-light " style="margin-top:1.5rem;" onclick="daumPostcode()">주소 검색</a>
+			          			</div>
+			          			<div class="col m9">
+				          			<div class="input-field">
+										<input id="addr2" name="addr2" type="text" class="validate">
+							         	<label for="addr2" style="font-size: 25px;line-height:0.5px;font-weight: bold;">상세주소</label>
+						         	</div>
 			          			</div>
 		          			</div>
-		          			<div class="col m3">
-		          				<a class="btn waves-effect waves-light " style="margin-top:1.5rem;" onclick="daumPostcode()">주소 검색</a>
+		          			
+		          			<div class="row" id="sec_postcode" style="margin-bottom: 0px;">
+		          				<div class="col m10">
+		          					  <div id="wrap" style="display:none;height:300px;position:relative">
+						                  <img src="http://t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+						               </div>
+		          				</div>
 		          			</div>
-		          			<div class="col m9">
-			          			<div class="input-field">
-									<input id="addr2" name="addr2" type="text" class="validate">
-						         	<label for="addr2" style="font-size: 25px;line-height:0.5px;font-weight: bold;">상세주소</label>
-					         	</div>
-		          			</div>
-	          			</div>
-	          			
-	          			<div class="row" id="sec_postcode" style="margin-bottom: 0px;">
-	          				<div class="col m10">
-	          					  <div id="wrap" style="display:none;height:300px;position:relative">
-					                  <img src="http://t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-					               </div>
-	          				</div>
-	          			</div>
-	          			
-					</div>
-	          		<div class="col m1"></div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col m1"></div>
-			<div class="col m11">
-			<h5 style="margin-bottom: 50px">행사일시 입력</h5>
-				<div class="row"  style="margin-bottom: 0px;">
-					<div class="col m1"></div>
-					<div class="col m10">
-						<div class="row" style="margin-bottom: 0px;">
-							<div class="col m4" style="padding-right: 0px">
-								<div class="input-field">
-									<input id="serv_date" name="serv_date" type="text" class="datepicker">
-						         	<label for="serv_date" style="font-size: 25px;line-height:0.5px;font-weight: bold;">행사 일자</label>
-					         	</div>
-							</div>
-							<div class="col m1" style="padding-right: 0px">
-							</div>
-							<div class="col m4" style="padding-right: 0px">
-								<div class="input-field">
-									<input id="serv_time" name="serv_time" type="text" class="timepicker">
-						         	<label for="serv_time" style="font-size: 25px;line-height:0.5px;font-weight: bold;">행사 시간</label>
-					         	</div>
-							</div>
-							<div class="col m3"></div>
+		          			
 						</div>
+		          		<div class="col m1"></div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col m1"></div>
-			<div class="col m11">
-				<h5 style="margin-bottom: 50px">행사일시 입력</h5>
-				<div class="row"  style="margin-bottom: 0px;">
-					<div class="col m1"></div>
-					<div class="col m10">
-						<div class="row" style="margin-bottom: 0px;">
-							<div class="col m9" style="padding-right: 0px">
+			
+			<div class="row" id="step1_2">
+				<div class="col m1"></div>
+				<div class="col m11">
+				<h5 style="margin-bottom: 10px">행사일시 입력</h5>
+					<div class="row" >
+						<div class="col m1"></div>
+						<div class="col m8">
+							<div class="card " style="background-color: #f1f1f0">
+								<i class="fal fa-comment-alt-exclamation"></i>
+						        <div class="card-action">
+						     	   서비스는 최소 7일의 준비기간이 필요합니다.
+						        </div>
+						      </div>
+						</div>
+						<div class="col m2"></div>
+					</div>
+					<div class="row"  style="margin-bottom: 0px;">
+						<div class="col m1"></div>
+						<div class="col m10">
+							<div class="row" style="margin-bottom: 0px;">
+								<div class="col m4" style="padding-right: 0px">
+									<div class="input-field">
+										<input id="serv_date" name="serv_date" type="text" class="datepicker">
+							         	<label for="serv_date" style="font-size: 25px;line-height:0.5px;font-weight: bold;">행사 일자</label>
+						         	</div>
+								</div>
+								<div class="col m1" style="padding-right: 0px">
+								</div>
+								<div class="col m4" style="padding-right: 0px">
+									<div class="input-field">
+										<input id="serv_time" name="serv_time" type="text" class="timepicker">
+							         	<label for="serv_time" style="font-size: 25px;line-height:0.5px;font-weight: bold;">행사 시간</label>
+						         	</div>
+								</div>
+								<div class="col m3">
+									
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
+			
+			<!-- step 2 -->
+			<div class="row" id="step2_1" style="display:none">
+				<div class="col m1"></div>
+				<div class="col m11">
+					<h5 style="margin-bottom: 50px">참가자 정보</h5>
+					<div class="row"  style="margin-bottom: 0px;">
+						<div class="col m1"></div>
+						<div class="col m10">
+							<div class="row" style="margin-bottom: 0px;">
+								<div class="col m2" style="padding-right: 0px">
+									<input id="participant" type="number" class="validate">
+									<label for="participant">참가자수</label>
+								</div>
+								<div class="col m1"></div>
+								<div class="col m9">
+									<div id="test-slider"></div>
+								</div>
+								<script type="text/javascript">
+								//<!--
+								var slider = document.getElementById('test-slider');
+								  noUiSlider.create(slider, {
+								   start: [20, 80],
+								   connect: true,
+								   step: 1,
+								   orientation: 'horizontal', // 'horizontal' or 'vertical'
+								   range: {
+								     'min': 0,
+								     'max': 100
+								   },
+								   format: wNumb({
+								     decimals: 0
+								   })
+								  });
+								//-->
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col m1"></div>
+				<div class="col m11">
+					<h5 style="margin-bottom: 50px">행사정보</h5>
+					<div class="row"  style="margin-bottom: 0px;">
+						<div class="col m1"></div>
+						<div class="col m10">
+							<div class="row" style="margin-bottom: 0px;">
+								<div class="col m9" style="padding-right: 0px">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- btn -->
+			<input type="hidden" name="step" value="1"/>
+			<div class="row" style="margin-top: 60px">
+				<div class="col m1"></div>
+				<div class="col m2" style="padding-right: 0px">
+					<a class="waves-effect waves-light btn disabled" onclick="prev()"><i class="fas fa-caret-left" style="margin-right: 7px; font-size: 14px"></i>이전</a>
+				</div>
+				<div class="col m5"></div>
+				<div class="col m2" style="padding-right: 0px">
+					<a class="waves-effect waves-light btn" href="#" onclick="javascript:next();return false;">다음 <i class="fas fa-caret-right" style="margin-left: 5px; font-size: 14px"></i></a>
+				</div>
+				<div class="col m1"></div>
+			</div>
+			<!-- <div class="row">
+				<div class="col m1"></div>
+				<div class="col m11">
+					<div class="row"  style="margin-bottom: 0px;">
+						<div class="col m1"></div>
+						<div class="col m10">
+							<div class="row" style="margin-bottom: 0px;">
+								
+								<div class="col m2" style="padding-right: 0px">
+									<a class="waves-effect waves-light btn"><i class="fas fa-caret-left" style="margin-right: 7px; font-size: 14px"></i>이전</a>
+								</div>
+								<div class="col m6"></div>
+								<div class="col m2" style="padding-right: 0px">
+									<a class="waves-effect waves-light btn">다음 <i class="fas fa-caret-right" style="margin-left: 5px; font-size: 14px"></i></a>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</form>
 	</div>
 </body>
 </html>
