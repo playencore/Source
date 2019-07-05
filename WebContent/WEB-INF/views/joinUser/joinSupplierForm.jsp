@@ -15,19 +15,41 @@
 <!-- icon -->
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
-
 <script type="text/javascript">
 //<!--
- 
+ 	$(document).ready(
+ 		function(){
+ 			$("input[name=supplierName]").on(
+ 				"keyup",
+ 				function( event ){
+ 					var supplierName = $("input[name=supplierName]").val() ;
+ 					$.ajax(
+ 						{
+ 							type : "POST",
+ 							url: "/joinUser/SupplierNameCheck.do",
+ 							data : {"supplierName" : supplierName },
+ 							dataType:"json",
+ 							success:function(data){
+ 								$("#supplierNameval").html(data.result) ;
+ 							},
+ 							error: function(data){
+ 								$("#supplierNameval").html("다시 시도해주세요.") ;
+ 							}
+ 						}		
+ 					);
+ 				}
+ 			);
+ 			
+ 			
+ 		}//ready function	
+ 	);//ready
+ 	
 //-->
 </script>
 
 
 
 </head>
-
-
 
 <body class = "grey lighten-2">
 	<br><br>
@@ -36,39 +58,45 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do"  >
+				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" onsubmit="return supplierinput()" >
 					<div class = "col s12">
 						<div class="input-field col s12">
 				          <input name="supplierId" id="supplierid" type="text" class="validate" autofocus>
 				          <label for="supplierid">*업체 아이디</label>
+				          <span class="helper-text" id="supplieridval">check</span>
 				        </div>
 			        </div>
 					<div class = "col s12">
 						<div class="input-field col s12">
 				          <input name="supplierName" id="supplierName" type="text" class="validate">
 				          <label for="supplierName">*업체 이름</label>
+				          <span class="helper-text" id="supplierNameval"></span>
 				        </div>
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
 				          <input name="supplierNum" id="supplierNum" type="text" class="validate">
 				          <label for="supplierlicensNum">*사업자번호</label>
+				          <span class="helper-text" id="supplierlicensNumval">check</span>
 				        </div>
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
 				        	<textarea name="supplierInfo" id="supplierInfo" class="materialize-textarea" row = "2"></textarea>
           					<label for="SupplierInfo">*업체 소개</label>
+          					<span class="helper-text" id="supplierInfoval">check</span>
 				        </div>
 			        </div>
 			         <div class = "col s12">
 						<div class="input-field col s6">
 							<input name = "minPeople" id="minPeople" type="text" class="validate">
 				          	<label for="minPeople">*최소수용인원</label>
+				          	<span class="helper-text" id="minPeopleval">check</span>
 				        </div>
 				        <div class="input-field col s6">
 							<input name="maxPeople" id="maxPeople" type="text" class="validate">
 				          	<label for="maxPeople">*최대수용인원</label>
+				          	<span class="helper-text" id="maxPeopleval">check</span>
 				        </div>
 			        </div>
 			        <div class = "col s12">
@@ -240,7 +268,7 @@
       						</label>
 			        	</div>
 			        </div>
-			       	 	 <button class="btn waves-effect waves-light" type="submit" >
+			       	 	 <button class="btn waves-effect waves-light" type="submit"  >
     						<i class="material-icons left">send</i>
     						판매자회원가입
   						</button>
