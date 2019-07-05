@@ -1,4 +1,4 @@
-package com.charida.app.user.dao;
+package com.charida.app.login.dao;
 
 import javax.annotation.Resource;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDao {
+public class LoginDao {
 	@Resource
 	SqlSession sqlSession;
 	
@@ -20,6 +20,9 @@ public class UserDao {
 	
 	public String authority(String id) {
 		return sqlSession.selectOne("Login.authority",id);
+	}
+	public String name(String id) {
+		return sqlSession.selectOne("Login.name",id);
 	}
 }
 

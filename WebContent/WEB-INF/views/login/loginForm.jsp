@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <!-- material css-->
@@ -8,12 +9,18 @@
 <script src = "/js/jquery-3.4.1.js"></script>
 <script src = "/js/materialize.js"></script>
 
-  
   <script type="text/javascript">
   //<!--
+ 	<c:if test="${test == 0 }">
+		alert("아이디가 존재하지 않습니다. 회원가입 후 이용해 주시기 바랍니다.");
+	</c:if>
+	<c:if test="${test == -1 }">
+	alert("비밀번호가 일치하지 않습니다.");
+</c:if>
+	
   function loginCheck(){
 	  if(! loginform.id.value){
-		  alert("아이디를 입력하세요.")
+		  alert("아이디를 입력하세요.");
 		  loginform.id.focus();
 		  return false;
 	  }else if(! loginform.passwd.value){

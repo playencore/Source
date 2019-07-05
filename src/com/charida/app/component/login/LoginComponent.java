@@ -4,16 +4,16 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import com.charida.app.user.dao.UserDao;
+import com.charida.app.login.dao.LoginDao;
 
 @Component
-public class UserComponent {
+public class LoginComponent {
 	
 	@Resource
-	UserDao userDao;
+	LoginDao loginDao;
 	
 	public int countId(String id){
-		int result = userDao.countId(id);	// count(*) = 1 		
+		int result = loginDao.countId(id);	// count(*) = 1 		
 		if(result != 0) {
 			return 1;
 		}else {
@@ -21,10 +21,13 @@ public class UserComponent {
 		}
 	}	
 	public String checkPasswd(String id) {
-		return userDao.checkPasswd(id);	// 해당아이디의 비밀번호요청값		
+		return loginDao.checkPasswd(id);	// 해당아이디의 비밀번호요청값		
 	}
 	public String authority(String id) {
-		return userDao.authority(id);
+		return loginDao.authority(id);
+	}
+	public String name(String id) {
+		return loginDao.name(id);
 	}
 }
 
