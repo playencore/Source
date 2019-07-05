@@ -11,7 +11,7 @@ public class TestDao {
 	SqlSession sqlSession;
 	
 	public int selectMember() {
-		return sqlSession.selectOne("Test.selectTest");
+		return sqlSession.selectOne("Test.checkIdTest");
 	}
 	
 	/*
