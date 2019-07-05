@@ -21,4 +21,12 @@ public class SupplierComponent {
 		return result ;
 	}
 	
+	public int checkSupplierName(String supplierName) {
+		int result =  0 ;
+		
+		result =supplierDao.checkSupplierName(supplierName);		
+				
+		return result ;
+	}
+	
 }

@@ -1,6 +1,9 @@
 package com.charida.app.join.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +12,7 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.dto.SupplierDto;
@@ -47,4 +51,29 @@ public class JoinSupplierController {
 		return "/joinUser/joinSupplierPro";
 	}
 	
+	@RequestMapping("/joinUser/SupplierNameCheck.do")
+	@ResponseBody
+	public Map<String,Object> supplierNameCheck(HttpServletRequest req, HttpServletResponse resp){
+		
+		String supplieName = req.getParameter("supplierName") ;
+		String result = supplierService.checkSupllierName(supplieName);
+		Map <String,Object> checkSupplierNameMap = new HashMap<String, Object>();
+		
+		checkSupplierNameMap.put("result",result) ;
+		
+		log.debug("-----"+result+"--------");
+		
+		return checkSupplierNameMap ;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

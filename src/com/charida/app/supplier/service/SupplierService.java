@@ -20,4 +20,15 @@ public class SupplierService {
 		
 		return result ;
 	}
+	public String checkSupllierName(String supplierName) {
+		int result = suplierComponent.checkSupplierName(supplierName) ;
+		
+		if(result == 0) {
+			return "가입 가능한 업체입니다." ;
+		}else {
+			return "기존에 가입한 업체입니다. 확인해주세요." ;
+		}
+		
+		
+	}
 }

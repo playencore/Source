@@ -19,4 +19,8 @@ public class SupplierDao {
 	public int insertSupplier(SupplierDto supplierDto) {	
 		return sqlSession.insert("Test.insertSupplier",supplierDto);
 	}
+	
+	public int checkSupplierName(String supplierName) {
+		return sqlSession.selectOne("Test.checkSupplierName", supplierName) ;
+	}
 }
