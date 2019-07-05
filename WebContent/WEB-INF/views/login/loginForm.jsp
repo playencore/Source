@@ -11,15 +11,23 @@
   
   <script type="text/javascript">
   //<!--
-   $(document).ready(function(){
-    $('.modal').modal();
-  });         
+  function loginCheck(){
+	  if(! loginform.id.value){
+		  alert("아이디를 입력하세요.")
+		  loginform.id.focus();
+		  return false;
+	  }else if(! loginform.passwd.value){
+		  alert("비밀번호를 입력하세요.");
+		  loginform.passwd.focus();
+		  return false;
+	  }
+  }     
   //-->
   </script>
   <title>차리다 로그인</title>
   
 </head>
-
+<form name="loginform" onsubmit="loginCheck()" action="/login/loginCheck.do">
 <body>  
 	<div class="section"></div>
 	<div class="section"></div>
@@ -36,14 +44,14 @@
 		<div class="col s12">
 			<div class="col s4"></div>
 			<div class="input-field col s4">
-				<input id="id" type="text" class="validate">
+				<input id="id" type="text" class="validate" name="id">
 				<label for="id">아이디</label>
 			</div>
 		</div>	
 		<div class="col s12">
 			<div class="col s4"></div>
 			<div class="input-field col s4">
-				<input id="password" type="password" class="validate">
+				<input id="password" type="password" class="validate" name="passwd">
 				<label for="password">비밀번호</label>
 			</div>
 		</div>
@@ -60,4 +68,6 @@
 		</div>		
 	</div>	  
 </body>
+</form>
+
 </html>

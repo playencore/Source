@@ -10,17 +10,7 @@ import com.charida.app.component.login.UserComponent;
 public class LoginService {
 	@Resource
 	UserComponent userComponent;
-	
-//	public boolean countId(String id) {
-//		
-//		int result = userComponent.checkId(id);
-//		if(result == 1) {	//아이디가 있다.
-//			checkPasswd(id)
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
+
 	public int checkPasswd(String id, String passwd) {
 		if(userComponent.countId(id) == 1) {
 			//아이디가 있다.

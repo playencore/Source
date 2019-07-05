@@ -12,10 +12,4 @@
 	<update id="updateTest2">
 		UPDATE DBTEST SET id='qwe' WHERE ID = 'qwe121'
 	</update>
-	<select id="countId" resultType="int" parameterType="String">
- 		select count(*) from CRD_MEM where MEM_id = #{id}
-	</select>
-	<select id="checkPasswd" resultType="String" parameterType="String">
-		select PASSWD from CRD_MEM where MEM_id = #{id}
-	</select>
 </mapper>

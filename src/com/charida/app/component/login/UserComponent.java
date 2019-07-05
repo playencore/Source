@@ -19,10 +19,12 @@ public class UserComponent {
 		}else {
 			return 0;
 		}
-	}
-	
+	}	
 	public String checkPasswd(String id) {
 		return userDao.checkPasswd(id);	// 해당아이디의 비밀번호요청값		
+	}
+	public String authority(String id) {
+		return userDao.authority(id);
 	}
 }
 

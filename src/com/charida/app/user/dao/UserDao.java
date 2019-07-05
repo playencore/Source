@@ -11,11 +11,15 @@ public class UserDao {
 	SqlSession sqlSession;
 	
 	public int countId(String id) {
-		return sqlSession.selectOne("Test.countId",id);
+		return sqlSession.selectOne("Login.countId",id);
 	}
 	
 	public String checkPasswd(String id) {
-		return sqlSession.selectOne("Test.checkPasswd",id);
+		return sqlSession.selectOne("Login.checkPasswd",id);
+	}
+	
+	public String authority(String id) {
+		return sqlSession.selectOne("Login.authority",id);
 	}
 }
 
