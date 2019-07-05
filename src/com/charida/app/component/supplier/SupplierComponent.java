@@ -21,10 +21,10 @@ public class SupplierComponent {
 		return result ;
 	}
 	
-	public int checkSupplierName(String supplierName) {
+	public int checkRegist_num(String regist_num) {
 		int result =  0 ;
 		
-		result =supplierDao.checkSupplierName(supplierName);		
+		result =supplierDao.checkRegist_num(regist_num);		
 				
 		return result ;
 	}

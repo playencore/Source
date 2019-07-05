@@ -13,15 +13,16 @@ public class SupplierService {
 	@Resource
 	SupplierComponent suplierComponent ;
 	
-	public int setSupplier(SupplierDto supplierDto) {
+	public int setSupplierTx(SupplierDto supplierDto) {
 		int result =  0 ;
 		
 		result = suplierComponent.setSupplier(supplierDto) ;
 		
 		return result ;
 	}
-	public String checkSupllierName(String supplierName) {
-		int result = suplierComponent.checkSupplierName(supplierName) ;
+	
+	public String checkRegist_num(String regist_num) {
+		int result = suplierComponent.checkRegist_num(regist_num) ;
 		
 		if(result == 0) {
 			return "가입 가능한 업체입니다." ;

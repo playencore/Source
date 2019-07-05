@@ -20,7 +20,9 @@ public class SupplierDao {
 		return sqlSession.insert("Supplier.insertSupplier",supplierDto);
 	}
 	
-	public int checkSupplierName(String supplierName) {
-		return sqlSession.selectOne("Supplier.checkSupplierName", supplierName) ;
+	public int checkRegist_num(String regist_num) {
+		int regist_numb = Integer.parseInt(regist_num.trim());
+		log.debug("-----"+regist_numb+"------");
+		return sqlSession.selectOne("Supplier.checkSupplierNum", regist_numb) ;
 	}
 }

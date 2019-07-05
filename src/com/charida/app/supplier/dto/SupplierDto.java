@@ -7,6 +7,7 @@ public class SupplierDto {
 	private String explanation ;
 	private String name ;
 	private int maximum_seating ;
+	private int minimum_seating ;
 	private int cert_file_id ;
 	private String telegram_id ;
 	
@@ -39,6 +40,12 @@ public class SupplierDto {
 	}
 	public void setMaximum_seating(int maximum_seating) {
 		this.maximum_seating = maximum_seating;
+	}
+	public int getMinimum_seating() {
+		return minimum_seating;
+	}
+	public void setMinimum_seating(int minimum_seating) {
+		this.minimum_seating = minimum_seating;
 	}
 	public int getCert_file_id() {
 		return cert_file_id;

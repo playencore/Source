@@ -37,33 +37,40 @@ public class JoinSupplierController {
 	public String joinSupplierPro(HttpServletRequest req, HttpServletResponse resp) {
 		
 		SupplierDto supplierDto = new SupplierDto() ;
-		supplierDto.setMem_id(req.getParameter("supplierId"));
-		supplierDto.setRegist_num(Integer.parseInt(req.getParameter("supplierNum")));
-		supplierDto.setExplanation(req.getParameter("supplierInfo"));
-		supplierDto.setName(req.getParameter("supplierName"));
-		supplierDto.setMaximum_seating(Integer.parseInt(req.getParameter("maxPeople")));
+		supplierDto.setMem_id(req.getParameter("mem_id"));
+		supplierDto.setName(req.getParameter("name"));
+		supplierDto.setRegist_num(Integer.parseInt(req.getParameter("regist_num")));
+		supplierDto.setExplanation(req.getParameter("explanation"));
+		supplierDto.setMaximum_seating(Integer.parseInt(req.getParameter("maximum_seating")));
+		supplierDto.setMinimum_seating(Integer.parseInt(req.getParameter("minimum_seating")));
 		supplierDto.setCert_file_id(111);
 		supplierDto.setTelegram_id("telegram");
 		
-		int result = supplierService.setSupplier(supplierDto) ;
+		int result = supplierService.setSupplierTx(supplierDto) ;
 		req.setAttribute("result", result);
 		
 		return "/joinUser/joinSupplierPro";
 	}
 	
-	@RequestMapping("/joinUser/SupplierNameCheck.do")
+	@RequestMapping("/joinUser/checkRegist_num.do")
 	@ResponseBody
-	public Map<String,Object> supplierNameCheck(HttpServletRequest req, HttpServletResponse resp){
+	public Map<String,Object> regist_numCheck(HttpServletRequest req, HttpServletResponse resp){
 		
-		String supplieName = req.getParameter("supplierName") ;
-		String result = supplierService.checkSupllierName(supplieName);
-		Map <String,Object> checkSupplierNameMap = new HashMap<String, Object>();
+		String regist_num = req.getParameter("regist_num") ;
+		String result = supplierService.checkRegist_num(regist_num);
+		Map <String,Object> checkRegist_numMap = new HashMap<String, Object>();
+		String color=null ;
+		if(result.equals("가입 가능한 업체입니다.")) {
+			color = "color:green" ;
+		}else {
+			color = "color:red" ;
+		}
 		
-		checkSupplierNameMap.put("result",result) ;
 		
-		log.debug("-----"+result+"--------");
+		checkRegist_numMap.put("result",result) ;
+		checkRegist_numMap.put("color",color);
 		
-		return checkSupplierNameMap ;
+		return checkRegist_numMap ;
 	}
 	
 }
