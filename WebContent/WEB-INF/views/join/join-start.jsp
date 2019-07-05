@@ -5,8 +5,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title> join-main</title>
-		<script src="/js/jquery.js"></script>
+		<title> join-start</title>
+		<script src="/js/jquery-3.4.1.js"></script>
 		<script type="text/javascript">
 		//<!--
 			function test(flag){
