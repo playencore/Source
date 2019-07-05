@@ -17,10 +17,10 @@ public class SupplierDao {
 	SqlSession sqlSession;
 	
 	public int insertSupplier(SupplierDto supplierDto) {	
-		return sqlSession.insert("Test.insertSupplier",supplierDto);
+		return sqlSession.insert("Supplier.insertSupplier",supplierDto);
 	}
 	
 	public int checkSupplierName(String supplierName) {
-		return sqlSession.selectOne("Test.checkSupplierName", supplierName) ;
+		return sqlSession.selectOne("Supplier.checkSupplierName", supplierName) ;
 	}
 }

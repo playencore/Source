@@ -30,7 +30,7 @@
  							data : {"supplierName" : supplierName },
  							dataType:"json",
  							success:function(data){
- 								$("#supplierNameval").html(data.result) ;
+ 								$("#supplierNameval").html(data.result).attr() ;
  							},
  							error: function(data){
  								$("#supplierNameval").html("다시 시도해주세요.") ;
