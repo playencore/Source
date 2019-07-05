@@ -68,7 +68,13 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 		while(inputNames.hasNext()) {
 			MultipartFile file = mReq.getFile(inputNames.next());
 			System.out.println(file.getName());
-			File dest = makeFile(path,file.getOriginalFilename());
+			
+			String OrigName = file.getOriginalFilename();
+			System.out.println(OrigName);
+			if(OrigName ==null || "".equals(OrigName)) {
+				continue;
+			}
+			File dest = makeFile(path,OrigName);
 			System.out.println("sdss : "+dest.getName());
 			try {
 				file.transferTo(dest);

@@ -9020,7 +9020,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         var month = i18n.monthsShort[displayDate.getMonth()];
         var date = displayDate.getDate();
         this.yearTextEl.innerHTML = displayDate.getFullYear();
-        this.dateTextEl.innerHTML = day + ", " + month + " " + date;
+        this.dateTextEl.innerHTML = month + " " + date + " 일 <br>" +day  ;
       }
 
       /**
@@ -9691,9 +9691,9 @@ $jscomp.polyfill = function (e, r, p, m) {
 
     // internationalization
     i18n: {
-      cancel: 'Cancel',
-      clear: 'Clear',
-      done: 'Ok'
+      cancel: '닫기',
+      clear: '초기화',
+      done: '확인'
     },
 
     autoClose: false, // auto close when minute is selected
@@ -9904,7 +9904,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         this.spanMinutes = this.modalEl.querySelector('.timepicker-span-minutes');
         this.spanAmPm = this.modalEl.querySelector('.timepicker-span-am-pm');
         this.footer = this.modalEl.querySelector('.timepicker-footer');
-        this.amOrPm = 'PM';
+        this.amOrPm = '오후';
       }
     }, {
       key: "_pickerSetup",
@@ -9923,8 +9923,8 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_clockSetup",
       value: function _clockSetup() {
         if (this.options.twelveHour) {
-          this.$amBtn = $('<div class="am-btn">AM</div>');
-          this.$pmBtn = $('<div class="pm-btn">PM</div>');
+          this.$amBtn = $('<div class="am-btn">오전</div>');
+          this.$pmBtn = $('<div class="pm-btn">오후</div>');
           this.$amBtn.on('click', this._handleAmPmClick.bind(this)).appendTo(this.spanAmPm);
           this.$pmBtn.on('click', this._handleAmPmClick.bind(this)).appendTo(this.spanAmPm);
         }
@@ -10023,15 +10023,15 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_handleAmPmClick",
       value: function _handleAmPmClick(e) {
         var $btnClicked = $(e.target);
-        this.amOrPm = $btnClicked.hasClass('am-btn') ? 'AM' : 'PM';
+        this.amOrPm = $btnClicked.hasClass('am-btn') ? '오전' : '오후';
         this._updateAmPmView();
       }
     }, {
       key: "_updateAmPmView",
       value: function _updateAmPmView() {
         if (this.options.twelveHour) {
-          this.$amBtn.toggleClass('text-primary', this.amOrPm === 'AM');
-          this.$pmBtn.toggleClass('text-primary', this.amOrPm === 'PM');
+          this.$amBtn.toggleClass('text-primary', this.amOrPm === '오전');
+          this.$pmBtn.toggleClass('text-primary', this.amOrPm === '오후');
         }
       }
     }, {
@@ -10040,18 +10040,18 @@ $jscomp.polyfill = function (e, r, p, m) {
         // Get the time
         var value = ((this.el.value || this.options.defaultTime || '') + '').split(':');
         if (this.options.twelveHour && !(typeof value[1] === 'undefined')) {
-          if (value[1].toUpperCase().indexOf('AM') > 0) {
-            this.amOrPm = 'AM';
+          if (value[1].toUpperCase().indexOf('오전') > 0) {
+            this.amOrPm = '오전';
           } else {
-            this.amOrPm = 'PM';
+            this.amOrPm = '오후';
           }
-          value[1] = value[1].replace('AM', '').replace('PM', '');
+          value[1] = value[1].replace('오전', '').replace('오후', '');
         }
         if (value[0] === 'now') {
           var now = new Date(+new Date() + this.options.fromNow);
           value = [now.getHours(), now.getMinutes()];
           if (this.options.twelveHour) {
-            this.amOrPm = value[0] >= 12 && value[0] < 24 ? 'PM' : 'AM';
+            this.amOrPm = value[0] >= 12 && value[0] < 24 ? '오후' : '오전';
           }
         }
         this.hours = +value[0] || 0;
@@ -10228,7 +10228,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         var value = clearValue ? '' : Timepicker._addLeadingZero(this.hours) + ':' + Timepicker._addLeadingZero(this.minutes);
         this.time = value;
         if (!clearValue && this.options.twelveHour) {
-          value = value + " " + this.amOrPm;
+          value = this.amOrPm+ " " + value;
         }
         this.el.value = value;
 
