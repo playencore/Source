@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +19,12 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.charida.app.common.dao.FileUploadDao;
+import com.charida.app.component.file.FileComponent;
+
 public class DefaultInterceptor extends HandlerInterceptorAdapter {
+	@Resource
+	private FileComponent fileComponent;
 	protected Log log = LogFactory.getLog(DefaultInterceptor.class);
 
 	@Override
@@ -65,6 +71,7 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 		
 		MultipartRequest mReq = (MultipartRequest)request;
 		Iterator<String> inputNames = mReq.getFileNames();
+		int num = 1;
 		while(inputNames.hasNext()) {
 			MultipartFile file = mReq.getFile(inputNames.next());
 			System.out.println(file.getName());
@@ -78,6 +85,18 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("sdss : "+dest.getName());
 			try {
 				file.transferTo(dest);
+				
+				Map<String, Object> fileInfo = new HashMap<String, Object>();
+				fileInfo.put("file_name", file.getOriginalFilename());
+				fileInfo.put("file_save_name", dest.getName());
+				fileInfo.put("file_path", path);
+				fileInfo.put("file_size", file.getSize());
+				
+				int seq = 0;
+				seq = fileComponent.insertFile(fileInfo);
+				
+				request.setAttribute("file_id" + num++, seq);
+				
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

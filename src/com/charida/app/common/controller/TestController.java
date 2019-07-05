@@ -53,21 +53,15 @@ public class TestController {
 		return json;
 	}
 	/*AJAX String 예*/
-	@RequestMapping("/test/testApi2.do")
+	@RequestMapping(value="/test/testApi2.do",produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String ajaxString(Model model,HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
+		resp.setCharacterEncoding("utf-8");
 		return "내용";
 	}
 	@RequestMapping("/test/fileUpload.do")
-	public String fileUpload(Model model,MultipartRequest mreq) {
-		Iterator<String> names = mreq.getFileNames();
-		
-		while(names.hasNext()) {			
-			System.out.println(names.next());
-			System.out.println(((CommonsMultipartFile)mreq.getFile("file")).getSize());
-			System.out.println(((CommonsMultipartFile)mreq.getFile("file")).getOriginalFilename());
-		}
+	public String fileUpload(HttpServletRequest req,HttpServletResponse resp) {
+		System.out.println(req.getAttribute("file_id1"));
 		return null;
 	}
 }
