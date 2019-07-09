@@ -12,9 +12,9 @@ import com.charida.app.common.service.TestService;
 
 @Controller
 public class ReviewController {
-	private final static String returnUrl = "/reivew/review";
+	private final static String returnUrl = "/review/reviewWriteForm";
 	
-	@RequestMapping("/review/review.do")
+	@RequestMapping("/review/reviewWrite.do")
 	public String home(Locale locale, Model model,HttpServletRequest req) {
 		System.out.println(req.getParameter("aa"));
 		
