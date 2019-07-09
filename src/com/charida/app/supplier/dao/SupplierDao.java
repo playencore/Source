@@ -1,5 +1,7 @@
 package com.charida.app.supplier.dao;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.logging.Log;
@@ -24,5 +26,26 @@ public class SupplierDao {
 		int regist_numb = Integer.parseInt(regist_num.trim());
 		log.debug("-----"+regist_numb+"------");
 		return sqlSession.selectOne("Supplier.checkSupplierNum", regist_numb) ;
+	}
+	//crd_serviceType
+	public String selectServiceCategoryMaxSeq(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectServiceCategoryMaxSeq",mem_id);
+	}	
+	public int insertServiceCategoryType(Map<String, Object> listMap) {
+		return sqlSession.insert("Supplier.insertServiceCategoryType", listMap) ;
+	}
+	//crd_FoodStyle
+	public String selectFoodStyleMaxSeq(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectFoodStyleMaxSeq",mem_id);
+	}	
+	public int insertFoodStyle(Map<String, Object> listMap) {
+		return sqlSession.insert("Supplier.insertFoodStyle", listMap) ;
+	}
+	//crd_service_location
+	public String selectServiceLocationMaxSeq(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectServiceLocationMaxSeq",mem_id);
+	}	
+	public int insertServiceLocation(Map<String, Object> listMap) {
+		return sqlSession.insert("Supplier.insertServiceLocation", listMap) ;
 	}
 }

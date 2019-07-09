@@ -10,4 +10,37 @@
 	<select id = "checkSupplierNum" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM CRD_COMPANY WHERE REGIST_NUM = #{supplierNumber}
 	</select>
+	
+	<select id = "selectServiceCategoryMaxSeq" parameterType = "String" resultType= "String" >
+		SELECT MAX(TYPE_SEQ) FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{mem_id} 
+	</select>
+	<insert id="insertServiceCategoryType" parameterType="java.util.Map">
+	 	 <foreach item="item" collection="list" open="INSERT ALL"  close="SELECT * FROM DUAL" separator=" " >
+		INTO CRD_SERVICE_TYPE 
+		values
+			(#{item.mem_id},#{item.type_seq},#{item.type_code})
+		</foreach>
+	</insert>
+	
+	<select id = "selectFoodStyleMaxSeq" parameterType = "String" resultType= "String" >
+		SELECT MAX(FOOD_STYLE_SEQ) FROM CRD_FOOD_STYLE WHERE MEM_ID = #{mem_id} 
+	</select>
+	<insert id="insertFoodStyle" parameterType="java.util.Map">
+	 	 <foreach item="item" collection="list" open="INSERT ALL"  close="SELECT * FROM DUAL" separator=" " >
+		INTO CRD_FOOD_STYLE 
+		values
+			(#{item.mem_id},#{item.style_seq},#{item.food_style_cood})
+		</foreach>
+	</insert>
+	
+	<select id = "selectServiceLocationMaxSeq" parameterType = "String" resultType= "String" >
+		SELECT MAX(AREA_SEQ) FROM CRD_SERVICE_AREA WHERE MEM_ID = #{mem_id} 
+	</select>
+	<insert id="insertServiceLocation" parameterType="java.util.Map">
+	 	 <foreach item="item" collection="list" open="INSERT ALL"  close="SELECT * FROM DUAL" separator=" " >
+		INTO CRD_SERVICE_AREA 
+		values
+			(#{item.mem_id},#{item.area_seq},#{item.service_area_code})
+		</foreach>
+	</insert>
 </mapper>
