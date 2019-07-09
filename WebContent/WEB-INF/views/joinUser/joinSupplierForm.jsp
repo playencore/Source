@@ -111,7 +111,7 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do"  >
+				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" onsubmit = "return supplierinput()" >
 					<input type = "hidden" value = "0"  name ="mem_id">
 					<div class = "col s12">
 						<div class="input-field col s12">
@@ -129,7 +129,7 @@
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
-				        	<textarea name="explanation" id="explanation" class="materialize-textarea" row = "2"></textarea>
+				        	<textarea name="explanation" id="explanation" class="validate materialize-textarea" row = "2"></textarea>
           					<label for="explanation">업체 소개</label>
           					<span class="helper-text" id="supplierInfoval"></span>
 				        </div>
@@ -175,25 +175,25 @@
 			        	<p id ="sc" >가능한 서비스 형태</p>
 			        	<div class = "col s6">
 			        		<label>
-        						<input type="checkbox" name = "serviceCategory" value = "s1" />
+        						<input type="checkbox" name = "serviceCategory" value = "ST00000001" />
         						<span>뷔페/케이터링</span>
       						</label>
 			        	</div>
 			        	<div class = "col s6">
 			        		<label>
-        						<input type="checkbox" name = "serviceCategory" value = "s2" />
+        						<input type="checkbox" name = "serviceCategory" value = "ST00000002" />
         						<span>코스음식</span>
       						</label>
 			        	</div>
 			        	<div class = "col s6">
 			        		<label>
-        						<input type="checkbox" name = "serviceCategory" value = "s3" />
+        						<input type="checkbox" name = "serviceCategory" value = "ST00000003" />
         						<span>드랍오프</span>
       						</label>
 			        	</div>
 			        	<div class = "col s6">
 			        		<label>
-        						<input type="checkbox" name = "serviceCategory" value = "s4" />
+        						<input type="checkbox" name = "serviceCategory" value = "ST00000004" />
         						<span>도시락</span>
       						</label>
 			        	</div>
@@ -202,73 +202,73 @@
 			        	<p id ="fc">음식 카테고리</p>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f1" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000001" />
         						<span>한정식</span>
       						</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f2" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000002" />
         						<span>핑거푸드</span>
       						</label>
 			        	</div>
       					<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f3" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000003" />
         						<span>웨스턴</span>
       						</label>
 			        	</div>
 			        	<div class = "col l4 m2 s4">
 			        		<label>
-		      					<input type="checkbox" name = "foodCategory" value = "f4" />
+		      					<input type="checkbox" name = "foodCategory" value = "FT00000004" />
 		      					<span>일식</span>
 		    				</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-		      					<input type="checkbox" name = "foodCategory" value = "f5" />
+		      					<input type="checkbox" name = "foodCategory" value = "FT00000005" />
 		      					<span>디저트류</span>
 		    				</label>
 			        	</div>
 		    			<div class = "col l4 m4 s4">
 			        		<label>
-		      					<input type="checkbox" name = "foodCategory" value = "f6" />
+		      					<input type="checkbox" name = "foodCategory" value = "FT00000006" />
 		      					<span>커피/음료</span>
 		    				</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f7" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000007" />
         						<span>칵티일/와인</span>
       						</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f8" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000008" />
         						<span>피자</span>
       						</label>
 			        	</div>
       					<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f9" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000009" />
         						<span>아시안퓨전</span>
       						</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f10" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000010" />
         						<span>베지터리안</span>
       						</label>
 			        	</div>
 			        	<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f11" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000011" />
         						<span>바베큐파티</span>
       						</label>
 			        	</div>
       					<div class = "col l4 m4 s4">
 			        		<label>
-        						<input type="checkbox" name = "foodCategory" value = "f12" />
+        						<input type="checkbox" name = "foodCategory" value = "FT00000012" />
         						<span>기타</span>
       						</label>
 			        	</div>
@@ -277,43 +277,43 @@
 			        	<p id = "sl">서비스 가능지역</p>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l1" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000001" />
         						<span>서울특별시</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l2" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000002" />
         						<span>경기도</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l3" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000003" />
         						<span>충청도</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l4" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000004" />
         						<span>경상도</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l5" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000005" />
         						<span>전라도</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l6" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000006" />
         						<span>강원도</span>
       						</label>
 			        	</div>
 			        	<div class = "col s4">
 			        		<label>
-        						<input type="checkbox" name = "serviceLocation" value = "l7" />
+        						<input type="checkbox" name = "serviceLocation" value = "SLT0000007" />
         						<span>제주도</span>
       						</label>
 			        	</div>

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.common.service.TestService;
-import com.charida.app.supplier.dto.SupplierDto;
 import com.charida.app.supplier.service.SupplierService;
 
 
@@ -33,22 +32,12 @@ public class JoinSupplierController {
 		
 		return "/joinUser/joinSupplierForm";
 	}
+	
 	@RequestMapping("/joinUser/joinSupplierPro.do")
 	public String joinSupplierPro(HttpServletRequest req, HttpServletResponse resp) {
-		
-		SupplierDto supplierDto = new SupplierDto() ;
-		supplierDto.setMem_id(req.getParameter("mem_id"));
-		supplierDto.setName(req.getParameter("name"));
-		supplierDto.setRegist_num(Integer.parseInt(req.getParameter("regist_num")));
-		supplierDto.setExplanation(req.getParameter("explanation"));
-		supplierDto.setMaximum_seating(Integer.parseInt(req.getParameter("maximum_seating")));
-		supplierDto.setMinimum_seating(Integer.parseInt(req.getParameter("minimum_seating")));
-		supplierDto.setCert_file_id(111);
-		supplierDto.setTelegram_id("telegram");
-		
-		int result = supplierService.setSupplierTx(supplierDto) ;
+		Map<String, String[]> supplierMap = req.getParameterMap();
+		int result = supplierService.setSupplierTx(supplierMap) ;
 		req.setAttribute("result", result);
-		
 		return "/joinUser/joinSupplierPro";
 	}
 	
