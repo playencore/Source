@@ -20,24 +20,22 @@ public class JoinController {
 	@Resource
 	private JoinService joinService;
 	
-	
-	
 	// 회원가입에 사용할 플렛폼 선택 페이지(1=일반, 2=카카오, 3=네이버)
 	@RequestMapping(value="/join/join-select-platformtype.do")
-	public String platformtype(HttpServletRequest req,HttpServletResponse resp) {
+	public String dopagePlatformtype(HttpServletRequest req,HttpServletResponse resp) {
 		
 		return "/join/join-select-platformtype";
 	}
 	
 	// 회원가입에서 회원의 가입유형 선택 페이지(1=구매자, 2=판매자)
 	@RequestMapping("/join/join-select-membertype.do")
-	public String membertype(HttpServletRequest req,HttpServletResponse resp) {
+	public String dopageMembertype(HttpServletRequest req,HttpServletResponse resp) {
 		
 		return "/join/join-select-membertype";
 	}
 	
 	@RequestMapping("/join/join-start.do")
-	public String start(HttpServletRequest req,HttpServletResponse resp) {
+	public String dopageStart(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		
 		//model.addAttribute("serverTime", formattedDate );
@@ -47,33 +45,32 @@ public class JoinController {
 	
 	// 회원가입시 기본정보 입력받는 페이지(구매자, 판매자 공통)
 	@RequestMapping(value="/join/join-basic.do")
-	public String basic(HttpServletRequest req,HttpServletResponse resp) {
+	public String dopageBasic(HttpServletRequest req,HttpServletResponse resp) {
 		return "/join/join-basic";
 	}
-	
+
 	@RequestMapping(value="/join/join-basic/checkid.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
-	public String ableidCheck(HttpServletRequest req,HttpServletResponse resp) {
+	public String serviceIdCheck(HttpServletRequest req,HttpServletResponse resp) {
 		String id = req.getParameter("id");
 		// 아이디 중복 확인
 		String result = joinService.isOnly(id);
 		return result;
 	}
-	
 	@RequestMapping("/join/join-end.do")
-	public String join(HttpServletRequest req, HttpServletResponse resp) {
+	public String dopageJoin(HttpServletRequest req, HttpServletResponse resp) {
 		
 		return "/join/join-end";
 	}
 	@RequestMapping("/join/join-detail.do")
-	public String detail(HttpServletRequest req, HttpServletResponse resp) {
+	public String dopageDetail(HttpServletRequest req, HttpServletResponse resp) {
 		
 		return "/join/join-detail";
 	}
 	
 	// error code page
 	@RequestMapping("/join/join-error.do")
-	public String error(HttpServletRequest req, HttpServletResponse resp) {
+	public String dopageError(HttpServletRequest req, HttpServletResponse resp) {
 		
 		return "/join/join-error";
 	}
