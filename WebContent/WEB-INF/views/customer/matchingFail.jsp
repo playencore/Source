@@ -55,7 +55,7 @@
 		<h6>매치실패유형 : ${service_fail}</h6>
     </div>
     <div class="modal-footer">
-		<a href="#">재등록신청</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/service/application.do">재등록신청</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/customer/matchingFail.do">닫기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   </div>
