@@ -43,4 +43,24 @@
 			(#{item.mem_id},#{item.area_seq},#{item.service_area_code})
 		</foreach>
 	</insert>
+	
+	<select id = "selectIntroFileMaxSeq" parameterType = "String" resultType= "String" >
+		SELECT MAX(INTRO_SEQ) FROM CRD_INTRO_FILE WHERE MEM_ID = #{mem_id} 
+	</select>
+	<insert id="insertIntroFile" parameterType="java.util.Map">
+	 	 <foreach item="item" collection="list" index="index" open="INSERT ALL"  close="SELECT * FROM DUAL" separator=" " >
+		INTO CRD_INTRO_FILE 
+		values
+			(#{mem_id},#{intro_seq}+#{index},#{item})
+		</foreach>
+	</insert>
+	
+	<select id = "selectMemPermissionMaxSeq" parameterType = "String" resultType= "String" >
+		SELECT MAX(PERMISSION_SEQ) FROM CRD_MEM_PERMISSION WHERE MEM_ID = #{mem_id} 
+	</select>
+	<insert id="insertPermission" parameterType="com.charida.app.supplier.dto.PermissionDto">
+		INSERT INTO CRD_MEM_PERMISSION 
+		VALUES(#{mem_id}, #{permission_seq}, #{permission_yn}, #{disallowance_reason}, sysdate) 
+	</insert>
+	
 </mapper>

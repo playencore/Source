@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.charida.app.common.service.TestService;
+import com.charida.app.supplier.dto.PermissionDto;
 import com.charida.app.supplier.dto.SupplierDto;
 
 @Repository
@@ -47,5 +48,19 @@ public class SupplierDao {
 	}	
 	public int insertServiceLocation(Map<String, Object> listMap) {
 		return sqlSession.insert("Supplier.insertServiceLocation", listMap) ;
+	}
+	//CRD_INTRO_FILE
+	public String selectIntroFileMaxSeq(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectIntroFileMaxSeq",mem_id);
+	}
+	public int insertIntroFile(Map<String, Object> listMap) {
+		return sqlSession.insert("Supplier.insertIntroFile", listMap) ;
+	}
+	//CRD_MEM_PERMISSION
+	public String selectMemPermissionMaxSeq(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectMemPermissionMaxSeq",mem_id);
+	}
+	public int insertPermission(PermissionDto dto) {
+		return sqlSession.insert("Supplier.insertPermission",dto) ;
 	}
 }

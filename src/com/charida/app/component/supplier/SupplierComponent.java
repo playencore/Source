@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.CodeDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
+import com.charida.app.supplier.dto.PermissionDto;
 import com.charida.app.supplier.dto.ServiceAreaDto;
 import com.charida.app.supplier.dto.ServiceTypeDto;
 import com.charida.app.supplier.dto.SupplierDto;
@@ -52,7 +53,20 @@ public class SupplierComponent {
 	public int setServiceLocation(Map<String, Object> listMap) {
 		return supplierDao.insertServiceLocation(listMap) ;
 	}
-	
+	//CRD_INTRO_FILE
+	public String getIntroFileMaxSeq(String mem_id) {
+		return supplierDao.selectIntroFileMaxSeq(mem_id) ;
+	}
+	public int setIntroFile(Map<String, Object> listMap) {
+		return supplierDao.insertIntroFile(listMap) ;
+	}
+	//CRD_MEM_PERMISSION
+	public String getMemPermission(String mem_id) {
+		return supplierDao.selectMemPermissionMaxSeq(mem_id) ;
+	}
+	public int setPermission(PermissionDto dto) {
+		return supplierDao.insertPermission(dto) ;
+	}
 	
 	public int checkRegist_num(String regist_num) {
 		int result =  0 ;
@@ -63,11 +77,8 @@ public class SupplierComponent {
 	}
 	
 	public Map<String,Object> getCodeListMap(String code_name ,String mem_id , int seqStartNum, String[] code){
-		
 		Map<String, Object> listMap = new HashMap<String, Object>() ;
-		
 		List<CodeDto> list = new ArrayList<CodeDto>() ;
-		
 		if(code_name.equals("service")) {
 			for(int i = 0 ; i < code.length; i ++) {
 				CodeDto codeDto = new ServiceTypeDto() ;
@@ -75,7 +86,6 @@ public class SupplierComponent {
 				codeDto.setSeq(seqStartNum++);
 				codeDto.setCode(code[i]);
 				list.add(codeDto) ;
-				
 			}
 		}else if(code_name.equals("area")) {
 			for(int i = 0 ; i < code.length; i ++) {
@@ -85,7 +95,7 @@ public class SupplierComponent {
 				codeDto.setCode(code[i]);
 				list.add(codeDto) ;
 			}
-		}else {
+		}else if(code_name.equals("food")) {
 			for(int i = 0 ; i < code.length; i ++) {
 				CodeDto codeDto = new FoodStyleDto() ;
 				codeDto.setMem_id(mem_id);
@@ -94,9 +104,7 @@ public class SupplierComponent {
 				list.add(codeDto) ;
 			}
 		}
-		
 		listMap.put("list", list) ;
-		
 		return listMap ;
 	}
 	

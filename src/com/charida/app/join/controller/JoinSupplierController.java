@@ -36,6 +36,16 @@ public class JoinSupplierController {
 	@RequestMapping("/joinUser/joinSupplierPro.do")
 	public String joinSupplierPro(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, String[]> supplierMap = req.getParameterMap();
+		String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
+		String supplierInfoFile[] = new String[3] ;
+		for(int i = 2 ; i<5 ; i++) {
+			if(req.getAttribute("file_id"+i)!=null) {
+				supplierInfoFile[i-2] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+			}
+		}
+			
+		supplierMap.put("cert_file_id",cert_file_id ) ;
+		supplierMap.put("supplierInfoFile",supplierInfoFile) ;
 		int result = supplierService.setSupplierTx(supplierMap) ;
 		req.setAttribute("result", result);
 		return "/joinUser/joinSupplierPro";
