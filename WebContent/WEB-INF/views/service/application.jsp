@@ -118,7 +118,7 @@
 								<div class="col m9">
 									<div class="input-field">
 										<input type="hidden" id="zipcode" name="zipcode">
-										<input disabled value="검색 버튼을 눌러주세요." id="addr" name="addr" type="text" class="validate">
+										<input readonly="readonly" value="검색 버튼을 눌러주세요." id="addr" name="addr" type="text" class="validate">
 					          			<label for="addr" style="font-size: 30px;line-height:0.5px;font-weight: bold;">행사 위치</label>
 				          			</div>
 			          			</div>
