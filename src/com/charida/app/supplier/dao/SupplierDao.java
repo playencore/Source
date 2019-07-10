@@ -1,5 +1,6 @@
 package com.charida.app.supplier.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -63,4 +64,11 @@ public class SupplierDao {
 	public int insertPermission(PermissionDto dto) {
 		return sqlSession.insert("Supplier.insertPermission",dto) ;
 	}
+	////////////////////////////////////getsuppliers 
+	public List<SupplierDto> selectSuppliers(){
+		return sqlSession.selectList("Supplier.selectSuppliers") ;
+	}
+	public List<SupplierDto> selectNotPermissionSuppliers(){
+		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers") ;
+	} 
 }

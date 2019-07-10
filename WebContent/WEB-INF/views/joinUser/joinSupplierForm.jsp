@@ -22,7 +22,7 @@
 //<!--
  	$(document).ready(
  		function(){
- 			$("input:hidden[name=mem_id]").val("test") ;
+ 			$("input:hidden[name=mem_id]").val("test2") ;
  			$("input[name=regist_num]").on(
  				"keyup",
  				function( event ){
@@ -80,6 +80,12 @@
 				alert("사업자 번호를 확인해주세요.") ;
 				$("input[name=regist_num]").focus() ;
 				return false ;
+			}else if( $("input:file[name=cert_file_id]").val() =="" || $("input:file[name=cert_file_id]").val() == null  ){
+				alert("사업자 등록증을 입력해주세요") ;
+				return false ;
+			}else if( $("#cp").val() =="" || $("#cp").val() == null  ){
+				alert("업체 소개 사진을 하나 이상 입력해주세요 ") ;
+				return false ;
 			}else if( $("input:checkbox[name=serviceCategory]:checked").length == 0 ){
 				alert("서비스 가능한 형태를 하나 이상 체크해주세요.");
 				$("#sc").focus();
@@ -92,10 +98,8 @@
 				alert("서비스 가능한 지역을 하나 이상 체크해주세요.");
 				$("#sl").focus();
 				return false ;
-			}else if( $("input:file[name=cert_file_id]").val() =="" || $("input:file[name=cert_file_id]").val() == null  ){
-				alert("사업자 등록증을 입력해주세요") ;
-				return false ;
 			}
+			
 		}
  	
 //-->
@@ -111,7 +115,7 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" onsubmit = "return supplierinput()" >
+				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" enctype="multipart/form-data"  >
 					<input type = "hidden" value = "0"  name ="mem_id">
 					<div class = "col s12">
 						<div class="input-field col s12">
@@ -129,7 +133,7 @@
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
-				        	<textarea name="explanation" id="explanation" class="validate materialize-textarea" row = "2"></textarea>
+				        	<textarea name="explanation" id="explanation" class="validate materialize-textarea" ></textarea>
           					<label for="explanation">업체 소개</label>
           					<span class="helper-text" id="supplierInfoval"></span>
 				        </div>
@@ -161,13 +165,13 @@
 			        <br>
 			        	<p> 업체 소개 사진</p>
 			        	<div class = "col s4">
-			        		<input name ="supplierInfoFile1" type="file"  class="dropify" data-height="100"> 
+			        		<input name ="supplierInfoFile1" type="file"  class="cp dropify" data-height="100"> 
 			        	</div>
 			        	<div class = "col s4">
-			        		<input name ="supplierInfoFile2" type="file"  class="dropify" data-height="100"> 
+			        		<input name ="supplierInfoFile2" type="file"  class="cp dropify" data-height="100"> 
 			        	</div>
 			        	<div class = "col s4">
-			        		<input name ="supplierInfoFile3" type="file"  class="dropify" data-height="100"> 
+			        		<input name ="supplierInfoFile3" type="file"  class="cp dropify" data-height="100"> 
 			        	</div>
 			        </div>
 			        <div class = "col s12 row">

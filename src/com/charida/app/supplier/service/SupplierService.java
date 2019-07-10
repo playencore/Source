@@ -109,9 +109,12 @@ public class SupplierService {
 		}else {
 			return "기존에 가입한 업체입니다. 확인해주세요." ;
 		}
-		
-		
 	}
+	////////////////////////////////adminpage
+	public List<SupplierDto> getNotPerMissionSuppliers(){
+		return suplierComponent.getNotPermissionSuppliers() ;
+	}
+	
 }
 
 

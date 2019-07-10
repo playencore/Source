@@ -107,8 +107,14 @@ public class SupplierComponent {
 		listMap.put("list", list) ;
 		return listMap ;
 	}
+////////////////////////////////////////////////supplier 승인
 	
-	
+	public List<SupplierDto> getSuppliers(){
+		return  supplierDao.selectSuppliers() ;
+	}
+	public List<SupplierDto> getNotPermissionSuppliers(){
+		return supplierDao.selectNotPermissionSuppliers() ;
+	}
 }
 
 
