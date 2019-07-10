@@ -1,6 +1,7 @@
 package com.charida.app.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.charida.app.common.service.TestService;
-import com.charida.app.supplier.dto.SupplierDto;
 import com.charida.app.supplier.service.SupplierService;
 
 @Controller
@@ -27,10 +27,15 @@ public class AdminController {
 	@RequestMapping("/admin/manageSupplier.do")
 	public String manageSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
-		List<SupplierDto> suppliers = supplierService.getNotPerMissionSuppliers() ;
-		log.debug(suppliers.get(0).getMemberDto().getTel());
-		req.setAttribute("suppliers", suppliers);
-		req.setAttribute("listsize", suppliers.size());
+		List<Map<String, String>> notPermissionSuppliers = supplierService.getNotPerMissionSuppliers() ;
+		req.setAttribute("notPermissionSuppliers", notPermissionSuppliers);
+		req.setAttribute("listsize", notPermissionSuppliers.size());
 		return "/admin/supplierManage";
+	}
+	
+	@RequestMapping("/admin/permissionSupplier.do")
+	public String permissionSupplier(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/admin/supplierPermission";
 	}
 }

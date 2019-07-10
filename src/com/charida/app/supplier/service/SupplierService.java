@@ -111,7 +111,7 @@ public class SupplierService {
 		}
 	}
 	////////////////////////////////adminpage
-	public List<SupplierDto> getNotPerMissionSuppliers(){
+	public List<Map<String, String>> getNotPerMissionSuppliers(){
 		return suplierComponent.getNotPermissionSuppliers() ;
 	}
 	

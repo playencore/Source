@@ -115,7 +115,7 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" enctype="multipart/form-data"  >
+				<form name = "joinSupplierInput"  method = "post" action = "/joinUser/joinSupplierPro.do" enctype="multipart/form-data" onsubmit="return supplierinput() "  >
 					<input type = "hidden" value = "0"  name ="mem_id">
 					<div class = "col s12">
 						<div class="input-field col s12">

@@ -112,7 +112,7 @@ public class SupplierComponent {
 	public List<SupplierDto> getSuppliers(){
 		return  supplierDao.selectSuppliers() ;
 	}
-	public List<SupplierDto> getNotPermissionSuppliers(){
+	public List<Map<String, String>> getNotPermissionSuppliers(){
 		return supplierDao.selectNotPermissionSuppliers() ;
 	}
 }

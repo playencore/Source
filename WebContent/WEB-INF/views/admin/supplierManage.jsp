@@ -70,19 +70,15 @@
 			
 				<div class = "row grey lighten-2" >
 					<c:set var = "count" value = "${0}" />
-					<c:forEach var="supplierDto" items="${suppliers}" >
+					<c:forEach var="notPermissionSupplier" items="${notPermissionSuppliers}" >
 					<div class = "col s6">
 						<div class="card  ">
 							<div class="card-content black-text ">
-								<span class="card-title">${supplierDto.name}  </span>
+								<span class="card-title">${notPermissionSupplier.COMPANYNAME}  </span>
 								<p>
-									판매자 이름 : ${supplierDto.name} <br>
-									판매자 아이디 : ${supplierDto.mem_id} <br>
-									판매자 전화번호 :	${supplierDto.memberDto.tel} <br>
-									판매자 사업자 등록번호 : ${supplierDto.regist_num} <br>
-									가입 신청일 :  <br>
-									승인 상태 : N	<br>
-									카운트 : ${count}
+									판매자 이름 : ${notPermissionSupplier.NAME} <br>
+									판매자 아이디 : ${notPermissionSupplier.MEM_ID} <br>
+									판매자 사업자 등록번호 : ${notPermissionSupplier.REGIST_NUM} <br>
 								</p>
 							</div>
 							<div class="card-action">
@@ -98,15 +94,18 @@
 							<div class="modal-content">
 								<h4>업체 상세보기</h4>
 								<p>
-									판매자 이름 : ${supplierDto.name} <br>
-									판매자 아이디 : ${supplierDto.mem_id} <br>
-									판매자 전화번호 :	<br>
-									판매자 사업자 등록번호 : ${supplierDto.regist_num} <br>
-									가입 신청일 :  <br>
+									판매자 이름 : ${notPermissionSupplier.NAME} <br>
+									판매자 아이디 : ${notPermissionSupplier.MEM_ID} <br>
+									판매자 전화번호 :	${notPermissionSupplier.TEL}<br>
+									판매자 이메일 : ${notPermissionSupplier.EMAIL }<br>
+									판매자 사업자 등록번호 : ${notPermissionSupplier.REGIST_NUM} <br>
+									가입 신청일 : ${notPermissionSupplier.JOIN_DATE } <br>
+									최소 수용인원 : ${notPermissionSupplier.MINIMUM_SEATING }<br>
+									최대 수용인원 : ${notPermissionSupplier.MAXIMUM_SEATING}<br>
+									텔레그램 아이디 : ${notPermissionSupplier.TELEGRAM_ID }<br>
 									승인 상태 : N	<br>
 									판매자 소개 : <br>
-									${supplierDto.explanation} <br>
-									${count}
+									${notPermissionSupplier.EXPLANATION} <br>
 								</p>
 								
 							</div>
@@ -120,12 +119,47 @@
 						<div id="permissionmodal${count}" class="modal">
 							<div class="modal-content">
 								<h4>승인 상태 변경하기</h4>
-								<p>업체명 : ${supplierDto.name} <br>
-									${count}
+								<br><br>
+								<p>
+									판매자 이름 : ${notPermissionSupplier.NAME} <br>
+									업체이름 : ${notPermissionSupplier.COMPANYNAME} <br>
+									판매자 사업자 등록번호 : ${notPermissionSupplier.REGIST_NUM} <br>
 								</p>
+								<br><br>
+								허가여부 / 반려사유
+								<div class="row">
+									<form  name  = "permissionform"  method = "post" action = "/admin/permissionSupplier.do"  onsubmit="return supplierinput() " class="col s12">
+										<div class = "row">
+											<div class = "col s2">
+												<p>
+													<label>
+														<input class="with-gap" name="group1" type="radio" value = "0" checked />
+														<span>반려</span>
+													</label>
+												</p>
+												<p>
+													<label>
+														<input class="with-gap" name="group1" type="radio" value ="1" />
+														<span>승인</span>
+													</label>
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="input-field col s12">
+												<textarea id="textarea1" class="materialize-textarea"></textarea>
+												<label for="textarea1">허가/반려사유</label>
+											</div>
+										</div>
+										<button class="btn waves-effect waves-light" type="submit"  >
+    										<i class="material-icons left">send</i>
+    											판매자 승인/반려 반영
+  										</button>
+									</form>
+								</div>
 							</div>
 							<div class="modal-footer">
-								<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+								<a href="#!" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,5 @@
 package com.charida.app.supplier.dto;
 
-import com.charida.app.member.dto.MemberDto;
 
 public class SupplierDto {
 	
@@ -12,8 +11,6 @@ public class SupplierDto {
 	private int minimum_seating ;
 	private int cert_file_id ;
 	private String telegram_id ;
-	private MemberDto memberDto ;
-	private PermissionDto permissionDto ;
 	
 	public String getMem_id() {
 		return mem_id;
@@ -63,18 +60,7 @@ public class SupplierDto {
 	public void setTelegram_id(String telegram_id) {
 		this.telegram_id = telegram_id;
 	}
-	public MemberDto getMemberDto() {
-		return memberDto;
-	}
-	public void setMemberDto(MemberDto memberDto) {
-		this.memberDto = memberDto;
-	}
-	public PermissionDto getPermissionDto() {
-		return permissionDto;
-	}
-	public void setPermissionDto(PermissionDto permissionDto) {
-		this.permissionDto = permissionDto;
-	}
+
 	
 	
 	

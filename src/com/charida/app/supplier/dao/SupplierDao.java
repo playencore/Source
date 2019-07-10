@@ -68,7 +68,7 @@ public class SupplierDao {
 	public List<SupplierDto> selectSuppliers(){
 		return sqlSession.selectList("Supplier.selectSuppliers") ;
 	}
-	public List<SupplierDto> selectNotPermissionSuppliers(){
+	public List<Map<String, String>> selectNotPermissionSuppliers(){
 		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers") ;
 	} 
 }

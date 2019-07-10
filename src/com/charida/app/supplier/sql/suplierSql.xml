@@ -67,38 +67,22 @@
 		SELECT * FROM CRD_COMPANY
 	</select>
 	
-	<resultMap type="com.charida.app.member.dto.MemberDto" id="memberDto">
-		<result column="name" property="name"/>
-		<result column="tel" property="tel"/>
-		<result column="email" property="email"/>
-		<result column="join_date" property="join_date"/>
-	</resultMap>
 	
-	<resultMap type="com.charida.app.supplier.dto.SupplierDto" id="SupplierDto">
-		<result column="mem_id" property="mem_id"/>
-		<result column="regist_num" property="regist_num"/>
-		<result column="explanation" property="explanation"/>
-		<result column="name" property="name"/>
-		<result column="maximum_seating" property="maximum_seating"/>
-		<result column="minimum_seating" property="minimum_seating"/>
-		<result column="telegram_id" property="telegram_id"/>
-		<collection property="memberDto" resultMap="memberDto"/>
-	</resultMap>
-	
-	<select id = "selectNotPermissionSuppliers" resultMap = "SupplierDto">
+
+	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
 		SELECT 
-		C.MEM_ID,
-		C.REGIST_NUM,
-		C.EXPLANATION,
-		C.NAME,
-		C.MAXIMUM_SEATING,
-		C.MINIMUM_SEATING,
-		C.CERT_FILE_ID,
-		C.TELEGRAM_ID,
-		M.NAME,
-		M.TEL,
-		M.EMAIL,
-		M.JOIN_DATE
+		C.MEM_ID mem_id,
+		C.REGIST_NUM regist_num,
+		C.EXPLANATION explanation,
+		C.NAME companyname,
+		C.MAXIMUM_SEATING maximum_seating,
+		C.MINIMUM_SEATING minimum_seating,
+		C.CERT_FILE_ID cert_file_id,
+		C.TELEGRAM_ID telegram_id,
+		M.NAME name,
+		M.TEL tel,
+		M.EMAIL email,
+		M.JOIN_DATE join_date
 		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
 		WHERE C.MEM_ID = M.MEM_ID 
 		AND C.MEM_ID=P.MEM_ID
