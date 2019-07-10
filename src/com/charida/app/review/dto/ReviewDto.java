@@ -1,6 +1,7 @@
-package com.chrida.app.review.dto;
+package com.charida.app.review.dto;
 
-public class reviewDto {
+public class ReviewDto {
+	private String serv_id;
 	private String mem_id;
 	private String serv_root;
 	private String menu_score;
@@ -11,6 +12,20 @@ public class reviewDto {
 	private String content;
 	private String file_yn;
 	private String blind_yn;
+	private String review_date;
+	
+	public String getReview_date() {
+		return review_date;
+	}
+	public void setReview_date(String review_date) {
+		this.review_date = review_date;
+	}
+	public String getServ_id() {
+		return serv_id;
+	}
+	public void setServ_id(String serv_id) {
+		this.serv_id = serv_id;
+	}
 	public String getMem_id() {
 		return mem_id;
 	}

@@ -42,7 +42,7 @@
 			alert("후기내용을 입력해주세요.");
 			$("textarea[name=content]").focus();
 			return false;
-		}else if( $("input:radio[name=foodScore]:checked").length == 0 ){
+		}else if( $("input:radio[name=menuScore]:checked").length == 0 ){
 			alert("음식만족도를 체크해주세요.");
 			return false ;
 		}else if( $("input:radio[name=priceScore]:checked").length == 0 ){
@@ -65,7 +65,7 @@
 <div class="section"></div>
 <div class="section"></div>
 
-<form method="post" onsubmit="return reviewinput()" action="/home.do">
+<form method="post" onsubmit="return reviewinput()" action="/review/setReview.do" enctype="multipart/form-data">
 
 <div class="container">
 	<table border="1">
@@ -78,7 +78,7 @@
 		</tr>
 		<tr>
 			<th>이용 경로</th>
-			<td><input type="text" name="servRoot" id="servRoot"
+			<td><input type="text" name="servRoot"
 			placeholder="서비스를 이용하게 된 경로를 기입해주세요. ex) 인터넷 검색, 지인추천, 광고 등">
 			</td>
 		</tr>
@@ -98,42 +98,42 @@
 	<br>
 	<h6>만족도 평가</h6>
 	<hr color="gray">
-	<div id="food_score" class="row">
+	<div id="menu_score" class="row">
 		<div class="col s12">
 			<p id="food"> * 음식 만족도</p>	
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "1" />
+		    		<input type="radio" name = "menuScore" value = "1" />
 		    		<span>0.0 점</span>
 				</label>
 	       	</div>	
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "1" />
+		    		<input type="radio" name = "menuScore" value = "1" />
 		    		<span>1.0 점</span>
 				</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "2" />
+		    		<input type="radio" name = "menuScore" value = "2" />
 		    		<span>2.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "3" />
+		    		<input type="radio" name = "menuScore" value = "3" />
 		    		<span>3.0 점</span>
 	  		</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "4" />
+		    		<input type="radio" name = "menuScore" value = "4" />
 		    		<span>4.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "foodScore" value = "5" />
+		    		<input type="radio" name = "menuScore" value = "5" />
 		    		<span>5.0 점</span>
 	  			</label>
 	       	</div>       	

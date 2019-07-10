@@ -43,8 +43,9 @@ public class LoginController {
 		
 		int result = loginService.checkPasswd(id, passwd);
 		if(result == 1) {
-			req.getSession().setAttribute("authority", session);//세션등록
-			req.getSession().setAttribute("name", name);
+			req.getSession().setAttribute("session_authority", session);//세션등록
+			req.getSession().setAttribute("session_name", name);
+			req.getSession().setAttribute("session_id", id);
 			return "/login/loginPro";
 		}else if(result == -1) {
 			req.setAttribute("test", -1);
@@ -57,7 +58,7 @@ public class LoginController {
 	@RequestMapping("/login/logout.do")
 	public String logoutPro(HttpServletRequest req,HttpServletResponse resp) {
 			req.getSession().removeAttribute("authority");
-			req.getSession().removeAttribute("name");
+			req.getSession().removeAttribute("name");			
 		return "/login/loginForm";
 	}
 }
