@@ -55,9 +55,10 @@ public class ApplicationComponent {
 		return appId.toString();
 	}
 	
-	public Date getTimestamp(String date,String time) {
-		
-		return new Date()
-	}
+	/*
+	 * public Date getTimestamp(String date,String time) {
+	 * 
+	 * return new Date() }
+	 */
 	
 }
