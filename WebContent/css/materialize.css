@@ -4953,6 +4953,10 @@ small {
 #toast-container {
   display: block;
   position: fixed;
+  top: auto !important;
+  right: auto !important;
+  bottom: 80%;
+  left:45%; 
   z-index: 10000;
 }
 
