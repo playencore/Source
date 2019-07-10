@@ -16,10 +16,8 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.charida.app.common.dao.FileUploadDao;
 import com.charida.app.component.file.FileComponent;
 
 public class DefaultInterceptor extends HandlerInterceptorAdapter {

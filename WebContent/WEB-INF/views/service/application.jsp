@@ -223,7 +223,7 @@
 									</div>
 								</div>
 								<div class="col m3" style="padding-right: 10px;margin-right:20px;">
-									<p>여성 비율</p>
+									<p>남성 비율</p>
 								    <div id="percent"></div>
 								    <input type="hidden" name="percent" >
 								</div>
@@ -249,37 +249,37 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000010"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000010"/>
 									        <span>개인 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000020"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000020"/>
 									        <span>사교 모임</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000030"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000030"/>
 									        <span>리셉션</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000040"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000040"/>
 									        <span>기업 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000050"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000050"/>
 									        <span>학교 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="serv_type" value="SER0000090"/>
+									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000090"/>
 									        <span>기타</span>
 									    </label>
 									</div>
@@ -340,31 +340,31 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000010"/>
 									        <span>한정식</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000020"/>
 									        <span>핑거푸드</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000030"/>
 									        <span>웨스턴</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000040"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000040"/>
 									        <span>일식</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000050"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000050"/>
 									        <span>아시아 퓨전</span>
 									    </label>
 									</div>
@@ -406,25 +406,25 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="dessert_type" value="drt0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000010"/>
 									        <span>디저트</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="dessert_type" value="drt0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000020"/>
 									        <span>음료류</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="dessert_type" value="drt0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000030"/>
 									        <span>커피류</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="dessert_type" value="drt0000040"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000040"/>
 									        <span>주류</span>
 									    </label>
 									</div>

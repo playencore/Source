@@ -294,7 +294,7 @@ function makeReq2(){
 	req +="<p class='p-inline'>"+ count++ +". 참여 인원</p> : "
 		+$('#participant').val() +" 명  "
 		+"(" +age.noUiSlider.get()[0]+"-" + age.noUiSlider.get()[1]+"대" 
-		+" / " +(10-percent.noUiSlider.get()) +":"+percent.noUiSlider.get()+" 남:여 비율"
+		+" / " +percent.noUiSlider.get() +":"+ (10-percent.noUiSlider.get())+" 남:여 비율"
 		+")<br>";
 	req +="<p class='p-inline'>"+ count++ +". 1인당 금액</p> : "
 	+numbeComma($('#per_bud').val())+" 원(총액 : " + $('#amount').val()+")"+"<br>";
@@ -384,7 +384,7 @@ function valid_step2(){
 		return false;
 	}
 	if($('input[name=serv_type]:checked').next().text()==""){
-		showToast('행사 형식을 하나 이상 선택해주세요.');
+		showToast('행사 형식을 선택해주세요.');
 		$("input[name=serv_type]")[0].focus();
 		return false;
 	}
@@ -398,9 +398,9 @@ function valid_step2(){
 	return true;
 }
 function valid_step3(){
-	if($('input[name=menu_type]:checked').next().text()==""){
+	if($('input[name=cb_menu_type]:checked').next().text()==""){
 		showToast('선호 메뉴를 하나 이상 선택해주세요.');
-		$("input[name=menu_type]")[0].focus();
+		$("input[name=cb_menu_type]")[0].focus();
 		return false;
 	}
 	if($("#per_bud").val()==""){
