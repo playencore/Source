@@ -26,7 +26,7 @@ public class SupplierService {
 		//crd_company insert-----------------------------------------------------------------------------------
 		SupplierDto supplierDto = new SupplierDto() ;
 		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
-		supplierDto.setName(supplierMap.get("name")[0]);
+		supplierDto.setName(supplierMap.get("companyname")[0]);
 		supplierDto.setRegist_num(Integer.parseInt(supplierMap.get("regist_num")[0]));
 		supplierDto.setExplanation(supplierMap.get("explanation")[0]);
 		supplierDto.setMaximum_seating(Integer.parseInt(supplierMap.get("maximum_seating")[0]));

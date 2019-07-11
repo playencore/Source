@@ -33,6 +33,12 @@ public class JoinSupplierController {
 		return "/joinUser/joinSupplierForm";
 	}
 	
+	@RequestMapping("/joinUser/joinMember.do")
+	public String joinMember(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/joinUser/joinMemberForm";
+	}
+	
 	@RequestMapping("/joinUser/joinSupplierPro.do")
 	public String joinSupplierPro(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, String[]> supplierMap = req.getParameterMap();
@@ -64,7 +70,6 @@ public class JoinSupplierController {
 		}else {
 			color = "color:red" ;
 		}
-		
 		
 		checkRegist_numMap.put("result",result) ;
 		checkRegist_numMap.put("color",color);

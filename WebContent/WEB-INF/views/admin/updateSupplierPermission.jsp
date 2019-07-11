@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 	alert("${result}") ;
-	window.location.replace("/admin/manageSupplier.do");
+	window.location.replace("/admin/notPermissionList.do");
 </script>
 
 

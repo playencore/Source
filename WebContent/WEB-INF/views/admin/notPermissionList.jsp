@@ -47,10 +47,10 @@
 		<div class = "col s1"></div>
 		 <div class="col s6  ">
 		    <ul class="tabs ">
-			    <li class="tab col s3"><a class="active" href="#test1">구매자 조회 및 관리</a></li>
+			    <li class="tab col s3"><a class="" href="#test1">구매자 조회 및 관리</a></li>
 			    <li class="tab col s3"><a class="active" href="#test2">판매자 조회 및 관리</a></li>
-			    <li class="tab col s3"><a class="active" href="#test3">후기 조회 및 관리</a></li>
-			    <li class="tab col s3"><a class="active" href="#test4">홈페이지 관리</a></li>
+			    <li class="tab col s3"><a class="" href="#test3">후기 조회 및 관리</a></li>
+			    <li class="tab col s3"><a class="" href="#test4">홈페이지 관리</a></li>
 		    </ul>
 		    <br>
 	    </div>
@@ -61,8 +61,8 @@
 			<div class = "col s1"></div>
 			<div class = "col s2">
 				 <div class="collection">
-			        <a href="#!" class="collection-item ">판매자 정보 조회</a>
-			        <a href="#!" class="collection-item active">승인 대기 리스트</a>
+			        <a href="/admin/supplierSerch.do" class="collection-item ">판매자 정보 조회</a>
+			        <a href="/admin/notPermissionList.do" class="collection-item active">승인 대기 리스트</a>
 			        <a href="#!" class="collection-item">Alvin</a>
 			        <a href="#!" class="collection-item">Alvin</a>
      			 </div>
