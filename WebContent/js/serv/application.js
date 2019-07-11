@@ -60,6 +60,7 @@ function daumPostcode() {
 var elems = null;
 var instances = null;
 $(document).ready(function(){
+	activeItem('서비스 신청');
 	elems = document.querySelectorAll('.datepicker');
 	instances = M.Datepicker.init(elems, {
 	   minDate:new Date(moment().add(7,'days').format())

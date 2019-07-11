@@ -5,6 +5,28 @@
 
 <mapper namespace="App">
 	<select id="selectServId" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT SERV_ID FROM CRD_SERV_APP WHERE SERV_ID LIKE #{idPrefix} ||'%'
+		SELECT SERV_ID,NUM FROM (
+			SELECT SERV_ID,ROWNUM AS NUM FROM CRD_SERV_APP WHERE SERV_ID LIKE #{idPrefix} ||'%'
+			ORDER BY SERV_ID DESC
+		) A
+		WHERE A.NUM = 1
 	</select>
+	<insert id="insertRow" parameterType="java.util.Map">
+		INSERT INTO CRD_SERV_APP 
+			(SERV_ID, CUSTOMER_ID, PROGRESS_CODE, ZIPCODE
+			, ADDRESS, ADDRESS_DETAIL, PARTICIPANT, AGE_MIN, AGE_MAX
+			, PER_MEN, SERV_TYPE_CODE, EVENT_TYPE_CODE, DESSERT_YN
+			, PER_BUD, SERV_DATE, APP_DATE, MODIFIED_DATE, END_DATE
+			, INTERIOR_YN, COOKING_YN, DISCHARGE_YN, ELEVATOR_YN
+			, PARKING_YN, TABLEWARE_YN, COORDINATOR_YN, OTHER_ORDER_YN
+			, REQUESTED_TERM) 
+		VALUES 
+			( #{serv_id} ,#{customer_id} ,#{progress_code} ,#{zipcode} 
+			,#{address} ,#{address_detail} ,#{participant} ,#{age_min} ,#{age_max} 
+			,#{per_men} ,#{serv_type_code} ,#{event_type_code} ,#{dessert_yn} 
+			,#{per_bud} ,TO_DATE(#{serv_date} ,'YYYY-MM-DD HH24:MI:SS' ),SYSDATE ,SYSDATE , null 
+			,#{interior_yn} ,#{cooking_yn} ,#{discharge_yn} ,#{elevator_yn} 
+			,#{parking_yn} ,#{tableware_yn} ,#{coordinator_yn} ,#{other_order_yn} 
+			,#{requested_term} )
+	</insert>
 </mapper>

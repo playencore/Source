@@ -1,10 +1,13 @@
 package com.charida.app.component.serv;
 
-import java.sql.Timestamp;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import com.charida.app.serv.dao.ApplicationDao;
@@ -15,6 +18,8 @@ public class ApplicationComponent {
 	private ApplicationDao applicationDao;
 	private static final String PERFIX = "S";
 	private static final String INFIX ="-";
+	protected static final Log log = LogFactory.getLog(ApplicationComponent.class);
+	
 	//신청번호 발번
 	public String makeAppId() {
 		//char12 S190710-0001
@@ -49,16 +54,84 @@ public class ApplicationComponent {
 			String idNum = checkId.substring(checkId.indexOf("-")+1,checkId.length());
 			int suffix = Integer.parseInt(idNum);
 			suffix +=1;
-			appId.append(suffix);
+			appId.append(String.format("%04d", suffix));
 		}
 		
 		return appId.toString();
 	}
 	
-	/*
-	 * public Date getTimestamp(String date,String time) {
-	 * 
-	 * return new Date() }
-	 */
+	public Map<String,Object> getAppEntity(Map<String,Object>params){
+		
+		Map<String, Object> appEntities = new HashMap<String, Object>();
+		
+		//TODO 세션 생기면 수정
+		appEntities.put("customer_id", "test123");
+		//appEntities.put("customer_id", params.get("sessionId"));
+		appEntities.put("progress_code", "00010001");
+		appEntities.put("zipcode", params.get("zipcode"));
+		appEntities.put("address", params.get("addr"));
+		appEntities.put("address_detail", params.get("addr2"));
+		appEntities.put("participant", Integer.parseInt((String)params.get("participant")));
+		appEntities.put("age_min", Integer.parseInt((String)params.get("age_min")));
+		appEntities.put("age_max", Integer.parseInt((String)params.get("age_max")));
+		appEntities.put("per_men",Integer.parseInt((String)params.get("percent")));
+		appEntities.put("serv_type_code",params.get("serv_type"));
+		appEntities.put("event_type_code",params.get("event_type"));
+		
+		String[] dessert = (String[])params.get("cb_dessert_type");
+		if(dessert == null || dessert.length==0 || "".equals(dessert[0])) {
+			appEntities.put("dessert_yn","N");
+		}else {
+			appEntities.put("dessert_yn","Y");
+		}
+		appEntities.put("per_bud",params.get("per_bud"));
+		
+		String serv_date = getDateFormat((String)params.get("serv_date")
+										,(String)params.get("serv_time")
+										);
+		appEntities.put("serv_date",serv_date);
+		appEntities.put("interior_yn",params.get("loc_type"));
+		appEntities.put("cooking_yn",params.get("cooking_yn"));
+		appEntities.put("discharge_yn",params.get("discharge_yn"));
+		appEntities.put("elevator_yn",params.get("elev_yn"));
+		appEntities.put("parking_yn",params.get("parking_yn"));
+		
+		String[] tableware = (String[])params.get("cb_tableware");
+		if(tableware == null || tableware.length==0 || "".equals(tableware[0])) {
+			appEntities.put("tableware_yn","N");
+		}else {
+			appEntities.put("tableware_yn","Y");
+		}
+		appEntities.put("coordinator_yn",params.get("codi_yn"));
+		
+		String[] addtion = (String[])params.get("cb_addtion");
+		
+		if(addtion == null || addtion.length==0 || "".equals(addtion[0])) {
+			appEntities.put("other_order_yn","N");
+		}else {
+			appEntities.put("other_order_yn","Y");
+		}
+		
+		appEntities.put("requested_term",params.get("req_term"));
+		return appEntities;
+	}
+	public int insertDatas(Map<String, Object> entity) {
+		return applicationDao.insertRow(entity);
+	}
+	
+	
+	public String getDateFormat(String date,String time) {
+		
+		String timePerfix =time.substring(0,time.indexOf(" "));
+        
+		int hour = Integer.parseInt(time.substring(time.indexOf(" ")+1,time.indexOf(":")));
+        int minute = Integer.parseInt(time.substring(time.indexOf(":")+1,time.length()));
+        
+        if("오후".equals(timePerfix)){
+            hour = hour+12;
+        }
+        
+        return date+ " " +hour +":"+minute +":00";
+	}
 	
 }

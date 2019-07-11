@@ -8,15 +8,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ApplicationDao {
+public class AddOrderDao {
 	@Resource
 	private SqlSession sqlSession;
-
-	public String SelectServId(String idPrefix) {
-		return sqlSession.selectOne("App.selectServId",idPrefix);
+	
+	public int insertRow(Map<String, Object> params) {
+		return sqlSession.insert("Order.insertRow", params);
 	}
 	
-	public int insertRow(Map<String, Object> entity) {
-		return sqlSession.insert("App.insertRow", entity);
-	}
+	
 }

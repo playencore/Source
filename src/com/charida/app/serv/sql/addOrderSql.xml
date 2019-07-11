@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+	<insert id="insertRow" parameterType="java.util.Map">
+		INSERT INTO CRD_SERV_ADD_ORDER 
+			(SERV_ID, ADD_SEQ, PARENT_CODE, ADD_CODE) 
+		VALUES 
+			( #{serv_id} , #{add_seq} , #{parent_code} , #{add_code} )
+	</insert>
+	
+	<insert id="insertPref" parameterType="java.util.Map">
+		INSERT INTO CRD_SERV_PREF_STYLE
+			(SERV_ID, PREP_SEQ, PREP_CODE)
+		VALUES
+			( #{serv_id} , #{prep_seq} , #{prep_code} )
+	</insert>
+</mapper>

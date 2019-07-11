@@ -1,113 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html  lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>단 하나의 서비스 - 차리다</title>
-	<!-- css -->
-  	<link rel="stylesheet" href="/css/materialize.css">
-  	<link rel="stylesheet" href="/css/free.css">
-  	<link rel="stylesheet" href="/css/free-v4-shims.css">
-  	<link rel="stylesheet" href="/css/nouislider.css">
-  	
-    <style media="screen">
-      @font-face {
-        font-family: NanumSquareR;
-        src: url(/charida2/fonts/NanumSquareR.woff) format('woff');
-      }
-
-      @font-face {
-          font-family: NanumSquareL;
-          src: url(/fonts/NanumSquareL.woff) format('woff');
-      }
-
-      @font-face {
-          font-family: NanumSquareB;
-          src: url(../fonts/NanumSquareB.woff) format('woff');
-      }
-      .page-header {
-        padding-bottom: 9px;
-        margin: 40px 0 20px;
-        border-bottom: 1px solid #eee;
-      }
-      body{
-         font-family: NanumSquareB, sans-serif;
-      }
-      small{
-        color:#cccccc;
-      }
-      h5{
-        margin-bottom: 1em;
-      }
-      [type="checkbox"]:checked + span:not(.lever):before {
-		    top: -4px;
-		    left: -5px;
-		    width: 12px;
-		    height: 22px;
-		    border-top: 2px solid transparent;
-		    border-left: 2px solid transparent;
-		    border-right: 2px solid #ca284d;
-		    border-bottom: 2px solid #ca284d;
-		    -webkit-transform: rotate(40deg);
-		    transform: rotate(40deg);
-		    -webkit-backface-visibility: hidden;
-		    backface-visibility: hidden;
-		    -webkit-transform-origin: 100% 100%;
-		    transform-origin: 100% 100%;
-	  }
-	  [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
-		    background-color: #ca284d;
-	  }
-	  .p-inline{
-	  	display:inline;
-	  	font-size:17px;
-	  }
-	  .guide {
-		    background-color: rgb(255, 248, 217);
-		    border-width: 1px;
-		    border-style: solid;
-		    border-color: rgb(255, 208, 77);
-		    border-image: initial;
-		    padding: 24px;
-		    border-radius: 3px;
-		}
-    </style>
-    <!-- css -->
-	<!--js-->
-	<!-- <script src="https://kit.fontawesome.com/0ad913ff34.js"></script> -->	
-	<script src="/js/jquery-3.4.1.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src="/js/materialize.js"></script>
-	<script type="text/javascript" src="/js/moment.min.js"></script>
-	<script type="text/javascript" src="/js/nouislider.js"></script>
-	<script type="text/javascript" src="/js/serv/application.js"></script>
-</head>
-<body style="background-color: #dfdfdd6b">
-	<!-- 네비게이션 바-->
-	<ul id="dropdown1" class="dropdown-content">
-	  <li><a href="#!">드롭다운 메뉴1</a></li>
-	  <li><a href="#!">드롭다운 메뉴2</a></li>
-	  <li class="divider"></li>
-	  <li><a href="#!">드롭다운 메뉴3</a></li>
-	</ul>
-	<nav>
-	  <div class="nav-wrapper" style="background-color:#007bff;">
-	    <a href="#!" class="brand-logo">차리다</a>
-	    <ul class="right hide-on-med-and-down">
-	      <li><a href="sass.html">서비스 신청</a></li>
-	      <li><a href="badges.html">다른거</a></li>
-	      <!-- Dropdown Trigger -->
-	      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">드롭다운 메뉴<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 10px"></i></a></li>
-	    </ul>
-	  </div>
-	</nav>
-	<!-- 네비게이션 바-->
+<%@include file="/include/header.jsp" %>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="/js/serv/application.js"></script>
 	
 	<!-- 섹션 타이틀 -->
-	<div class="container" style="background-color: white">
+	<div class="container" style="background-color: white;margin-top:2px;">
 		
 		<div class="row">
 			<div class="col m12">
@@ -249,37 +147,37 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000010"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000010"/>
 									        <span>개인 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000020"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000020"/>
 									        <span>사교 모임</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000030"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000030"/>
 									        <span>리셉션</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000040"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000040"/>
 									        <span>기업 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000050"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000050"/>
 									        <span>학교 행사</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="radio" onchange="changeColorByRadio('event_type')" name="serv_type" value="SER0000090"/>
+									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000090"/>
 									        <span>기타</span>
 									    </label>
 									</div>
@@ -370,19 +268,19 @@
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000060"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000060"/>
 									        <span>바베큐</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000070"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000070"/>
 									        <span>피자</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="menu_type" value="mmu0000090"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000090"/>
 									        <span>기타</span>
 									    </label>
 									</div>
@@ -730,7 +628,7 @@
 							<div class="row" style="margin-bottom: 0px;">
 								<div class="col m9" style="padding-right: 0px">
 									<div class="input-field">
-										<textarea id="req_term" class="materialize-textarea" cols="30" rows="10" data-length="300"></textarea>
+										<textarea id="req_term" name="req_term" class="materialize-textarea" cols="30" rows="10" data-length="300"></textarea>
 										<label for="req_term">추가 요청사항</label>
 									</div>
 								</div>
@@ -778,5 +676,6 @@
 		<div class="row" style="height:50px">
 		</div>
 	</div>
+	<%@include file="/include/footer.jsp" %>
 </body>
 </html>
