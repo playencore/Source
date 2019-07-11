@@ -61,7 +61,7 @@ public class SupplierComponent {
 		return supplierDao.insertIntroFile(listMap) ;
 	}
 	//CRD_MEM_PERMISSION
-	public String getMemPermission(String mem_id) {
+	public String getMemPermissionMaxSeq(String mem_id) {
 		return supplierDao.selectMemPermissionMaxSeq(mem_id) ;
 	}
 	public int setPermission(PermissionDto dto) {
@@ -114,6 +114,9 @@ public class SupplierComponent {
 	}
 	public List<Map<String, String>> getNotPermissionSuppliers(){
 		return supplierDao.selectNotPermissionSuppliers() ;
+	}
+	public int updatePermission(Map<String,String[]> permission) {
+		return supplierDao.updatePermission(permission) ;
 	}
 }
 

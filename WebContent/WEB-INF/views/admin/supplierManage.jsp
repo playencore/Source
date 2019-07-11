@@ -27,6 +27,7 @@
 	    	$('#permissionmodal'+i).modal() ;
 	    }
 	  });
+	
 	//-->
 </script>
 </head>
@@ -124,22 +125,28 @@
 									판매자 이름 : ${notPermissionSupplier.NAME} <br>
 									업체이름 : ${notPermissionSupplier.COMPANYNAME} <br>
 									판매자 사업자 등록번호 : ${notPermissionSupplier.REGIST_NUM} <br>
+									<c:if test="${notPermissionSupplier.PERMISSION_SEQ>0}">
+									기존 반려 사유 : ${notPermissionSupplier.DISALLOWANCE_REASON} <br>
+									마지막 반려 일자 : ${notPermissionSupplier.MODIFICATION_DATE} <br>
+									</c:if>
 								</p>
 								<br><br>
 								허가여부 / 반려사유
 								<div class="row">
-									<form  name  = "permissionform"  method = "post" action = "/admin/permissionSupplier.do"  onsubmit="return supplierinput() " class="col s12">
+									<form  name  = "permissionupdateform"  method = "post" action = "/admin/updatepermissionSupplier.do"  class="col s12">
+										<input type = "hidden" name = "mem_id" value = "${notPermissionSupplier.MEM_ID}">
+										<input type = "hidden" name = "permission_seq" value = "${notPermissionSupplier.PERMISSION_SEQ+1}">
 										<div class = "row">
 											<div class = "col s2">
 												<p>
 													<label>
-														<input class="with-gap" name="group1" type="radio" value = "0" checked />
+														<input class="with-gap" name="permission_yn" type="radio" value = "0" checked />
 														<span>반려</span>
 													</label>
 												</p>
 												<p>
 													<label>
-														<input class="with-gap" name="group1" type="radio" value ="1" />
+														<input class="with-gap" name="permission_yn" type="radio" value ="1" />
 														<span>승인</span>
 													</label>
 												</p>
@@ -147,7 +154,7 @@
 										</div>
 										<div class="row">
 											<div class="input-field col s12">
-												<textarea id="textarea1" class="materialize-textarea"></textarea>
+												<textarea name = "disallowance_reason" id="textarea" class="materialize-textarea"></textarea>
 												<label for="textarea1">허가/반려사유</label>
 											</div>
 										</div>

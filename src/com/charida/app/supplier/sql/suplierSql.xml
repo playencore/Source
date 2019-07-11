@@ -67,8 +67,6 @@
 		SELECT * FROM CRD_COMPANY
 	</select>
 	
-	
-
 	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
 		SELECT 
 		C.MEM_ID mem_id,
@@ -82,11 +80,25 @@
 		M.NAME name,
 		M.TEL tel,
 		M.EMAIL email,
-		M.JOIN_DATE join_date
+		M.JOIN_DATE join_date,
+		P.PERMISSION_SEQ permission_seq,
+		P.DISALLOWANCE_REASON disallowance_reason,
+		P.MODIFICATION_DATE modification_date
 		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
 		WHERE C.MEM_ID = M.MEM_ID 
 		AND C.MEM_ID=P.MEM_ID
 		AND P.PERMISSION_YN = 0 
 	</select>
-
+	
+	<update id="updatePermission" parameterType="map">
+		UPDATE CRD_MEM_PERMISSION 
+		SET
+		PERMISSION_SEQ = #{permission_seq[0]}, 
+		PERMISSION_YN = #{permission_yn[0]},
+		DISALLOWANCE_REASON = #{disallowance_reason[0],jdbcType=VARCHAR },
+		MODIFICATION_DATE = sysdate
+		WHERE 
+		MEM_ID = #{mem_id[0]}
+	</update>
+	
 </mapper>

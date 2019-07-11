@@ -17,7 +17,7 @@ import com.charida.app.supplier.dto.SupplierDto;
 public class SupplierService {
 	
 	@Resource
-	SupplierComponent suplierComponent ;
+	SupplierComponent supplierComponent ;
 	
 	public int setSupplierTx(Map <String,String[]> supplierMap) {
 		int result = 0 ;
@@ -34,37 +34,37 @@ public class SupplierService {
 		supplierDto.setCert_file_id(Integer.parseInt( supplierMap.get("cert_file_id")[0] ));
 		supplierDto.setTelegram_id("telegram");
 		
-		result += suplierComponent.setSupplier(supplierDto) ;
+		result += supplierComponent.setSupplier(supplierDto) ;
 		
 		//crd_service_type---------------------------------------------------------------------------------------
-		String checkseq = suplierComponent.getServiceCategoryMaxSeq(supplierMap.get("mem_id")[0]) ;
+		String checkseq = supplierComponent.getServiceCategoryMaxSeq(supplierMap.get("mem_id")[0]) ;
 		if(checkseq == null ) {
 			checkseq = "0" ;
 		}
 		int seq = Integer.parseInt(checkseq) ;
-		Map<String, Object> listMap = suplierComponent.getCodeListMap("service", supplierMap.get("mem_id")[0], 
+		Map<String, Object> listMap = supplierComponent.getCodeListMap("service", supplierMap.get("mem_id")[0], 
 				seq, supplierMap.get("serviceCategory")) ;
-		result += suplierComponent.setServiceCategoryType(listMap) ;
+		result += supplierComponent.setServiceCategoryType(listMap) ;
 		
 		//crd_food_Style----------------------------------------------------------------------------
-		checkseq = suplierComponent.getFoodStyleMaxSeq(supplierMap.get("mem_id")[0]) ;
+		checkseq = supplierComponent.getFoodStyleMaxSeq(supplierMap.get("mem_id")[0]) ;
 		if(checkseq == null ) {
 			checkseq = "0" ;
 		}
 		seq = Integer.parseInt(checkseq) ;
-		Map<String, Object> flistMap = suplierComponent.getCodeListMap("food", supplierMap.get("mem_id")[0], 
+		Map<String, Object> flistMap = supplierComponent.getCodeListMap("food", supplierMap.get("mem_id")[0], 
 				seq, supplierMap.get("foodCategory")) ;
-		result += suplierComponent.setFoodStyle(flistMap) ;
+		result += supplierComponent.setFoodStyle(flistMap) ;
 		
 		//CRD_SERVICE_AREA------------------------------------------------------------------------------------
-		checkseq = suplierComponent.getServiceLocationMaxSeq(supplierMap.get("mem_id")[0]) ;
+		checkseq = supplierComponent.getServiceLocationMaxSeq(supplierMap.get("mem_id")[0]) ;
 		if(checkseq == null ) {
 			checkseq = "0" ;
 		}
 		seq = Integer.parseInt(checkseq) ;
-		Map<String, Object> alistMap = suplierComponent.getCodeListMap("area", supplierMap.get("mem_id")[0], 
+		Map<String, Object> alistMap = supplierComponent.getCodeListMap("area", supplierMap.get("mem_id")[0], 
 				seq, supplierMap.get("serviceLocation")) ;
-		result += suplierComponent.setServiceLocation(alistMap) ;
+		result += supplierComponent.setServiceLocation(alistMap) ;
 		
 		//info picture -------------------------------------------------------------------------------------
 		Map<String,Object> plistMap = new HashMap<String, Object>() ;
@@ -75,7 +75,7 @@ public class SupplierService {
 				list.add(Integer.parseInt(supplierinfoFile)) ;
 			}
 		}
-		checkseq = suplierComponent.getIntroFileMaxSeq(supplierMap.get("mem_id")[0]) ;
+		checkseq = supplierComponent.getIntroFileMaxSeq(supplierMap.get("mem_id")[0]) ;
 		if(checkseq == null ) {
 			checkseq = "0" ;
 		}
@@ -83,10 +83,10 @@ public class SupplierService {
 		plistMap.put("mem_id",supplierMap.get("mem_id")[0]) ;
 		plistMap.put("intro_seq", seq) ;
 		plistMap.put("list",list) ;
-		result += suplierComponent.setIntroFile(plistMap);
+		result += supplierComponent.setIntroFile(plistMap);
 		
 		//CRD_MEM_PERMISSION
-		checkseq = suplierComponent.getMemPermission(supplierMap.get("mem_id")[0]) ;
+		checkseq = supplierComponent.getMemPermissionMaxSeq(supplierMap.get("mem_id")[0]) ;
 		if(checkseq == null ) {
 			checkseq = "0" ;
 		}
@@ -96,13 +96,13 @@ public class SupplierService {
 		dto.setDisallowance_reason("-");
 		dto.setPermission_seq(seq);
 		dto.setPermission_yn(0);
-		result+=suplierComponent.setPermission(dto) ;
+		result+=supplierComponent.setPermission(dto) ;
 		
 		return result ;
 	}
 	
 	public String checkRegist_num(String regist_num) {
-		int result = suplierComponent.checkRegist_num(regist_num) ;
+		int result = supplierComponent.checkRegist_num(regist_num) ;
 		
 		if(result == 0) {
 			return "가입 가능한 업체입니다." ;
@@ -112,7 +112,16 @@ public class SupplierService {
 	}
 	////////////////////////////////adminpage
 	public List<Map<String, String>> getNotPerMissionSuppliers(){
-		return suplierComponent.getNotPermissionSuppliers() ;
+		return supplierComponent.getNotPermissionSuppliers() ;
+	}
+	////////////////////////////////////updatepermission 
+	public String updatePermission(Map<String, String[]> permissionMap) {
+		int result = supplierComponent.updatePermission(permissionMap);
+		if(result == 0) {
+			return "수정이 진행되지 않았습니다. 다시 확인해주세요." ;
+		}else{
+			return "수정이 완료되었습니다." ;
+		}
 	}
 	
 }

@@ -71,4 +71,9 @@ public class SupplierDao {
 	public List<Map<String, String>> selectNotPermissionSuppliers(){
 		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers") ;
 	} 
+	/////////////////////////////updatePermission
+	public int updatePermission(Map<String,String[]> permission) {
+		return sqlSession.update("Supplier.updatePermission",permission) ;
+	}
+	
 }

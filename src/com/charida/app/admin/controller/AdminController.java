@@ -33,9 +33,13 @@ public class AdminController {
 		return "/admin/supplierManage";
 	}
 	
-	@RequestMapping("/admin/permissionSupplier.do")
-	public String permissionSupplier(HttpServletRequest req, HttpServletResponse resp) {
-		
-		return "/admin/supplierPermission";
+	@RequestMapping("/admin/updatepermissionSupplier.do")
+	public String updatePermission(HttpServletRequest req, HttpServletResponse resp) {
+		String result = supplierService.updatePermission(req.getParameterMap());
+		req.setAttribute("result", result);
+	
+		return "/admin/updateSupplierPermission";
 	}
+	
+	
 }
