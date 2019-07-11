@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Matching">
+	<!-- 매칭실패 서비스 진행상태 임시코드 : 00000000-->
+	<select id="matchingFail" resultType="com.charida.app.matching.dto.MatchingDto">
+		SELECT 	
+		A.SERV_ID,
+		A.ZIPCODE,
+		A.ADDRESS,
+		A.ADDRESS_DETAIL,
+		A.PARTICIPANT,
+		A.AGE_MIN,
+		A.AGE_MAX,
+		A.PER_MEN,
+		A.SERV_TYPE_CODE,
+		A.EVENT_TYPE_CODE,
+		A.DESSERT_YN,
+		A.PER_BUD,
+		A.SERV_DATE, 
+		A.APP_DATE,
+		A.INTERIOR_YN,
+		A.COOKING_YN,
+		A.DISCHARGE_YN,
+		A.ELEVATOR_YN,
+		A.PARKING_YN,
+		A.TABLEWARE_YN,
+		A.COORDINATOR_YN,
+		A.OTHER_ORDER_YN,
+		A.REQUESTED_TERM,
+		A.PROGRESS_CODE
+		FROM CRD_SERV_APP A INNER JOIN CRD_SERV_SUGG S
+		ON A.SERV_ID = S.SERV_ID 
+		AND S.CHOOSE_YN='N'	
+		AND A.PROGRESS_CODE='00000000'
+	</select>
+	
+	<!-- 매칭성공 서비스 진행상태 임시코드 : 11111111-->
+	<select id="matchingSuccess" resultType="com.charida.app.matching.dto.MatchingDto">
+		SELECT 
+		A.SERV_ID,
+		A.ZIPCODE,
+		A.ADDRESS,
+		A.ADDRESS_DETAIL,
+		A.PARTICIPANT,
+		A.AGE_MIN,
+		A.AGE_MAX,
+		A.PER_MEN,
+		A.SERV_TYPE_CODE,
+		A.EVENT_TYPE_CODE,
+		A.DESSERT_YN,
+		A.PER_BUD,
+		A.SERV_DATE, 
+		A.APP_DATE,
+		A.INTERIOR_YN,
+		A.COOKING_YN,
+		A.DISCHARGE_YN,
+		A.ELEVATOR_YN,
+		A.PARKING_YN,
+		A.TABLEWARE_YN,
+		A.COORDINATOR_YN,
+		A.OTHER_ORDER_YN,
+		A.REQUESTED_TERM,
+		A.PROGRESS_CODE
+		FROM CRD_SERV_APP A INNER JOIN CRD_SERV_SUGG S
+		ON A.SERV_ID = S.SERV_ID 
+		AND S.CHOOSE_YN='Y'	
+		AND A.PROGRESS_CODE='11111111'
+	</select>
+</mapper>

@@ -23,7 +23,11 @@
 	</tr>	
 </table>
 
-<button onclick="location='review/reviewWrite.do'"> 후기작성하기 </button>
+<button onclick="location='/review/reviewWrite.do'"> 후기작성하기 </button><br>
+<button onclick="location='/customer/matchingFail.do'"> 매칭실패목록 </button><br>
+<button onclick="location='/customer/matchingSuccess.do'"> 서비스완료목록 </button><br>
+<button onclick="location='/review/ownReview.do'"> 등록된후기목록 </button><br>
+<button onclick="location='/review/ableToReview.do'"> 등록가능한후기목록 </button>
 </c:if>
 
 <c:if test="${session_authority != 2}">
