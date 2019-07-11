@@ -14,6 +14,8 @@
   	<link rel="stylesheet" href="/css/free-v4-shims.css">
   	<link rel="stylesheet" href="/css/nouislider.css">
   	<link rel="stylesheet" href="/css/common/common.css">
+  	<link rel = "stylesheet" type = "text/css" href ="/css/dropify.css" />
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style media="screen">
       
     </style>
