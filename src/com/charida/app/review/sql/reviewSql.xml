@@ -7,7 +7,7 @@
   <insert id="insertReview" parameterType="com.charida.app.review.dto.ReviewDto">
   	INSERT INTO CRD_SERV_REVIEW (SERV_ID, REVIEW_DATE, SERV_ROOT, MENU_SCORE, PRICE_SCORE, 
   								SERV_SCORE, RECOMMAND, TITLE, CONTENT, FILE_YN, BLIND_YN)
-  	VALUES('dd0000', SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
+  	VALUES(#{serv_id}, SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
   			#{serv_score}, #{recommand}, #{title}, #{content}, NULL, 'N')
   </insert>
   <select id="getReviews" resultType="com.charida.app.review.dto.ReviewDto">

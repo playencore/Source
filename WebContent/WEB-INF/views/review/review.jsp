@@ -33,10 +33,13 @@
 	          <center><span class="card-title">서비스 후기</span></center>
 	          <hr color="gray">
 				서비스 코드 : ${ReviewDto.serv_id } <br>
+				<hr color="white">
 				후기 제목 : ${ReviewDto.title } <br>
+				<hr color="white">
 				후기 내용 : ${ReviewDto.content } <br>
-				작성 시간 : ${ReviewDto.review_date } <br>
+				<hr color="white">				
 				서비스 이용경로 : ${ReviewDto.serv_root } <br>
+				<hr color="white">
 				
 				<%-- 음식 만족도 : ${ReviewDto.menu_score } 점 <br> --%>
 				<c:if test="${ReviewDto.menu_score eq 0}">
@@ -96,6 +99,7 @@
 				<c:if test="${ReviewDto.serv_score eq 5}">
 				서비스 만족도 : ★★★★★ <br>
 				</c:if>
+				<hr color="white">
 				<%-- 지인 추천 여부 : ${ReviewDto.recommand }	<br> --%>
 				<c:if test="${ReviewDto.recommand eq 1}">
 				지인 추천 여부 : 지인에게 추천할 의향이 있습니다.
@@ -103,6 +107,8 @@
 				<c:if test="${ReviewDto.recommand eq 0}">
 				지인 추천 여부 : 지인에게 추천할 의향이 없습니다.
 				</c:if>	
+				<hr color="white">
+				작성 시간 : ${ReviewDto.review_date } <br>
 					
 	        </div>
 	        <div class="card-action">

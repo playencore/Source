@@ -53,7 +53,7 @@ public class ReviewController {
 		req.getAttribute("servicePicture5");
 		req.getAttribute("servicePicture6");
 		
-		return "/review/review.do";
+		return "/review/review";
 	}
 	
 	@RequestMapping("/review/review.do")

@@ -26,7 +26,7 @@
  			$('.dropify').dropify(); //파일 업로드
 			
 			
-		}// ready function		
+		}// ready function
 	);//ready
 	
 	function reviewinput(){
