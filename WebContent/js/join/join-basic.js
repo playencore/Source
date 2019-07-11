@@ -393,7 +393,7 @@ $(function() {
 
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
 	$("input[name=tableok]").click(function() {
-		alert("확인버튼을 클릭을 감지해서 가입진행 여부를 검사합니다.");
+		alert("확인버튼 클릭을 감지해서 가입진행 여부를 검사합니다.");
 		var form = document.dForm;
 		check = false;
 
@@ -453,6 +453,8 @@ $(function() {
 			} else if (jointype == "2") {
 				alert("판매자 회원가입을 시도합니다.");
 				dForm.action = "/join/join-end.do"; // 판매자 회원가입 기능 페이지
+			} else {
+				alert("오류 : 구매자, 판매자 구분 불가");
 			}
 		}
 	});
