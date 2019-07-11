@@ -28,7 +28,7 @@ public class ReviewController {
 	ReviewService reviewService;
 
 	
-	@RequestMapping("*/review/reviewWrite.do")
+	@RequestMapping("/review/reviewWrite.do")
 	public String reviewWriteForm(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		
@@ -37,6 +37,7 @@ public class ReviewController {
 		return "/review/reviewWriteForm";
 	}
 	
+	//후기작성
 	@RequestMapping("/review/setReview.do")
 	public String setReview(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
@@ -53,9 +54,20 @@ public class ReviewController {
 		req.getAttribute("servicePicture5");
 		req.getAttribute("servicePicture6");
 		
+		//후기보기 추후에 Redirect 작업 해도됨
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");
+		
+		List<ReviewDto> reviews = reviewService.getReviews();
+		//log.debug();
+		req.setAttribute("reviews", reviews);
+		req.setAttribute("reviewsSize", reviews.size());
+		
 		return "/review/review";
 	}
 	
+	//후기보기
 	@RequestMapping("/review/review.do")
 	public String viewReview(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().getAttribute("session_id");
@@ -68,6 +80,18 @@ public class ReviewController {
 		req.setAttribute("reviewsSize", reviews.size());
 		
 		return "/review/review";
+	}
+	
+	@RequestMapping("/review/ownReview.do")
+	public String ownReview(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/review/ownReview";
+	}
+	
+	@RequestMapping("/review/ableToReview.do")
+	public String ableToReview(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "review/ableToReview";
 	}
 	
 	public Map<String, Object> getParameterMap(HttpServletRequest req){

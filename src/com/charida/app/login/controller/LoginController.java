@@ -32,6 +32,7 @@ public class LoginController {
 		return returnUrl;
 		
 	}
+	//로그인 체크
 	@RequestMapping("/login/loginCheck.do")
 	public String loginPro(HttpServletRequest req,HttpServletResponse resp) throws IOException {
 //		System.out.println(req.getParameter("id"));
