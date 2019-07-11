@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.common.service.TestService;
 import com.charida.app.join.service.JoinService;
+import com.charida.app.mail.service.MailService;
 
 @Controller
 public class JoinController {
@@ -19,6 +20,8 @@ public class JoinController {
 	
 	@Resource
 	private JoinService joinService;
+	@Resource
+	private MailService mailService;
 	
 	// 회원가입에 사용할 플렛폼 선택 페이지(1=일반, 2=카카오, 3=네이버)
 	@RequestMapping(value="/join/join-select-platformtype.do")
@@ -67,7 +70,15 @@ public class JoinController {
 		
 		return "/join/join-detail";
 	}
-	
+	// 이메일 전송
+	@RequestMapping(value="/mail/send-mail.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public void serviceSendMail(HttpServletRequest req,HttpServletResponse resp) {
+		String mail = req.getParameter("mail");
+		String content = req.getParameter("content");
+		// 이메일 전송
+		mailService.sendMail(mail, content);
+	}
 	// error code page
 	@RequestMapping("/join/join-error.do")
 	public String dopageError(HttpServletRequest req, HttpServletResponse resp) {

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <script src="/js/jquery-3.4.1.js"></script>
 <script src="/js/join/join-basic.js?version=0.03"></script>
+<script src="/js/mail/sendmail.js?version=0.01"></script>
 
 <title> 회원가입(기본정보)</title>
 </head>
@@ -40,12 +41,15 @@
 			</tr>
 <!-- EMAIL		VARCHAR2(30)	No	-	- -->
 			<tr>
+	<!-- 인증번호 받을 이메일 적는 곳 -->
 				<th>본인확인이메일 (email)</th>
 				<td><input type="text" name="email"></td>
 				<td><span name="emailcomment"></span></td>
 			</tr>
 			<tr>
+	<!-- 인증번호 발송 버튼 -->
 				<th><input type="button" name="emailcheck" value="인증번호발송" onclick="sendemail();">(emailcheckcomment)</th>
+	<!-- 인증발송 결과 출력 -->
 				<td><span name="emailcheckcomment">이메일확인여부 출력</span></td>
 			</tr>
 			<tr>
@@ -54,8 +58,9 @@
 				<td><span name="emailcodecomment"></span></td>
 			</tr>
 			<tr>
-				<th><input type="button" name="codecheck" value="인증번호확인">(codecheckcomment)</th>
-				<td><span name="codecheckcomment">인증번호확인여부 출력</span></td>
+	<!-- 인증번호 확인 버튼 -->
+				<th><input type="button" name="codecheck" value="인증번호확인" onclick="codecompare();">(codecheckcomment)</th>
+				<td><input name="codecheckcomment" value="인증번호확인여부 출력" disabled></td>
 			</tr>
 <!-- ZIPCODE	VARCHAR2(6)		No	-	- -->
 			<tr>
@@ -113,6 +118,7 @@
 		<%-- <input type="hidden" id="jointypeid" name="type" value="${param.type}"> --%>
 		<input type="hidden" id="jointypeid" name="type" value="1">
 		<input type="hidden" name="passstate" value="0">
+		<input type="hidden" name="code" value="">
 	</form>
 </body>
 </html>

@@ -457,7 +457,3 @@ $(function() {
 		}
 	});
 });
-
-function sendemail() {
-
-}
