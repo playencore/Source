@@ -58,8 +58,9 @@ public class LoginController {
 	}
 	@RequestMapping("/login/logout.do")
 	public String logoutPro(HttpServletRequest req,HttpServletResponse resp) {
-			req.getSession().removeAttribute("authority");
-			req.getSession().removeAttribute("name");			
+			req.getSession().removeAttribute("session_authority");
+			req.getSession().removeAttribute("session_name");
+			req.getSession().removeAttribute("session_id");
 		return "/login/loginForm";
 	}
 }
