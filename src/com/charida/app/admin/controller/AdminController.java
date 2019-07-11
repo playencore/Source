@@ -24,13 +24,13 @@ public class AdminController {
 	SupplierService supplierService ;
 	
 	
-	@RequestMapping("/admin/manageSupplier.do")
+	@RequestMapping("/admin/notPermissionList.do")
 	public String manageSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
 		List<Map<String, String>> notPermissionSuppliers = supplierService.getNotPerMissionSuppliers() ;
 		req.setAttribute("notPermissionSuppliers", notPermissionSuppliers);
 		req.setAttribute("listsize", notPermissionSuppliers.size());
-		return "/admin/supplierManage";
+		return "/admin/notPermissionList";
 	}
 	
 	@RequestMapping("/admin/updatepermissionSupplier.do")
@@ -39,6 +39,11 @@ public class AdminController {
 		req.setAttribute("result", result);
 	
 		return "/admin/updateSupplierPermission";
+	}
+	@RequestMapping("/admin/supplierSerch.do")
+	public String supplierSerch(HttpServletRequest req, HttpServletResponse resp) {
+	
+		return "/admin/supplierSerch";
 	}
 	
 	

@@ -24,7 +24,8 @@ $(document).ready(function(){
 	   
 		$('#modal1').modal();
 		$('select').formSelect();
-		});	
+		
+});	
 	
 	
 function foldDaumPostcode() {
@@ -85,16 +86,6 @@ function daumPostcode() {
     	document.getElementById('sec_postcode').style.display="block";
 	}
 	
-	function showSupplierForm(){
-		 $("#memberForm").hide();
-		 $("#supplierForm").show() ;
-	}
-	function showMemberForm(){
-		$("#memberForm").show();
-		$("#supplierForm").hide() ;
-	}
-	
-	
 	
 	//-->
 </script>
@@ -106,8 +97,9 @@ function daumPostcode() {
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinMemberForm"  method = "post" action = "/joinUser/joinSupplierPro.do" enctype="multipart/form-data" onsubmit="return supplierinput() "  >
+				<form name = "joinMemberForm"  method = "post" action = "/joinUser/joinSupplierPro.do" onsubmit="return supplierinput() "  >
 					<div id = "memberForm">
+						<input type = "hidden" name = "authority" value ="2">
 						<div class = "col s12">
 							<div class="input-field col s12">
 					          <input name="mem_id" id="mem_id" type="text" class="validate">
@@ -148,7 +140,7 @@ function daumPostcode() {
 				        </div>
 				        <div class = "col s12">
 							<div class="input-field col s8">
-					          <input name="emailcheck" id="emailcheck" type="text" class="validate">
+					          <input name="emailcheck" id="emailcheck" type="text" class="">
 					          <label for="emailcheck">*이메일 인증번호 입력</label>
 					          <span class="helper-text" id="email"></span>
 					        </div>
@@ -215,7 +207,7 @@ function daumPostcode() {
 				        </div>
 				        <br>
 						<div class="input-field col s12" style="margin-left:10px;">
-							<select>
+							<select name = "job">
 								<option value="" disabled selected>직업을 선택해주세요</option>
 								<option value="1">학생</option>
 								<option value="2">회사원</option>

@@ -1,27 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<!--  -->
-<script src = "/js/jquery-3.4.1.js"></script>
+<%@include file="/include/header.jsp" %>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src = "/js/nouislider.js"></script>
-<script src = "/js/materialize.js"></script>
 <script src = "/js/dropify.js"></script>
 
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/nouislider.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/dropify.css" />
-<!-- icon -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<title>차리다</title>
 <script type="text/javascript">
 	//<!--
 $(document).ready(function(){
-		
 	$("input[name=regist_num]").on(
 				"keyup",
 				function( event ){
@@ -68,7 +53,7 @@ $(document).ready(function(){
 		  
 		$('.dropify').dropify(); //파일 업로드
 		$('#modal1').modal();
-		
+		$('input#companyname, textarea#explanation').characterCounter();		
 	  });	
 	
 	
@@ -172,8 +157,6 @@ function daumPostcode() {
 	
 	//-->
 </script>
-</head>
-<body class = "grey lighten-2">
 	<br><br>
 	<div class ="row">
 		<div class = "col s12">
@@ -182,6 +165,7 @@ function daumPostcode() {
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
 				<form name = "joinsupplierForm"  method = "post" action = "/joinUser/joinSupplierPro.do" enctype="multipart/form-data" onsubmit="return supplierinput() "  >
 					<div id = "memberForm">
+						<input type = "hidden" name = "authority" value ="2">
 						<div class = "col s12">
 							<div class="input-field col s12">
 					          <input name="mem_id" id="mem_id" type="text" class="validate">
@@ -193,7 +177,7 @@ function daumPostcode() {
 							<div class="input-field col s12">
 					          <input name="passwd" id="passwd" type="password" class="validate">
 					          <label for="passwd">*비밀번호</label>
-					          <span class="helper-text" id="supplierlicensNumval"></span>
+					          <span class="helper-text" id="passwd"></span>
 					        </div>
 				        </div>
 				        <div class = "col s12">
@@ -224,7 +208,7 @@ function daumPostcode() {
 									<div class="col s8">
 										<div class="input-field">
 											<input type="hidden" id="zipcode" name="zipcode">
-											<input readonly="readonly" value="검색 버튼을 눌러주세요." id="address" name="address" type="text" class="validate">
+											<input readonly="readonly" value="검색 버튼을 눌러주세요." id="address" name="address" type="text" class="">
 						          			<label for="address" >*주소입력</label>
 					          			</div>
 				          			</div>
@@ -286,7 +270,7 @@ function daumPostcode() {
 							<label>직업을 선택해주세요</label>
 						</div>
 				        	<br><br>
-				       	 	 <a class="waves-effect waves-light btn" href="#" 
+				       	 	 <a class="waves-effect waves-light btn" 
 				       	 	 onclick="return showSupplierForm()" 
 				       	 	 id="btn_next">다음 
 				       	 	 <i class="fas fa-caret-right" style="margin-left: 5px; font-size: 14px"></i></a>
@@ -296,9 +280,9 @@ function daumPostcode() {
   					<div id = "supplierForm" style="display:none">
   						<div class = "col s12">
 						<div class="input-field col s12">
-				          <input name="companyname" id="companyname" type="text" class="validate">
+				          <input name="companyname" id="companyname" type="text" class="validate" data-length="13">
 				          <label for="companyname">*업체 이름</label>
-				          <span class="helper-text" id="name"></span>
+				          <span class="helper-text" id="companynamecheck"></span>
 				        </div>
 			        </div>
 			        <div class = "col s12">
@@ -310,9 +294,9 @@ function daumPostcode() {
 			        </div>
 			        <div class = "col s12">
 						<div class="input-field col s12">
-				        	<textarea name="explanation" id="explanation" class="validate materialize-textarea" ></textarea>
+				        	<textarea name="explanation" id="explanation" class="validate materialize-textarea" data-length="130"></textarea>
           					<label for="explanation">업체 소개</label>
-          					<span class="helper-text" id="supplierInfoval"></span>
+          					<span class="helper-text" id="explanationcheck"></span>
 				        </div>
 			        </div>
 			        
@@ -520,10 +504,8 @@ function daumPostcode() {
 			</div> <!-- 여기까지 -->
 		</div>
 	</div> <!--  form  -->
-</body>
-
-
-<!-- Modal Structure -->
+	
+	<!-- Modal Structure -->
 <div id="modal1" class="modal">
 	<div class="modal-content">
 		<div class="row" id="sec_postcode" style="margin-bottom: 0px;">
@@ -535,5 +517,7 @@ function daumPostcode() {
 		</div>
 	</div>
 </div>
+<%@include file="/include/footer.jsp" %>
+</body>
 
 </html>
