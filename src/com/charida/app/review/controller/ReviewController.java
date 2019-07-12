@@ -26,8 +26,8 @@ public class ReviewController {
 
 	@Resource
 	ReviewService reviewService;
-
 	
+	//후기작성페이지 컨트롤러
 	@RequestMapping("/review/reviewWrite.do")
 	public String reviewWriteForm(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
@@ -37,7 +37,7 @@ public class ReviewController {
 		return "/review/reviewWriteForm";
 	}
 	
-	//후기작성
+	//후기작성처리
 	@RequestMapping("/review/setReview.do")
 	public String setReview(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
@@ -62,14 +62,14 @@ public class ReviewController {
 		List<ReviewDto> reviews = reviewService.getReviews();
 		//log.debug();
 		req.setAttribute("reviews", reviews);
-		req.setAttribute("reviewsSize", reviews.size());
+		//req.setAttribute("reviewsSize", reviews.size());
 		
 		return "/review/review";
 	}
 	
 	//후기보기
 	@RequestMapping("/review/review.do")
-	public String viewReview(HttpServletRequest req, HttpServletResponse resp) {
+	public String getReviews(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
@@ -77,17 +77,27 @@ public class ReviewController {
 		List<ReviewDto> reviews = reviewService.getReviews();
 		//log.debug();
 		req.setAttribute("reviews", reviews);
-		req.setAttribute("reviewsSize", reviews.size());
+		//req.setAttribute("reviewsSize", reviews.size());
 		
 		return "/review/review";
 	}
 	
+	//특정구매자 후기 보기(id값 비교)
 	@RequestMapping("/review/ownReview.do")
 	public String ownReview(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");		
 		
+		String id = (String)req.getSession().getAttribute("session_id");
+		List<ReviewDto> reviews = reviewService.ownReview(id);
+		
+		//log.debug();
+		req.setAttribute("reviews", reviews);
 		return "/review/ownReview";
 	}
 	
+	//작성가능한 후기 목록
 	@RequestMapping("/review/ableToReview.do")
 	public String ableToReview(HttpServletRequest req, HttpServletResponse resp) {
 		

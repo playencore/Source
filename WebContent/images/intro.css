@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+/*  풀어주기   */
+.pet_image {
+    width: 100%;
+}
+
+#desc_section .left_think{
+    min-height: 40%;
+    background: url('/images/think.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#desc_section .left_same{
+    min-height: 40%;
+    background: url('/images/same.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#desc_section .left_day{
+    min-height: 40%;
+    background: url('/images/day.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#desc_section .left_connection{
+    min-height: 40%;
+    background: url('/images/connection.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#desc_section .left_charida{
+    min-height: 40%;
+    background: url('/images/charida.jpg');
+    background-size: cover;
+    background-position: center;
+}

@@ -23,5 +23,8 @@ public class ReviewDao {
 	public List<ReviewDto> getReviews() {
 		return sqlsession.selectList("Review.getReviews");
 	}
+	public List<ReviewDto> ownReview(String id) {
+		return sqlsession.selectList("Review.ownReview",id);
+	}
 
 }

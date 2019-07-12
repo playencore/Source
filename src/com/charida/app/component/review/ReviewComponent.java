@@ -21,7 +21,9 @@ public class ReviewComponent {
 		return result;
 	}
 	public List<ReviewDto> getReviews() {
-		return reviewDao.getReviews();
-		
+		return reviewDao.getReviews();		
+	}
+	public List<ReviewDto> ownReview(String id) {
+		return reviewDao.ownReview(id);
 	}
 }

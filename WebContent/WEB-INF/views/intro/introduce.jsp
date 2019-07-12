@@ -18,7 +18,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
       
-        <link rel="stylesheet" type="text/css" href="/css/introduce.css">
+        <link rel="stylesheet" type="text/css" href="/images/intro.css">
       
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" 
             integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -26,27 +26,10 @@
         <title>차리다 소개페이지</title>
     </head>
 <body>
-    <nav class="navbar navbar-expand-xl bg-primary navbar-dark">
-        <div class="container">
-            <!-- 브랜드 로고 -->
-           <!--  <a href="http://playdata.io" class="navbar-brand"><img src="./img/play_data_white.png" alt="playdata"></a> -->
-            <!-- 햄버거 버튼 -->
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="myNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="#" class="nav-link">게시판</a></li>
-                    <li class="nav-item"><a href="#container" class="nav-link">갤러리</a></li>
-                    <li class="nav-item"><a href="#grid_system" class="nav-link">로그인</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+ <%@include file="/include/header.jsp" %>
     <br><br>
 
-    <div class="container text-center" >
+    <div class="text-center" >
         <hr color="gray">
         <h1>COMPANY INFO.</h1>
         <h2>'CHA-RI-DA'</h2>
@@ -54,10 +37,10 @@
         <hr color="gray" >
     </div>
     <br><br>
-    <div class="container text-center"><h3>01</h3></div>
-    <div class="container text-left" >
+    <div class=" text-center"><h3>01</h3></div>
+    <div class=" text-left" >
         <hr color="gray">
-            <div class="container" id="desc_section">
+            <div id="desc_section">
                 <div class="row">
                     <div class="col-md-6 left_think">
         
@@ -82,10 +65,10 @@
         <hr color="gray">
     </div>
     <br><br>
-    <div class="container text-center"><h3>02</h3></div>
-    <div class="container  text-left" >
+    <div class="text-center"><h3>02</h3></div>
+    <div class="text-left" >
         <hr color="gray">
-            <div class="container" id="desc_section">
+            <div id="desc_section">
                 <div class="row">
                     <div class="col-md-6 left_same">
         
@@ -108,10 +91,10 @@
         <hr color="gray">
     </div>
     <br><br>
-    <div class="container text-center"><h3>03</h3></div>
-    <div class="container  text-left" >
+    <div class="text-center"><h3>03</h3></div>
+    <div class="text-left" >
         <hr color="gray">
-            <div class="container" id="desc_section">
+            <div id="desc_section">
                 <div class="row">
                     <div class="col-md-6 left_day">
         
@@ -135,10 +118,10 @@
         <hr color="gray">
     </div>
     <br><br>
-    <div class="container text-center"><h3>04</h3></div>
-    <div class="container  text-left" >
+    <div class="text-center"><h3>04</h3></div>
+    <div class="text-left" >
         <hr color="gray">
-            <div class="container" id="desc_section">
+            <div id="desc_section">
                 <div class="row">
                     <div class="col-md-6 left_connection">
         
@@ -162,10 +145,10 @@
         <hr color="gray">
     </div>
     <br><br>
-    <div class="container text-center"><h3>05</h3></div>
-    <div class="container  text-left" >
+    <div class="text-center"><h3>05</h3></div>
+    <div class="text-left" >
         <hr color="gray">
-            <div class="container" id="desc_section">
+            <div id="desc_section">
                 <div class="row">
                     <div class="col-md-6 left_charida">
         
@@ -191,8 +174,8 @@
     </div>
 
     <br><br>
-    <div class="container">
-        <h2 class="container">CONTACT US</h2>
+    <div>
+        <h2 class="text-center">CONTACT US</h2>
         <hr color="gray">
  
         
@@ -281,5 +264,6 @@
         </script>          
         <hr color="gray">
     </div>
+    <%@include file="/include/footer.jsp" %>
 </body>
 </html>

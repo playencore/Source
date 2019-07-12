@@ -23,4 +23,20 @@
   	CONTENT 
   	FROM CRD_SERV_REVIEW
   </select>
+  
+  <select id="ownReview" parameterType="String" resultType="com.charida.app.review.dto.ReviewDto">
+	SELECT 
+	  	A.SERV_ID, 
+	  	A.REVIEW_DATE, 
+	  	A.SERV_ROOT, 
+	  	A.MENU_SCORE, 
+	  	A.PRICE_SCORE, 
+	  	A.SERV_SCORE, 
+	  	A.RECOMMAND, 
+	  	A.TITLE, 
+	  	A.CONTENT 
+	  	FROM CRD_SERV_REVIEW A INNER JOIN CRD_SERV_APP B
+	ON A.SERV_ID = B.SERV_ID
+	AND B.CUSTOMER_ID = #{id}
+  </select>
 </mapper>

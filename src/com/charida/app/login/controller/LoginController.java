@@ -14,7 +14,7 @@ import com.charida.app.login.service.LoginService;
 
 @Controller
 public class LoginController {
-	private final static String returnUrl = "/login/loginForm";
+	//private final static String returnUrl = "";
 	
 	@Resource
 	LoginService loginService;
@@ -29,7 +29,7 @@ public class LoginController {
 		
 		//model.addAttribute("serverTime", formattedDate );
 		
-		return returnUrl;
+		return "/login/loginForm";
 		
 	}
 	//로그인 체크
@@ -47,7 +47,7 @@ public class LoginController {
 			req.getSession().setAttribute("session_authority", session);//세션등록
 			req.getSession().setAttribute("session_name", name);
 			req.getSession().setAttribute("session_id", id);
-			return "/login/loginPro";
+			return "/main";
 		}else if(result == -1) {
 			req.setAttribute("test", -1);
 			return "/login/loginForm";
@@ -58,9 +58,9 @@ public class LoginController {
 	}
 	@RequestMapping("/login/logout.do")
 	public String logoutPro(HttpServletRequest req,HttpServletResponse resp) {
-			req.getSession().removeAttribute("session_authority");
+			req.getSession().removeAttribute("session_authority");//세션제거
 			req.getSession().removeAttribute("session_name");
 			req.getSession().removeAttribute("session_id");
-		return "/login/loginForm";
+		return "/main";
 	}
 }

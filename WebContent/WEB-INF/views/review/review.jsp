@@ -17,13 +17,13 @@
 <body>
 	<h2>후기보기 페이지입니다.</h2>
 	<hr color="gray">
-	회원 분류 : ${session_name }<br>
-	아이디 : ${session_id }<br>
-	세션 코드 : ${session_authority }
+	회원 분류 : ${session_name}<br>
+	아이디 : ${session_id}<br>
+	세션 코드 : ${session_authority}
 	<hr color="gray">
 	${reviews}<br><br>
 	
-	<c:forEach var="ReviewDto" items="${reviews }">
+	<c:forEach var="ReviewDto" items="${reviews}">
 	
 	<div class="container">
 	 <div class="card big">
@@ -32,13 +32,13 @@
 	        <div class="card-content white-text">
 	          <center><span class="card-title">서비스 후기</span></center>
 	          <hr color="gray">
-				서비스 코드 : ${ReviewDto.serv_id } <br>
+				서비스 코드 : ${ReviewDto.serv_id} <br>
 				<hr color="white">
-				후기 제목 : ${ReviewDto.title } <br>
+				후기 제목 : ${ReviewDto.title} <br>
 				<hr color="white">
-				후기 내용 : ${ReviewDto.content } <br>
+				후기 내용 : ${ReviewDto.content} <br>
 				<hr color="white">				
-				서비스 이용경로 : ${ReviewDto.serv_root } <br>
+				서비스 이용경로 : ${ReviewDto.serv_root} <br>
 				<hr color="white">
 				
 				<%-- 음식 만족도 : ${ReviewDto.menu_score } 점 <br> --%>
@@ -108,7 +108,7 @@
 				지인 추천 여부 : 지인에게 추천할 의향이 없습니다.
 				</c:if>	
 				<hr color="white">
-				작성 시간 : ${ReviewDto.review_date } <br>
+				작성 시간 : ${ReviewDto.review_date} <br>
 					
 	        </div>
 	        <div class="card-action">

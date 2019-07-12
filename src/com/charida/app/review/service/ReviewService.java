@@ -39,6 +39,10 @@ public class ReviewService {
 		
 	}
 	
+	public List<ReviewDto> ownReview(String id) {
+		return reviewComponent.ownReview(id);
+	}
+	
 	
 	
 }
