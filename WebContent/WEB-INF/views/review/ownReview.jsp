@@ -9,6 +9,18 @@
 	<hr color="gray">
 	${reviews}<br><br>
 	
+	<script type="text/javascript">
+	//<!--
+	<c:if test="${check == 0}">
+		alert("게시물 삭제에 실패했습니다. 잠시후 다시 시도해주세요.");
+	</c:if>	
+	<c:if test="${check == 1}">
+		alert("해당 게시글이 삭제되었습니다.");
+	</c:if>
+	
+	//-->
+	</script>
+	
 	<c:forEach var="ReviewDto" items="${reviews}">
 	
 	<div class="container">
@@ -101,7 +113,8 @@
 	          <center>
 	          <a class="waves-effect waves-light btn modal-trigger" 
 	          href="/review/modifyReview.do?serv_id=${ReviewDto.serv_id}">수정하기</a>
-	          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">삭제하기</a>
+	          <a class="waves-effect waves-light btn modal-trigger" 
+	          href="/review/deleteReview.do?serv_id=${ReviewDto.serv_id}">삭제하기</a>
 	          </center>
 	        </div>
 	      </div>

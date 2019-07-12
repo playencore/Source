@@ -16,7 +16,7 @@
 	</c:if>
 	<c:if test="${test == -1 }">
 	alert("비밀번호가 일치하지 않습니다.");
-</c:if>
+	</c:if>
 	
   function loginCheck(){
 	  if(! loginform.id.value){
