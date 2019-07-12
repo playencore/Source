@@ -52,9 +52,9 @@ public class ReviewService {
 		return reviewComponent.modifyReview(serv_id);
 	}
 	
-	public int modifyReviewPro(String serv_id) {
-		return reviewComponent.modifyReviewPro(serv_id);
-	}
+//	public int modifyReviewPro(String serv_id) {
+//		return reviewComponent.modifyReviewPro(serv_id);
+//	}
 	
 //	public int deleteReview(String serv_id) {
 //		int result = reviewComponent.deleteReview(serv_id);
