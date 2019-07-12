@@ -40,8 +40,8 @@
     <a href="#" data-target="mobile-demo" class="sidenav-trigger">menu</a>
     <ul id="navbar" class="right hide-on-med-and-down">
       <li><a href="/service/application.do">서비스 신청</a></li>
-      <li><a href="badges.html">서비스 후기</a></li>
-      <li><a href="#" >회사 소개</a></li>
+      <li><a href="/review/review.do">서비스 후기</a></li>
+      <li><a href="/intro/introduce.do" >회사 소개</a></li>
       <c:if test="${sessionScope.session_name ne null}">
       	<li><a href="#" onclick="showExtendedMenu('#nav_mypage');return false;" >마이 페이지<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 10px"></i></a></li>
       </c:if>
