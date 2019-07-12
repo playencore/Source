@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
 
 @Repository
@@ -25,6 +26,12 @@ public class ReviewDao {
 	}
 	public List<ReviewDto> ownReview(String id) {
 		return sqlsession.selectList("Review.ownReview",id);
+	}
+	public List<MatchingDto> ableToReview() {
+		return sqlsession.selectList("Review.ableToReview");
+	}
+	public ReviewDto modifyReview(String serv_id) {
+		return sqlsession.selectOne("Review.modifyReview",serv_id);
 	}
 
 }

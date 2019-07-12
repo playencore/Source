@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.charida.app.component.review.ReviewComponent;
+import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
 
 @Service
@@ -43,6 +44,13 @@ public class ReviewService {
 		return reviewComponent.ownReview(id);
 	}
 	
+	public List<MatchingDto> ableToReview() {
+		return reviewComponent.ableToReview();
+	}
+	
+	public ReviewDto modifyReview(String serv_id) {
+		return reviewComponent.modifyReview(serv_id);
+	}
 	
 	
 }

@@ -1,26 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
-    
-<html>
-<head>
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<!--  -->
-<script src = "/js/jquery-3.4.1.js"></script>
-<script src = "/js/materialize.js"></script>
-<meta charset="UTF-8">
-<script type="text/javascript">
-  //<!--
-   $(document).ready(function(){
-    $('.modal').modal();
-  });         
-  //-->
-  </script>
-<title>구매자 매칭 실패목록</title>
-</head>
-
-<body>
+<%@include file="/include/header.jsp" %>
+	<script type="text/javascript">
+	  //<!--
+	   $(document).ready(function(){
+	    $('.modal').modal();
+	  });         
+	  //-->
+	  </script>
 	<h2>구매자 - 매칭실패목록 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name }<br>
@@ -255,6 +242,7 @@
   </div>  
 </c:forEach>
 
+    <%@include file="/include/footer.jsp" %>
 
 </body>
 </html>

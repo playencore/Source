@@ -14,8 +14,10 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.charida.app.common.service.TestService;
+import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
 import com.charida.app.review.service.ReviewService;
 
@@ -100,8 +102,41 @@ public class ReviewController {
 	//작성가능한 후기 목록
 	@RequestMapping("/review/ableToReview.do")
 	public String ableToReview(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");
+		
+		
+		List<MatchingDto> reviews = reviewService.ableToReview();
+		
+		req.setAttribute("reviews", reviews);
 		
 		return "review/ableToReview";
+	}
+	
+	@RequestMapping("/review/modifyReview.do")
+	public String modifyReview(@RequestParam("serv_id")String serv_id, HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");
+		//String id = (String)req.getSession().getAttribute("session_id");
+		//String serv_id = req.getParameter("serv_id");
+		
+		ReviewDto review = reviewService.modifyReview(serv_id);
+		req.setAttribute("review", review);
+		
+		return "/review/modifyReview";
+	}
+	
+	@RequestMapping("review/deleteReview.do")
+	public String deleteReview(HttpServletRequest req, HttpServletRequest resp) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");
+		
+		
+		
+		return "review/ownReview";
 	}
 	
 	public Map<String, Object> getParameterMap(HttpServletRequest req){

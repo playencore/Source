@@ -1,23 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>후기</title>
-
-<!-- js -->
-<script src = "/js/jquery-3.4.1.js"></script>
-<script src = "/js/materialize.js"></script>
-<script src = "/js/dropify.js"></script>
-
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/nouislider.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/dropify.css" />
-<!-- icon -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<%@include file="/include/header.jsp" %>
 
 <script type="text/javascript">
 	//<!--
@@ -59,35 +42,50 @@
 	//-->
 	
 </script>
-</head>
-<body>
 
 <div class="section"></div>
 <div class="section"></div>
 
 <form method="post" onsubmit="return reviewinput()" action="/review/setReview.do" enctype="multipart/form-data">
 
-<div class="container">
-	<table border="1">
+<div class="container" style="background-color: white;margin-top:2px;">
+
+<div class="row">
+	<div class="col m12">
+		<div class="section">
+			<h5>
+				후기 작성
+				<small id="sub_title"> CHA-RI-DA</small>
+				<small style="float: right;"> * 는 필수입력 사항입니다.</small>
+			</h5>
+			<div class="divider"></div>
+		</div>
+	</div>
+</div>
+
+<div class="section"></div>
+	<table border="1" class="container">
 		<tr>
 			<th colspan="2" align="center">서비스 후기등록</th>			
 		</tr>
 		<tr>
-			<th>서비스 형태</th>
-			<td>제공받은 서비스 형태를 여기에 출력Dao(수정불가)</td>
-		</tr>
-		<tr>
-			<th>이용 경로</th>
-			<td><input type="text" name="servRoot"
-			placeholder="서비스를 이용하게 된 경로를 기입해주세요. ex) 인터넷 검색, 지인추천, 광고 등">
+			<th>서비스 형태 *</th>
+				<td><input type="text" name="servRoot"
+				placeholder="개인행사, 사교모임, 리셉션,기업행사, 학교행사, 기타  ">
 			</td>
 		</tr>
 		<tr>
-			<th>제목</th>
+			<th>이용 경로 *</th>
+				<td><input type="text" name="servRoot"
+				placeholder="ex) 인터넷 검색, 지인추천, 광고 등">
+			</td>
+		</tr>
+		<tr>
+			<th>제목 *</th>
 			<td><input type="text" name="title" placeholder="제목을 입력해주세요. (100자 이내)"></td>
 		</tr>
 		<tr>
-			<th>후기</th>
+			<th>후기 *</th>
 			<td>
 				<textarea style="width:290; height:100%" name="content" rows="5"
 				placeholder="2000자 이내로 작성해 주세요."></textarea>
@@ -96,11 +94,11 @@
 	</table>
 	
 	<br>
-	<h6>만족도 평가</h6>
-	<hr color="gray">
-	<div id="menu_score" class="row">
+	<h6 class="container">만족도 평가 *</h6>
+	<hr color="gray" class="container">
+	<div id="menu_score" class="row container">
 		<div class="col s12">
-			<p id="food"> * 음식 만족도</p>	
+			<p id="food"> [ 음식 만족도 ]</p>	
 			<div class = "col s6">
 	       		<label>
 		    		<input type="radio" name = "menuScore" value = "1" />
@@ -139,10 +137,10 @@
 	       	</div>       	
        	</div>
 	</div>
-	<hr color="gray">
-	<div id="price_score" class="row">
+	<hr color="gray" class="container">
+	<div id="price_score" class="row container">
 		<div class="col s12">
-			<p id="price"> * 가격 만족도</p>		
+			<p id="price"> [ 가격 만족도 ]</p>		
 			<div class = "col s6">
 	       		<label>
 		    		<input type="radio" name = "priceScore" value = "1" />
@@ -182,10 +180,10 @@
 	       	</div>       	
        	</div>
 	</div>
-	<hr color="gray">
-	<div id="service_score" class="row">
+	<hr color="gray" class="container">
+	<div id="service_score" class="row container">
 		<div class="col s12">
-			<p id="serv"> * 서비스 만족도</p>		
+			<p id="serv"> [ 서비스 만족도 ]</p>		
 			<div class = "col s6">
 	       		<label>
 		    		<input type="radio" name = "serviceScore" value = "1" />
@@ -225,10 +223,10 @@
 	       	</div>       	
        	</div>
 	</div>
-	<hr color="gray">
-	<div class="row">
+	<hr color="gray" class="container">
+	<div class="row container">
 		<div class="col s12">
-			<p id="recommand"> * 지인에게 '차리다' 서비스를 추천하실 의향이 있으신가요?</p>		
+			<p id="recommand"> Q. 지인에게 '차리다' 서비스를 추천하실 의향이 있으신가요?</p>		
 			<div class = "col s6">
 	       		<label>
 		    		<input type="radio" name = "recommend" value = "1" />
@@ -243,12 +241,12 @@
 	       	</div>	       	
        	</div>
 	</div>
-	<hr color="gray">
+	<hr color="gray" class="container">
 	
-	<div class="row">
+	<div class="row container">
 		 <div class = "col s12">
 	        <br>
-	        	<p> 서비스 사진 </p>
+	        	<p> [ 서비스 사진 ] </p>
 	        	<div class = "col s4">
 	        		<input name ="servicePicture1" type="file"  class="dropify" data-height="100"> 
 	        	</div>
@@ -273,19 +271,22 @@
 	      </div>
 	</div>
 	<br>
-	<hr color="gray">
+	<hr color="gray" class="container">
 	<br>
-	<div>
+	<div class="container">
 	 <button class="btn waves-effect waves-light" type="submit"  >
     <i class="material-icons left">send</i>후기 등록하기
   	</button>
 	</div>
 	
-	<div class="section"></div>
-	<div class="section"></div>
-	<div class="section"></div>	
+<div class="section"></div>
+<div class="section"></div>
+	
 </div>
-
+<div class="section"></div>	
+<div class="section"></div>	
 </form>
+<script src = "/js/dropify.js"></script>
+<%@include file="/include/footer.jsp" %>
 </body>
 </html>

@@ -1,20 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
-    
-<!DOCTYPE html>
-<html>
-<head>
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<!--  -->
-<script src = "/js/jquery-3.4.1.js"></script>
-<script src = "/js/materialize.js"></script>
-<meta charset="UTF-8">
-<meta charset="UTF-8">
-<title>후기보기</title>
-</head>
-<body>
+<%@include file="/include/header.jsp" %>
 	<h2>해당 구매자가 등록한 후기보기 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name}<br>
@@ -112,7 +98,11 @@
 					
 	        </div>
 	        <div class="card-action">
-	          <center><a class="waves-effect waves-light btn modal-trigger" href="#modal1">상세보기</a></center>
+	          <center>
+	          <a class="waves-effect waves-light btn modal-trigger" 
+	          href="/review/modifyReview.do?serv_id=${ReviewDto.serv_id}">수정하기</a>
+	          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">삭제하기</a>
+	          </center>
 	        </div>
 	      </div>
 	    </div>
@@ -123,6 +113,6 @@
 		
 	</c:forEach>
 
-
+<%@include file="/include/footer.jsp" %>
 </body>
 </html>

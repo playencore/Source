@@ -39,4 +39,51 @@
 	ON A.SERV_ID = B.SERV_ID
 	AND B.CUSTOMER_ID = #{id}
   </select>
+  
+  <select id="ableToReview" resultType="com.charida.app.matching.dto.MatchingDto">
+	SELECT 	
+	A.SERV_ID, 
+	A.CUSTOMER_ID,
+	A.ZIPCODE,
+	A.ADDRESS,
+	A.ADDRESS_DETAIL,
+	A.PARTICIPANT,
+	A.AGE_MIN,
+	A.AGE_MAX,
+	A.PER_MEN,
+	A.SERV_TYPE_CODE,
+	A.EVENT_TYPE_CODE,
+	A.DESSERT_YN,
+	A.PER_BUD,
+	A.SERV_DATE,	
+	A.APP_DATE,
+	A.INTERIOR_YN,
+	A.COOKING_YN,
+	A.DISCHARGE_YN,
+	A.ELEVATOR_YN,
+	A.PARKING_YN,
+	A.TABLEWARE_YN,
+	A.COORDINATOR_YN,
+	A.OTHER_ORDER_YN,
+	A.REQUESTED_TERM
+	FROM CRD_SERV_APP A INNER JOIN CRD_SERV_SUGG S
+	ON S.CHOOSE_YN='Y' 
+	AND A.SERV_ID = S.SERV_ID 
+	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
+  </select>
+  <select id="modifyReview" parameterType="java.lang.String" resultType="java.util.Map">
+  	SELECT 
+	  	SERV_ID, 
+	  	REVIEW_DATE, 
+	  	SERV_ROOT, 
+	  	MENU_SCORE, 
+	  	PRICE_SCORE, 
+	  	SERV_SCORE, 
+	  	RECOMMAND, 
+	  	TITLE, 
+	  	CONTENT
+  	FROM CRD_SERV_REVIEW
+  	WHERE SERV_ID = #{serv_id}
+  </select>
+  
 </mapper>

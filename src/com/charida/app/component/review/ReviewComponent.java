@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dao.ReviewDao;
 import com.charida.app.review.dto.ReviewDto;
 
@@ -20,10 +21,20 @@ public class ReviewComponent {
 		
 		return result;
 	}
+	
 	public List<ReviewDto> getReviews() {
 		return reviewDao.getReviews();		
 	}
+	
 	public List<ReviewDto> ownReview(String id) {
 		return reviewDao.ownReview(id);
+	}
+	
+	public List<MatchingDto>ableToReview() {
+		return reviewDao.ableToReview();
+	}
+	
+	public ReviewDto modifyReview(String serv_id) {
+		return reviewDao.modifyReview(serv_id);
 	}
 }
