@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.charida.app.member.dao.MemberDao;
+import com.charida.app.member.dto.MemberDto;
 
 @Component
 public class JoinComponent {
@@ -18,8 +19,6 @@ public class JoinComponent {
 		int result = memberDao.selectMember(memid);
 		return result;
 	}
-	
-	
 	
 	public boolean isPasswdCombination(String text) {
 		boolean check = false;
@@ -39,5 +38,10 @@ public class JoinComponent {
 			check = false;
 		}
 		return check;
+	}
+	
+	// 회원가입
+	public int setMember( MemberDto memberDto ) {
+		return memberDao.insertMember( memberDto );
 	}
 }

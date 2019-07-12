@@ -53,6 +53,10 @@ function cklength(attrval, min, max) {
 		return true;
 	}
 }
+function isOnlyNumber(attrval) {
+//	if( attrval.)
+}
+
 
 $(function() {
 	var check = false;
@@ -197,28 +201,28 @@ $(function() {
 
 	// email 관련 keyup 이벤트 감지
 	$('input[name=email]')
-			.on(
-					'keyup',
-					function() {
-						check = false;
-						attr = "email";
-						attrval = getval(attr);
-						var emailReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-						// 검사
-						if (!ckempty(attrval)) { // null과 공백 검사
+		.on(
+			'keyup',
+			function() {
+				check = false;
+				attr = "email";
+				attrval = getval(attr);
+				var emailReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+				// 검사
+				if (!ckempty(attrval)) { // null과 공백 검사
 
-						} else if (!cklength(attrval, 6, 30)) { // 글자 수 검사
+				} else if (!cklength(attrval, 6, 30)) { // 글자 수 검사
 
-						} else if (emailReg.test(attrval) == false) {
-							result = "잘못된 이메일 형식입니다.";
-						} else {
-							result = "올바른 이메일 형식입니다.";
-							check = true;
-						}
+				} else if (emailReg.test(attrval) == false) {
+					result = "잘못된 이메일 형식입니다.";
+				} else {
+					result = "올바른 이메일 형식입니다.";
+					check = true;
+				}
 
-						// 출력
-						emailable = outresult(attr, check, result);
-					});
+				// 출력
+				emailable = outresult(attr, check, result);
+			});
 	// 인증번호발송버튼 관련 keyup 이벤트 감지(미완성)
 	$('input[name=emailcheckcomment]').on('keyup', function() {
 		alert("emailcheckcomment");
@@ -381,7 +385,7 @@ $(function() {
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
 
-		} else if (!cklength(attrval, 2, 20)) { // 글자 수 검사
+		} else if (!cklength(attrval, 2, 6)) { // 글자 수 검사
 
 		} else {
 			result = "";
@@ -412,9 +416,6 @@ $(function() {
 		} else if (emailable == false) {
 			document.dForm.email.focus();
 			document.dForm.email.select();
-		} else if (emailcheckcommentable == false) {
-			document.dForm.emailcheckcomment.focus();
-			document.dForm.emailcheckcomment.select();
 		} else if (emailcodeable == false) {
 			document.dForm.emailcode.focus();
 			document.dForm.emailcode.select();
@@ -445,17 +446,24 @@ $(function() {
 		} else if (authorityable == false) {
 			document.dForm.authority.focus();
 			document.dForm.authority.select();
-		} else {
+	//	} else {
+		} 
+		alert("유효성 모두 통과 함");
+		if (true) {
+			dForm.action = "/join/join-enda.do"; // 구매자 회원가입 기능 페이지
+			dForm.submit();
 			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
-			if (jointype == "1") {
+			/*if (jointype == "1") {
 				alert("구매자 회원가입을 시도합니다.");
+				
 				dForm.action = "/join/join-end.do"; // 구매자 회원가입 기능 페이지
+				dForm.submit();
 			} else if (jointype == "2") {
 				alert("판매자 회원가입을 시도합니다.");
 				dForm.action = "/join/join-end.do"; // 판매자 회원가입 기능 페이지
 			} else {
 				alert("오류 : 구매자, 판매자 구분 불가");
-			}
+			}*/
 		}
 	});
 });
