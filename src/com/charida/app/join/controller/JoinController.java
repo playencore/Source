@@ -1,5 +1,9 @@
 package com.charida.app.join.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +59,7 @@ public class JoinController {
 	@RequestMapping(value="/join/join-basic/checkid.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String serviceIdCheck(HttpServletRequest req,HttpServletResponse resp) {
+		log.debug("JoinController > serviceIdCheck : 아이디중복확인 시작");
 		String id = req.getParameter("id");
 		// 아이디 중복 확인
 		String result = joinService.isOnly(id);
@@ -84,6 +89,31 @@ public class JoinController {
 	public String dopageError(HttpServletRequest req, HttpServletResponse resp) {
 		
 		return "/join/join-error";
+	}
+	
+	// 회원가입
+	@RequestMapping(value="/join/join-enda.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String serviceJoinMember(HttpServletRequest req,HttpServletResponse resp) {
+		log.debug("joinController > serviceJoinMember : " + "시작");
+		String result = joinService.joinMember( getParameterMap(req) );
+		log.debug("joinController > serviceJoinMember : " + "종료");
+		return result;
+	}
+	public Map<String, Object> getParameterMap(HttpServletRequest req){
+		Map<String, Object> params = new HashMap<String, Object>();
+		Enumeration<String> keys= req.getParameterNames();
+		
+		while(keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			if(key.indexOf("cb")!=-1 || key.indexOf("sb")!=-1) { //배열값
+				params.put(key,req.getParameterValues(key));
+			}else {
+				params.put(key,req.getParameter(key));
+			}
+		}
+		
+		return params;
 	}
 	
 }

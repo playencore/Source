@@ -7,4 +7,18 @@
 	<select id="selectMemid" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM CRD_MEM where mem_id = #{id}
 	</select>
+	<insert id="insertMember" parameterType="com.charida.app.member.dto.MemberDto">
+		INSERT INTO CRD_MEM (
+			MEM_ID, PASSWD, AUTHORITY, 
+			NAME, EMAIL, ZIPCODE, TEL, 
+			BIRTH_DATE, ADDRESS, ADDRESS_DETAIL, 
+			JOIN_DATE, GENDER, JOB
+		) 
+		VALUES ( 
+			#{mem_id} , #{passwd} , #{authority} , 
+			#{name} , #{email} , #{zipcode} , #{tel} , 
+			#{birth_date} , #{address} , #{address_detail} , 
+			sysdate , #{gender} , #{job} 
+		)
+	</insert>
 </mapper>

@@ -50,7 +50,7 @@
 	<!-- 인증번호 발송 버튼 -->
 				<th><input type="button" name="emailcheck" value="인증번호발송" onclick="sendemail();">(emailcheckcomment)</th>
 	<!-- 인증발송 결과 출력 -->
-				<td><span name="emailcheckcomment">이메일확인여부 출력</span></td>
+				<td><span name="emailcheckcomment" value="이메일확인여부 출력"></span></td>
 			</tr>
 			<tr>
 				<th>이메일인증번호 (emailcode)</th>
@@ -112,7 +112,7 @@
 			</tr>
 <!-- JOIN_DATE	DATE			No	-	- -->
 			<tr>
-				<th colspan="2"><input type="button" name="tableok" value="확인" onclick="ontableok()"></th>
+				<th colspan="2"><input type="button" name="tableok" value="확인"></th>
 			</tr>
 		</table>
 		<%-- <input type="hidden" id="jointypeid" name="type" value="${param.type}"> --%>
