@@ -37,4 +37,21 @@ public class ReviewComponent {
 	public ReviewDto modifyReview(String serv_id) {
 		return reviewDao.modifyReview(serv_id);
 	}
+	public int deleteReview(String serv_id) {
+		int result = reviewDao.deleteReview(serv_id);
+		if(result == 0) {
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	
+	public int modifyReviewPro(String serv_id) {
+		int result = reviewDao.modifyReviewPro(serv_id);
+		if(result == 0) {
+			return 0;
+		}else {
+			return 1;
+		}		
+	}
 }

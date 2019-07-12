@@ -7,7 +7,7 @@
   <insert id="insertReview" parameterType="com.charida.app.review.dto.ReviewDto">
   	INSERT INTO CRD_SERV_REVIEW (SERV_ID, REVIEW_DATE, SERV_ROOT, MENU_SCORE, PRICE_SCORE, 
   								SERV_SCORE, RECOMMAND, TITLE, CONTENT, FILE_YN, BLIND_YN)
-  	VALUES('ff0000', SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
+  	VALUES('gg0000', SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
   			#{serv_score}, #{recommand}, #{title}, #{content}, NULL, 'N')
   </insert>
   <select id="getReviews" resultType="com.charida.app.review.dto.ReviewDto">
@@ -85,5 +85,18 @@
   	FROM CRD_SERV_REVIEW
   	WHERE SERV_ID = #{serv_id}
   </select>
-  
+  <delete id="deleteReview" parameterType="String">
+  	DELETE FROM CRD_SERV_REVIEW WHERE SERV_ID = #{serv_id}
+  </delete> 
+  <update id="modifyReviewPro" parameterType="String">
+	UPDATE CRD_SERV_REVIEW SET 
+		SERV_ROOT = #{serv_root},
+		MENU_SCORE = #{menu_score},
+		PRICE_SCORE = #{price_score},
+		SERV_SCORE = #{serv_score},
+		RECOMMAND = #{recommand},
+		TITLE = #{title},
+		CONTENT = #{content}
+	WHERE SERV_ID = 'bb0000'
+  </update>
 </mapper>

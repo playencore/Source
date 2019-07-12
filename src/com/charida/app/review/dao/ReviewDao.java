@@ -33,5 +33,11 @@ public class ReviewDao {
 	public ReviewDto modifyReview(String serv_id) {
 		return sqlsession.selectOne("Review.modifyReview",serv_id);
 	}
+	public int deleteReview(String serv_id) {
+		return sqlsession.delete("Review.deleteReview",serv_id);
+	}
+	public int modifyReviewPro(String serv_id) {
+		return sqlsession.update("modifyReviewPro",serv_id);
+	}
 
 }

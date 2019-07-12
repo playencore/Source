@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.charida.app.common.service.TestService;
+import com.charida.app.component.review.ReviewComponent;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
 import com.charida.app.review.service.ReviewService;
@@ -28,6 +29,9 @@ public class ReviewController {
 
 	@Resource
 	ReviewService reviewService;
+	
+	@Resource
+	ReviewComponent reviewComponent;
 	
 	//후기작성페이지 컨트롤러
 	@RequestMapping("/review/reviewWrite.do")
@@ -61,6 +65,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
+		//후기보기페이지 리다이렉트
 		List<ReviewDto> reviews = reviewService.getReviews();
 		//log.debug();
 		req.setAttribute("reviews", reviews);
@@ -68,6 +73,7 @@ public class ReviewController {
 		
 		return "/review/review";
 	}
+	
 	
 	//후기보기
 	@RequestMapping("/review/review.do")
@@ -111,9 +117,10 @@ public class ReviewController {
 		
 		req.setAttribute("reviews", reviews);
 		
-		return "review/ableToReview";
+		return "/review/ableToReview";
 	}
 	
+	//리뷰수정시 작성폼에 기존데이터를 보내줌.
 	@RequestMapping("/review/modifyReview.do")
 	public String modifyReview(@RequestParam("serv_id")String serv_id, HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().getAttribute("session_id");
@@ -123,20 +130,64 @@ public class ReviewController {
 		//String serv_id = req.getParameter("serv_id");
 		
 		ReviewDto review = reviewService.modifyReview(serv_id);
-		req.setAttribute("review", review);
-		
+		req.setAttribute("review", review);		
 		return "/review/modifyReview";
 	}
 	
-	@RequestMapping("review/deleteReview.do")
-	public String deleteReview(HttpServletRequest req, HttpServletRequest resp) {
+	//후기수정로직
+	@RequestMapping("/review/modifyReviewPro.do")
+	public String modifyReviewPro(@RequestParam("serv_id")String serv_id, HttpServletResponse resp, HttpServletRequest req) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");			
+		
+		int result = reviewComponent.modifyReviewPro(serv_id);
+		
+		if(result == 0) {
+			req.setAttribute("check", 0);
+			String id = (String)req.getSession().getAttribute("session_id");
+			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			req.setAttribute("reviews", reviews);
+			return "/review/ownReview";
+		}else {
+			req.setAttribute("check", 1);
+			String id = (String)req.getSession().getAttribute("session_id");
+			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			req.setAttribute("reviews", reviews);
+			return "/review/ownReview";
+		}
+		
+//		//ownView 리다이렉트
+//		String id = (String)req.getSession().getAttribute("session_id");
+//		List<ReviewDto> reviews = reviewService.ownReview(id);		
+//		req.setAttribute("reviews", reviews);
+//		return "/review/ownReview";
+	}
+	
+	//리뷰삭제
+	@RequestMapping("/review/deleteReview.do")
+	public String deleteReview(@RequestParam("serv_id")String serv_id, HttpServletRequest req, HttpServletRequest resp) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
+		int result = reviewComponent.deleteReview(serv_id);
 		
-		
-		return "review/ownReview";
+		if(result == 0) {
+			req.setAttribute("check", 0);
+			String id = (String)req.getSession().getAttribute("session_id");
+			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			req.setAttribute("reviews", reviews);
+			
+			return "/review/ownReview";
+		}else {
+			req.setAttribute("check", 1);
+			String id = (String)req.getSession().getAttribute("session_id");
+			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			req.setAttribute("reviews", reviews);
+			
+			return "/review/ownReview";
+		}
 	}
 	
 	public Map<String, Object> getParameterMap(HttpServletRequest req){
