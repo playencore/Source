@@ -46,7 +46,7 @@ public class ReviewController {
 	
 	//후기작성처리
 	@RequestMapping("/review/setReview.do")
-	public String setReview(HttpServletRequest req,HttpServletResponse resp) {
+	public String insertReview(HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		//model.addAttribute("serverTime", formattedDate );
 		String serv_id = reviewDao.getServ_id();

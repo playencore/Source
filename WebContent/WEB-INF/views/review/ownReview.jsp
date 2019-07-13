@@ -26,6 +26,19 @@
 	
 	//-->
 	</script>
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					${session_name}님의 후기
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
 	
 	<c:forEach var="ReviewDto" items="${reviews}">
 	
@@ -126,11 +139,14 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>	
-	
-	
-		
+	</div>			
 	</c:forEach>
+	<div class="section"></div>
+</div>
+
+<div class="section"></div>
+<div class="section"></div>
+
 
 <%@include file="/include/footer.jsp" %>
 </body>

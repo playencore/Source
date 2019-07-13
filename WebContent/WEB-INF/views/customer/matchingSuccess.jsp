@@ -15,7 +15,72 @@
 	세션 코드 : ${session_authority }
 	<hr color="gray">
 <div class="section"></div>
-
+<form>
+	<div class="container" style="background-color: white;margin-top:2px;">	
+		<div class="row">
+			<div class="col m12">
+				<div class="section">
+					<h5>
+						서비스 조회
+						<small id="sub_title"> 날짜별 검색</small>
+						<small style="float: right;"> * 는 필수입력 사항입니다.</small>
+					</h5>
+					<div class="divider"></div>
+				</div>
+			</div>
+		</div>	
+		<!-- 날짜입력 div -->
+		<div class="row" id="step1_2">
+			<div class="col m1"></div>
+			<div class="col m11">
+			<h5 style="margin-bottom: 10px">종료된 서비스 조회</h5>
+				<div class="row" >
+					<div class="col m1"></div>
+					<div class="col m8">
+						<div class="card " style="background-color: #f1f1f0">
+							<i class="fal fa-comment-alt-exclamation"></i>
+					        <div class="card-action">
+					     	   조회하실 날짜를 입력해주세요.
+					        </div>
+					      </div>
+					</div>
+					<div class="col m2"></div>
+				</div>
+				<div class="row"  style="margin-bottom: 0px;">
+					<div class="col m1"></div>
+					<div class="col m10">
+						<div class="row" style="margin-bottom: 0px;">
+							<div class="col m4" style="padding-right: 0px">
+								<div class="input-field">
+									<input id="serv_date" name="serv_date1" type="text" class="datepicker" readonly="readonly">
+						         	<label for="serv_date" style="font-size: 25px;line-height:0.5px;font-weight: bold;">시작 날짜*</label>
+					         	</div>
+							</div>
+							<div class="col m1" style="padding-right: 0px">
+							</div>
+							<div class="col m4" style="padding-right: 0px">
+								<div class="input-field">
+									<input id="serv_time" name="serv_date2" type="text" class="datepicker" readonly="readonly">
+						         	<label for="serv_time" style="font-size: 25px;line-height:0.5px;font-weight: bold;">종료 날짜*</label>
+					         	</div>
+							</div>
+							<div class="col m3"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<center>
+					<button class="btn waves-effect waves-light container" type="submit"  >
+				    <i class="material-icons left"></i>조회하기
+				  	</button>
+				</center>
+			</div>
+		</div>
+		<div class="section"></div>
+	</div>
+</form>
+<br><br>
 <c:forEach var="MatchingDto" items="${matchingSuccess}">
 	<div class="container">
 	 <div class="card big">
@@ -241,6 +306,7 @@
     </div>
   </div>  
 </c:forEach>
+<script type="text/javascript" src="/js/serv/application.js"></script>
 
     <%@include file="/include/footer.jsp" %>
 

@@ -8,13 +8,27 @@
 	  });         
 	  //-->
 	  </script>
-	<h2>구매자 - 매칭실패목록 페이지입니다.</h2>
+	<h2>구매자 - 작성가능한 목록 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name }<br>
 	아이디 : ${session_id }<br>
 	세션 코드 : ${session_authority }
 	<hr color="gray">
 <div class="section"></div>
+
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					${session_name}님의 후기 미작성 된 서비스
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
 
 <c:forEach var="MatchingDto" items="${reviews}">
 	<div class="container">
@@ -83,6 +97,12 @@
 	  </div>
 	</div>
 </c:forEach>
+<div class="section"></div>
+</div>
+
+<div class="section"></div>
+<div class="section"></div>
+
 
  <!-- Modal Structure -->
 <c:forEach var="MatchingDto" items="${reviews}">
