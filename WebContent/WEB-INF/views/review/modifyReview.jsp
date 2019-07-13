@@ -54,7 +54,7 @@
 	<div class="col m12">
 		<div class="section">
 			<h5>
-				후기 작성
+				후기 수정
 				<small id="sub_title"> CHA-RI-DA</small>
 				<small style="float: right;"> * 는 필수입력 사항입니다.</small>
 			</h5>
@@ -275,7 +275,7 @@
 	<br>
 	<div class="container">
 	 <button class="btn waves-effect waves-light" type="submit"  >
-    <i class="material-icons left">send</i>후기 등록하기
+    <i class="material-icons left">send</i>후기 수정하기
   	</button>
 	</div>
 	

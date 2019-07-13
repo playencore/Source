@@ -16,7 +16,7 @@ public class ReviewComponent {
 	@Resource
 	ReviewDao reviewDao;
 	
-	public int setReview(ReviewDto reviewDto) {
+	public int insertReview(ReviewDto reviewDto) {
 		int result = reviewDao.insertReview(reviewDto);	
 		
 		return result;

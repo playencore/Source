@@ -39,5 +39,8 @@ public class ReviewDao {
 	public int modifyReviewPro(String serv_id) {
 		return sqlsession.update("modifyReviewPro",serv_id);
 	}
+	public String getServ_id() {
+		return sqlsession.selectOne("getServ_id");
+	}
 
 }
