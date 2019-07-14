@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
     <title>단 하나의 서비스 - 차리다</title>
 	<!-- css -->
   	<link rel="stylesheet" href="/css/materialize.css">
@@ -36,7 +36,7 @@
   </ul>
 <nav class="nav-extended">
   <div class="nav-wrapper" style="background-color:#2bbbad;">
-    <a href="/main.do" class="brand-logo">차리다</a>
+    <a href="/main.do" class="brand-logo">&nbsp;&nbsp;차리다</a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger">menu</a>
     <ul id="navbar" class="right hide-on-med-and-down">
       <li><a href="/service/application.do">서비스 신청</a></li>
