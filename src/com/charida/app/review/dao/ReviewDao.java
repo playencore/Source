@@ -36,8 +36,8 @@ public class ReviewDao {
 	public int deleteReview(String serv_id) {
 		return sqlsession.delete("Review.deleteReview",serv_id);
 	}
-	public int modifyReviewPro(String serv_id) {
-		return sqlsession.update("modifyReviewPro",serv_id);
+	public int modifyReviewPro(ReviewDto reviewDto) {
+		return sqlsession.update("modifyReviewPro",reviewDto);
 	}
 	public String getServ_id() {
 		return sqlsession.selectOne("getServ_id");

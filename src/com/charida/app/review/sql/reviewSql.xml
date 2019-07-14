@@ -88,7 +88,7 @@
   <delete id="deleteReview" parameterType="String">
   	DELETE FROM CRD_SERV_REVIEW WHERE SERV_ID = #{serv_id}
   </delete> 
-  <update id="modifyReviewPro" parameterType="String">
+  <update id="modifyReviewPro" parameterType="com.charida.app.review.dto.ReviewDto">
 	UPDATE CRD_SERV_REVIEW SET 
 		SERV_ROOT = #{serv_root},
 		MENU_SCORE = #{menu_score},

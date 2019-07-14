@@ -36,9 +36,9 @@ public class ReviewController {
 	ReviewDao reviewDao;
 	//후기작성페이지 컨트롤러
 	@RequestMapping("/review/reviewWrite.do")
-	public String reviewWriteForm(HttpServletRequest req,HttpServletResponse resp) {
+	public String reviewWriteForm(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
-		
+		req.setAttribute("serv_id", serv_id);
 		//model.addAttribute("serverTime", formattedDate );
 		
 		return "/review/reviewWriteForm";
@@ -46,10 +46,10 @@ public class ReviewController {
 	
 	//후기작성처리
 	@RequestMapping("/review/setReview.do")
-	public String insertReview(HttpServletRequest req,HttpServletResponse resp) {
+	public String insertReview(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		//model.addAttribute("serverTime", formattedDate );
-		String serv_id = reviewDao.getServ_id();
+		//String serv_id = reviewDao.getServ_id();
 		Map<String, Object> params =getParameterMap(req);
 		params.put("serv_id", serv_id);
 		//params.put("mem_id",(String)req.getSession().getAttribute("session_id"));
@@ -131,7 +131,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_authority");
 		//String id = (String)req.getSession().getAttribute("session_id");
 		//String serv_id = req.getParameter("serv_id");
-		
+		req.setAttribute("serv_id", serv_id);
 		ReviewDto review = reviewService.modifyReview(serv_id);
 		req.setAttribute("review", review);		
 		return "/review/modifyReview";
@@ -142,9 +142,11 @@ public class ReviewController {
 	public String modifyReviewPro(@RequestParam("serv_id")String serv_id, HttpServletResponse resp, HttpServletRequest req) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
-		req.getSession().getAttribute("session_authority");			
+		req.getSession().getAttribute("session_authority");	
+		Map<String, Object> params =getParameterMap(req);
+		params.put("serv_id", serv_id);
 		
-		int result = reviewComponent.modifyReviewPro(serv_id);
+		int result = reviewService.modifyReviewPro(params);
 		
 		if(result == 0) {
 			req.setAttribute("modify", 0);

@@ -46,7 +46,7 @@
 <div class="section"></div>
 <div class="section"></div>
 
-<form method="post" onsubmit="return reviewinput()" action="/review/modifyReviewPro.do?serv_id=${ReviewDto.serv_id}" enctype="multipart/form-data">
+<form method="post" onsubmit="return reviewinput()" action="/review/modifyReviewPro.do?serv_id=${serv_id}" enctype="multipart/form-data">
 
 <div class="container" style="background-color: white;margin-top:2px;">
 
@@ -54,7 +54,7 @@
 	<div class="col m12">
 		<div class="section">
 			<h5>
-				후기 수정
+				후기 수정 
 				<small id="sub_title"> CHA-RI-DA</small>
 				<small style="float: right;"> * 는 필수입력 사항입니다.</small>
 			</h5>

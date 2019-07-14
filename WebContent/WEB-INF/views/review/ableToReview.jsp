@@ -257,7 +257,7 @@
 		<hr color="black">
     </div>
     <div class="modal-footer">
-		<a href="/review/reviewWrite.do">후기작성하기</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/review/reviewWrite.do?serv_id=${MatchingDto.serv_id}">후기작성하기</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<!-- <a href="/customer/matchingFail.do">닫기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
     </div>
   </div>  
