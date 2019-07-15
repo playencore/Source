@@ -140,8 +140,8 @@
 							</div>
 				        </div>
 				        <br>
-						<div class="input-field col s12" style="margin-left:10px;">
-							<select name = "job">
+						<div id="job" class="input-field col s12" style="margin-left:10px;">
+							<select name="job">
 								<option value="" disabled selected>직업을 선택해주세요</option>
 								<option value="1">학생</option>
 								<option value="2">회사원</option>

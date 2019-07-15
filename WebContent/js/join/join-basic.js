@@ -73,7 +73,7 @@ var name_email = 'email';
 var name_emailcheck = 'emailcheck';
 var name_zipcode = 'zipcode';
 var name_address = 'address';
-var name_address_detail = 'address_datail';
+var name_address_detail = 'address_detail';
 var name_tel = 'tel';
 var name_birth_date = 'birth_date';
 var name_gender = 'gender';
@@ -309,9 +309,7 @@ $(function() {
 		attr2 = name_address;
 		attrval2 = getval(attr2);
 		// 검사
-		if (!ckempty(attrval2)) { // null과 공백 검사
-
-		} else if (!cklength(attrval2, 2, 150)) { // 글자 수 검사
+		if (!cklength(attrval2, 2, 150)) { // 글자 수 검사
 
 		} else {
 			result = "";
@@ -369,21 +367,21 @@ $(function() {
 		// 출력
 		birthdateable = outresult(attr, check, result);
 	});
-	// job 란에 keyup 이벤트 감지
-	$('input[name='+name_job+']').on('keyup', function() {
-		check = false;
-		attr = name_job;
-		attrval = getval(attr);
-		// 검사
-		if ( attrval == "" ) { // null과 공백 검사
-			result = "직업을 선택하지 않았습니다.";
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		jobable = outresult(attr, check, result);
-	});
+	// job 란에 click 이벤트 감지
+//	$('#'+name_job).on('change', function() {
+//		check = false;
+//		attr = name_job;
+//		attrval = $('select[name=' + attr + ']').val();
+//		// 검사
+//		if ( attrval == null ) { // null과 공백 검사
+//			result = "직업을 선택하지 않았습니다.";
+//		} else {
+//			result = "";
+//			check = true;
+//		}
+//		// 출력
+//		jobable = outresult(attr, check, result);
+//	});
 
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
 	$("#bt_memberjoin").click(function() {
@@ -434,7 +432,7 @@ $(function() {
 		} else if (addressdetailable == false) {
 			result = name_address;
 			$("input[name="+result+"]").focus().select();
-			alert("adddail오류 : " + result + "를 확인해주세요.");
+			alert("detail오류 : " + result + "를 확인해주세요.");
 		} else if (telable == false) {
 			result = name_tel;
 			$("input[name="+result+"]").focus().select();
@@ -443,7 +441,7 @@ $(function() {
 			result = name_birth_date;
 			$("input[name="+result+"]").focus().select();
 			alert("오류 : " + result + "를 확인해주세요.");
-		} else if (jobable == false) {
+		} else if ( $('select[name=job]').val() ==  null ) {
 			result = name_job;
 			$("input[name="+result+"]").focus().select();
 			alert("오류 : " + result + "를 확인해주세요.");
