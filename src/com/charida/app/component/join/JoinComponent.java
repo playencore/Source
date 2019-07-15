@@ -4,13 +4,17 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import com.charida.app.common.service.TestService;
 import com.charida.app.member.dao.MemberDao;
 import com.charida.app.member.dto.MemberDto;
 
 @Component
 public class JoinComponent {
+	protected Log log = LogFactory.getLog(TestService.class);
 	@Resource
 	MemberDao memberDao;
 	
@@ -42,6 +46,10 @@ public class JoinComponent {
 	
 	// 회원가입
 	public int setMember( MemberDto memberDto ) {
-		return memberDao.insertMember( memberDto );
+		log.debug("JoinComponent > setMember( memberDto ) 호출시작");
+		int result = memberDao.insertMember( memberDto );
+		log.debug("JoinComponent > setMember( memberDto ) 호출결과" + result);
+		
+		return result;
 	}
 }

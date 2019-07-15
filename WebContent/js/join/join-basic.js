@@ -78,6 +78,9 @@ var name_birth_date = 'birth_date';
 var name_gender = 'gender';
 var name_job = 'job';
 
+var name_form = "joinMemberForm";
+
+
 $(function() {
 	var check = false;
 	var check2 = false;
@@ -317,7 +320,8 @@ $(function() {
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
 		} else if(!isOnlyNumber(attrval)) {
-		} else if (!cklength(attrval, 13, 13)) { // 글자 수 검사
+		} else if (!cklength(attrval, 11, 11)) { // 글자 수 검사
+			result = "ex)01012345678 숫자만 입력하세요.!";
 		} else {
 			result = "";
 			check = true;
@@ -358,74 +362,81 @@ $(function() {
 	});
 
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
-	$("input[name=tableok]").click(function() {
-		alert("확인버튼 클릭을 감지해서 가입진행 여부를 검사합니다.");
-		var form = document.dForm;
+	$("#bt_memberjoin").click(function() {
+		alert("[구매자회원가입]버튼 클릭을 감지해서 가입진행 여부를 검사합니다.");
+//		var dForm = "joinMemberForm";
+//		var df="document."+dForm;
+//		var f = dForm;
 		check = false;
 
-		if (memidable == false) {
-			document.dForm.memid.focus();
-			document.dForm.memid.select();
-		} else if (passwdable == false) {
-			document.dForm.passwd.focus();
-			document.dForm.passwd.select();
-		} else if (repasswdable == false) {
-			document.dForm.repasswd.focus();
-			document.dForm.repasswd.select();
-		} else if (nameable == false) {
-			document.dForm.name.focus();
-			document.dForm.name.select();
-		} else if (emailable == false) {
-			document.dForm.email.focus();
-			document.dForm.email.select();
-		} else if (emailcodeable == false) {
-			document.dForm.emailcode.focus();
-			document.dForm.emailcode.select();
-		} else if (codecheckcommentable == false) {
-			document.dForm.codecheckcomment.focus();
-			document.dForm.codecheckcomment.select();
-		} else if (zipcodeable == false) {
-			document.dForm.zipcode.focus();
-			document.dForm.zipcode.select();
-		} else if (telable == false) {
-			document.dForm.tel.focus();
-			document.dForm.tel.select();
-		} else if (birthdateable == false) {
-			document.dForm.birthdate.focus();
-			document.dForm.birthdate.select();
-		} else if (addressable == false) {
-			document.dForm.address.focus();
-			document.dForm.address.select();
-		} else if (addressdetailable == false) {
-			document.dForm.addressdetail.focus();
-			document.dForm.addressdetail.select();
-		} else if (genderable == false) {
-			document.dForm.gender.focus();
-			document.dForm.gender.select();
-		} else if (jobable == false) {
-			document.dForm.job.focus();
-			document.dForm.job.select();
-		} else if (authorityable == false) {
-			document.dForm.authority.focus();
-			document.dForm.authority.select();
-	//	} else {
-		} 
+//		if (memidable == false) {
+//			document.joinMemberForm.name_mem_id.focus();
+//			document.joinMemberForm.name_mem_id.select();
+//		} 
+//		else if (passwdable == false) {
+//			f.passwd.focus();
+//			document.dForm.passwd.select();
+//		} else if (repasswdable == false) {
+//			document.dForm.repasswd.focus();
+//			document.dForm.repasswd.select();
+//		} else if (nameable == false) {
+//			document.dForm.name.focus();
+//			document.dForm.name.select();
+//		} else if (emailable == false) {
+//			document.dForm.email.focus();
+//			document.dForm.email.select();
+//		} else if (emailcodeable == false) {
+//			document.dForm.emailcode.focus();
+//			document.dForm.emailcode.select();
+//		} else if (codecheckcommentable == false) {
+//			document.dForm.codecheckcomment.focus();
+//			document.dForm.codecheckcomment.select();
+//		} else if (zipcodeable == false) {
+//			document.dForm.zipcode.focus();
+//			document.dForm.zipcode.select();
+//		} else if (telable == false) {
+//			document.dForm.tel.focus();
+//			document.dForm.tel.select();
+//		} else if (birthdateable == false) {
+//			document.dForm.birthdate.focus();
+//			document.dForm.birthdate.select();
+//		} else if (addressable == false) {
+//			document.dForm.address.focus();
+//			document.dForm.address.select();
+//		} else if (addressdetailable == false) {
+//			document.dForm.addressdetail.focus();
+//			document.dForm.addressdetail.select();
+//		} else if (genderable == false) {
+//			document.dForm.gender.focus();
+//			document.dForm.gender.select();
+//		} else if (jobable == false) {
+//			document.dForm.job.focus();
+//			document.dForm.job.select();
+//		} else if (authorityable == false) {
+//			document.dForm.authority.focus();
+//			document.dForm.authority.select();
+//	//	} else {
+//		} 
 		alert("유효성 모두 통과 함");
+		if (false){
+			/* 회원가입시 입력정보 자동 입력값  */
+			$("input[name="+name_passwd+"]").val("111111");
+			$("input[name="+name_passwdcheck+"]").val("111111");
+			$("input[name="+name_name+"]").val("홍길동동");
+			$("input[name="+name_email+"]").val("fullcontrolg@gmail.com");
+			$("input[name="+name_emailcheck+"]").val("");
+			$("input[name="+name_zipcode+"]").val("07805");
+			$("input[name="+name_address+"]").val("서울 강서구 마곡동로");
+			$("input[name="+name_address_detail+"]").val("222");
+			$("input[name="+name_tel+"]").val("0100000000000");
+			$("input[name="+name_birth_date+"]").val("19991213");
+			$("input[name="+name_gender+"]").val("1");
+			$("input[name="+name_job+"]").val("2");
+		}
 		if (true) {
-			dForm.action = "/join/join-enda.do"; // 구매자 회원가입 기능 페이지
-			dForm.submit();
 			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
-			/*if (jointype == "1") {
-				alert("구매자 회원가입을 시도합니다.");
-				
-				dForm.action = "/join/join-end.do"; // 구매자 회원가입 기능 페이지
-				dForm.submit();
-			} else if (jointype == "2") {
-				alert("판매자 회원가입을 시도합니다.");
-				dForm.action = "/join/join-end.do"; // 판매자 회원가입 기능 페이지
-			} else {
-				alert("오류 : 구매자, 판매자 구분 불가");
-			}*/
+			$('form[name='+name_form+']').attr('target','');
+			$('form[name='+name_form+']').submit();
 		}
 	});
 });

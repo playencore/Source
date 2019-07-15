@@ -29,9 +29,9 @@
 			<div class = "col s4"></div>
 			<div class = "col s4 card-panel">
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
-				<form name = "joinMemberForm"  method = "post" action = "/joinUser/joinSupplierPro.do" onsubmit="return supplierinput() "  >
+				<form name = "joinMemberForm"  method = "post" action = "/join/join-result.do">
 					<div id = "memberForm">
-						<input type = "hidden" name = "authority" value ="2">
+						<input type = "hidden" name = "authority" value ="1">
 						<div class = "col s12">
 							<div class="input-field col s12">
 					          <input name="mem_id" id="mem_id" type="text" class="validate">
@@ -150,10 +150,10 @@
 							<label>직업을 선택해주세요</label>
 						</div>
 				        <div class = "col s6">
-			        	<button class="btn waves-effect waves-light" type="submit"  >
+			        	<a id="bt_memberjoin" class="btn waves-effect waves-light" >
     						<i class="material-icons right">send</i>
     						구매자회원가입
-  						</button>
+  						</a>
   						<br>
   						<br>
 			        </div>	

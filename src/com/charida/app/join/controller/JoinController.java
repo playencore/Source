@@ -27,33 +27,11 @@ public class JoinController {
 	@Resource
 	private MailService mailService;
 	
-	// 회원가입에 사용할 플렛폼 선택 페이지(1=일반, 2=카카오, 3=네이버)
-	@RequestMapping(value="/join/join-select-platformtype.do")
-	public String dopagePlatformtype(HttpServletRequest req,HttpServletResponse resp) {
-		
-		return "/join/join-select-platformtype";
-	}
-	
-	// 회원가입에서 회원의 가입유형 선택 페이지(1=구매자, 2=판매자)
-	@RequestMapping("/join/join-select-membertype.do")
-	public String dopageMembertype(HttpServletRequest req,HttpServletResponse resp) {
-		
-		return "/join/join-select-membertype";
-	}
-	
-	@RequestMapping("/join/join-start.do")
-	public String dopageStart(HttpServletRequest req,HttpServletResponse resp) {
-		System.out.println(req.getParameter("aa"));
-		
-		//model.addAttribute("serverTime", formattedDate );
-		
-		return "/join/join-start";
-	}
-	
 	// 회원가입시 기본정보 입력받는 페이지(구매자, 판매자 공통)
-	@RequestMapping(value="/join/join-basic.do")
+	@RequestMapping(value="/joinuser/joinmember.do")
 	public String dopageBasic(HttpServletRequest req,HttpServletResponse resp) {
-		return "/join/join-basic";
+		//model.addAttribute("serverTime", formattedDate );
+		return "/join/joinmemberform";
 	}
 
 	@RequestMapping(value="/join/join-basic/checkid.do", produces = "text/plain; charset=utf-8")
@@ -70,11 +48,6 @@ public class JoinController {
 		
 		return "/join/join-end";
 	}
-	@RequestMapping("/join/join-detail.do")
-	public String dopageDetail(HttpServletRequest req, HttpServletResponse resp) {
-		
-		return "/join/join-detail";
-	}
 	// 이메일 전송
 	@RequestMapping(value="/mail/send-mail.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
@@ -84,19 +57,19 @@ public class JoinController {
 		// 이메일 전송
 		mailService.sendMail(mail, content);
 	}
-	// error code page
-	@RequestMapping("/join/join-error.do")
-	public String dopageError(HttpServletRequest req, HttpServletResponse resp) {
-		
-		return "/join/join-error";
-	}
-	
 	// 회원가입
-	@RequestMapping(value="/join/join-enda.do", produces = "text/plain; charset=utf-8")
-	@ResponseBody
+	@RequestMapping(value="/join/join-result.do", produces = "text/plain; charset=utf-8")
 	public String serviceJoinMember(HttpServletRequest req,HttpServletResponse resp) {
 		log.debug("joinController > serviceJoinMember : " + "시작");
-		String result = joinService.joinMember( getParameterMap(req) );
+		String result = "";
+		int req_result = joinService.joinMember( getParameterMap(req) );
+		if(req_result == 0) {
+			//실패페이지
+			result = "";
+		} else {
+			//가입성공 페이지
+			result = "login/loginForm";
+		}
 		log.debug("joinController > serviceJoinMember : " + "종료");
 		return result;
 	}
@@ -112,7 +85,6 @@ public class JoinController {
 				params.put(key,req.getParameter(key));
 			}
 		}
-		
 		return params;
 	}
 	

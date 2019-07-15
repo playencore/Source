@@ -23,7 +23,7 @@ public class MemberDao {
 	}
 	
 	public int insertMember( MemberDto member ) {
-		log.debug("MemberDao > insertMember : SQL진행" + member );
+		log.debug("MemberDao > insertMember : SQL진행 : " + member );
 		return sqlSession.insert("Member.insertMember", member );
 	}
 }

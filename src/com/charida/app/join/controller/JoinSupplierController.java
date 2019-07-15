@@ -27,7 +27,7 @@ public class JoinSupplierController {
 	SupplierService supplierService ;
 	
 	
-	@RequestMapping("/joinUser/joinSupplier.do")
+	@RequestMapping("/joinuser/joinsupplier.do")
 	public String joinSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
 		return "/joinUser/joinSupplierForm";
