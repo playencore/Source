@@ -30,7 +30,7 @@ public class ReviewDao {
 	public List<MatchingDto> ableToReview() {
 		return sqlsession.selectList("Review.ableToReview");
 	}
-	public ReviewDto modifyReview(String serv_id) {
+	public MatchingDto modifyReview(String serv_id) {
 		return sqlsession.selectOne("Review.modifyReview",serv_id);
 	}
 	public int deleteReview(String serv_id) {
