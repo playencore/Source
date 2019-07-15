@@ -26,4 +26,9 @@ public class FileComponent {
 		fileUploadDao.insertFile(fileInfo);
 		return seq;
 	}
+	
+	public Map<String, Object> getFileInfo(String fileId){
+		
+		return fileUploadDao.getFileInfo(fileId);
+	}
 }

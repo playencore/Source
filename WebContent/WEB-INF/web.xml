@@ -33,6 +33,7 @@
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<url-pattern>/file/*</url-pattern>
 	</servlet-mapping>
 	<!-- 한글 인코딩 설정 -->
 	<!-- <filter>

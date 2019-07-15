@@ -7,7 +7,12 @@
 		SELECT FILE_NO_SEQ.NEXTVAL FROM DUAL
 	</select>
 	<insert id="insertFile" parameterType="java.util.HashMap">
-		insert into CRD_FILE_INFO  (file_id, file_name, File_save_name, file_path,file_size)
-							 values(#{file_id},#{file_name},#{file_save_name},#{file_path},#{file_size})
+		INSERT INTO CRD_FILE_INFO  
+			(FILE_ID, FILE_NAME, FILE_SAVE_NAME, FILE_PATH,FILE_SIZE)
+		VALUES
+			(#{file_id},#{file_name},#{file_save_name},#{file_path},#{file_size})
 	</insert>
+	<select id="selectFile" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT FILE_NAME,FILE_SAVE_NAME,FILE_PATH FROM CRD_FILE_INFO WHERE FILE_ID = #{fileId}
+	</select>
 </mapper>

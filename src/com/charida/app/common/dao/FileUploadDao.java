@@ -18,4 +18,8 @@ public class FileUploadDao {
 	public int selectFileSeq() {
 		return sqlSession.selectOne("File.selectFileSeq");
 	}
+	
+	public Map<String, Object>getFileInfo(String fileId){
+		return sqlSession.selectOne("File.selectFile",fileId);
+	}
 }
