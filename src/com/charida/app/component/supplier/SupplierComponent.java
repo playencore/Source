@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.CodeDto;
+import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.PermissionDto;
 import com.charida.app.supplier.dto.ServiceAreaDto;
@@ -131,5 +132,24 @@ public class SupplierComponent {
 
 	public List<Object> getSerchList(Map<String, String> paramMap) {
 		return supplierDao.selectSearchList(paramMap);
+	}
+///////////////////////////////메뉴 넣기 
+	public String getFoodMaxSeq(){
+		return supplierDao.selectFoodMaxSeq();
+	}
+	public int setFood(FoodDto dto) {
+		return supplierDao.insertFood(dto) ;
+	}
+	public List<FoodDto> getFoodList(String mem_id){
+		return supplierDao.selectFoodList(mem_id) ;
+	}
+	public int deleteFood(String menu_id) {
+		return supplierDao.deleteFood(menu_id);
+	}
+	public void updateMenuSeq( String menu_id) {
+		supplierDao.updateMenuSeq(menu_id);
+	}
+	public int modifyMenu(FoodDto dto) {
+		return supplierDao.modifyMenu(dto) ;
 	}
 }

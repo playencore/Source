@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.charida.app.common.service.TestService;
+import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.PermissionDto;
 import com.charida.app.supplier.dto.SupplierDto;
 
@@ -79,5 +80,24 @@ public class SupplierDao {
 	public List<Object> selectSearchList(Map<String,String> paramMap){
 		return sqlSession.selectList("Supplier.selectSerchList",paramMap);
 	}
+	////////////////////////////////////////set menu
+	public String selectFoodMaxSeq() {
+		return sqlSession.selectOne("Supplier.selectFoodMaxSeq") ;
+	}
 	
+	public int insertFood(FoodDto dto) {
+		return sqlSession.insert("Supplier.insertFood", dto) ;
+	}
+	public List<FoodDto> selectFoodList(String mem_id){
+		return sqlSession.selectList("Supplier.selectFoodList", mem_id) ;
+	}
+	public int deleteFood(String menu_id) {
+		return sqlSession.delete("Supplier.deleteFood", menu_id) ;
+	}
+	public void updateMenuSeq(String menu_id) {
+		sqlSession.update("Supplier.updateFoodSeq", menu_id) ;
+	}
+	public int modifyMenu(FoodDto dto) {
+		return sqlSession.update("Supplier.modifyMenu", dto) ;
+	}
 }

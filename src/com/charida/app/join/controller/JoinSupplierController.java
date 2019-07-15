@@ -49,7 +49,6 @@ public class JoinSupplierController {
 				supplierInfoFile[i-2] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
 			}
 		}
-			
 		supplierMap.put("cert_file_id",cert_file_id ) ;
 		supplierMap.put("supplierInfoFile",supplierInfoFile) ;
 		int result = supplierService.setSupplierTx(supplierMap) ;

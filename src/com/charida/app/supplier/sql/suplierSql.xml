@@ -125,4 +125,31 @@
 		
 	</select>
 	
+	<select id="selectFoodMaxSeq" resultType="String">
+		SELECT MAX(MENU_ID) FROM CRD_MENU_INFO
+	</select>
+	<insert id="insertFood" parameterType="com.charida.app.supplier.dto.FoodDto">
+		INSERT 
+		INTO CRD_MENU_INFO 
+		VALUES(#{menu_id},#{mem_id},#{name},#{explanation},#{weight},#{file_id})
+	</insert>
+	<select id="selectFoodList" parameterType="String" resultType="com.charida.app.supplier.dto.FoodDto">
+		SELECT * FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
+	</select>
+	<delete id="deleteFood" parameterType="String">
+		DELETE FROM CRD_MENU_INFO WHERE  MENU_ID = #{menu_id}
+	</delete>
+	<update id="updateFoodSeq" parameterType="String">
+		UPDATE 
+		CRD_MENU_INFO 
+		SET MENU_ID = MENU_ID-1 
+		WHERE MENU_ID > ${menu_id}
+	</update>
+	<update id="modifyMenu" parameterType="com.charida.app.supplier.dto.FoodDto">
+		UPDATE 
+		CRD_MENU_INFO
+		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}
+		WHERE MENU_ID = #{menu_id}
+	</update>
+	
 </mapper>

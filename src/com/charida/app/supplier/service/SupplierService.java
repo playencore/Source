@@ -9,7 +9,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.charida.app.component.join.JoinComponent;
 import com.charida.app.component.supplier.SupplierComponent;
+import com.charida.app.member.dto.MemberDto;
+import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.PermissionDto;
 import com.charida.app.supplier.dto.SupplierDto;
 
@@ -18,10 +21,28 @@ public class SupplierService {
 	
 	@Resource
 	SupplierComponent supplierComponent ;
+	@Resource
+	JoinComponent joinComponent;
 	
 	public int setSupplierTx(Map <String,String[]> supplierMap) {
 		int result = 0 ;
-
+		//crd_mem insert -----------------------------------------------------------------------------
+		MemberDto memberDto = new MemberDto();
+		memberDto.setMem_id(supplierMap.get("mem_id")[0]);
+		memberDto.setPasswd(supplierMap.get("passwd")[0]);
+		memberDto.setAuthority(supplierMap.get("authority")[0]);
+		memberDto.setName(supplierMap.get("name")[0]);
+		memberDto.setEmail(supplierMap.get("email")[0]);
+		memberDto.setZipcode(supplierMap.get("zipcode")[0]);
+		memberDto.setTel(supplierMap.get("tel")[0]);
+		memberDto.setBirth_date(supplierMap.get("birth_date")[0]);
+		memberDto.setAddress(supplierMap.get("address")[0]);
+		memberDto.setAddress_detail(supplierMap.get("address_detail")[0]);
+		memberDto.setJoin_date("sysdate");
+		memberDto.setGender(supplierMap.get("gender")[0]);
+		memberDto.setJob(supplierMap.get("job")[0]);
+		result += joinComponent.setMember(memberDto) ;
+		
 		//crd_company insert-----------------------------------------------------------------------------------
 		SupplierDto supplierDto = new SupplierDto() ;
 		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
@@ -109,7 +130,25 @@ public class SupplierService {
 			return "기존에 가입한 업체입니다. 확인해주세요." ;
 		}
 	}
+////////////////////////////////////setfood	
+	public String getFoodMaxSeq() {
+		return supplierComponent.getFoodMaxSeq() ;
+	}
+	public int setFoodTx(FoodDto dto) {
+		return supplierComponent.setFood(dto);
+	}
+	public List<FoodDto> getFoodList(String mem_id){
+		return supplierComponent.getFoodList(mem_id) ;
+	}
 	
+	public int deleteFoodTx(String menu_id) {
+		int result = supplierComponent.deleteFood(menu_id);
+		supplierComponent.updateMenuSeq(menu_id);
+		return result ;
+	}
+	public int modifyMenu(FoodDto dto) {
+		return supplierComponent.modifyMenu(dto) ;
+	}
 	
 }
 
