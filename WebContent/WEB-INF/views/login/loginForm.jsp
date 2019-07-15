@@ -69,9 +69,9 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#">비밀번호 찾기</a><br>
-			<a href="/join/join-start.do">구매자 회원가입</a>
+			<a href="/joinuser/joinmember.do">구매자 회원가입</a>
 			&nbsp;&nbsp;&nbsp;
-			<a href="/joinUser/joinSupplier.do">판매자 회원가입</a>
+			<a href="/joinuser/joinsupplier.do">판매자 회원가입</a>
 			</div>
 			<div class="container">
 				<button class="btn waves-effect waves-light" type="submit"  >
