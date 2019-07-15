@@ -48,7 +48,7 @@ public class ReviewService {
 		return reviewComponent.ableToReview();
 	}
 	
-	public ReviewDto modifyReview(String serv_id) {
+	public MatchingDto modifyReview(String serv_id) {
 		return reviewComponent.modifyReview(serv_id);
 	}
 	

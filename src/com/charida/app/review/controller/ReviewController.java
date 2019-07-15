@@ -132,7 +132,7 @@ public class ReviewController {
 		//String id = (String)req.getSession().getAttribute("session_id");
 		//String serv_id = req.getParameter("serv_id");
 		req.setAttribute("serv_id", serv_id);
-		ReviewDto review = reviewService.modifyReview(serv_id);
+		MatchingDto review = reviewService.modifyReview(serv_id);
 		req.setAttribute("review", review);		
 		return "/review/modifyReview";
 	}
