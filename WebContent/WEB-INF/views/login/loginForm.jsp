@@ -73,19 +73,24 @@
 			&nbsp;&nbsp;&nbsp;
 			<a href="/joinUser/joinSupplier.do">판매자 회원가입</a>
 			</div>
-			<div class="input-field col s4 ">
-				<input type="submit" value="로그인" class="waves-effect waves-light btn">
+			<div class="container">
+				<button class="btn waves-effect waves-light" type="submit"  >
+			    <i class="material-icons left"></i>로그인
+			  	</button>
 			</div>			
 		</div>	
 		<div class="col s12">
 			<div class="col s4"></div>
-			<img alt="네이버 로그인" src="/WEB-INF/views/login/kakao.PNG">
+			<img alt="네이버 로그인" src="/images/naver.PNG">
 		</div>		
 		<div class="col s12">
 			<div class="col s4"></div>
-			<img alt="카카오 로그인" src="/WEB-INF/views/login/kakao.PNG">
+			<img alt="카카오 로그인" src="/images/kakao.PNG">
 		</div>
+		
 	</div>	
 </body>
 </form>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </html>

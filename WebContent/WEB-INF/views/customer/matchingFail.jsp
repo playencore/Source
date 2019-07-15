@@ -16,11 +16,25 @@
 	<hr color="gray">
 <div class="section"></div>
 
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					매칭 실패 조회
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
+
 <c:forEach var="MatchingDto" items="${matchingFail}">
 	<div class="container">
 	 <div class="card big">
 	    <div class="col s12 m4">
-	      <div class="card blue-grey darken-1">
+	      <div class="card blue-grey darken-1" >
 	        <div class="card-content white-text">
 	          <center><span class="card-title">매칭 실패</span></center>
 	          <hr color="gray"><br>
@@ -81,9 +95,12 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div>			<div class="section"></div>
 </c:forEach>
-
+</div>
+					<div class="section"></div>
+					<div class="section"></div>
+					
  <!-- Modal Structure -->
 <c:forEach var="MatchingDto" items="${matchingFail}">
   <div id="modal1" class="modal">

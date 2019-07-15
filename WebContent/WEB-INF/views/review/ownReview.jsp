@@ -17,9 +17,28 @@
 	<c:if test="${check == 1}">
 		alert("해당 게시글이 삭제되었습니다.");
 	</c:if>
+	<c:if test="${modify == 0}">
+	alert("게시물 수정에 실패했습니다. 잠시후 다시 시도해주세요.");
+	</c:if>	
+	<c:if test="${modify == 1}">
+		alert("해당 게시글이 수정되었습니다.");
+	</c:if>
 	
 	//-->
 	</script>
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					${session_name}님의 후기
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
 	
 	<c:forEach var="ReviewDto" items="${reviews}">
 	
@@ -120,11 +139,14 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>	
-	
-	
-		
+	</div>			
 	</c:forEach>
+	<div class="section"></div>
+</div>
+
+<div class="section"></div>
+<div class="section"></div>
+
 
 <%@include file="/include/footer.jsp" %>
 </body>

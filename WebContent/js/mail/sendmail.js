@@ -15,9 +15,9 @@ function sendemail() {
 		var email = $("input[name=email]").val();
 		var code = makeRandom(1000, 9999);
 		alert("생성된 인증번호 : " + code );
-		$("input[name=code]").val(code);	
+		$("input[name=emailcode]").val(code);	
 		var codeval = $("input[name=code]").val();
-		alert("input[name=code].val(); : " + codeval );
+		alert("input[name=emailcode].val(); : " + codeval );
 		
 		var content = insertcode(code);
 
@@ -41,14 +41,18 @@ function sendemail() {
 }
 function codecompare(){
 	alert("인증번호 일치여부를 진행합니다.");
-	targetcode = $("input[name=code]").val();
-	enteredcode = $("input[name=emailcode]").val();
+	targetcode = $("input[name=emailcode]").val();
+	enteredcode = $("input[name=emailcheck]").val();
 	alert(targetcode + ", " + enteredcode);
-//	if( targetcode == enteredcode ){
-	if( true ){
+	if( targetcode == enteredcode ){
+//	if( true ){
 		alert("일치");
-		$("input[name=codecheckcomment").val("인증되었습니다.");
+		$("#bt_sendemail").click(function () {return false;});
+		$("#emailcheck_comment").html(
+				"<span style='color:blue'>" + "인증되었습니다." + "</span>");
 	} else {
 		alert("불일치");
+		$("#emailcheck_comment").html(
+				"<span style='color:red'>" + "인증에 실패하였습니다." + "</span>");
 	}
 }

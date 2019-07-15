@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.charida.app.common.service.TestService;
 import com.charida.app.component.review.ReviewComponent;
 import com.charida.app.matching.dto.MatchingDto;
+import com.charida.app.review.dao.ReviewDao;
 import com.charida.app.review.dto.ReviewDto;
 import com.charida.app.review.service.ReviewService;
 
@@ -28,16 +29,16 @@ public class ReviewController {
 	protected Log log = LogFactory.getLog(TestService.class);
 
 	@Resource
-	ReviewService reviewService;
-	
+	ReviewService reviewService;	
 	@Resource
 	ReviewComponent reviewComponent;
-	
+	@Resource
+	ReviewDao reviewDao;
 	//후기작성페이지 컨트롤러
 	@RequestMapping("/review/reviewWrite.do")
-	public String reviewWriteForm(HttpServletRequest req,HttpServletResponse resp) {
+	public String reviewWriteForm(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
-		
+		req.setAttribute("serv_id", serv_id);
 		//model.addAttribute("serverTime", formattedDate );
 		
 		return "/review/reviewWriteForm";
@@ -45,13 +46,15 @@ public class ReviewController {
 	
 	//후기작성처리
 	@RequestMapping("/review/setReview.do")
-	public String setReview(HttpServletRequest req,HttpServletResponse resp) {
+	public String insertReview(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		//model.addAttribute("serverTime", formattedDate );
+		//String serv_id = reviewDao.getServ_id();
 		Map<String, Object> params =getParameterMap(req);
-		params.put("mem_id",(String)req.getSession().getAttribute("session_id"));
+		params.put("serv_id", serv_id);
+		//params.put("mem_id",(String)req.getSession().getAttribute("session_id"));
 		//mem_id가 아니라 서비스테이블의 serv_id 값을 가져와야한다. 서비스테이블 완성되면 추후 수정해야됨.
-		reviewService.setReviewTx(params);
+		reviewService.insertReviewTx(params);
 		// 파일이름 받아오기-------------
 		req.getAttribute("servicePicture1");
 		req.getAttribute("servicePicture2");
@@ -128,7 +131,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_authority");
 		//String id = (String)req.getSession().getAttribute("session_id");
 		//String serv_id = req.getParameter("serv_id");
-		
+		req.setAttribute("serv_id", serv_id);
 		ReviewDto review = reviewService.modifyReview(serv_id);
 		req.setAttribute("review", review);		
 		return "/review/modifyReview";
@@ -139,18 +142,20 @@ public class ReviewController {
 	public String modifyReviewPro(@RequestParam("serv_id")String serv_id, HttpServletResponse resp, HttpServletRequest req) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
-		req.getSession().getAttribute("session_authority");			
+		req.getSession().getAttribute("session_authority");	
+		Map<String, Object> params =getParameterMap(req);
+		params.put("serv_id", serv_id);
 		
-		int result = reviewComponent.modifyReviewPro(serv_id);
+		int result = reviewService.modifyReviewPro(params);
 		
 		if(result == 0) {
-			req.setAttribute("check", 0);
+			req.setAttribute("modify", 0);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);		
 			req.setAttribute("reviews", reviews);
 			return "/review/ownReview";
 		}else {
-			req.setAttribute("check", 1);
+			req.setAttribute("modify", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);		
 			req.setAttribute("reviews", reviews);
@@ -173,7 +178,8 @@ public class ReviewController {
 		
 		int result = reviewComponent.deleteReview(serv_id);
 		
-		if(result == 0) {
+		if(result == 0) {	
+			//삭제실패
 			req.setAttribute("check", 0);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);		
@@ -181,6 +187,7 @@ public class ReviewController {
 			
 			return "/review/ownReview";
 		}else {
+			//삭제성공
 			req.setAttribute("check", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);		

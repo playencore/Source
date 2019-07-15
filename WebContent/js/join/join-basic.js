@@ -26,11 +26,11 @@ function getval(attr) {
 }
 function outresult(attr, check, result) {
 	if (check == false) {
-		$('span[name=' + attr + 'comment]').html(
-				"<span style='color:red'>" + result + "</span>");
+		$('#' + attr + '_comment').html(
+			"<span style='color:red'>" + result + "</span>");
 	} else {
-		$('span[name=' + attr + 'comment]').html(
-				"<span style='color:blue'>" + result + "</span>");
+		$('#' + attr + '_comment').html(
+			"<span style='color:blue'>" + result + "</span>");
 	}
 	return check;
 }
@@ -53,18 +53,38 @@ function cklength(attrval, min, max) {
 		return true;
 	}
 }
+// 오직 숫자로만 구성되었는지 검사
 function isOnlyNumber(attrval) {
-//	if( attrval.)
+	var reg = /[^0-9]/g;
+	if( !reg.test(attrval) ){
+		return true;
+	} else {
+		result = "숫자만 입력 가능합니다.";
+		return false;
+	}
 }
 
+var name_mem_id = 'mem_id';
+var name_passwd = 'passwd';
+var name_passwdcheck = 'passwdcheck';
+var name_name = 'name';
+var name_email = 'email';
+var name_emailcheck = 'emailcheck';
+var name_zipcode = 'zipcode';
+var name_address = 'address';
+var name_address_detail = 'address_datail';
+var name_tel = 'tel';
+var name_birth_date = 'birth_date';
+var name_gender = 'gender';
+var name_job = 'job';
 
 $(function() {
 	var check = false;
 	var check2 = false;
 	// 아이디 입력란에서 keyup 이벤트 감지
-	$('input[name=memid]').on('keyup', function() {
-		attr = "memid";
-		attr2 = "passwd";
+	$("input[name="+name_mem_id+"]").on('keyup', function() {
+		attr = name_mem_id;
+		attr2 = name_passwd;
 		result = "";
 		check = false;
 		check2 = false;
@@ -73,18 +93,35 @@ $(function() {
 		var attrval2 = getval(attr2);
 
 		var Reg1 = /^[a-z]/g; // 소문자로 시작해야합니다.
-		var Reg2 = /^[a-z]{6,20}/g; // 소문자로 시작해야합니다. 6자리 이상이어야합니다.
+		var Reg2 = /^[a-z0-9]{6,20}/g; // 소문자로 시작해야합니다. 6자리 이상이어야합니다.
 		var Reg = /^[a-z]+[a-z0-9]{5,19}$/g;
 
-		// memid 란에 출력할 내용을 결정
+		// 첫글자는 영문 소문자로 시작할 것
+		var reg1 = /^[a-z]/g;
+		// 영문 소문자와 숫자만 사용 할 것
+		var reg2 = /^[a-z]+[a-z0-9]/g;
+		// 6자리 이상일 것
+		var reg3 = /^[a-z]+[a-z0-9]/g;
+		// 20자리 이하일 것
+		var reg4 = /^[]{5,19}$/g;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// mem_id 란에 출력할 내용을 결정
 		if (!ckempty(attrval)) { // null과 공백 검사
 
 		} else if (!Reg1.test(attrval)) { // 아이디 첫글자 검사
 			result = "아이디는 영문 소문자로 시작해야합니다.";
-		} else if (!Reg2.test(attrval)) { // 아이디 최소길이 검사
-			result = "아이디는 6자 이상이어야 합니다.";
 		} else if (!Reg.test(attrval)) { // 아이디 유효성 검사
 			result = "아이디는 영문 소문자, 숫자만 입력가능합니다.";
+		} else if (!Reg2.test(attrval)) { // 아이디 최소길이 검사
+			result = "아이디는 6자 이상이어야 합니다.";
 		} else if (attrval.length < 6 || attrval.length > 20) { // 아이디 길이 체크
 			result = "아이디를 6~20자까지 입력해주세요.";
 		} else {
@@ -112,10 +149,10 @@ $(function() {
 		memidable = outresult(attr, check, result);
 
 		// passwd 란에 출력할 내용 결정
-		if (attrval == attrval2) { // 아이디와 비밀번호가 동일한지 체크
+		if( attrval2 == "" ){
+			result = "";
+		} else if (attrval == attrval2) { // 아이디와 비밀번호가 동일한지 체크
 			result = "아이디와 비밀번호를 다르게 입력해주세요.";
-		} else if (!ckempty(attrval2)) {
-
 		} else if (attrval != attrval2) {
 			result = "";
 			check2 = true;
@@ -125,15 +162,15 @@ $(function() {
 	});
 
 	// 비밀번호 입력란에서 keyup 이벤트 감지
-	$('input[name=passwd]').on('keyup', function() {
+	$('input[name='+name_passwd+']').on('keyup', function() {
 		result = "";
 		check = false;
 		check2 = false;
-		var attr = "passwd";
+		var attr = name_passwd;
+		var attr2 = name_passwdcheck;
+		var attr3 = name_mem_id;
 		var attrval = $('input[name=' + attr + ']').val();
-		var attr2 = "repasswd";
 		var attrval2 = $('input[name=' + attr2 + ']').val();
-		var attr3 = "memid";
 		var attrval3 = $('input[name=' + attr3 + ']').val();
 
 		if (attrval.length < 4) { // 비밀번호란이 비어있는지 체크
@@ -149,22 +186,22 @@ $(function() {
 		// passwd 란에 출력
 		passwdable = outresult(attr, check, result)
 
-		// repasswd 란에 출력할 내용 결정
+		// passwdcheck 란에 출력할 내용 결정
 		if (attrval != attrval2) { // 비밀번호와 비밀번호확인이 일치하는지 검사
 			result = "비밀번호가 일치하지 않습니다.";
 		} else { // 비밀번호와 비밀번호확인이 일치하는지 검사
 			result = "비밀번호가 일치합니다.";
 			check2 = true;
 		}
-		// repasswd 란에 출력
+		// passwdcheck 란에 출력
 		repasswdable = outresult(attr2, check2, result)
 	});
 
-	// repasswd 관련 keyup 이벤트 감지
-	$('input[name=repasswd]').on('keyup', function() {
+	// passwdcheck 관련 keyup 이벤트 감지
+	$('input[name='+name_passwdcheck+']').on('keyup', function() {
 		check = false;
-		attr = "repasswd";
-		attr2 = "passwd";
+		attr = name_passwdcheck;
+		attr2 = name_passwd;
 		attrval = getval(attr);
 		attrval2 = getval(attr2);
 
@@ -182,9 +219,9 @@ $(function() {
 	});
 
 	// name 관련 keyup 이벤트 감지
-	$('input[name=name]').on('keyup', function() {
+	$('input[name='+name_name+']').on('keyup', function() {
 		check = false;
-		attr = "name";
+		attr = name_name;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
@@ -200,136 +237,48 @@ $(function() {
 	});
 
 	// email 관련 keyup 이벤트 감지
-	$('input[name=email]')
-		.on(
-			'keyup',
-			function() {
-				check = false;
-				attr = "email";
-				attrval = getval(attr);
-				var emailReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-				// 검사
-				if (!ckempty(attrval)) { // null과 공백 검사
+	$('input[name='+name_email+']').on('keyup',function() {
+		check = false;
+		attr = name_email;
+		attrval = getval(attr);
+		var emailReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+		// 검사
+		if (!ckempty(attrval)) { // null과 공백 검사
 
-				} else if (!cklength(attrval, 6, 30)) { // 글자 수 검사
+		} else if (!cklength(attrval, 6, 30)) { // 글자 수 검사
 
-				} else if (emailReg.test(attrval) == false) {
-					result = "잘못된 이메일 형식입니다.";
-				} else {
-					result = "올바른 이메일 형식입니다.";
-					check = true;
-				}
+		} else if (emailReg.test(attrval) == false) {
+			result = "잘못된 이메일 형식입니다.";
+		} else {
+				result = "올바른 이메일 형식입니다.";
+				check = true;
+		}
 
 				// 출력
-				emailable = outresult(attr, check, result);
-			});
-	// 인증번호발송버튼 관련 keyup 이벤트 감지(미완성)
-	$('input[name=emailcheckcomment]').on('keyup', function() {
-		alert("emailcheckcomment");
-		check = false;
-		attr = "emailcheckcomment";
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 2, 20)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		emailcheckcommentable = outresult(attr, check, result);
+		emailable = outresult(attr, check, result);
 	});
-	// emailcode란에 keyup 이벤트 감지
-	$('input[name=emailcode]').on('keyup', function() {
+	// emailcheck란에 keyup 이벤트 감지
+	$('input[name='+name_emailcheck+']').on('keyup', function() {
 		check = false;
-		attr = "emailcode";
+		attr = name_emailcheck;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
 
-		} else if (!cklength(attrval, 4, 4)) { // 글자 수 검사
+		} else if(!isOnlyNumber(attrval)) {
+		} else if ( !cklength(attrval, 4, 4) ) { // 글자 수 검사
 			result = "4자리의 숫자를 입력해주세요."
 		} else {
-			result = "확인버튼을 눌러주세요";
+			result = "[인증번호 확인]버튼을 눌러주세요";
 			check = true;
 		}
 		// 출력
 		emailcodeable = outresult(attr, check, result);
 	});
-	// codecheckcomment란에 keyup 이벤트 감지(미완성)
-	$('input[name=codecheckcomment]').on('keyup', function() {
-		check = false;
-		attr = "codecheckcomment";
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 2, 20)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		codecheckcommentable = outresult(attr, check, result);
-	});
-	// zipcode란에 keyup 이벤트 감지
-	$('input[name=zipcode]').on('keyup', function() {
-		check = false;
-		attr = "zipcode";
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 6, 6)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		zipcodeable = outresult(attr, check, result);
-	});
-	// tel란에 keyup 이벤트 감지
-	$('input[name=tel]').on('keyup', function() {
-		check = false;
-		attr = "tel";
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 13, 13)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		telable = outresult(attr, check, result);
-	});
-	// birthdate란에 keyup 이벤트 감지
-	$('input[name=birthdate]').on('keyup', function() {
-		check = false;
-		attr = "birthdate";
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 8, 8)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		birthdateable = outresult(attr, check, result);
-	});
 	// address란에 keyup 이벤트 감지
-	$('input[name=address]').on('keyup', function() {
+	$('input[name='+name_address+']').on('keyup', function() {
 		check = false;
-		attr = "address";
+		attr = name_address;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
@@ -343,10 +292,10 @@ $(function() {
 		// 출력
 		addressable = outresult(attr, check, result);
 	});
-	// addressdetail란에 keyup 이벤트 감지
-	$('input[name=addressdetail]').on('keyup', function() {
+	// address_detail란에 keyup 이벤트 감지
+	$('input[name='+name_address_detail+']').on('keyup', function() {
 		check = false;
-		attr = "addressdetail";
+		attr = name_address_detail;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
@@ -360,33 +309,46 @@ $(function() {
 		// 출력
 		addressdetailable = outresult(attr, check, result);
 	});
-	// gender란에 keyup 이벤트 감지
-	$('input[name=gender]').on('keyup', function() {
+	// tel란에 keyup 이벤트 감지
+	$('input[name='+name_tel+']').on('keyup', function() {
 		check = false;
-		attr = "gender";
+		attr = name_tel;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 1, 1)) { // 글자 수 검사
-
+		} else if(!isOnlyNumber(attrval)) {
+		} else if (!cklength(attrval, 13, 13)) { // 글자 수 검사
 		} else {
 			result = "";
 			check = true;
 		}
 		// 출력
-		genderable = outresult(attr, check, result);
+		telable = outresult(attr, check, result);
 	});
-	// 직업란에 keyup 이벤트 감지
-	$('input[name=job]').on('keyup', function() {
+	// birth_date란에 keyup 이벤트 감지
+	$('input[name='+name_birth_date+']').on('keyup', function() {
 		check = false;
-		attr = "job";
+		attr = name_birth_date;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 2, 6)) { // 글자 수 검사
-
+		} else if(!isOnlyNumber(attrval)) {
+		} else if (!cklength(attrval, 8, 8)) { // 글자 수 검사
+		} else {
+			result = "";
+			check = true;
+		}
+		// 출력
+		birthdateable = outresult(attr, check, result);
+	});
+	// job 란에 keyup 이벤트 감지
+	$('input[name='+name_job+']').on('keyup', function() {
+		check = false;
+		attr = name_job;
+		attrval = getval(attr);
+		// 검사
+		if ( attrval == "" ) { // null과 공백 검사
+			"직업을 선택하지 않았습니다.";
 		} else {
 			result = "";
 			check = true;

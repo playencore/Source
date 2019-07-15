@@ -46,7 +46,7 @@
 <div class="section"></div>
 <div class="section"></div>
 
-<form method="post" onsubmit="return reviewinput()" action="/review/setReview.do" enctype="multipart/form-data">
+<form method="post" onsubmit="return reviewinput()" action="/review/setReview.do?serv_id=${serv_id}" enctype="multipart/form-data">
 
 <div class="container" style="background-color: white;margin-top:2px;">
 

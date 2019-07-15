@@ -16,7 +16,7 @@ public class ReviewComponent {
 	@Resource
 	ReviewDao reviewDao;
 	
-	public int setReview(ReviewDto reviewDto) {
+	public int insertReview(ReviewDto reviewDto) {
 		int result = reviewDao.insertReview(reviewDto);	
 		
 		return result;
@@ -46,8 +46,8 @@ public class ReviewComponent {
 		}
 	}
 	
-	public int modifyReviewPro(String serv_id) {
-		int result = reviewDao.modifyReviewPro(serv_id);
+	public int modifyReviewPro(ReviewDto reviewDto) {
+		int result = reviewDao.modifyReviewPro(reviewDto);
 		if(result == 0) {
 			return 0;
 		}else {

@@ -7,7 +7,7 @@
   <insert id="insertReview" parameterType="com.charida.app.review.dto.ReviewDto">
   	INSERT INTO CRD_SERV_REVIEW (SERV_ID, REVIEW_DATE, SERV_ROOT, MENU_SCORE, PRICE_SCORE, 
   								SERV_SCORE, RECOMMAND, TITLE, CONTENT, FILE_YN, BLIND_YN)
-  	VALUES('gg0000', SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
+  	VALUES(#{serv_id}, SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
   			#{serv_score}, #{recommand}, #{title}, #{content}, NULL, 'N')
   </insert>
   <select id="getReviews" resultType="com.charida.app.review.dto.ReviewDto">
@@ -71,7 +71,7 @@
 	AND A.SERV_ID = S.SERV_ID 
 	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
   </select>
-  <select id="modifyReview" parameterType="java.lang.String" resultType="java.util.Map">
+  <select id="modifyReview" parameterType="java.lang.String" resultType="com.charida.app.matching.dto.MatchingDto">
   	SELECT 
 	  	SERV_ID, 
 	  	REVIEW_DATE, 
@@ -88,7 +88,7 @@
   <delete id="deleteReview" parameterType="String">
   	DELETE FROM CRD_SERV_REVIEW WHERE SERV_ID = #{serv_id}
   </delete> 
-  <update id="modifyReviewPro" parameterType="String">
+  <update id="modifyReviewPro" parameterType="com.charida.app.review.dto.ReviewDto">
 	UPDATE CRD_SERV_REVIEW SET 
 		SERV_ROOT = #{serv_root},
 		MENU_SCORE = #{menu_score},
@@ -97,6 +97,14 @@
 		RECOMMAND = #{recommand},
 		TITLE = #{title},
 		CONTENT = #{content}
-	WHERE SERV_ID = 'bb0000'
+	WHERE SERV_ID = #{serv_id}
   </update>
+  <select id="getServ_id" resultType="String">
+  	SELECT A.SERV_ID 
+  	FROM CRD_SERV_APP A INNER JOIN CRD_SERV_SUGG S
+	ON S.CHOOSE_YN='Y' 
+	AND A.SERV_ID = S.SERV_ID 
+	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
+  </select>
+  
 </mapper>

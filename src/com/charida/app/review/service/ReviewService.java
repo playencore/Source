@@ -16,12 +16,12 @@ public class ReviewService {
 	@Resource
 	ReviewComponent reviewComponent;
 
-	public int setReviewTx(Map<String, Object> reviewMap) {
+	public int insertReviewTx(Map<String, Object> reviewMap) {
 		int result = 0;
 		
 		//Review Insert
 		ReviewDto reviewDto = new ReviewDto();
-		reviewDto.setMem_id((String)reviewMap.get("mem_id"));
+		reviewDto.setServ_id((String)reviewMap.get("serv_id"));
 		reviewDto.setServ_root((String)reviewMap.get("servRoot"));
 		reviewDto.setMenu_score((String)reviewMap.get("menuScore"));
 		reviewDto.setPrice_score((String)reviewMap.get("priceScore"));
@@ -30,7 +30,7 @@ public class ReviewService {
 		reviewDto.setTitle((String)reviewMap.get("title"));
 		reviewDto.setContent((String)reviewMap.get("content"));
 		
-		result += reviewComponent.setReview(reviewDto);
+		result += reviewComponent.insertReview(reviewDto);
 				
 		return result;
 	}
@@ -52,9 +52,22 @@ public class ReviewService {
 		return reviewComponent.modifyReview(serv_id);
 	}
 	
-//	public int modifyReviewPro(String serv_id) {
-//		return reviewComponent.modifyReviewPro(serv_id);
-//	}
+	public int modifyReviewPro(Map<String, Object> reviewMap) {
+		int result = 0;
+		ReviewDto reviewDto = new ReviewDto();
+		reviewDto.setServ_id((String)reviewMap.get("serv_id"));
+		reviewDto.setServ_root((String)reviewMap.get("servRoot"));
+		reviewDto.setMenu_score((String)reviewMap.get("menuScore"));
+		reviewDto.setPrice_score((String)reviewMap.get("priceScore"));
+		reviewDto.setServ_score((String)reviewMap.get("serviceScore"));
+		reviewDto.setRecommand((String)reviewMap.get("recommend"));
+		reviewDto.setTitle((String)reviewMap.get("title"));
+		reviewDto.setContent((String)reviewMap.get("content"));
+		
+		result += reviewComponent.modifyReviewPro(reviewDto);
+				
+		return result;
+	}
 	
 //	public int deleteReview(String serv_id) {
 //		int result = reviewComponent.deleteReview(serv_id);
