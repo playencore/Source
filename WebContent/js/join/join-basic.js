@@ -29,6 +29,7 @@ function outresult(attr, check, result) {
 		$('#' + attr + '_comment').html(
 			"<span style='color:red'>" + result + "</span>");
 	} else {
+		result = "사용가능합니다.";
 		$('#' + attr + '_comment').html(
 			"<span style='color:blue'>" + result + "</span>");
 	}
@@ -66,7 +67,7 @@ function isOnlyNumber(attrval) {
 
 var name_mem_id = 'mem_id';
 var name_passwd = 'passwd';
-var name_passwdcheck = 'passwdcheck';
+var name_repasswd = 'passwdcheck';
 var name_name = 'name';
 var name_email = 'email';
 var name_emailcheck = 'emailcheck';
@@ -78,6 +79,7 @@ var name_birth_date = 'birth_date';
 var name_gender = 'gender';
 var name_job = 'job';
 
+var name_bt_serchadress = 'bt_serchadress';
 var name_form = "joinMemberForm";
 
 
@@ -170,7 +172,7 @@ $(function() {
 		check = false;
 		check2 = false;
 		var attr = name_passwd;
-		var attr2 = name_passwdcheck;
+		var attr2 = name_repasswd;
 		var attr3 = name_mem_id;
 		var attrval = $('input[name=' + attr + ']').val();
 		var attrval2 = $('input[name=' + attr2 + ']').val();
@@ -189,21 +191,21 @@ $(function() {
 		// passwd 란에 출력
 		passwdable = outresult(attr, check, result)
 
-		// passwdcheck 란에 출력할 내용 결정
+		// repasswd 란에 출력할 내용 결정
 		if (attrval != attrval2) { // 비밀번호와 비밀번호확인이 일치하는지 검사
 			result = "비밀번호가 일치하지 않습니다.";
 		} else { // 비밀번호와 비밀번호확인이 일치하는지 검사
 			result = "비밀번호가 일치합니다.";
 			check2 = true;
 		}
-		// passwdcheck 란에 출력
+		// repasswd 란에 출력
 		repasswdable = outresult(attr2, check2, result)
 	});
 
-	// passwdcheck 관련 keyup 이벤트 감지
-	$('input[name='+name_passwdcheck+']').on('keyup', function() {
+	// repasswd 관련 keyup 이벤트 감지
+	$('input[name='+name_repasswd+']').on('keyup', function() {
 		check = false;
-		attr = name_passwdcheck;
+		attr = name_repasswd;
 		attr2 = name_passwd;
 		attrval = getval(attr);
 		attrval2 = getval(attr2);
@@ -278,39 +280,61 @@ $(function() {
 		// 출력
 		emailcodeable = outresult(attr, check, result);
 	});
+	// zipcode 검사
+	// 우편번호 검사는 상세주소 입력할 때 진행함
+	
 	// address란에 keyup 이벤트 감지
-	$('input[name='+name_address+']').on('keyup', function() {
-		check = false;
-		attr = name_address;
-		attrval = getval(attr);
-		// 검사
-		if (!ckempty(attrval)) { // null과 공백 검사
-
-		} else if (!cklength(attrval, 2, 30)) { // 글자 수 검사
-
-		} else {
-			result = "";
-			check = true;
-		}
-		// 출력
-		addressable = outresult(attr, check, result);
-	});
+	// 기본주소 검사는 상세주소 입력할 때 진행함
+	
 	// address_detail란에 keyup 이벤트 감지
 	$('input[name='+name_address_detail+']').on('keyup', function() {
+		// ------- 우편번호 검사
 		check = false;
-		attr = name_address_detail;
+		attr = name_zipcode;
 		attrval = getval(attr);
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
 
-		} else if (!cklength(attrval, 2, 40)) { // 글자 수 검사
+		} else if (!cklength(attrval, 5, 6)) { // 글자 수 검사
 
 		} else {
 			result = "";
 			check = true;
 		}
 		// 출력
-		addressdetailable = outresult(attr, check, result);
+		zipcodeable = outresult(attr, check, result);
+		
+		// ------- 기본주소 검사
+		check = false;
+		attr2 = name_address;
+		attrval2 = getval(attr2);
+		// 검사
+		if (!ckempty(attrval2)) { // null과 공백 검사
+
+		} else if (!cklength(attrval2, 2, 150)) { // 글자 수 검사
+
+		} else {
+			result = "";
+			check = true;
+		}
+		// 출력
+		addressable = outresult(attr2, check, result);
+		
+		// ------- 상세주소 검사
+		check = false;
+		attr3 = name_address_detail;
+		attrval3 = getval(attr3);
+		// 검사
+		if (!ckempty(attrval3)) { // null과 공백 검사
+
+		} else if (!cklength(attrval3, 2, 150)) { // 글자 수 검사
+
+		} else {
+			result = "";
+			check = true;
+		}
+		// 출력
+		addressdetailable = outresult(attr3, check, result);
 	});
 	// tel란에 keyup 이벤트 감지
 	$('input[name='+name_tel+']').on('keyup', function() {
@@ -320,7 +344,7 @@ $(function() {
 		// 검사
 		if (!ckempty(attrval)) { // null과 공백 검사
 		} else if(!isOnlyNumber(attrval)) {
-		} else if (!cklength(attrval, 11, 11)) { // 글자 수 검사
+		} else if (!cklength(attrval, 11, 13)) { // 글자 수 검사
 			result = "ex)01012345678 숫자만 입력하세요.!";
 		} else {
 			result = "";
@@ -352,7 +376,7 @@ $(function() {
 		attrval = getval(attr);
 		// 검사
 		if ( attrval == "" ) { // null과 공백 검사
-			"직업을 선택하지 않았습니다.";
+			result = "직업을 선택하지 않았습니다.";
 		} else {
 			result = "";
 			check = true;
@@ -364,64 +388,11 @@ $(function() {
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
 	$("#bt_memberjoin").click(function() {
 		alert("[구매자회원가입]버튼 클릭을 감지해서 가입진행 여부를 검사합니다.");
-//		var dForm = "joinMemberForm";
-//		var df="document."+dForm;
-//		var f = dForm;
-		check = false;
 
-//		if (memidable == false) {
-//			document.joinMemberForm.name_mem_id.focus();
-//			document.joinMemberForm.name_mem_id.select();
-//		} 
-//		else if (passwdable == false) {
-//			f.passwd.focus();
-//			document.dForm.passwd.select();
-//		} else if (repasswdable == false) {
-//			document.dForm.repasswd.focus();
-//			document.dForm.repasswd.select();
-//		} else if (nameable == false) {
-//			document.dForm.name.focus();
-//			document.dForm.name.select();
-//		} else if (emailable == false) {
-//			document.dForm.email.focus();
-//			document.dForm.email.select();
-//		} else if (emailcodeable == false) {
-//			document.dForm.emailcode.focus();
-//			document.dForm.emailcode.select();
-//		} else if (codecheckcommentable == false) {
-//			document.dForm.codecheckcomment.focus();
-//			document.dForm.codecheckcomment.select();
-//		} else if (zipcodeable == false) {
-//			document.dForm.zipcode.focus();
-//			document.dForm.zipcode.select();
-//		} else if (telable == false) {
-//			document.dForm.tel.focus();
-//			document.dForm.tel.select();
-//		} else if (birthdateable == false) {
-//			document.dForm.birthdate.focus();
-//			document.dForm.birthdate.select();
-//		} else if (addressable == false) {
-//			document.dForm.address.focus();
-//			document.dForm.address.select();
-//		} else if (addressdetailable == false) {
-//			document.dForm.addressdetail.focus();
-//			document.dForm.addressdetail.select();
-//		} else if (genderable == false) {
-//			document.dForm.gender.focus();
-//			document.dForm.gender.select();
-//		} else if (jobable == false) {
-//			document.dForm.job.focus();
-//			document.dForm.job.select();
-//		} else if (authorityable == false) {
-//			document.dForm.authority.focus();
-//			document.dForm.authority.select();
-//	//	} else {
-//		} 
-		alert("유효성 모두 통과 함");
 		if (false){
 			/* 회원가입시 입력정보 자동 입력값  */
 			$("input[name="+name_passwd+"]").val("111111");
-			$("input[name="+name_passwdcheck+"]").val("111111");
+			$("input[name="+name_repasswd+"]").val("111111");
 			$("input[name="+name_name+"]").val("홍길동동");
 			$("input[name="+name_email+"]").val("fullcontrolg@gmail.com");
 			$("input[name="+name_emailcheck+"]").val("");
@@ -432,8 +403,52 @@ $(function() {
 			$("input[name="+name_birth_date+"]").val("19991213");
 			$("input[name="+name_gender+"]").val("1");
 			$("input[name="+name_job+"]").val("2");
-		}
-		if (true) {
+		} else if (memidable == false) {
+			result = name_mem_id;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (passwdable == false) {
+			result = name_passwd;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (repasswdable == false) {
+			result = name_repasswd;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (nameable == false) {
+			result = name_name;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (emailable == false) {
+			result = name_email;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (zipcodeable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("zip오류 : " + result + "를 확인해주세요.");
+		} else if (addressable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("add오류 : " + result + "를 확인해주세요.");
+		} else if (addressdetailable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("adddail오류 : " + result + "를 확인해주세요.");
+		} else if (telable == false) {
+			result = name_tel;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (birthdateable == false) {
+			result = name_birth_date;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (jobable == false) {
+			result = name_job;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else {
+			alert("유효성 모두 통과 함");
 			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
 			$('form[name='+name_form+']').attr('target','');
 			$('form[name='+name_form+']').submit();

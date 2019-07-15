@@ -68,7 +68,7 @@
 					          <span class="helper-text" id="email_comment"></span>
 					        </div>
 					        <div class = "col s4">
-					        	<a class="waves-effect waves-light btn" style="margin-top:20px" onclick="sendemail();" contenteditable="true">이메일 인증 </a>
+					        	<a class="waves-effect waves-light btn" style="margin-top:20px" onclick="sendemail();">이메일 인증 </a>
 					        </div>
 				        </div>
 				        <div class = "col s12">
@@ -93,7 +93,7 @@
 						          			<label for="address" >*주소입력</label>
 					          			</div>
 				          			</div>
-				          			<div id = "serchadress" class="col s4">
+				          			<div id = "bt_serchadress" class="col s4">
 				          				<a class="btn waves-effect waves-light modal-trigger " href="#modal1" onclick="daumPostcode()" style="margin-top:15px;margin-left:10px" id="btn_addr">주소 검색</a>
 				          			</div>
 				          			<div class="col s12">
