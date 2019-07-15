@@ -65,8 +65,8 @@ public class ApplicationComponent {
 		Map<String, Object> appEntities = new HashMap<String, Object>();
 		
 		//TODO 세션 생기면 수정
-		appEntities.put("customer_id", "test123");
-		//appEntities.put("customer_id", params.get("sessionId"));
+		//appEntities.put("customer_id", "test123");
+		appEntities.put("customer_id", params.get("sessionId"));
 		appEntities.put("progress_code", "00010001");
 		appEntities.put("zipcode", params.get("zipcode"));
 		appEntities.put("address", params.get("addr"));

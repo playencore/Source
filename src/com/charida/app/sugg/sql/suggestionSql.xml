@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Sugg">
+	<select id="getSuggList" resultType="java.util.Map" parameterType="java.lang.String">
+		SELECT SUGG_ID
+			,(SELECT NAME FROM CRD_MEM WHERE MEM_ID =SER.CUSTOMER_ID) as NAME 
+			,TO_CHAR(SUGG_DATE,'YYYY-MM-DD HH24:MI:SS') as SUGG_DATE, CHOOSE_YN
+			, SUG.PER_BUD,TO_CHAR(SERV_DATE ,'YYYY-MM-DD HH24:MI') as SERV_DATE 
+		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
+		WHERE SER.SERV_ID = SUG.SERV_ID 
+		AND SUG.MEM_ID= #{suggId}
+	</select>
+</mapper>

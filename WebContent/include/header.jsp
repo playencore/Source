@@ -55,7 +55,7 @@
   </div>
   
   <c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '2'}">
-   <div class="nav-content" id="nav_mypage" style="display:none">
+   <div class="nav-content" id="nav_mypage" style="display:none; border-bottom: 1px solid #999;">
      <ul class="tabs tabs-transparent">
 	   <li class="tab"><a href="/customer/matchingSuccess.do">서비스완료 목록</a></li>
   	   <li class="tab"><a href="/customer/matchingFail.do">매칭실패 목록</a></li>
@@ -67,12 +67,12 @@
    </div>
   </c:if>
   <c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '3'}">
-   <div class="nav-content" id="nav_mypage" style="display:none">
+   <div class="nav-content" id="nav_mypage" style="display:none;    border-bottom: 1px solid #999;">
      <ul class="tabs tabs-transparent">
-       <li class="tab"><a href="#test1">판매자1</a></li>
-       <li class="tab"><a href="#test2">판매자2</a></li>
-       <li class="tab"><a href="#test3">판매자3</a></li>
-       <li class="tab"><a href="#test4">판매자4</a></li>
+       <li class="tab"><a href="/sugg/suggestions-list.do">제안 리스트</a></li>
+       <li class="tab"><a href="#test2">완료 리스트</a></li>
+       <li class="tab"><a href="#test3">매출 관리</a></li>
+       <li class="tab"><a href="#test4">판매정보 수정</a></li>
      </ul>
    </div>
   </c:if>

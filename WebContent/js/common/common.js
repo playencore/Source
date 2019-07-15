@@ -19,6 +19,14 @@ function activeItem(txt){
 		}
 	});
 }
+function activeSubItem(txt){
+	$('.tabs-transparent').find('a').each(function(i,e){
+		if($(e).text()==txt){
+			$(e).addClass("active");	
+			$(e).parent().addClass("active");	
+		}
+	});
+}
 $(function(){
 	$('.dropdown-trigger').dropdown();
 });
