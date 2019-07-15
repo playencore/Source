@@ -74,7 +74,7 @@ public class ReviewController {
 		req.setAttribute("reviews", reviews);
 		//req.setAttribute("reviewsSize", reviews.size());
 		
-		return "/review/review";
+		return "/review/ownReview";
 	}
 	
 	
