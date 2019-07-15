@@ -76,4 +76,8 @@ public class SupplierDao {
 		return sqlSession.update("Supplier.updatePermission",permission) ;
 	}
 	
+	public List<Object> selectSearchList(Map<String,String> paramMap){
+		return sqlSession.selectList("Supplier.selectSerchList",paramMap);
+	}
+	
 }

@@ -21,8 +21,7 @@ public class SupplierService {
 	
 	public int setSupplierTx(Map <String,String[]> supplierMap) {
 		int result = 0 ;
-		
-		
+
 		//crd_company insert-----------------------------------------------------------------------------------
 		SupplierDto supplierDto = new SupplierDto() ;
 		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
@@ -110,19 +109,7 @@ public class SupplierService {
 			return "기존에 가입한 업체입니다. 확인해주세요." ;
 		}
 	}
-	////////////////////////////////adminpage
-	public List<Map<String, String>> getNotPerMissionSuppliers(){
-		return supplierComponent.getNotPermissionSuppliers() ;
-	}
-	////////////////////////////////////updatepermission 
-	public String updatePermission(Map<String, String[]> permissionMap) {
-		int result = supplierComponent.updatePermission(permissionMap);
-		if(result == 0) {
-			return "수정이 진행되지 않았습니다. 다시 확인해주세요." ;
-		}else{
-			return "수정이 완료되었습니다." ;
-		}
-	}
+	
 	
 }
 

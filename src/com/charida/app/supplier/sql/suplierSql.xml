@@ -101,4 +101,28 @@
 		MEM_ID = #{mem_id[0]}
 	</update>
 	
+	<select id="selectSerchList" parameterType="map" resultType="hashMap">
+		SELECT
+		M.MEM_ID MEM_ID,
+		M.NAME NAME,
+		M.EMAIL EMAIL,
+		M.ADDRESS ADRESS,
+		M.ADDRESS_DETAIL ADDRESS_DETAIL,
+		M.JOIN_DATE JOIN_DATE,
+		M.BIRTH_DATE BIRTH_DATE,
+		M.GENDER GENDER,
+		M.TEL TEL,
+		C.REGIST_NUM REGIST_NUM,
+		C.NAME COMPANYNAME,
+		C.EXPLANATION EXPLANATION,
+		C.MINIMUM_SEATING MINUMUM_SEATING,
+		C.MAXiMUM_SEATING MAXiMUM_SEATIN,
+		C.TELEGRAM_ID  TELEGRAM_ID 
+		FROM CRD_MEM M , CRD_COMPANY C
+		WHERE M.MEM_ID = C.MEM_ID
+		AND
+		${table}.${searchCategory} LIKE '%'||#{searchContent}||'%' 
+		
+	</select>
+	
 </mapper>

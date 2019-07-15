@@ -1,37 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>차리다</title>
-<script src = "/js/jquery-3.4.1.js"></script>
-<script src = "/js/nouislider.js"></script>
-<script src = "/js/materialize.js"></script>
-<script src = "/js/dropify.js"></script>
-
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/nouislider.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<link rel = "stylesheet" type = "text/css" href ="/css/dropify.css" />
-<!-- icon -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<%@include file="/include/header.jsp" %>
 <script type="text/javascript">
-	//<!--
-	  $(document).ready(function(){
-	    $('.tabs').tabs();
-	    for( var i = 0 ; i < ${listsize} ; i++){
-	    	$('#infomodal'+i).modal();
-	    	$('#permissionmodal'+i).modal() ;
-	    }
-	  });
-	
-	//-->
+//<!--
+  $(document).ready(function(){
+    $('.tabs').tabs();
+    for( var i = 0 ; i < ${listsize} ; i++){
+    	$('#infomodal'+i).modal();
+    	$('#permissionmodal'+i).modal() ;
+    }
+  });
+
+//-->
 </script>
-</head>
-<body>
 	<br><br>
 	<div class = "row  card" >
 		<div class = "col s12  ">
@@ -173,22 +154,11 @@
 					<c:set var = "count" value = "${count=count+1}" />
 					</c:forEach>
 				</div>
-				
 			</div>
 		</div>
 	</div>
 	
+<br><br><br><br><br><br><br><br><br><br>	
+<%@include file="/include/footer.jsp" %>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

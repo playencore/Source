@@ -1,7 +1,5 @@
 package com.charida.app.component.supplier;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,116 +19,117 @@ import com.charida.app.supplier.dto.SupplierDto;
 
 @Component
 public class SupplierComponent {
-	
-	@Resource
-	SupplierDao supplierDao ;
 
-	//crd_company
+	@Resource
+	SupplierDao supplierDao;
+
+	// crd_company
 	public int setSupplier(SupplierDto supplierDto) {
-		
-		int result =supplierDao.insertSupplier(supplierDto);
-		
-		return result ;
+
+		int result = supplierDao.insertSupplier(supplierDto);
+
+		return result;
 	}
-	//crd_service_Type 
+
+	// crd_service_Type
 	public String getServiceCategoryMaxSeq(String mem_id) {
-		return supplierDao.selectServiceCategoryMaxSeq(mem_id) ;
+		return supplierDao.selectServiceCategoryMaxSeq(mem_id);
 	}
+
 	public int setServiceCategoryType(Map<String, Object> listMap) {
-		return supplierDao.insertServiceCategoryType(listMap) ;
+		return supplierDao.insertServiceCategoryType(listMap);
 	}
-	//crd_food_Style
+
+	// crd_food_Style
 	public String getFoodStyleMaxSeq(String mem_id) {
-		return supplierDao.selectFoodStyleMaxSeq(mem_id) ;
+		return supplierDao.selectFoodStyleMaxSeq(mem_id);
 	}
+
 	public int setFoodStyle(Map<String, Object> listMap) {
-		return supplierDao.insertFoodStyle(listMap) ;
+		return supplierDao.insertFoodStyle(listMap);
 	}
-	//crd_service_location
+
+	// crd_service_location
 	public String getServiceLocationMaxSeq(String mem_id) {
-		return supplierDao.selectServiceLocationMaxSeq(mem_id) ;
+		return supplierDao.selectServiceLocationMaxSeq(mem_id);
 	}
+
 	public int setServiceLocation(Map<String, Object> listMap) {
-		return supplierDao.insertServiceLocation(listMap) ;
+		return supplierDao.insertServiceLocation(listMap);
 	}
-	//CRD_INTRO_FILE
+
+	// CRD_INTRO_FILE
 	public String getIntroFileMaxSeq(String mem_id) {
-		return supplierDao.selectIntroFileMaxSeq(mem_id) ;
+		return supplierDao.selectIntroFileMaxSeq(mem_id);
 	}
+
 	public int setIntroFile(Map<String, Object> listMap) {
-		return supplierDao.insertIntroFile(listMap) ;
+		return supplierDao.insertIntroFile(listMap);
 	}
-	//CRD_MEM_PERMISSION
+
+	// CRD_MEM_PERMISSION
 	public String getMemPermissionMaxSeq(String mem_id) {
-		return supplierDao.selectMemPermissionMaxSeq(mem_id) ;
+		return supplierDao.selectMemPermissionMaxSeq(mem_id);
 	}
+
 	public int setPermission(PermissionDto dto) {
-		return supplierDao.insertPermission(dto) ;
+		return supplierDao.insertPermission(dto);
 	}
-	
+
 	public int checkRegist_num(String regist_num) {
-		int result =  0 ;
-		
-		result =supplierDao.checkRegist_num(regist_num);		
-				
-		return result ;
+		int result = 0;
+
+		result = supplierDao.checkRegist_num(regist_num);
+
+		return result;
 	}
-	
-	public Map<String,Object> getCodeListMap(String code_name ,String mem_id , int seqStartNum, String[] code){
-		Map<String, Object> listMap = new HashMap<String, Object>() ;
-		List<CodeDto> list = new ArrayList<CodeDto>() ;
-		if(code_name.equals("service")) {
-			for(int i = 0 ; i < code.length; i ++) {
-				CodeDto codeDto = new ServiceTypeDto() ;
+
+	public Map<String, Object> getCodeListMap(String code_name, String mem_id, int seqStartNum, String[] code) {
+		Map<String, Object> listMap = new HashMap<String, Object>();
+		List<CodeDto> list = new ArrayList<CodeDto>();
+		if (code_name.equals("service")) {
+			for (int i = 0; i < code.length; i++) {
+				CodeDto codeDto = new ServiceTypeDto();
 				codeDto.setMem_id(mem_id);
 				codeDto.setSeq(seqStartNum++);
 				codeDto.setCode(code[i]);
-				list.add(codeDto) ;
+				list.add(codeDto);
 			}
-		}else if(code_name.equals("area")) {
-			for(int i = 0 ; i < code.length; i ++) {
-				CodeDto codeDto = new ServiceAreaDto() ;
+		} else if (code_name.equals("area")) {
+			for (int i = 0; i < code.length; i++) {
+				CodeDto codeDto = new ServiceAreaDto();
 				codeDto.setMem_id(mem_id);
 				codeDto.setSeq(seqStartNum++);
 				codeDto.setCode(code[i]);
-				list.add(codeDto) ;
+				list.add(codeDto);
 			}
-		}else if(code_name.equals("food")) {
-			for(int i = 0 ; i < code.length; i ++) {
-				CodeDto codeDto = new FoodStyleDto() ;
+		} else if (code_name.equals("food")) {
+			for (int i = 0; i < code.length; i++) {
+				CodeDto codeDto = new FoodStyleDto();
 				codeDto.setMem_id(mem_id);
 				codeDto.setSeq(seqStartNum++);
 				codeDto.setCode(code[i]);
-				list.add(codeDto) ;
+				list.add(codeDto);
 			}
 		}
-		listMap.put("list", list) ;
-		return listMap ;
+		listMap.put("list", list);
+		return listMap;
 	}
 ////////////////////////////////////////////////supplier 승인
-	
-	public List<SupplierDto> getSuppliers(){
-		return  supplierDao.selectSuppliers() ;
+
+	public List<SupplierDto> getSuppliers() {
+		return supplierDao.selectSuppliers();
 	}
-	public List<Map<String, String>> getNotPermissionSuppliers(){
-		return supplierDao.selectNotPermissionSuppliers() ;
+
+	public List<Map<String, String>> getNotPermissionSuppliers() {
+		return supplierDao.selectNotPermissionSuppliers();
 	}
-	public int updatePermission(Map<String,String[]> permission) {
-		return supplierDao.updatePermission(permission) ;
+
+	public int updatePermission(Map<String, String[]> permission) {
+		return supplierDao.updatePermission(permission);
+	}
+
+	public List<Object> getSerchList(Map<String, String> paramMap) {
+		return supplierDao.selectSearchList(paramMap);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

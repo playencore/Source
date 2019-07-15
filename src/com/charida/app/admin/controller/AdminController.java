@@ -1,5 +1,6 @@
 package com.charida.app.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,9 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.charida.app.admin.service.AdminService;
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.service.SupplierService;
 
@@ -22,12 +25,14 @@ public class AdminController {
 	
 	@Resource
 	SupplierService supplierService ;
+	@Resource
+	AdminService adminService;
 	
 	
 	@RequestMapping("/admin/notPermissionList.do")
 	public String manageSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
-		List<Map<String, String>> notPermissionSuppliers = supplierService.getNotPerMissionSuppliers() ;
+		List<Map<String, String>> notPermissionSuppliers = adminService.getNotPerMissionSuppliers() ;
 		req.setAttribute("notPermissionSuppliers", notPermissionSuppliers);
 		req.setAttribute("listsize", notPermissionSuppliers.size());
 		return "/admin/notPermissionList";
@@ -35,7 +40,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/updatepermissionSupplier.do")
 	public String updatePermission(HttpServletRequest req, HttpServletResponse resp) {
-		String result = supplierService.updatePermission(req.getParameterMap());
+		String result = adminService.updatePermission(req.getParameterMap());
 		req.setAttribute("result", result);
 	
 		return "/admin/updateSupplierPermission";
@@ -44,6 +49,15 @@ public class AdminController {
 	public String supplierSerch(HttpServletRequest req, HttpServletResponse resp) {
 	
 		return "/admin/supplierSerch";
+	}
+	
+	@RequestMapping("/admin/serchsupplierajax.do")
+	@ResponseBody
+	public List<Object> searchSupplierAjax(HttpServletRequest req, HttpServletResponse resp){
+		Map<String, String> paramMap = new HashMap<String, String>() ;
+		paramMap.put("searchCategory", req.getParameter("searchCategory"));
+		paramMap.put("searchContent", req.getParameter("searchContent"));
+		return  adminService.getSerhchResult(paramMap);
 	}
 	
 	
