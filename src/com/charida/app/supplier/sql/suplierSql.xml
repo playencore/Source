@@ -156,6 +156,7 @@
 		*
 		FROM
 		CRD_SERV_APP
+		
 	</select>
 	
 </mapper>

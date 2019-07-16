@@ -397,22 +397,22 @@
 						<p id="sc">가능한 서비스 형태</p>
 						<div class="col s6">
 							<label> <input type="checkbox" name="serviceCategory"
-								value="ST00000001" /> <span>뷔페/케이터링</span>
+								value="EVT0000010" /> <span>뷔페/케이터링</span>
 							</label>
 						</div>
 						<div class="col s6">
 							<label> <input type="checkbox" name="serviceCategory"
-								value="ST00000002" /> <span>코스음식</span>
+								value="EVT0000020" /> <span>코스음식</span>
 							</label>
 						</div>
 						<div class="col s6">
 							<label> <input type="checkbox" name="serviceCategory"
-								value="ST00000003" /> <span>드랍오프</span>
+								value="EVT0000030" /> <span>드랍오프</span>
 							</label>
 						</div>
 						<div class="col s6">
 							<label> <input type="checkbox" name="serviceCategory"
-								value="ST00000004" /> <span>도시락</span>
+								value="EVT0000040" /> <span>도시락</span>
 							</label>
 						</div>
 					</div>
@@ -420,62 +420,62 @@
 						<p id="fc">음식 카테고리</p>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000001" /> <span>한정식</span>
+								value="MMU0000010" /> <span>한정식</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000002" /> <span>핑거푸드</span>
+								value="MMU0000020" /> <span>핑거푸드</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000003" /> <span>웨스턴</span>
+								value="MMU0000030" /> <span>웨스턴</span>
 							</label>
 						</div>
 						<div class="col l4 m2 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000004" /> <span>일식</span>
+								value="MMU0000040" /> <span>일식</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000005" /> <span>디저트류</span>
+								value="DRT0000010" /> <span>디저트류</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000006" /> <span>커피/음료</span>
+								value="DRT0000030" /> <span>커피</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000007" /> <span>칵티일/와인</span>
+								value="DRT0000020" /> <span>음료</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000008" /> <span>피자</span>
+								value="DRT0000040" /> <span>칵티일/와인</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000009" /> <span>아시안퓨전</span>
+								value="MMU0000070" /> <span>피자</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000010" /> <span>베지터리안</span>
+								value="MMU0000050" /> <span>아시안퓨전</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000011" /> <span>바베큐파티</span>
+								value="MMU0000060" /> <span>바베큐파티</span>
 							</label>
 						</div>
 						<div class="col l4 m4 s4">
 							<label> <input type="checkbox" name="foodCategory"
-								value="FT00000012" /> <span>기타</span>
+								value="MMU0000090" /> <span>기타</span>
 							</label>
 						</div>
 					</div>

@@ -152,7 +152,7 @@ public class SupplierService {
 	/////////////////////////////////////////////////////////////////////////////
 	public List<Map<String,String>> getServiceList(){
 		return supplierComponent.getServiceList() ;
-	}
+	} 
 	
 }
 

@@ -6,29 +6,32 @@
 	//<!--
 
 $(document).ready(function(){
-	if(${servlist} !=null || ${servlist} ==""}){
-		showServList(${serlist});
-	}
-	
-	
 	
 	setDatePicker() ;
+	setModal();
 });
 	
+function setModal(){
+	for(var i = 0 ; i<${servlistsize} ; i++){
+		$('#servModal'+i).modal();
+	}
+}
+	
 function showServeList(list){
+	$("#servlist").html("") ;
 	var cards = "" ;	
-	for(var i = 0 ; i < Object.keys(list).length ; i++){
+	for(var i = 0 ; i < ${servlistsize} ; i++){
 		cards = cards 
 		+"<div class='card col s12'>"
 		+ "<div class='card-content black-text'>"
 		+	"<span class='card-title'>"
-		+    list[i].SERVID
+		+    ${servlist[i].SERV_ID}
 		+     "</span>"
 		+	"<p>"
-		+		"행사날짜" + list[i].SERV_DATE +"<br>"
-		+		"행사장소" + list[i].ADDRESS + "<br>"
-		+		"참여인원수" + list[i].PARTICIPANT +"<br>"
-		+		"1인당 금액" + list[i].PER_BUD+"<br>"
+		+		"행사날짜" + ${servlist[i].SERV_DATE} +"<br>"
+		+		"행사장소" + ${servlist[i].ADDRESS} + "<br>"
+		+		"참여인원수" + ${servlist[i].PARTICIPANT} +"<br>"
+		+		"1인당 금액" + ${servlist[i].PER_BUD}+"<br>"
 		+	"</p>"
 		+"</div>"
 		+"<div class='card-action'>"
@@ -40,9 +43,11 @@ function showServeList(list){
 		+	"<div class='modal-content'>"
 		+		"<h4>업체 상세보기</h4>"
 		+		"<p>"
-		+			"서비스 아이디 : "+list[i].SERV_ID+" <br>"
-		+			"신청자 아이디 : "+list[i].CUSTOMER_ID+" <br>"
-		+			"서비스제공 우편번호: "+list[i].+"<br>"
+		+			"서비스 아이디 : "+ ${servlist[i].SERV_ID} +"<br>"
+		+			"신청자 아이디 : "+ ${servlist[i].CUSTOMER_ID} +"<br>"
+		+			"서비스제공 우편번호: "+ ${servlist[i].ZIPCODE} +"<br>"
+		+			"서비스 제공 주소 : " + ${servlist[i].ADDRESS} +"<br>"
+		+			"서비스 제공 상세 주소" + ${servlist[i].ADDRESS_DETAIL} +"<br>"
 		+		"</p>"
 		+	"</div>"
 		+	"<div class='modal-footer'>"
@@ -51,7 +56,7 @@ function showServeList(list){
 		+"</div>"
 		+"</div>" ;
 	}
-	$("#showcard").html(cards);
+	$("#servlist").html(cards);
 }
 
 function setDatePicker(){
@@ -138,7 +143,45 @@ function setDatePicker(){
 		아직 신청이 없습니다.
 	</c:if>
 	<div id = "servlist">
-		
+		<c:if test="${!empty servlist}">
+			<c:set var = "count" value = "${0}" />
+			<c:forEach var="serv" items="${servlist}" >
+				<div class = "col s6">
+					<div class="card  ">
+						<div class="card-content black-text ">
+							<span class="card-title">서비스 아이디 : ${serv.SERV_ID}</span>
+							<p>
+								서비스 장소 : ${serv.ADDRESS} <br>
+								서비스 상세 장소 : ${serv.ADDRESS_DETAIL} <br>
+								1인당 금액 : ${serv.PER_BUD} <br>
+								참가자수 : ${serv.PARTICIPANT} <br>
+							</p>
+						</div>
+						<div class="card-action">
+							<a class = "waves-effect waves-light modal-trigger" href="#servModal${count}" >상세보기</a>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Modal Structure 상세보기 -->
+				<div class = "modallist">
+					<div id="servModal${count}" class="modal">
+						<div class="modal-content">
+							<h4>신청 상세보기</h4>
+							<p>
+								판매자 이름 : ${serv.SERV_ID} <br>
+								판매자 아이디 : ${serv.ZIPCODE} <br>
+								판매자 사업자 등록번호 : ${serv.PER_BUD} <br>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
+						</div>
+					</div>
+				</div>
+				<c:set var = "count" value = "${count=count+1}" />
+			</c:forEach>
+		</c:if>
 	</div>
 	</div>
 </div>
