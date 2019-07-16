@@ -19,7 +19,16 @@ public class LoginComponent {
 		}else {
 			return 0;
 		}
-	}	
+	}
+	public int countKakaoId(String id){
+		int result = loginDao.countKakaoId(id);	// count(*) = 1 		
+		if(result == 1) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+
 	public String checkPasswd(String id) {
 		return loginDao.checkPasswd(id);	// 해당아이디의 비밀번호요청값		
 	}

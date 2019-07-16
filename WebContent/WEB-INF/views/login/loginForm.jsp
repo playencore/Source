@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-<!-- material css-->
-<link rel = "stylesheet" type = "text/css" href ="/css/materialize.css" />
-<!--  -->
-<script src = "/js/jquery-3.4.1.js"></script>
-<script src = "/js/materialize.js"></script>
+<%@include file="/include/header.jsp" %>
 
+<form name="loginform" onsubmit="loginCheck()" action="/login/loginCheck.do">
   <script type="text/javascript">
   //<!--
  	<c:if test="${test == 0 }">
@@ -31,14 +26,22 @@
   }     
   //-->
   </script>
-  <title>차리다 로그인</title>
-  
-</head>
-<form name="loginform" onsubmit="loginCheck()" action="/login/loginCheck.do">
-<body>  
-	<div class="section"></div>
-	<div class="section"></div>
-	<div class="section"></div>
+<div class="section"></div>
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					로그인
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<div class="row">
 		<div class="col s12">
 		<div class="col s4"></div>
@@ -67,10 +70,9 @@
 			<div class="col s3">
 			<a href="#"> 아이디 찾기</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#">비밀번호 찾기</a><br>
 			<a href="/joinuser/joinmember.do">구매자 회원가입</a>
-			&nbsp;&nbsp;&nbsp;
+			<br>
 			<a href="/joinuser/joinsupplier.do">판매자 회원가입</a>
 			</div>
 			<div class="container">
@@ -81,16 +83,72 @@
 		</div>	
 		<div class="col s12">
 			<div class="col s4"></div>
-			<img alt="네이버 로그인" src="/images/naver.PNG">
-		</div>		
-		<div class="col s12">
-			<div class="col s4"></div>
-			<img alt="카카오 로그인" src="/images/kakao.PNG">
+			<a href="${naver_url}">네이버 로그인</a>
 		</div>
 		
+		<!-- 카카오 로그인 -->
+		<div class="col s12">
+			<div class="col s4"></div>
+			<a href="#" onclick="kakaoLogin()">
+			<img alt="카카오로그인" src="/images/kakaologo.png">
+			</a>
+		    <script type='text/javascript'>
+		      //<![CDATA[
+	    	  Kakao.init('fa5cfc74b99a2f2f4274e1a57ab18e6e');
+	    	  function kakaoLogin(){
+	    		  var resId ="";
+	        Kakao.Auth.loginForm({
+	          success: function(authObj) {
+	            //alert(JSON.stringify(authObj));
+	            Kakao.API.request({
+	                url: '/v2/user/me',
+	                success: function(res) {
+	                  //alert(JSON.stringify(res));
+	                  //alert(res.id);	
+	                  $('input[name=kakao_key]').val(res.id);
+	                  document.kakaoform.target='/login/kakaoLogin.do';
+					  document.kakaoform.submit();
+	                	/* $.ajax({
+	                  	    
+	                  	    type : "post",
+	                  	    url : "/login/kakaoLogin.do",
+	                  	  	async: false,
+	                  	  	data:{kakao_key:resId},
+	                  	    dataType : "json",
+	                  	    error : function(data){
+	                  	        //alert('아이디값 전송 : ' + res.id);
+	                  	        console.log(data);
+	                  	    },
+	                  	    success : function(data){
+	                  	     	//alert(data);
+	                  	    	alert(data);
+	                  	    }     
+	                  	}); */
+	                },
+	                fail: function(error) {
+	                  alert(JSON.stringify(error));
+	                }
+	              });
+	          },
+	          fail: function(err) {
+	             alert(JSON.stringify(err));
+	          }
+	        });	   
+	      }
+	      //]]>
+		    </script>
+		</div>
 	</div>	
-</body>
-</form>
+	
+	</div>
 
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+</form>
+<form name="kakaoform">
+	<input type="hidden" name="kakao_key">
+</form>
+<div class="section"></div>
+<%@include file="/include/footer.jsp" %>
+</body>
+
+
 </html>

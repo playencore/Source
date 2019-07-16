@@ -21,7 +21,7 @@ public class LoginService {
 			}
 		}else {
 			return 0;	//아이디가 없을때
-		}		
+		}
 	}
 	
 }

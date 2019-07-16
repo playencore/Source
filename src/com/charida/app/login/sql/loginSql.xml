@@ -6,6 +6,9 @@
 	<select id="countId" resultType="int" parameterType="String">
  		select count(*) from CRD_MEM where MEM_id = #{id}
 	</select>
+	<select id="countKakaoId" resultType="int" parameterType="String">
+		select count(KAKAO_KEY) from CRD_SNS where MEM_id = #{id}
+	</select>
 	<select id="checkPasswd" resultType="String" parameterType="String">
 		select PASSWD from CRD_MEM where MEM_id = #{id}
 	</select>
@@ -14,5 +17,8 @@
 	</select>
 	<select id="name" resultType="String" parameterType="String">
 		select name from CRD_MEM where MEM_ID = #{id}
+	</select>
+	<select id="getId" resultType="String" parameterType="String">
+		select MEM_ID from CRD_SNS where KAKAO_KEY = #{kakao_key}
 	</select>
 </mapper>

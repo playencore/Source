@@ -13,6 +13,9 @@ public class LoginDao {
 	public int countId(String id) {
 		return sqlSession.selectOne("Login.countId",id);
 	}
+	public int countKakaoId(String kakao_key) {
+		return sqlSession.selectOne("Login.countKakaoId",kakao_key);
+	}
 	
 	public String checkPasswd(String id) {
 		return sqlSession.selectOne("Login.checkPasswd",id);
@@ -23,6 +26,9 @@ public class LoginDao {
 	}
 	public String name(String id) {
 		return sqlSession.selectOne("Login.name",id);
+	}
+	public String getId(String kakao_key) {
+		return sqlSession.selectOne("Login.getId",kakao_key);
 	}
 }
 
