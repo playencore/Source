@@ -483,37 +483,37 @@
 						<p id="sl">서비스 가능지역</p>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000001" /> <span>서울특별시</span>
+								value="SLT0000010" /> <span>서울특별시</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000002" /> <span>경기도</span>
+								value="SLT0000020" /> <span>경기도</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000003" /> <span>충청도</span>
+								value="SLT0000030" /> <span>충청도</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000004" /> <span>경상도</span>
+								value="SLT0000040" /> <span>경상도</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000005" /> <span>전라도</span>
+								value="SLT0000050" /> <span>전라도</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000006" /> <span>강원도</span>
+								value="SLT0000060" /> <span>강원도</span>
 							</label>
 						</div>
 						<div class="col s4">
 							<label> <input type="checkbox" name="serviceLocation"
-								value="SLT0000007" /> <span>제주도</span>
+								value="SLT0000070" /> <span>제주도</span>
 							</label>
 						</div>
 					</div>

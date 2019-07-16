@@ -101,7 +101,10 @@ public class SupplierDao {
 		return sqlSession.update("Supplier.modifyMenu", dto) ;
 	}
 	////////////////////////////////////////////////////
-	public List<Map<String,String>> selectServiceList(){
+	public List<Map<String,Object>> selectServiceList(){
 		return sqlSession.selectList("Supplier.selectServiceList") ;
+	}
+	public List<Map<String, Object>> selectSearchServList(Map<String, String> param){
+		return sqlSession.selectList("Supplier.selectSearchServList", param) ;
 	}
 }

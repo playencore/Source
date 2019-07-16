@@ -9,7 +9,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.join.JoinComponent;
+import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.supplier.SupplierComponent;
 import com.charida.app.member.dto.MemberDto;
 import com.charida.app.supplier.dto.FoodDto;
@@ -21,6 +23,10 @@ public class SupplierService {
 	
 	@Resource
 	SupplierComponent supplierComponent ;
+	@Resource
+	ApplicationComponent applicationComponent;
+	@Resource
+	CategoryComponent categoryComponent ;
 	@Resource
 	JoinComponent joinComponent;
 	
@@ -150,10 +156,61 @@ public class SupplierService {
 		return supplierComponent.modifyMenu(dto) ;
 	}
 	/////////////////////////////////////////////////////////////////////////////
-	public List<Map<String,String>> getServiceList(){
-		return supplierComponent.getServiceList() ;
-	} 
+	public List<Map<String,Object>> getServiceList(){
+		List<Map<String,Object>> servlist = new ArrayList<Map<String,Object>>();
+		servlist = supplierComponent.getServiceList() ;
+		for(Map<String, Object> serv : servlist ) {
+			List<String> prefList =applicationComponent.getPrefList((String)serv.get("SERV_ID"),true);
+			serv.put("PREFLIST", prefList);
+			if("Y".equals(serv.get("DESSERT_YN")) || "Y".equals(serv.get("TABLEWARE_YN"))
+					|| "Y".equals(serv.get("OTHER_ORDER_YN")) ){
+				List<String> orderList
+					= applicationComponent.getAddOrderList((String)serv.get("SERV_ID"));
+				if("Y".equals(serv.get("DESSERT_YN"))) {
+					serv.put("DRTLIST", categoryComponent.getNameList(orderList, categoryComponent.DESSERT));
+				}
+				if("Y".equals(serv.get("TABLEWARE_YN"))) {
+					serv.put("TBWLIST", categoryComponent.getNameList(orderList, categoryComponent.TABLEWARE));
+				}
+				if("Y".equals(serv.get("OTHER_ORDER_YN"))) {
+					serv.put("RTLLIST", categoryComponent.getNameList(orderList, categoryComponent.OTHER));
+				}
+			}
+			String serv_type =  categoryComponent.getCodeName((String)serv.get("SERV_TYPE_CODE")) ;
+			serv.put("SERV_TYPE", serv_type) ;
+			String event_type = categoryComponent.getCodeName((String)serv.get("EVENT_TYPE_CODE"));
+			serv.put("EVENT_TYPE",event_type) ;
+		}
+		return servlist; 
+	}
 	
+	public List<Map<String, Object>> getSearchServList(Map<String, String> param){
+		List<Map<String,Object>> serchServList = new ArrayList<Map<String,Object>>();
+		serchServList = supplierComponent.getSearchServList(param) ;
+		for(Map<String, Object> serv : serchServList ) {
+			List<String> prefList =applicationComponent.getPrefList((String)serv.get("SERV_ID"),true);
+			serv.put("PREFLIST", prefList);
+			if("Y".equals(serv.get("DESSERT_YN")) || "Y".equals(serv.get("TABLEWARE_YN"))
+					|| "Y".equals(serv.get("OTHER_ORDER_YN")) ){
+				List<String> orderList
+					= applicationComponent.getAddOrderList((String)serv.get("SERV_ID"));
+				if("Y".equals(serv.get("DESSERT_YN"))) {
+					serv.put("DRTLIST", categoryComponent.getNameList(orderList, categoryComponent.DESSERT));
+				}
+				if("Y".equals(serv.get("TABLEWARE_YN"))) {
+					serv.put("TBWLIST", categoryComponent.getNameList(orderList, categoryComponent.TABLEWARE));
+				}
+				if("Y".equals(serv.get("OTHER_ORDER_YN"))) {
+					serv.put("RTLLIST", categoryComponent.getNameList(orderList, categoryComponent.OTHER));
+				}
+			}
+			String serv_type =  categoryComponent.getCodeName((String)serv.get("SERV_TYPE_CODE")) ;
+			serv.put("SERV_TYPE", serv_type) ;
+			String event_type = categoryComponent.getCodeName((String)serv.get("EVENT_TYPE_CODE"));
+			serv.put("EVENT_TYPE",event_type) ;
+	}
+		return serchServList ;
+	}
 }
 
 

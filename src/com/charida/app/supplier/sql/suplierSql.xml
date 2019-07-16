@@ -158,5 +158,23 @@
 		CRD_SERV_APP
 		
 	</select>
+	<select id="selectSearchServList" parameterType="hashMap" resultType="map">
+		SELECT 
+		*
+		FROM
+		CRD_SERV_APP
+		<if test="stdate !=null and !stdate.equals('') and eddate !=null and !eddate.equals('')"> 
+			WHERE SERV_DATE BETWEEN TO_DATE(#{stdate} || ' 00:00:00' ,'YYYY/MM/DD HH24:MI:SS') and  TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
+		</if>
+		<if test="stdate !=null and !stdate.equals('')">
+			WHERE SERV_DATE BETWEEN SYSDATE and  TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
+		</if>
+		<if test="eddate !=null and !eddate.equals('')">
+			WHERE SERV_DATE > TO_DATE(#{stdate} || ' 00:00:00' ,'YYYY/MM/DD HH24:MI:SS')
+		</if>
+		<if test="stdate eq null and stdate.equals('') and eddate eq null and eddate.equals('')">
+			
+		</if>
+	</select>
 	
 </mapper>

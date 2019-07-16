@@ -9,6 +9,33 @@ $(document).ready(function(){
 	
 	setDatePicker() ;
 	setModal();
+	
+	$("#serchservlist").on(
+		"click",
+		function(){
+			var stdate = $("#startdate").val() ;
+			var eddate = $("#enddate").val() ;
+			$.ajax(
+					{
+						type : "POST",
+						url: "/supplier/servlistserch.do",
+						data : 
+						{
+							"stdate":stdate, 
+							"eddate":eddate	
+						},
+						dataType:"json",
+						success:function(data){
+							alert("검색에 성공했습니다.") ;
+						},
+						error: function(data){
+							alert("검색에 실패 했습니다. 다시 시도해주세요") ;
+						}
+					}		
+				);
+		}
+	);
+	
 });
 	
 function setModal(){
@@ -128,12 +155,13 @@ function setDatePicker(){
 		행사 날짜 검색
 		 <div class="card">
 		 	<div class = "card-content">
-				<form method="post" action="" name = "serchdate" onsubmit="">
-					<p>검색 시작 날짜를 입력해주세요.</p>
-					<input id = "startdate" name = "startdate" type="text" class="datepicker" readonly>
-					<p>검색 종료 날짜를 입력해주세요.</p>
-					<input id = "enddate" name = "enddate" type="text" class="datepicker" readonly>
-				</form>
+				<p>검색 시작 날짜를 입력해주세요.</p>
+				<input id = "startdate" name = "startdate" type="text" class="datepicker" readonly>
+				<p>검색 종료 날짜를 입력해주세요.</p>
+				<input id = "enddate" name = "enddate" type="text" class="datepicker" readonly>
+				<button id = "serchservlist" class="btn waves-effect waves-light">
+						<i class="material-icons right">search</i> 검색
+				</button>
 			</div>
 		</div>
 	</div>
@@ -142,7 +170,7 @@ function setDatePicker(){
 	<c:if test="${empty servlist}">
 		아직 신청이 없습니다.
 	</c:if>
-	<div id = "servlist">
+	<div id = "servlist" style="padding-top:2.45%">
 		<c:if test="${!empty servlist}">
 			<c:set var = "count" value = "${0}" />
 			<c:forEach var="serv" items="${servlist}" >
@@ -154,7 +182,7 @@ function setDatePicker(){
 								서비스 장소 : ${serv.ADDRESS} <br>
 								서비스 상세 장소 : ${serv.ADDRESS_DETAIL} <br>
 								1인당 금액 : ${serv.PER_BUD} <br>
-								참가자수 : ${serv.PARTICIPANT} <br>
+								서비스 제공 일시 : ${serv.APP_DATE}
 							</p>
 						</div>
 						<div class="card-action">
@@ -169,9 +197,40 @@ function setDatePicker(){
 						<div class="modal-content">
 							<h4>신청 상세보기</h4>
 							<p>
-								판매자 이름 : ${serv.SERV_ID} <br>
-								판매자 아이디 : ${serv.ZIPCODE} <br>
-								판매자 사업자 등록번호 : ${serv.PER_BUD} <br>
+								신청_id : ${serv.SERV_ID} <br>
+								서비스 제공 우편번호 : ${serv.ZIPCODE} <br>
+								서비스 제공 주소 : ${serv.ADDRESS} <br>
+								서비스 제공 상세주소 : ${serv.ADDRESS_DETAIL} <br>
+								판매자 선호 메뉴 : 
+								<c:forEach var = "PREFLIST" items="${serv.PREFLIST}">
+									${PREFLIST} 
+								</c:forEach>
+								<br>
+								1인당 예산 : ${serv.PER_BUD} <br>
+								참가자수 : ${serv.PARTICIPANT} <br>
+								연령층 : ${serv.AGE_MIN} ~ ${serv.AGE_MAX} <br>
+								참가자 남여 비율 : [남:여]  ${serv.PER_MEN} : ${10-serv.PER_MEN}   <br>
+								서비스 형식 : ${serv.SERV_TYPE} <br>
+								행사 형식 : ${serv.EVENT_TYPE} <br>
+								후식 : 
+								<c:forEach var = "DRT" items="${serv.DRTLIST}">
+									${DRT} 
+								</c:forEach>
+								<br>
+								서비스 제공일시 : ${serv.APP_DATE} <br>
+								실내여부 : ${serv.INTERIOR_YN} <br>
+								취사여부 : ${serv.COOKING_YN } <br>
+								쓰레기 배출 여부 : ${serv.DISCHARGE_YN} <br>
+								엘리베이터 여부 : ${serv.ELEVATOR_YN}<br>
+								주차장 여부 : ${serv.PARKING_YN}<br>
+								추가 식기 :
+								<c:forEach var = "TBW" items="${serv.TBWLIST}">
+									${TBW} 
+								</c:forEach>
+								<br>
+								코디 네이터 신청 여부 : ${serv.COORDINATOR_YN}<br>
+								요청 사항 : ${serv.REQUESTED_TERM} 
+								
 							</p>
 						</div>
 						<div class="modal-footer">

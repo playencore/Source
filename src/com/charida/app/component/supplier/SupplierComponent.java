@@ -153,7 +153,10 @@ public class SupplierComponent {
 		return supplierDao.modifyMenu(dto) ;
 	}
 	////////////////////////////////////////////////
-	public List<Map<String,String>> getServiceList(){
+	public List<Map<String,Object>> getServiceList(){
 		return supplierDao.selectServiceList() ;
+	}
+	public List<Map<String, Object>> getSearchServList(Map<String, String> param){
+		return supplierDao.selectSearchServList(param) ;
 	}
 }

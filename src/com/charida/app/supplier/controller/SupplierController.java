@@ -1,6 +1,7 @@
 package com.charida.app.supplier.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,9 +84,19 @@ public class SupplierController {
 	
 	@RequestMapping("/supplier/servlistforsuggest.do")
 	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
-		List<Map<String,String>> servlist = supplierService.getServiceList();
+		List<Map<String,Object>> servlist = supplierService.getServiceList();
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
 		return "/supplier/servListForSuggest" ;
 	}
+	@RequestMapping("/supplier/servlistserch.do")
+	@ResponseBody
+	public List<Map<String,Object>> searchServList(HttpServletRequest req, HttpServletResponse resp){
+		Map<String,String> param = new HashMap<String, String>();
+		param.put("stdate",req.getParameter("stdate") );
+		param.put("eddate", req.getParameter("eddate")) ;
+		return supplierService.getSearchServList(param);
+	}
+	
+	
 }

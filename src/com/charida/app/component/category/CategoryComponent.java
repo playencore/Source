@@ -17,6 +17,7 @@ public class CategoryComponent {
 	public final String DESSERT = "DRT";
 	public final String TABLEWARE = "TBW";
 	public final String OTHER = "RTL";
+	public final String LOCATION = "SLT" ;
 	
 	@Resource
 	private CategoryDao categoryDao;
