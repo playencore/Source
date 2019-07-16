@@ -53,14 +53,13 @@ public class SuggService {
 		List<Map<String,Object>> menuInfo = suggestionComponent.getSuggMenuInfo(suggId);
 		result.put("menuInfo", menuInfo);
 		
-		String servCode = (String)result.get("SERV_TYPE_CODE");
-		String eventCode = (String)result.get("EVENT_TYPE_CODE");
-		
-		if(servCode != null ) {
+		if(result.get("SERV_TYPE_CODE") != null ) {
+			String servCode = (String)result.get("SERV_TYPE_CODE");
 			result.put("SERV_TYPE_NAME", categoryComponent.getCodeName(servCode));
 		}
 		
-		if(eventCode != null ) {
+		if(result.get("EVENT_TYPE_CODE") != null ) {
+			String eventCode = (String)result.get("EVENT_TYPE_CODE");
 			result.put("EVENT_TYPE_NAME", categoryComponent.getCodeName(eventCode));
 		}
 		

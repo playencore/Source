@@ -66,23 +66,78 @@ function updateUi(data,suggId){
 			
 			menuBody += "</tr>";
 		}));
+		$('#menu_info').html(menuBody);
 	}else{
 		$('#li_menu').css('display','none');
 	}
-	/*$('#menu_info').html(menuBody);
-	$('#serv_type').text(data.SERV_TYPE_NAME);
-	$('#event_type').text(data.EVENT_TYPE_NAME);
-	$('#serv_date').text(data.SERV_DATE);
-	$('#participant').text(numbeComma(data.PARTICIPANT) + " 명");
-	$('#addr1').text(data.ADDRESS);
-	$('#addr2').text(data.ADDRESS_DETAIL);
-	$('#zipcode').text(data.ZIPCODE);
-	$('#age').text(data.AGE_MIN +" ~ " +data.AGE_MAX 
+	
+	var li ="";
+	li += createHeader('신청 내용');
+	li += createBody('행사형식',data.SERV_TYPE_NAME);
+	li += createBody('진행형식',data.EVENT_TYPE_NAME);
+	li += createBody('서비스 제공일',data.SERV_DATE);
+	li += createBody('참가자 수',numbeComma(data.PARTICIPANT) + " 명");
+	li += createBody('참여 연령(남녀 비율)',data.AGE_MIN +" ~ " +data.AGE_MAX 
 			+"( " +data.PER_MEN + " : " +(10-data.PER_MEN) + " )");
-	$('#requested_term').text(data.REQUESTED_TERM);*/
-	$('#ul_app').append(createMapNode());
+	
+	
+	li += createBody('선호 메뉴',data.prefList.toString());
+	
+	if(data.DESSERT_YN == 'Y'){
+		var title;
+		var content ="";
+		
+		data.drtList.forEach(function(e,i){
+			if(i==0){
+				title = e;
+			}else{
+				content += e + ",";
+			}
+		});
+		content = content.substring(0,content.lastIndexOf(','));
+		li +=createBody(title,content);
+	}
+	
+	if(data.TABLEWARE_YN == 'Y'){
+		var title;
+		var content ="";
+		
+		data.tbwList.forEach(function(e,i){
+			if(i==0){
+				title = e;
+			}else{
+				content += e+ ",";
+			}
+		});
+		content = content.substring(0,content.lastIndexOf(','));
+		li +=createBody(title,content);
+	}
+	
+	if(data.OTHER_ORDER_YN == 'Y'){
+		var title;
+		var content ="";
+		
+		data.rtlList.forEach(function(e,i){
+			if(i==0){
+				title = e;
+			}else{
+				content += e+ ",";
+			}
+		});
+		content = content.substring(0,content.lastIndexOf(','));
+		li +=createBody(title,content);
+	}
+	li += createBody('코디네이터 신청여부',data.COORDINATOR_YN);
+	li += createBody('실내여부',data.INTERIOR_YN);
+	li += createBody('취사여부',data.COOKING_YN);
+	li += createBody('쓰레기 배출여부',data.DISCHARGE_YN);
+	li += createBody('주차가능여부',data.PARKING_YN);
+	li += createBody('엘레베이터 유무',data.ELEVATOR_YN);
+	li += createBody('요청사항',data.REQUESTED_TERM);
+	li += createMap(data.ADDRESS,data.ADDRESS_DETAIL,data.ZIPCODE);
+	$('#ul_app').html(li);
 }
-function createMapNode(){
+function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'
 		+'<span class="width-100" style="font-size: 14px">서비스 제공위치</span>'
 		+'<p class="secondary-content">'
@@ -96,9 +151,9 @@ function createMapNode(){
 		+'</thead>'
 		+'<tbody>'
 		+'<tr>'
-		+'<td id="addr1"></td>'
-		+'<td id="addr2"></td>'
-		+'<td id="zipcode"></td>'
+		+'<td>'+adr1+'</td>'
+		+'<td>'+adr2+'</td>'
+		+'<td>'+zipcode+'</td>'
 		+'</tr>'
 		+'</tbody>'
 		+'</table>'
@@ -108,6 +163,24 @@ function createMapNode(){
 		+'</li>';
 	
 	return ui;
+}
+function createHeader(data){
+	return '<li class="collection-header" style="background-color: #eee">'
+		 + '<h6 class="task-card-title mb-3" style="text-align: center;">'
+		 + data
+		 +'</h6>'
+		 +'</li>';
+}
+
+function createBody(title,content){
+	return '<li class="collection-item dismissable">'
+		 + '<span class="width-100" style="font-size: 14px">'
+		 + title
+		 +'</span>'
+		 + '<span class="secondary-content">'
+		 + content
+		 +'</span>'
+		 + '</li>';
 }
 
 

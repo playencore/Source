@@ -35,10 +35,10 @@
 		<div class="col m12" style="background-color: white;">
 			<div class="row">
 				<div class="col m12" style="border: 1px solid #eeeeee">
-					<h5 style="margin-bottom: 30px">진행중인 리스트</h5>
+					<h5 style="margin-bottom: 30px">제안 리스트</h5>
 					<div class="nav-content center" style="background-color: #eeeeee;margin-bottom: 20px;">
 				      <ul class="tabs tabs-transparent">
-				        <li class="tab"><a href="#test1" class="active">제안 리스트</a></li>
+				        <li class="tab"><a href="/sugg/suggestions-list.do" class="active">제안 리스트</a></li>
 				        <li class="tab"><a href="#test2">결제 대기</a></li>
 				        <li class="tab"><a href="#test3">서비스 준비</a></li>
 				        <li class="tab"><a href="#test4">서비스 배송</a></li>
