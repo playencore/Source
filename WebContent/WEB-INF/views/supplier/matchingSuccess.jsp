@@ -10,14 +10,14 @@
 	  });
 	  //-->
 	</script>
-	<h2>구매자 - 완료목록 페이지입니다.</h2>
+	<h2>판매자 - 완료목록 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name }<br>
 	아이디 : ${session_id }<br>
 	세션 코드 : ${session_authority }
 	<hr color="gray">
 <div class="section"></div>
-<form action="/customer/matchingSearch.do" method="post" name="matchingSearch">
+<form action="/supplier/matchingSearch.do" method="post" name="matchingSearch">
 	<div class="container" style="background-color: white;margin-top:2px;">	
 		<div class="row">
 			<div class="col m12">
@@ -73,7 +73,7 @@
 			</div>
 			<div class="container">
 				<center>
-					<button class="btn waves-effect waves-light container" type="submit">
+					<button class="btn waves-effect waves-light container" type="submit"  >
 				    <i class="material-icons left"></i>조회하기
 				  	</button>
 				</center>
@@ -85,14 +85,14 @@
 <br><br>
 <c:forEach var="MatchingDto" items="${matchingSuccess}">
 	<div class="container">
-	  <div class="card big">
+	 <div class="card big">
 	    <div class="col s12 m4">
 	      <div class="card blue-grey darken-1">
 	        <div class="card-content white-text">
 	          <center><span class="card-title">종료된 서비스</span></center>
 	          <hr color="gray"><br>
 				<%-- 서비스 진행상태 : ${MatchingDto.progress_code} --%>
-				<c:if test="${MatchingDto.progress_code =='aa11111111' }">
+				<c:if test="${MatchingDto.progress_code =='11111111' }">
 				서비스 진행상태 : 서비스 종료<br>
 				</c:if>
 				신청일 : ${MatchingDto.app_date}

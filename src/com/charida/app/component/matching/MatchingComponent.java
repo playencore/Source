@@ -22,5 +22,11 @@ public class MatchingComponent {
 	public List<MatchingDto> matchingSuccess(String id){
 		return matchingDao.matchingSuccess(id);
 	}
-	
+	public List<MatchingDto> customerMatchingSearch(MatchingDto matchingDto){
+		return matchingDao.customerMatchingSearch(matchingDto);
+	}
+	public List<MatchingDto> supplierMatchingSearch(MatchingDto matchingDto){
+		return matchingDao.supplierMatchingSearch(matchingDto);
+	}
+
 }

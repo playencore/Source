@@ -27,5 +27,12 @@ public class MatchingDao {
 	public List<MatchingDto> supplierMatchingSuccess(String id){
 		return sqlsession.selectList("Matching.supplierMatchingSuccess",id);
 	}
+	public List<MatchingDto> customerMatchingSearch(MatchingDto matchingDto){
+		return sqlsession.selectList("Matching.customerMatchingSearch",matchingDto);
+	}
+	public List<MatchingDto> supplierMatchingSearch(MatchingDto matchingDto){
+		return sqlsession.selectList("Matching.supplierMatchingSearch",matchingDto);
+	}
+
 
 }

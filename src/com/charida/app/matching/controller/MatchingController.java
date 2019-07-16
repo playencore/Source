@@ -68,6 +68,42 @@ public class MatchingController {
 		return "/supplier/matchingSuccess";
 	}
 	
+	//구매자 종료서비스 날짜별 검색
+	@RequestMapping("/customer/matchingSearch.do")
+	public String customerMatchingSearch(HttpServletRequest req, HttpServletResponse resp) {
+		String startDate = (String)req.getParameter("serv_date1");
+		String endDate = (String)req.getParameter("serv_date2");		
+		String id = (String)req.getSession().getAttribute("session_id");
+		
+		Map<String, Object> params =getParameterMap(req);
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		params.put("id", id);
+		List<MatchingDto> customerMatchingSearch 
+			= matchingService.customerMatchingSearch(params);
+		req.setAttribute("matchingSuccess", customerMatchingSearch);
+
+		
+		return "/customer/matchingSuccess";
+	}
+	//판매자 종료서비스 날짜별 검색
+	@RequestMapping("/supplier/matchingSearch.do")
+	public String supplierMatchingSearch(HttpServletRequest req, HttpServletResponse resp) {
+		String startDate = (String)req.getParameter("serv_date1");
+		String endDate = (String)req.getParameter("serv_date2");		
+		String id = (String)req.getSession().getAttribute("session_id");
+		
+		Map<String, Object> params =getParameterMap(req);
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		params.put("id", id);
+		List<MatchingDto> supplierMatchingSearch 
+			= matchingService.supplierMatchingSearch(params);
+		req.setAttribute("matchingSuccess", supplierMatchingSearch);
+		
+		return "/supplier/matchingSuccess";
+	}
+	
 	public Map<String, Object> getParameterMap(HttpServletRequest req){
 		Map<String, Object> params = new HashMap<String, Object>();
 		Enumeration<String> keys= req.getParameterNames();

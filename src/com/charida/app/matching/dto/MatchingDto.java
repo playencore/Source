@@ -24,7 +24,29 @@ public class MatchingDto {
 	private String modify_date;
 	private String end_date;
 	private String customer_id;
+	private String startDate;
+	private String endDate;
+	private String id;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	private int participant;
 	private int age_min;
 	private int age_max;
