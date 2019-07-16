@@ -85,6 +85,7 @@ public class SupplierController {
 	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
 		List<Map<String,String>> servlist = supplierService.getServiceList();
 		req.setAttribute("servlist", servlist);
+		req.setAttribute("servlistsize", servlist.size());
 		return "/supplier/servListForSuggest" ;
 	}
 
