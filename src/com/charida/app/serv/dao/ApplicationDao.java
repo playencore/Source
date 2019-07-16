@@ -1,5 +1,6 @@
 package com.charida.app.serv.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,5 +19,13 @@ public class ApplicationDao {
 	
 	public int insertRow(Map<String, Object> entity) {
 		return sqlSession.insert("App.insertRow", entity);
+	}
+	
+	public List<String> selectPrefList(String servId){
+		return sqlSession.selectList("App.selectPrefList", servId);
+	}
+	
+	public List<String> selectAddOrderList(String servId){
+		return sqlSession.selectList("App.selectAddOrderList", servId);
 	}
 }

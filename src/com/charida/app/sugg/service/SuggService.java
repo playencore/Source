@@ -8,12 +8,19 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.charida.app.component.category.CategoryComponent;
+import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.sugg.SuggestionComponent;
 
 @Service
 public class SuggService {
 	@Resource
 	private SuggestionComponent suggestionComponent;
+	@Resource
+	private ApplicationComponent applicationComponent;
+	@Resource
+	private CategoryComponent categoryComponent;
+	
 	public List<Map<String,Object>> getList(Map<String, Object> parmas){
 		List<Map<String,Object>> suggList = suggestionComponent.getSuggList((String)parmas.get("sessionId"));
 		
@@ -34,5 +41,50 @@ public class SuggService {
 		//2. 서비스 아이디로 신청테이블조회
 		
 		return suggList;
+	}
+	
+	public Map<String, Object> getSuggInfo(String suggId){
+		Map<String, Object> result = suggestionComponent.getSuggInfo(suggId);
+		
+		if(result == null || result.isEmpty()) {
+			return null;
+		}
+		
+		List<Map<String,Object>> menuInfo = suggestionComponent.getSuggMenuInfo(suggId);
+		result.put("menuInfo", menuInfo);
+		
+		String servCode = (String)result.get("SERV_TYPE_CODE");
+		String eventCode = (String)result.get("EVENT_TYPE_CODE");
+		
+		if(servCode != null ) {
+			result.put("SERV_TYPE_NAME", categoryComponent.getCodeName(servCode));
+		}
+		
+		if(eventCode != null ) {
+			result.put("EVENT_TYPE_NAME", categoryComponent.getCodeName(eventCode));
+		}
+		
+		//선호메뉴
+		List<String> prefList =applicationComponent.getPrefList((String)result.get("SERV_ID"),true);
+		result.put("prefList", prefList);
+		
+		if("Y".equals(result.get("DESSERT_YN")) || "Y".equals(result.get("TABLEWARE_YN"))
+				|| "Y".equals(result.get("OTHER_ORDER_YN")) ){
+			List<String> orderList
+				= applicationComponent.getAddOrderList((String)result.get("SERV_ID"));
+			
+			
+			if("Y".equals(result.get("DESSERT_YN"))) {
+				result.put("drtList", categoryComponent.getNameList(orderList, categoryComponent.DESSERT));
+			}
+			if("Y".equals(result.get("TABLEWARE_YN"))) {
+				result.put("tbwList", categoryComponent.getNameList(orderList, categoryComponent.TABLEWARE));
+			}
+			if("Y".equals(result.get("OTHER_ORDER_YN"))) {
+				result.put("rtlList", categoryComponent.getNameList(orderList, categoryComponent.OTHER));
+			}
+		}
+		
+		return result;
 	}
 }

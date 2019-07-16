@@ -1,20 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
-<script type="text/javascript">
-//<!--
-	
-	$(function(){
-		activeItem('마이 페이지');
-		showExtendedMenu('#nav_mypage');
-		activeSubItem('제안 리스트');
-		$('.modal').modal();
-	});
-	function showDetail(num){
-		$('.modal').modal('open');
+<style>
+	.modal.modal-fixed-footer {
+	    padding: 0;
+	    height: 80%;
 	}
-//-->
-</script>
+	.modal {
+	    display: none;
+	    position: fixed;
+	    left: 0;
+	    right: 0;
+	    background-color: #fafafa;
+	    padding: 0;
+	    max-height: 80%;
+	    width: 55%;
+	    margin: auto;
+	    overflow-y: auto;
+	    border-radius: 2px;
+	    will-change: top, opacity;
+	}
+</style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
+<script type="text/javascript" src="/js/sugg/suggestion-list.js"></script>
 <!-- <div class="section" style="background-color: white;">
 	<h5 style="padding-left: 40px;">
 		제안 리스트
@@ -39,7 +47,7 @@
 		    		<c:forEach items="${suggList }" var="sugg">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
-							<ul id="task-card" class="collection with-header">
+							<ul class="collection with-header">
 								<li class="collection-header">
 									<h5 class="task-card-title mb-3" style="text-align: right;">
 										<c:if test="${empty sugg.CHOOSE_YN}">
@@ -55,19 +63,23 @@
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">상태</span>
 									<c:if test="${empty sugg.CHOOSE_YN}">
-										<a href="#" class="secondary-content"><span > 진행중 </span></a>
+										<span class="secondary-content"><span > 진행중 </span></span>
 									</c:if>
 									<c:if test="${ sugg.CHOOSE_YN eq 'N' }">
-										<a href="#" class="secondary-content"><span class="red-text text-lighten-1"> 불채택 </span></a>
+										<span class="secondary-content"><span class="red-text text-lighten-1"> 불채택 </span></span>
 									</c:if>
+								</li>
+								<li class="collection-item dismissable">
+									<span class="width-100" style="font-size: 14px">제안번호</span>
+									<span  class="secondary-content"><span class="">${sugg.SUGG_ID }</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-									<a href="#" class="secondary-content"><span class="">${sugg.PER_BUD } 원</span></a>
+									<span  class="secondary-content"><span class="">${sugg.PER_BUD } 원</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">서비스 제공일</span>
-									<a href="#" class="secondary-content"><span class="task-card-date"> ${sugg.SERV_DATE } </span></a>
+									<span class="secondary-content"><span class="task-card-date"> ${sugg.SERV_DATE } </span></span>
 								</li>
 								<li class="collection-item dismissable center">
 									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${sugg.SUGG_ID}')">상세보기</a>
@@ -75,65 +87,63 @@
 							</ul>
 						</div>
 					</c:forEach>
-					<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
-						<ul id="task-card" class="collection with-header">
-							<li class="collection-header">
-								<h5 class="task-card-title mb-3" style="text-align: right;"><i class="material-icons left" style="color: red">check_circle</i>가나다 님께한 제안</h5>
-								<p class="task-card-date" style="text-align: right;">제안일</p>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">상태</span>
-								<a href="#" class="secondary-content"><span class="red-text text-lighten-1"> 불채택 </span></a>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-								<a href="#" class="secondary-content"><span class=""> 50,000 원</span></a>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">서비스 제공일</span>
-								<a href="#" class="secondary-content"><span class="task-card-date"> 2019-09-12 오후 6:00 </span></a>
-							</li>
-							<li class="collection-item dismissable center">
-								<a class="waves-effect waves-light btn-small" style="border-radius: 25px;">상세보기</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
-						<ul id="task-card" class="collection with-header">
-							<li class="collection-header">
-								<h5 class="task-card-title mb-3">서비스 요청자 이름 님께한 제안</h5>
-								<p class="task-card-date">제안일</p>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">채택 여부</span>
-								<a href="#" class="secondary-content"><span class=""> 불채택 </span></a>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-								<a href="#" class="secondary-content"><span class=""> 50,000 원</span></a>
-							</li>
-							<li class="collection-item dismissable">
-								<span class="width-100" style="font-size: 14px">서비스 제공일</span>
-								<a href="#" class="secondary-content"><span class="task-card-date"> 2019-09-12 오후 6:00 </span></a>
-							</li>
-							<li class="collection-item dismissable center">
-								<a class="waves-effect waves-light btn-small" style="border-radius: 25px;">상세보기</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div id="modal1" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-  </div>
+	<div class="modal-content">
+		<ul class="collection with-header">
+			<li class="collection-header">
+				<h5 class="task-card-title mb-3" style="text-align: right;" id="sugg_title">
+				</h5>
+				<p class="task-card-date" style="text-align: right;" id="sugg_date"></p>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">신청자 이름</span>
+				<span class="secondary-content"><span id="sup_name"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">상태</span>
+				<span class="secondary-content"><span class="" id="choose_yn"></span></span>
+			</li>
+		</ul>
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					제안 내용
+				</h6>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
+				<span  class="secondary-content"><span id="per_bud"></span></span>
+			</li>
+			<li class="collection-item dismissable" id="li_menu" style="display: none">
+				<span class="width-100" style="font-size: 14px">제안 메뉴</span>
+				<br>
+				<p class="secondary-content">
+					<table class="highlight centered">
+						<thead>
+						<tr>
+							<th>메뉴명</th>
+							<th>1 인분당 중량(g)</th>
+							<th>메뉴 사진</th>
+						</tr>
+						</thead>
+						<tbody id="menu_info">
+						</tbody>
+					</table>
+				</p>
+			</li>
+		</ul>
+		<ul class="collection with-header" id="ul_app">
+			
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+	</div>
 </div>
 <%@include file="/include/footer.jsp" %>
 </body>

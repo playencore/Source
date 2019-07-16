@@ -13,4 +13,12 @@ public class SuggestionDao extends CommonDao{
 	public List<Map<String, Object>> getSuggList(String suggId){
 		return sqlSession.selectList("Sugg.getSuggList", suggId);
 	}
+	
+	public List<Map<String, Object>> getSuggMenuInfo(String suggId){
+		return sqlSession.selectList("Sugg.getSuggMenuInfo", suggId);
+	}
+	
+	public Map<String, Object> getSuggInfo(String suggId){
+		return sqlSession.selectOne("Sugg.getSuggInfo", suggId);
+	}
 }

@@ -238,49 +238,49 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000010"/>
 									        <span>한정식</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000020"/>
 									        <span>핑거푸드</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000030"/>
 									        <span>웨스턴</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000040"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000040"/>
 									        <span>일식</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000050"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000050"/>
 									        <span>아시아 퓨전</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000060"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000060"/>
 									        <span>바베큐</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000070"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000070"/>
 									        <span>피자</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="mmu0000090"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000090"/>
 									        <span>기타</span>
 									    </label>
 									</div>
@@ -304,25 +304,25 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="DRT0000010"/>
 									        <span>디저트</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="DRT0000020"/>
 									        <span>음료류</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="DRT0000030"/>
 									        <span>커피류</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="drt0000040"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_dessert_type" value="DRT0000040"/>
 									        <span>주류</span>
 									    </label>
 									</div>
@@ -511,25 +511,25 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="tbw0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="TBW0000010"/>
 									        <span>커틀러리</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="tbw0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="TBW0000020"/>
 									        <span>앞접시</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="tbw0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="TBW0000030"/>
 									        <span>일회용 컵</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="tbw0000040"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_tableware" value="TBW0000040"/>
 									        <span>냅킨</span>
 									    </label>
 									</div>
@@ -579,19 +579,19 @@
 								<div class="col m11" style="padding-right: 0px">
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="rtl0000010"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="RTL0000010"/>
 									        <span>테이블</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="rtl0000020"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="RTL0000020"/>
 									        <span>의자</span>
 									    </label>
 									</div>
 									<div class="chip">
 										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="rtl0000030"/>
+									        <input type="checkbox" onchange="changeColor(this)" name="cb_addtion" value="RTL0000030"/>
 									        <span>천막</span>
 									    </label>
 									</div>
