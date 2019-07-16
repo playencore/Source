@@ -100,4 +100,8 @@ public class SupplierDao {
 	public int modifyMenu(FoodDto dto) {
 		return sqlSession.update("Supplier.modifyMenu", dto) ;
 	}
+	////////////////////////////////////////////////////
+	public List<Map<String,String>> selectServiceList(){
+		return sqlSession.selectList("Supplier.selectServiceList") ;
+	}
 }

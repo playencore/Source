@@ -152,4 +152,8 @@ public class SupplierComponent {
 	public int modifyMenu(FoodDto dto) {
 		return supplierDao.modifyMenu(dto) ;
 	}
+	////////////////////////////////////////////////
+	public List<Map<String,String>> getServiceList(){
+		return supplierDao.selectServiceList() ;
+	}
 }

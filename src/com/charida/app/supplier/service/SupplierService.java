@@ -149,6 +149,10 @@ public class SupplierService {
 	public int modifyMenu(FoodDto dto) {
 		return supplierComponent.modifyMenu(dto) ;
 	}
+	/////////////////////////////////////////////////////////////////////////////
+	public List<Map<String,String>> getServiceList(){
+		return supplierComponent.getServiceList() ;
+	}
 	
 }
 

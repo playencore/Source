@@ -151,5 +151,11 @@
 		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}
 		WHERE MENU_ID = #{menu_id}
 	</update>
+	<select id="selectServiceList" resultType="map">
+		SELECT 
+		*
+		FROM
+		CRD_SERV_APP
+	</select>
 	
 </mapper>

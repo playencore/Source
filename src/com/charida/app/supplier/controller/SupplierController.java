@@ -2,6 +2,7 @@ package com.charida.app.supplier.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +65,7 @@ public class SupplierController {
 		
 	}
 	@RequestMapping("/supplier/modifymenu.do")
-public String modifyMenu(HttpServletRequest req, HttpServletResponse resp) {
+	public String modifyMenu(HttpServletRequest req, HttpServletResponse resp) {
 		
 		FoodDto dto = new FoodDto();
 		dto.setMem_id(req.getParameter("mmem_id"));
@@ -78,6 +79,13 @@ public String modifyMenu(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute("result", result);
 		
 		return "/supplier/modifyMenu";
+	}
+	
+	@RequestMapping("/supplier/servlistforsuggest.do")
+	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
+		List<Map<String,String>> servlist = supplierService.getServiceList();
+		req.setAttribute("servlist", servlist);
+		return "/supplier/servListForSuggest" ;
 	}
 
 }
