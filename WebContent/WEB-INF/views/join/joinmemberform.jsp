@@ -32,7 +32,7 @@
 			<p class ="header">&nbsp;&nbsp;&nbsp;회원가입</p>
 				<form name = "joinMemberForm"  method = "post" action = "/join/join-result.do">
 					<div id = "memberForm">
-						<input type = "hidden" name = "authority" value ="1">
+						<input type = "hidden" name = "authority" value ="2">
 						<div class = "col s12">
 							<div class="input-field col s12">
 					          <input name="mem_id" id="mem_id" type="text" class="validate">
