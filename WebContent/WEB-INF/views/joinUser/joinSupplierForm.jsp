@@ -80,8 +80,71 @@
 					});
 
 	function showSupplierForm() {
-		$("#memberForm").hide();
-		$("#supplierForm").show();
+		
+		if (false){
+			/* 회원가입시 입력정보 자동 입력값  */
+			$("input[name="+name_passwd+"]").val("111111");
+			$("input[name="+name_repasswd+"]").val("111111");
+			$("input[name="+name_name+"]").val("홍길동동");
+			$("input[name="+name_email+"]").val("fullcontrolg@gmail.com");
+			$("input[name="+name_emailcheck+"]").val("");
+			$("input[name="+name_zipcode+"]").val("07805");
+			$("input[name="+name_address+"]").val("서울 강서구 마곡동로");
+			$("input[name="+name_address_detail+"]").val("222");
+			$("input[name="+name_tel+"]").val("0100000000000");
+			$("input[name="+name_birth_date+"]").val("19991213");
+			$("input[name="+name_gender+"]").val("1");
+			$("input[name="+name_job+"]").val("2");
+		} else if (memidable == false) {
+			result = name_mem_id;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (passwdable == false) {
+			result = name_passwd;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (repasswdable == false) {
+			result = name_repasswd;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (nameable == false) {
+			result = name_name;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (emailable == false) {
+			result = name_email;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (zipcodeable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("zip오류 : " + result + "를 확인해주세요.");
+		} else if (addressable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("add오류 : " + result + "를 확인해주세요.");
+		} else if (addressdetailable == false) {
+			result = name_address;
+			$("input[name="+result+"]").focus().select();
+			alert("detail오류 : " + result + "를 확인해주세요.");
+		} else if (telable == false) {
+			result = name_tel;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if (birthdateable == false) {
+			result = name_birth_date;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else if ( $('select[name=job]').val() ==  null ) {
+			result = name_job;
+			$("input[name="+result+"]").focus().select();
+			alert("오류 : " + result + "를 확인해주세요.");
+		} else {
+			alert("유효성 모두 통과 함");
+			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
+			$("#memberForm").hide();
+			$("#supplierForm").show();
+		}
 	}
 	function showMemberForm() {
 		$("#memberForm").show();
@@ -135,7 +198,7 @@
 				onsubmit="return supplierinput() ">
 				<div id="memberForm">
 					<div id="memberForm">
-						<input type="hidden" name="authority" value="1">
+						<input type="hidden" name="authority" value="3">
 						<div class="col s12">
 							<div class="input-field col s12">
 								<input name="mem_id" id="mem_id" type="text" class="validate">
