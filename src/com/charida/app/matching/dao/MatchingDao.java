@@ -15,13 +15,17 @@ public class MatchingDao {
 	SqlSession sqlsession;
 	
 	//매칭실패
-	public List<MatchingDto> matchingFail(){
-		return sqlsession.selectList("Matching.matchingFail");
+	public List<MatchingDto> matchingFail(String id){
+		return sqlsession.selectList("Matching.matchingFail",id);
 	}
 	
-	//매칭성공
-	public List<MatchingDto> matchingSuccess(){
-		return sqlsession.selectList("Matching.matchingSuccess");
+	//구매자 매칭성공
+	public List<MatchingDto> matchingSuccess(String id){
+		return sqlsession.selectList("Matching.matchingSuccess",id);
+	}
+	//판매자 매칭성공
+	public List<MatchingDto> supplierMatchingSuccess(String id){
+		return sqlsession.selectList("Matching.supplierMatchingSuccess",id);
 	}
 
 }

@@ -87,5 +87,4 @@ public class SupplierController {
 		req.setAttribute("servlist", servlist);
 		return "/supplier/servListForSuggest" ;
 	}
-
 }

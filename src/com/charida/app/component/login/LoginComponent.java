@@ -20,8 +20,8 @@ public class LoginComponent {
 			return 0;
 		}
 	}
-	public int countKakaoId(String id){
-		int result = loginDao.countKakaoId(id);	// count(*) = 1 		
+	public int countKakaoId(String kakao_key){
+		int result = loginDao.countKakaoId(kakao_key);	// count(*) = 1 		
 		if(result == 1) {
 			return 1;
 		}else {

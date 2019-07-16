@@ -7,7 +7,7 @@
  		select count(*) from CRD_MEM where MEM_id = #{id}
 	</select>
 	<select id="countKakaoId" resultType="int" parameterType="String">
-		select count(KAKAO_KEY) from CRD_SNS where MEM_id = #{id}
+		select count(KAKAO_KEY) from CRD_SNS where KAKAO_KEY = #{kakao_key}
 	</select>
 	<select id="checkPasswd" resultType="String" parameterType="String">
 		select PASSWD from CRD_MEM where MEM_id = #{id}

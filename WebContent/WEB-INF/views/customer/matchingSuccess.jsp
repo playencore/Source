@@ -5,7 +5,7 @@
 	  //<!--
 	   $(document).ready(function(){
 	    $('.modal').modal();
-	  });         
+	  });
 	  //-->
 	</script>
 	<h2>구매자 - 완료목록 페이지입니다.</h2>
@@ -71,7 +71,7 @@
 			</div>
 			<div class="container">
 				<center>
-					<button class="btn waves-effect waves-light container" type="submit"  >
+					<button class="btn waves-effect waves-light container" type="submit">
 				    <i class="material-icons left"></i>조회하기
 				  	</button>
 				</center>

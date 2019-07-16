@@ -30,8 +30,8 @@ public class ReviewComponent {
 		return reviewDao.ownReview(id);
 	}
 	
-	public List<MatchingDto>ableToReview() {
-		return reviewDao.ableToReview();
+	public List<MatchingDto>ableToReview(String id) {
+		return reviewDao.ableToReview(id);
 	}
 	
 	public MatchingDto modifyReview(String serv_id) {

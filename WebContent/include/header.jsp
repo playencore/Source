@@ -70,7 +70,7 @@
    <div class="nav-content" id="nav_mypage" style="display:none;    border-bottom: 1px solid #999;">
      <ul class="tabs tabs-transparent">
        <li class="tab"><a href="/sugg/suggestions-list.do">제안 리스트</a></li>
-       <li class="tab"><a href="#test2">완료 리스트</a></li>
+       <li class="tab"><a href="/supplier/matchingSuccess.do">완료 리스트</a></li>
        <li class="tab"><a href="#test3">매출 관리</a></li>
        <li class="tab"><a href="#test4">판매정보 수정</a></li>
      </ul>

@@ -44,8 +44,8 @@ public class ReviewService {
 		return reviewComponent.ownReview(id);
 	}
 	
-	public List<MatchingDto> ableToReview() {
-		return reviewComponent.ableToReview();
+	public List<MatchingDto> ableToReview(String id) {
+		return reviewComponent.ableToReview(id);
 	}
 	
 	public MatchingDto modifyReview(String serv_id) {
