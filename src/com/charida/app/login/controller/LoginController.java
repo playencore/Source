@@ -3,7 +3,6 @@ package com.charida.app.login.controller;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.charida.app.auth.SNSLogin;
-//import com.charida.app.auth.SnsValue;
 import com.charida.app.component.login.LoginComponent;
 import com.charida.app.login.dao.LoginDao;
 import com.charida.app.login.service.LoginService;
