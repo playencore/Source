@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Category">
+	<select id="getCodeList" resultType="java.util.Map">
+		SELECT CODE,CODE_NAME
+		FROM CRD_CODE_CG 
+		WHERE USE_YN= 'Y'
+		START WITH PARENT_CODE  IS NULL
+		CONNECT BY PRIOR CODE = PARENT_CODE 
+		ORDER SIBLINGS  BY CODE_SEQ ASC
+	</select>
+</mapper>

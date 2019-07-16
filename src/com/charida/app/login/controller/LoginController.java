@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.component.login.LoginComponent;
 import com.charida.app.login.dao.LoginDao;
@@ -67,19 +68,21 @@ public class LoginController {
 		}
 	}
 	@RequestMapping("/login/kakaoLogin.do")
+	@ResponseBody
 	public String kakaoLogin(@RequestParam("kakao_key")String kakao_key, HttpServletRequest req, HttpServletResponse resp) {
-		String id = loginDao.getId(kakao_key);
-		int result = loginComponent.countKakaoId(id);
-		String session = loginComponent.authority(id);
-		String name = loginComponent.name(id);
-		
+		int result = loginComponent.countKakaoId(kakao_key);	//카카오키를 카카오키와 비교하는 count문
+				
 		if(result == 1) {
+			String id = loginDao.getId(kakao_key);
+			String session = loginComponent.authority(id);
+			String name = loginComponent.name(id);
 			req.getSession().setAttribute("session_authority", session);//세션등록
 			req.getSession().setAttribute("session_name", name);
 			req.getSession().setAttribute("session_id", id);
-			return "/main";
+			return "/main.do";
 		}else {
-			return "/login/loginForm";
+			req.setAttribute("kakao", 0);
+			return "/login/loginForm.do?kakao=0";
 		}
 	}
 	

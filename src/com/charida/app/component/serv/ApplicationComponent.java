@@ -1,7 +1,9 @@
 package com.charida.app.component.serv;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,12 +12,16 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.serv.dao.ApplicationDao;
 
 @Component
 public class ApplicationComponent {
 	@Resource
 	private ApplicationDao applicationDao;
+	@Resource
+	private CategoryComponent categoryComponent;
+	
 	private static final String PERFIX = "S";
 	private static final String INFIX ="-";
 	protected static final Log log = LogFactory.getLog(ApplicationComponent.class);
@@ -61,11 +67,8 @@ public class ApplicationComponent {
 	}
 	
 	public Map<String,Object> getAppEntity(Map<String,Object>params){
-		
 		Map<String, Object> appEntities = new HashMap<String, Object>();
-		
-		//TODO 세션 생기면 수정
-		//appEntities.put("customer_id", "test123");
+	
 		appEntities.put("customer_id", params.get("sessionId"));
 		appEntities.put("progress_code", "00010001");
 		appEntities.put("zipcode", params.get("zipcode"));
@@ -133,5 +136,28 @@ public class ApplicationComponent {
         
         return date+ " " +hour +":"+minute +":00";
 	}
+	public List<String> getAddOrderList(String servId){
+		return  applicationDao.selectAddOrderList(servId);
+		
+	}
 	
+	public List<String> getPrefList(String servId,boolean transForm){
+		List<String> prefList = applicationDao.selectPrefList(servId);
+
+		if(prefList == null ) {
+			return null;
+		}
+		
+		if(!transForm) {
+			return prefList;
+		}
+		
+		List<String> prefNameList = new ArrayList<String>();
+		
+		for(String prepCode : prefList) {
+			prefNameList.add(categoryComponent.getCodeName(prepCode)); 
+		}
+		
+		return prefNameList;
+	}
 }

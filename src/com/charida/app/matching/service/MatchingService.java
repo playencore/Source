@@ -15,12 +15,12 @@ public class MatchingService {
 	MatchingComponent matchingComponent;
 	
 	//매칭실패
-	public List<MatchingDto> matchingFail(){
-		return matchingComponent.matchingFail();		
+	public List<MatchingDto> matchingFail(String id){
+		return matchingComponent.matchingFail(id);		
 	}
 	
 	//매칭성공
-	public List<MatchingDto> matchingSuccess(){
-		return matchingComponent.matchingSuccess();
+	public List<MatchingDto> matchingSuccess(String id){
+		return matchingComponent.matchingSuccess(id);
 	}
 }

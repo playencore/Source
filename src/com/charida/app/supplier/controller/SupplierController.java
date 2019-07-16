@@ -88,5 +88,4 @@ public class SupplierController {
 		req.setAttribute("servlistsize", servlist.size());
 		return "/supplier/servListForSuggest" ;
 	}
-
 }

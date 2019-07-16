@@ -12,6 +12,10 @@
 	<c:if test="${test == -1 }">
 	alert("비밀번호가 일치하지 않습니다.");
 	</c:if>
+ 	<c:if test="${param.kakao == 0 }">
+	alert("카카오 아이디가 존재하지 않습니다. 회원가입 후 이용해 주시기 바랍니다.");
+	</c:if>
+	
 	
   function loginCheck(){
 	  if(! loginform.id.value){
@@ -81,10 +85,11 @@
 			  	</button>
 			</div>			
 		</div>	
-		<div class="col s12">
+		
+		<%-- <div class="col s12">
 			<div class="col s4"></div>
 			<a href="${naver_url}">네이버 로그인</a>
-		</div>
+		</div> --%>
 		
 		<!-- 카카오 로그인 -->
 		<div class="col s12">
@@ -96,7 +101,6 @@
 		      //<![CDATA[
 	    	  Kakao.init('fa5cfc74b99a2f2f4274e1a57ab18e6e');
 	    	  function kakaoLogin(){
-	    		  var resId ="";
 	        Kakao.Auth.loginForm({
 	          success: function(authObj) {
 	            //alert(JSON.stringify(authObj));
@@ -105,25 +109,7 @@
 	                success: function(res) {
 	                  //alert(JSON.stringify(res));
 	                  //alert(res.id);	
-	                  $('input[name=kakao_key]').val(res.id);
-	                  document.kakaoform.target='/login/kakaoLogin.do';
-					  document.kakaoform.submit();
-	                	/* $.ajax({
-	                  	    
-	                  	    type : "post",
-	                  	    url : "/login/kakaoLogin.do",
-	                  	  	async: false,
-	                  	  	data:{kakao_key:resId},
-	                  	    dataType : "json",
-	                  	    error : function(data){
-	                  	        //alert('아이디값 전송 : ' + res.id);
-	                  	        console.log(data);
-	                  	    },
-	                  	    success : function(data){
-	                  	     	//alert(data);
-	                  	    	alert(data);
-	                  	    }     
-	                  	}); */
+					kakao(res.id);
 	                },
 	                fail: function(error) {
 	                  alert(JSON.stringify(error));
@@ -135,10 +121,28 @@
 	          }
 	        });	   
 	      }
+	    	  function kakao(id){
+             	 $.ajax({
+               	    
+               	    type : "post",
+               	    url : "/login/kakaoLogin.do",
+               	  	data:{kakao_key:id},
+               	    error : function(data){
+               	        //alert('아이디값 전송 : ' + res.id);
+               	        console.log(data);
+               	    },
+               	    success : function(data){
+               	     	//alert(data);
+               	    	//alert(data);
+               	    	window.location.href=data;
+               	    }     
+               	}); 
+	    	  }
 	      //]]>
 		    </script>
 		</div>
 	</div>	
+	<div class="section"></div>
 	
 	</div>
 

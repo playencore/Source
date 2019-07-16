@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.charida.app.matching.dao.MatchingDao;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.matching.service.MatchingService;
 
@@ -20,33 +21,51 @@ import com.charida.app.matching.service.MatchingService;
 public class MatchingController {
 	@Resource
 	MatchingService matchingService;
+	@Resource
+	MatchingDao matchingDao;
 
-	//매칭실패######################################
+	//구매자 매칭실패리스트
 	@RequestMapping("/customer/matchingFail.do")
-	public String matchingFail(HttpServletResponse resp, HttpServletRequest req) {
+	public String customerMatchingFail(HttpServletResponse resp, HttpServletRequest req) {
 		System.out.println(req.getParameter("aa"));
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
-		List<MatchingDto> matchingFail = matchingService.matchingFail();
+		String id = (String)req.getSession().getAttribute("session_id");
+		
+		List<MatchingDto> matchingFail = matchingService.matchingFail(id);
 		req.setAttribute("matchingFail", matchingFail);
 		
 		return "/customer/matchingFail";
 	}
 	
-	//매칭성공#######################################
+	//구매자 완료리스트
 	@RequestMapping("/customer/matchingSuccess.do")
-	public String matchingSuccess(HttpServletResponse resp, HttpServletRequest req) {
-		System.out.println(req.getParameter("aa"));
+	public String customerMatchingSuccess(HttpServletResponse resp, HttpServletRequest req) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
-		List<MatchingDto> matchingSuccess = matchingService.matchingSuccess();
+		String id = (String)req.getSession().getAttribute("session_id");
+		List<MatchingDto> matchingSuccess = matchingService.matchingSuccess(id);
 		req.setAttribute("matchingSuccess", matchingSuccess);
 		
 		return "/customer/matchingSuccess";
+	}
+	
+	//판매자 완료리스트
+	@RequestMapping("/supplier/matchingSuccess.do")
+	public String supplierMatchingSuccess(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().getAttribute("session_id");
+		req.getSession().getAttribute("session_name");
+		req.getSession().getAttribute("session_authority");
+		
+		String id = (String)req.getSession().getAttribute("session_id");
+		List<MatchingDto> matchingSuccess = matchingDao.supplierMatchingSuccess(id);
+		req.setAttribute("matchingSuccess", matchingSuccess);
+
+		return "/supplier/matchingSuccess";
 	}
 	
 	public Map<String, Object> getParameterMap(HttpServletRequest req){

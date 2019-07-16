@@ -40,7 +40,7 @@
 	AND B.CUSTOMER_ID = #{id}
   </select>
   
-  <select id="ableToReview" resultType="com.charida.app.matching.dto.MatchingDto">
+  <select id="ableToReview" parameterType="String" resultType="com.charida.app.matching.dto.MatchingDto">
 	SELECT 	
 	A.SERV_ID, 
 	A.CUSTOMER_ID,
@@ -70,6 +70,7 @@
 	ON S.CHOOSE_YN='Y' 
 	AND A.SERV_ID = S.SERV_ID 
 	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
+	AND A.CUSTOMER_ID = #{id}
   </select>
   <select id="modifyReview" parameterType="java.lang.String" resultType="com.charida.app.matching.dto.MatchingDto">
   	SELECT 

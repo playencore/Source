@@ -29,4 +29,18 @@
 			,#{parking_yn} ,#{tableware_yn} ,#{coordinator_yn} ,#{other_order_yn} 
 			,#{requested_term} )
 	</insert>
+	<select id="selectPrefList" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+			PREP_CODE
+		FROM CRD_SERV_PREF_STYLE 
+		WHERE SERV_ID = #{servId}
+		ORDER BY PREP_SEQ ASC
+	</select>
+	<select id="selectAddOrderList" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+			ADD_CODE 
+		FROM CRD_SERV_ADD_ORDER 
+		WHERE SERV_ID = #{servId} 
+		ORDER BY ADD_SEQ ASC
+	</select>
 </mapper>

@@ -15,12 +15,12 @@ public class MatchingComponent {
 	MatchingDao matchingDao;
 	
 	//매칭실패
-	public List<MatchingDto> matchingFail(){
-		return matchingDao.matchingFail();
+	public List<MatchingDto> matchingFail(String id){
+		return matchingDao.matchingFail(id);
 	}
-	//매칭성공
-	public List<MatchingDto> matchingSuccess(){
-		return matchingDao.matchingSuccess();
+	//구매자 매칭성공
+	public List<MatchingDto> matchingSuccess(String id){
+		return matchingDao.matchingSuccess(id);
 	}
 	
 }

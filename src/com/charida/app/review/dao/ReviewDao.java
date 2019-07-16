@@ -27,8 +27,8 @@ public class ReviewDao {
 	public List<ReviewDto> ownReview(String id) {
 		return sqlsession.selectList("Review.ownReview",id);
 	}
-	public List<MatchingDto> ableToReview() {
-		return sqlsession.selectList("Review.ableToReview");
+	public List<MatchingDto> ableToReview(String id) {
+		return sqlsession.selectList("Review.ableToReview",id);
 	}
 	public MatchingDto modifyReview(String serv_id) {
 		return sqlsession.selectOne("Review.modifyReview",serv_id);

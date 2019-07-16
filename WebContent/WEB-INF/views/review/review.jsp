@@ -9,6 +9,21 @@
 	<hr color="gray">
 	${reviews}<br><br>
 	
+	
+<div class="section"></div>
+<div class="container" style="background-color: white;margin-top:2px;">	
+	<div class="row">
+		<div class="col m12">
+			<div class="section">
+				<h5>
+					서비스 후기
+					<small id="sub_title"> CHA-RI-DA</small>
+					<small style="float: right;"> Food Catering Service</small>
+				</h5>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>	
 	<c:forEach var="ReviewDto" items="${reviews}">
 	
 	<div class="container">
@@ -108,7 +123,7 @@
 	
 		
 	</c:forEach>
-
+</div>
     <%@include file="/include/footer.jsp" %>
 
 </body>

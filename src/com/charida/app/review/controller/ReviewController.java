@@ -115,8 +115,9 @@ public class ReviewController {
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
+		String id = (String)req.getSession().getAttribute("session_id");
 		
-		List<MatchingDto> reviews = reviewService.ableToReview();
+		List<MatchingDto> reviews = reviewService.ableToReview(id);
 		
 		req.setAttribute("reviews", reviews);
 		
