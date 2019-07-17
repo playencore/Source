@@ -62,12 +62,14 @@ public class JoinController {
 	public String serviceJoinMember(HttpServletRequest req,HttpServletResponse resp) {
 		log.debug("joinController > serviceJoinMember : " + "시작");
 		String result = "";
+		// 회원가입 진행 시작
 		int req_result = joinService.joinMember( getParameterMap(req) );
 		if(req_result == 0) {
 			//실패페이지
 			result = "";
 		} else {
 			//가입성공 페이지
+			log.debug("로그인에 성공했습니다.");
 			result = "redirect:/login/loginForm.do";
 		}
 		log.debug("joinController > serviceJoinMember : " + "종료");

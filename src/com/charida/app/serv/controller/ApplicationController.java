@@ -73,4 +73,29 @@ public class ApplicationController extends CommonController{
 	 * req.setAttribute( View.RESPONSE_STATUS_ATTRIBUTE,
 	 * HttpStatus.TEMPORARY_REDIRECT); return "redirect:/service/resultFrom.do"; }
 	 */
+	
+	// 구매자가 서비스를 신청한 일련의 과정을 선택해서 볼 수 있도록 해주는 페이지
+	@RequestMapping("/service/cus-serv-status.do")
+	public String customerhome(HttpServletRequest req,HttpServletResponse resp) {
+		
+		return "/service/cus-serv-status";
+	}	
+	// 
+	@RequestMapping("/service/cus-app-list.do")
+	public String cusapp(HttpServletRequest req,HttpServletResponse resp) {
+		
+		return "/service/cus-app-list";
+	}	
+	// 
+	@RequestMapping("/service/cus-pay-list.do")
+	public String cuspay(HttpServletRequest req,HttpServletResponse resp) {
+		
+		return "/service/cus-pay-list";
+	}	
+	//
+	@RequestMapping("/service/cus-deli-list.do")
+	public String cusdeli(HttpServletRequest req,HttpServletResponse resp) {
+		
+		return "/service/cus-deli-list";
+	}
 }

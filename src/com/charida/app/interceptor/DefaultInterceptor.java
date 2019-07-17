@@ -34,6 +34,10 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/review/review.do"
 			,"/intro/introduce.do"
 			,"/login/kakaoLogin.do"
+			,"/join/join-result.do"
+			,"/joinuser/joinmember.do"
+			,"/join/join-basic/checkid.do"
+			,"/mail/send-mail.do"
 		};
 	
 	@Override
