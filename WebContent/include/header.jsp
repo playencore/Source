@@ -61,7 +61,7 @@
   	   <li class="tab"><a href="/customer/matchingFail.do">매칭실패 목록</a></li>
        <li class="tab"><a href="/review/ownReview.do">작성한 후기</a></li>
        <li class="tab"><a href="/review/ableToReview.do">작성가능한 후기</a></li>
-       <li class="tab"><a href="#test1">구매자1</a></li>
+       <li class="tab"><a href="/service/member-serv-status.do">신청 리스트</a></li>
        <li class="tab"><a href="#test2">구매자2</a></li>
      </ul>
    </div>
