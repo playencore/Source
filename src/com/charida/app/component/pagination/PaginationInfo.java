@@ -88,12 +88,15 @@ public class PaginationInfo {
 	}
 
 	public int getFirstRecordIndex() {
-		firstRecordIndex = (getCurrentPageNo() - 1) * getRecordCountPerPage();
+		firstRecordIndex = (getCurrentPageNo() - 1) * getRecordCountPerPage() + 1;
 		return firstRecordIndex;
 	}
 
 	public int getLastRecordIndex() {
-		lastRecordIndex = getCurrentPageNo() * getRecordCountPerPage();
+		//lastRecordIndex = getCurrentPageNo() * getRecordCountPerPage();
+		
+		lastRecordIndex = getFirstRecordIndex() + getRecordCountPerPage() -1;		
+		if( lastRecordIndex > getTotalRecordCount() ) lastRecordIndex  = getTotalRecordCount();
 		return lastRecordIndex;
 	}	
 }
