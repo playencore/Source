@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -23,8 +24,18 @@ import com.charida.app.component.file.FileComponent;
 public class DefaultInterceptor extends HandlerInterceptorAdapter {
 	@Resource
 	private FileComponent fileComponent;
-	protected Log log = LogFactory.getLog(DefaultInterceptor.class);
-
+	private static final Log log = LogFactory.getLog(DefaultInterceptor.class);
+	
+	private static final String[] ARR_PASS_URI 
+		= new String[]{
+			"/main.do"
+			,"/login/loginForm.do"
+			,"/login/loginCheck.do"
+			,"/review/review.do"
+			,"/intro/introduce.do"
+			,"/login/kakaoLogin.do"
+		};
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -32,6 +43,13 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 		log.debug("---------------인터셉터---------------\n");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		
+		if(isCheckUri(request.getRequestURI())) {
+			if(isNotExist(request.getSession())) {
+				response.sendRedirect("/login/loginForm.do");
+				return false;
+			}
+		}
 		
 		printUrl(request);
 		
@@ -43,8 +61,7 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	public void printUrl(HttpServletRequest request) {
-		log.debug("요청 uri : " + request.getRequestURL() );
-		
+		log.debug("요청 url : " + request.getRequestURL() );
 		Map<String, String> params = new HashMap<String, String>();
 		Enumeration<String> keys= request.getParameterNames();
 		
@@ -137,5 +154,24 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 		System.out.println(saveFilePath);
 		
 		return saveFile;
+	}
+	public boolean isNotExist(HttpSession session) {
+		Object sessionId = session.getAttribute("session_id");
+		
+		if(sessionId == null) {
+			return true;
+		}
+		
+		return false;
+	}
+	public boolean isCheckUri(String uri) {
+
+		for(String passUri :ARR_PASS_URI ) {
+			if(passUri.indexOf(uri) != -1) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
