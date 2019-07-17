@@ -68,7 +68,7 @@ public class JoinController {
 			result = "";
 		} else {
 			//가입성공 페이지
-			result = "login/loginForm";
+			result = "redirect:/login/loginForm.do";
 		}
 		log.debug("joinController > serviceJoinMember : " + "종료");
 		return result;
