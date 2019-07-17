@@ -186,12 +186,16 @@ public class SupplierService {
 	
 	public List<Map<String, Object>> getSearchServList(Map<String, String> param){
 		List<Map<String,Object>> serchServList = new ArrayList<Map<String,Object>>();
+		
 		serchServList = supplierComponent.getSearchServList(param) ;
+		
 		for(Map<String, Object> serv : serchServList ) {
 			List<String> prefList =applicationComponent.getPrefList((String)serv.get("SERV_ID"),true);
+			
 			serv.put("PREFLIST", prefList);
+			
 			if("Y".equals(serv.get("DESSERT_YN")) || "Y".equals(serv.get("TABLEWARE_YN"))
-					|| "Y".equals(serv.get("OTHER_ORDER_YN")) ){
+				|| "Y".equals(serv.get("OTHER_ORDER_YN")) ){
 				List<String> orderList
 					= applicationComponent.getAddOrderList((String)serv.get("SERV_ID"));
 				if("Y".equals(serv.get("DESSERT_YN"))) {

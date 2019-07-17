@@ -7,8 +7,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.CodeDto;
 import com.charida.app.supplier.dto.FoodDto;
@@ -20,7 +23,9 @@ import com.charida.app.supplier.dto.SupplierDto;
 
 @Component
 public class SupplierComponent {
-
+	
+	protected Log log = LogFactory.getLog(TestService.class);
+	
 	@Resource
 	SupplierDao supplierDao;
 

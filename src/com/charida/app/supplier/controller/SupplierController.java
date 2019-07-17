@@ -87,6 +87,9 @@ public class SupplierController {
 		List<Map<String,Object>> servlist = supplierService.getServiceList();
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
+		//String mem_id =  req.getSession().getAttribute("mem_id");
+		//세션 하면 이거 진행
+		req.setAttribute("suppfoodlist", supplierService.getFoodList("test"));
 		return "/supplier/servListForSuggest" ;
 	}
 	@RequestMapping("/supplier/servlistserch.do")
