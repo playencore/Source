@@ -10,8 +10,11 @@ import com.charida.app.common.dao.CommonDao;
 @Repository
 public class SuggestionDao extends CommonDao{
 	
-	public List<Map<String, Object>> getSuggList(String suggId){
+	public List<Map<String, Object>> getSuggList(Map<String, Object> suggId){
 		return sqlSession.selectList("Sugg.getSuggList", suggId);
+	}
+	public int getSuggListCount(String suggId){
+		return sqlSession.selectOne("Sugg.getSuggListCount", suggId);
 	}
 	
 	public List<Map<String, Object>> getSuggMenuInfo(String suggId){

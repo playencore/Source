@@ -1,14 +1,17 @@
 package com.charida.app.sugg.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
 import com.charida.app.component.category.CategoryComponent;
+import com.charida.app.component.pagination.PaginationInfo;
 import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.sugg.SuggestionComponent;
 
@@ -21,8 +24,23 @@ public class SuggService {
 	@Resource
 	private CategoryComponent categoryComponent;
 	
-	public List<Map<String,Object>> getList(Map<String, Object> parmas){
-		List<Map<String,Object>> suggList = suggestionComponent.getSuggList((String)parmas.get("sessionId"));
+	public List<Map<String,Object>> getList(Map<String, Object> parmas,HttpServletRequest req){
+		String memId = (String)parmas.get("sessionId");
+		int pageNo = 1;
+		if(parmas.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)parmas.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		paging.setTotalRecordCount(suggestionComponent.getSuggListCount(memId));
+		req.setAttribute("paging", paging);
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		listParam.put("memId", memId);
+		listParam.put("startNum", paging.getFirstRecordIndex());
+		listParam.put("endNum", paging.getLastRecordIndex());
+
+		List<Map<String,Object>> suggList = suggestionComponent.getSuggList(listParam);
 		
 		if(suggList != null) {
 			for(Map<String,Object> sugg : suggList) {

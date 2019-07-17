@@ -15,7 +15,7 @@ public class SuggestionComponent {
 	@Resource
 	private SuggestionDao suggestionDao;
 	
-	public List<Map<String, Object>> getSuggList(String sugg_id){
+	public List<Map<String, Object>> getSuggList(Map<String, Object> sugg_id){
 		return suggestionDao.getSuggList(sugg_id);
 	}
 	public List<Map<String, Object>> getSuggMenuInfo(String sugg_id){
@@ -26,6 +26,9 @@ public class SuggestionComponent {
 		}
 		
 		return results;
+	}
+	public int getSuggListCount(String sugg_id){
+		return suggestionDao.getSuggListCount(sugg_id);
 	}
 	public Map<String, Object> getSuggInfo(String sugg_id){
 		Map<String, Object> suggInfo = suggestionDao.getSuggInfo(sugg_id);

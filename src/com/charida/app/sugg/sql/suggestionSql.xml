@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Sugg">
-	<select id="getSuggList" resultType="java.util.Map" parameterType="java.lang.String">
+	<!-- <select id="getSuggList" resultType="java.util.Map" parameterType="java.lang.String">
 		SELECT SUGG_ID
 			,(SELECT NAME FROM CRD_MEM WHERE MEM_ID =SER.CUSTOMER_ID) as NAME 
 			,TO_CHAR(SUGG_DATE,'YYYY-MM-DD HH24:MI:SS') as SUGG_DATE, CHOOSE_YN
@@ -12,20 +12,35 @@
 		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
 		WHERE SER.SERV_ID = SUG.SERV_ID 
 		AND SUG.MEM_ID= #{suggId}
+	</select> -->
+	<select id="getSuggListCount" resultType="int" parameterType="java.lang.String">
+		SELECT 
+			COUNT(*)
+		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
+		WHERE SER.SERV_ID = SUG.SERV_ID 
+		AND SUG.MEM_ID= #{memId}
+	</select>
+	<select id="getSuggList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			SUGG_ID, NAME,SUGG_DATE, CHOOSE_YN, PER_BUD, SERV_DATE 
+		FROM (
+			SELECT 
+				A.*,ROWNUM AS NUM 
+			FROM (
+				SELECT SUGG_ID
+					,(SELECT NAME FROM CRD_MEM WHERE MEM_ID =SER.CUSTOMER_ID) AS NAME 
+					,TO_CHAR(SUGG_DATE,'YYYY-MM-DD HH24:MI:SS') AS SUGG_DATE, CHOOSE_YN
+					, SUG.PER_BUD,TO_CHAR(SERV_DATE ,'YYYY-MM-DD HH24:MI') AS SERV_DATE 
+				FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
+				WHERE SER.SERV_ID = SUG.SERV_ID 
+				AND SUG.MEM_ID= #{memId}
+			    ORDER BY SUGG_DATE DESC
+			) A
+		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+
 	</select>
 	
 	<select id="getSuggInfo" parameterType="java.lang.String" resultType="java.util.Map">
-		<!-- SELECT 
-			(SELECT NAME FROM CRD_MEM WHERE MEM_ID =APP.CUSTOMER_ID) AS NAME 
-			, TO_CHAR(SUGG_DATE,'YYYY-MM-DD HH24:MI:SS') AS SUGG_DATE, CHOOSE_YN
-			, SUGG.PER_BUD,TO_CHAR(SERV_DATE ,'YYYY-MM-DD HH24:MI') AS SERV_DATE 
-			, PARTICIPANT
-			, ZIPCODE
-			, ADDRESS
-			, ADDRESS_DETAIL
-		FROM CRD_SERV_SUGG SUGG, CRD_SERV_APP APP 
-		WHERE SUGG.SERV_ID = APP.SERV_ID
-		AND SUGG.SUGG_ID = #{suggId} -->
 		SELECT 
 			APP.SERV_ID as SERV_ID
 			,(SELECT NAME FROM CRD_MEM WHERE MEM_ID =APP.CUSTOMER_ID) AS NAME 

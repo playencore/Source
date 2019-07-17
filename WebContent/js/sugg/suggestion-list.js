@@ -224,3 +224,7 @@ function viewMap(addr){
 function numbeComma(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function movePage(pageNo){
+	document.dForm.pageNo.value = pageNo;
+	document.dForm.submit();
+}

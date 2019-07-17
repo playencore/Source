@@ -22,7 +22,7 @@ public class SuggController extends CommonController{
 	@RequestMapping("/sugg/suggestions-list.do")
 	public String onLoad(HttpServletRequest req,HttpServletResponse resp) {
 		
-		req.setAttribute("suggList", suggService.getList(getParameterMap(req,true))); 
+		req.setAttribute("suggList", suggService.getList(getParameterMap(req,true),req)); 
 		return "/sugg/suggestions-list";
 	}
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
+<%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
 <style>
 	.modal.modal-fixed-footer {
 	    padding: 0;
@@ -20,6 +21,9 @@
 	    border-radius: 2px;
 	    will-change: top, opacity;
 	}
+	.pagination li.active {
+    background-color: #26a69a;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
 <script type="text/javascript" src="/js/sugg/suggestion-list.js"></script>
@@ -88,6 +92,9 @@
 						</div>
 					</c:forEach>
 				</div>
+				<div class="col m12 center">
+					<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -145,6 +152,9 @@
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
 	</div>
 </div>
+<form name="dForm">
+<input type="hidden" name ="pageNo"value="${pageNo}">
+</form>
 <%@include file="/include/footer.jsp" %>
 </body>
 </html>
