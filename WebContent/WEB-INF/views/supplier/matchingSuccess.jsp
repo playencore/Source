@@ -1,21 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
-<script type="text/javascript" src="/js/date/date.js"></script>
 
 	<script type="text/javascript">
 	  //<!--
 	   $(document).ready(function(){
 	    $('.modal').modal();
+	    setDatePicker();
 	  });
-	  //-->
+	  
+	  
+	  function setDatePicker(){
+		var deoption = {
+		  format:'yyyy-mm-dd'
+		  ,i18n:{
+	  		  cancel:'닫기',
+	  		  clear:'초기화',
+	  		  done:"확인",
+	  		  months:[
+	  			  '1 월',
+	  			  '2 월',
+	  			  '3 월',
+	  			  '4 월',
+	  			  '5 월',
+	  			  '6 월',
+	  			  '7 월',
+	  			  '8 월',
+	  			  '9 월',
+	  			  '10 월',
+	  			  '11 월',
+	  			  '12 월'
+	  		  ],
+	  		  monthsShort:[
+	  			  '1 월',
+	  			  '2 월',
+	  			  '3 월',
+	  			  '4 월',
+	  			  '5 월',
+	  			  '6 월',
+	  			  '7 월',
+	  			  '8 월',
+	  			  '9 월',
+	  			  '10 월',
+	  			  '11 월',
+	  			  '12 월'
+	  		  ],
+	  		  weekdaysShort:[
+	  			  '일요일',
+	  			  '월요일',
+	  			  '화요일',
+	  			  '수요일',
+	  			  '목요일',
+	  			  '금요일',
+	  			  '토요일'
+	  		  ],
+	  		  weekdaysAbbrev:['일','월','화','수','목','금','토']
+	  	  }
+	    } ;
+		$('#serv_date1').datepicker(deoption);
+		$("#serv_date2").datepicker(deoption) ;
+
+	}
+	//-->
 	</script>
-	<h2>판매자 - 완료목록 페이지입니다.</h2>
+	
+	<!-- 세션검사 -->
+<%-- 	<h2>판매자 - 완료목록 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name }<br>
 	아이디 : ${session_id }<br>
 	세션 코드 : ${session_authority }
 	<hr color="gray">
+ --%>	
+	
 <div class="section"></div>
 <form action="/supplier/matchingSearch.do" method="post" name="matchingSearch">
 	<div class="container" style="background-color: white;margin-top:2px;">	
@@ -54,16 +111,16 @@
 						<div class="row" style="margin-bottom: 0px;">
 							<div class="col m4" style="padding-right: 0px">
 								<div class="input-field">
-									<input id="serv_date" name="serv_date1" type="text" class="datepicker" readonly="readonly">
-						         	<label for="serv_date" style="font-size: 25px;line-height:0.5px;font-weight: bold;">시작 날짜*</label>
+									<input id="serv_date1" name="serv_date1" type="text" class="datepicker" readonly="readonly">
+						         	<label for="serv_date1" style="font-size: 25px;line-height:0.5px;font-weight: bold;">시작 날짜*</label>
 					         	</div>
 							</div>
 							<div class="col m1" style="padding-right: 0px">
 							</div>
 							<div class="col m4" style="padding-right: 0px">
 								<div class="input-field">
-									<input id="serv_time" name="serv_date2" type="text" class="datepicker" readonly="readonly">
-						         	<label for="serv_time" style="font-size: 25px;line-height:0.5px;font-weight: bold;">종료 날짜*</label>
+									<input id="serv_date2" name="serv_date2" type="text" class="datepicker" readonly="readonly">
+						         	<label for="serv_date2" style="font-size: 25px;line-height:0.5px;font-weight: bold;">종료 날짜*</label>
 					         	</div>
 							</div>
 							<div class="col m3"></div>
@@ -308,7 +365,6 @@
     </div>
   </div>  
 </c:forEach>
-<script type="text/javascript" src="/js/serv/application.js"></script>
 
     <%@include file="/include/footer.jsp" %>
 

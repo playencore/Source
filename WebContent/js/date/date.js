@@ -1,16 +1,14 @@
 /**
- *  application.js
+ *  date.js
  */
 
 // Or with jQuery
 var elems = null;
 var instances = null;
 $(document).ready(function(){
-	activeItem('서비스 신청');
 	elems = document.querySelectorAll('.datepicker');
 	instances = M.Datepicker.init(elems, {
-	   minDate:new Date()
-	  ,format:'yyyy-mm-dd'
+	  format:'yyyy-mm-dd'
 	  ,i18n:{
   		  cancel:'닫기',
   		  clear:'초기화',
@@ -287,124 +285,9 @@ function getValByCb( obj ){
 	return content;
 }
 
-function valid_step1(){
-	if($("#addr").val()=="검색 버튼을 눌러주세요."){
-		showToast('우편번호를 검색해주세요.');
-		$("#addr").focus();
-		return false;
-	}
-	
-	if($("#addr2").val()==""){
-		showToast('상세 주소를 입력해주세요.');
-		$("#addr2").focus();
-		return false;
-	}else if($('#addr2').val().length>50){
-		showToast('상세주소는 50자 미만으로 입력해주세요.');
-		$("#addr2").focus();
-		return false;
-	}
-	
-	if($("#serv_date").val()==""){
-		showToast('행사 일자를 입력해주세요.');
-		$("#serv_date").focus();
-		$('#serv_date').click();
-		return false;
-	}
-	
-	if($("#serv_time").val()==""){
-		showToast('행사 시간을 입력해주세요.');
-		$("#serv_time").focus();
-		$('#serv_time').click();
-		return false;
-	}
-	
-	return true;
-}
-function valid_step2(){
-	if($("#participant").val()==""){
-		showToast('참여 인원을 입력해주세요.');
-		$("#participant").focus();
-		return false;
-	}else if($("#participant").val()>999){
-		showToast('현재 천 명 이상은 신청 불가능합니다.');
-		$("#participant").focus();
-		return false;
-	}
-	if($('input[name=serv_type]:checked').next().text()==""){
-		showToast('행사 형식을 선택해주세요.');
-		$("input[name=serv_type]")[0].focus();
-		return false;
-	}
-	
-	if($('input[name=event_type]:checked').next().text()==""){
-		showToast('진행 형식을 선택해주세요.');
-		$("input[name=event_type]")[0].focus();
-		return false;
-	}
-	
-	return true;
-}
-function valid_step3(){
-	if($('input[name=cb_menu_type]:checked').next().text()==""){
-		showToast('선호 메뉴를 하나 이상 선택해주세요.');
-		$("input[name=cb_menu_type]")[0].focus();
-		return false;
-	}
-	if($("#per_bud").val()==""){
-		showToast('1 인당 예상가격을 입력해주세요.');
-		$("#per_bud").focus();
-		return false;
-	}else if($("#per_bud").val()>9999999){
-		showToast('1 인당 예상가격은 천만원을 넘을 수 없습니다.');
-		$("#per_bud").focus();
-		return false;
-	}
-	return true;
-}
 
-function valid_step4(){
-	if($('input[name=loc_type]:checked').next().text()==""){
-		showToast('장소정보를 선택해주세요.');
-		$("input[name=loc_type]")[0].focus();
-		return false;
-	}
-	
-	if($('input[name=cooking_yn]:checked').next().text()==""){
-		showToast('취사가능여부를 선택해주세요.');
-		$("input[name=cooking_yn]")[0].focus();
-		return false;
-	}
-	if($('input[name=discharge_yn]:checked').next().text()==""){
-		showToast('쓰레기배출여부를 선택해주세요.');
-		$("input[name=discharge_yn]")[0].focus();
-		return false;
-	}
-	
-	if($('input[name=elev_yn]:checked').next().text()==""){
-		showToast('엘레베이터유무를 선택해주세요.');
-		$("input[name=elev_yn]")[0].focus();
-		return false;
-	}
-	
-	if($('input[name=parking_yn]:checked').next().text()==""){
-		showToast('주차장유무를 선택해주세요.');
-		$("input[name=parking_yn]")[0].focus();
-		return false;
-	}
-	
-	return true;
-}
 function showToast(msg){
 	 M.toast({html: msg, classes: 'rounded',displayLength:3000});
 	 $('#toast-container').css({left:(window.outerWidth - $('#toast-container').width())/2});
 }
 
-function formSubmit(){
-	if($('#req_term').val().length>300){
-		showToast('추가요청사항은 300자 이하로 입력해주세요.');
-		$("#req_term").focus();
-		return false;
-	}
-	
-	$('form[name=dForm]').submit();
-}

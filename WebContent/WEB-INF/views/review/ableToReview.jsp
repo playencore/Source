@@ -8,12 +8,16 @@
 	  });         
 	  //-->
 	  </script>
-	<h2>구매자 - 작성가능한 목록 페이지입니다.</h2>
+	  
+	<!-- 세션검사 -->	  
+<%-- 	<h2>구매자 - 작성가능한 목록 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name }<br>
 	아이디 : ${session_id }<br>
 	세션 코드 : ${session_authority }
 	<hr color="gray">
+ --%>	
+	
 <div class="section"></div>
 
 <div class="container" style="background-color: white;margin-top:2px;">	

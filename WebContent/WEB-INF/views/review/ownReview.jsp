@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
-	<h2>해당 구매자가 등록한 후기보기 페이지입니다.</h2>
+
+	<!-- 세션검사 -->
+<%-- 	<h2>해당 구매자가 등록한 후기보기 페이지입니다.</h2>
 	<hr color="gray">
 	회원 분류 : ${session_name}<br>
 	아이디 : ${session_id}<br>
 	세션 코드 : ${session_authority}
 	<hr color="gray">
 	${reviews}<br><br>
+ --%>	
 	
 	<script type="text/javascript">
 	//<!--
@@ -26,6 +29,7 @@
 	
 	//-->
 	</script>
+<div class="section"></div>
 <div class="container" style="background-color: white;margin-top:2px;">	
 	<div class="row">
 		<div class="col m12">
