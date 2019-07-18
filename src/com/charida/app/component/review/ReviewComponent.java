@@ -1,6 +1,7 @@
 package com.charida.app.component.review;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dao.ReviewDao;
 import com.charida.app.review.dto.ReviewDto;
+import com.charida.app.review.dto.ReviewFileDto;
 
 @Component
 public class ReviewComponent {
@@ -18,6 +20,11 @@ public class ReviewComponent {
 	
 	public int insertReview(ReviewDto reviewDto) {
 		int result = reviewDao.insertReview(reviewDto);	
+		
+		return result;
+	}
+	public int insertPicture(ReviewDto reviewDto) {
+		int result = reviewDao.insertPicture(reviewDto);
 		
 		return result;
 	}
@@ -53,5 +60,15 @@ public class ReviewComponent {
 		}else {
 			return 1;
 		}		
+	}
+
+	public String getPictureMaxSeq(){
+		return reviewDao.getPictureMaxSeq();
+	}
+	public int setPicture(Map<String, Object> listMap) {
+		return reviewDao.setPicture(listMap);
+	}
+	public List<Integer> getfiles(String serv_id) {
+		return reviewDao.getFiles(serv_id);
 	}
 }

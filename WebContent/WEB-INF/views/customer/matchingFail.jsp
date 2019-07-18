@@ -43,9 +43,13 @@
 	          <center><span class="card-title">매칭 실패</span></center>
 	          <hr color="gray"><br>
 				<%-- 서비스 진행상태 : ${MatchingDto.progress_code} --%>
-				<c:if test="${MatchingDto.progress_code =='00000000' }">
+				<c:if test="${MatchingDto.progress_code =='STU0020002' }">
 				서비스 진행상태 : 매칭실패<br>
 				</c:if>
+				<c:if test="${MatchingDto.progress_code =='STU0020003' }">
+				서비스 진행상태 : 매칭실패<br>
+				</c:if>
+
 				신청일 : ${MatchingDto.app_date}
 				<hr color="white">
 				<!-- #################### 행사형식 start #################### -->
@@ -257,7 +261,7 @@
 		<hr color="red">
     </div>
     <div class="modal-footer">
-		<a href="/service/application.do">재등록신청</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/customer/application.do?serv_id=${MatchingDto.serv_id}">재등록신청</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<!-- <a href="/customer/matchingFail.do">닫기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
     </div>
   </div>  

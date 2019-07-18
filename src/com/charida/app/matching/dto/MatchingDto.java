@@ -2,6 +2,8 @@ package com.charida.app.matching.dto;
 
 public class MatchingDto {
 	private String serv_id;
+	private String customer_id;
+	private String progress_code;
 	private String zipcode;
 	private String address;
 	private String address_detail;	
@@ -10,6 +12,8 @@ public class MatchingDto {
 	private String dessert_yn;	
 	private String serv_date;
 	private String app_date;
+	private String modify_date;
+	private String endDate;
 	private String interior_yn;
 	private String cooking_yn;
 	private String discharge_yn;
@@ -20,13 +24,14 @@ public class MatchingDto {
 	private String other_order_yn;
 	private String requested_term;
 	private String choose_yn;
-	private String progress_code;
-	private String modify_date;
 	private String end_date;
-	private String customer_id;
 	private String startDate;
-	private String endDate;
 	private String id;
+	private int participant;
+	private int age_min;
+	private int age_max;
+	private int per_men;
+	private int per_bud;
 	
 	
 	public String getId() {
@@ -47,11 +52,7 @@ public class MatchingDto {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	private int participant;
-	private int age_min;
-	private int age_max;
-	private int per_men;
-	private int per_bud;
+
 	
 	public String getModify_date() {
 		return modify_date;

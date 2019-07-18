@@ -50,18 +50,22 @@ public class ReviewController {
 		System.out.println(req.getParameter("aa"));
 		//model.addAttribute("serverTime", formattedDate );
 		//String serv_id = reviewDao.getServ_id();
-		Map<String, Object> params =getParameterMap(req);
+		Map<String, Object> params = getParameterMap(req);
 		params.put("serv_id", serv_id);
 		//params.put("mem_id",(String)req.getSession().getAttribute("session_id"));
 		//mem_id가 아니라 서비스테이블의 serv_id 값을 가져와야한다. 서비스테이블 완성되면 추후 수정해야됨.
 		reviewService.insertReviewTx(params);
-		// 파일이름 받아오기-------------
-		req.getAttribute("servicePicture1");
-		req.getAttribute("servicePicture2");
-		req.getAttribute("servicePicture3");
-		req.getAttribute("servicePicture4");
-		req.getAttribute("servicePicture5");
-		req.getAttribute("servicePicture6");
+		
+		// 파일이름 받아오기-----------------------------------------
+		Map<String,String[]> pictureMap = req.getParameterMap();
+		String servicePicture[] = new String[6] ;
+		for(int i = 1 ; i<7 ; i++) {
+			if(req.getAttribute("file_id"+i)!=null) {
+				servicePicture[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+			}
+		}
+		pictureMap.put("servicePicture", servicePicture);		
+		reviewService.insertPictureTx(pictureMap);
 		
 		//후기보기 추후에 Redirect 작업 해도됨
 		req.getSession().getAttribute("session_id");
@@ -69,12 +73,13 @@ public class ReviewController {
 		req.getSession().getAttribute("session_authority");
 		
 		//후기보기페이지 리다이렉트
-		List<ReviewDto> reviews = reviewService.getReviews();
-		//log.debug();
+		String id = (String)req.getSession().getAttribute("session_id");
+		List<ReviewDto> reviews = reviewService.ownReview(id);
+		//List<ReviewDto> files = reviewDao.getFiles(serv_id);
 		req.setAttribute("reviews", reviews);
-		//req.setAttribute("reviewsSize", reviews.size());
+		//req.setAttribute("files", files);
 		
-		return "/review/ownReview";
+		return "redirect:/review/ownReview.do";
 	}
 	
 	
@@ -86,9 +91,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_authority");
 		
 		List<ReviewDto> reviews = reviewService.getReviews();
-		//log.debug();
 		req.setAttribute("reviews", reviews);
-		//req.setAttribute("reviewsSize", reviews.size());
 		
 		return "/review/review";
 	}
@@ -98,13 +101,14 @@ public class ReviewController {
 	public String ownReview(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
-		req.getSession().getAttribute("session_authority");		
-		
+		req.getSession().getAttribute("session_authority");				
 		String id = (String)req.getSession().getAttribute("session_id");
-		List<ReviewDto> reviews = reviewService.ownReview(id);
 		
-		//log.debug();
+		
+		List<ReviewDto> reviews = reviewService.ownReview(id);
+		//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);		
 		req.setAttribute("reviews", reviews);
+		//req.setAttribute("files", files);
 		return "/review/ownReview";
 	}
 	
@@ -134,7 +138,7 @@ public class ReviewController {
 		//String serv_id = req.getParameter("serv_id");
 		req.setAttribute("serv_id", serv_id);
 		MatchingDto review = reviewService.modifyReview(serv_id);
-		req.setAttribute("review", review);		
+		req.setAttribute("review", review);
 		return "/review/modifyReview";
 	}
 	
@@ -145,29 +149,40 @@ public class ReviewController {
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");	
 		Map<String, Object> params =getParameterMap(req);
-		params.put("serv_id", serv_id);
-		
+		params.put("serv_id", serv_id);		
 		int result = reviewService.modifyReviewPro(params);
+		int delpicture = reviewDao.delpicture(serv_id);
 		
-		if(result == 0) {
+		//사진수정 (기존사진을 지우기 덮어씀)
+		Map<String,String[]> pictureMap = req.getParameterMap();
+		String servicePicture[] = new String[6] ;
+		for(int i = 1 ; i<7 ; i++) {
+			if(req.getAttribute("file_id"+i)!=null) {
+				servicePicture[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+			}
+		}
+		pictureMap.put("servicePicture", servicePicture);		
+		reviewService.insertPictureTx(pictureMap);
+		
+		
+		if(result == 0 || delpicture == 0) {
 			req.setAttribute("modify", 0);
 			String id = (String)req.getSession().getAttribute("session_id");
-			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			List<ReviewDto> reviews = reviewService.ownReview(id);
+			//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);
 			req.setAttribute("reviews", reviews);
+			//req.setAttribute("files", files);
 			return "/review/ownReview";
-		}else {
+		}else{
 			req.setAttribute("modify", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
-			List<ReviewDto> reviews = reviewService.ownReview(id);		
+			List<ReviewDto> reviews = reviewService.ownReview(id);
+			//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);
 			req.setAttribute("reviews", reviews);
+			//req.setAttribute("files", files);
 			return "/review/ownReview";
 		}
 		
-//		//ownView 리다이렉트
-//		String id = (String)req.getSession().getAttribute("session_id");
-//		List<ReviewDto> reviews = reviewService.ownReview(id);		
-//		req.setAttribute("reviews", reviews);
-//		return "/review/ownReview";
 	}
 	
 	//리뷰삭제

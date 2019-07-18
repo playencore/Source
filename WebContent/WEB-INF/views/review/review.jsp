@@ -110,13 +110,20 @@
 				<c:if test="${ReviewDto.recommand eq 0}">
 				지인 추천 여부 : 지인에게 추천할 의향이 없습니다.
 				</c:if>	
-				<hr color="white">
-				작성 시간 : ${ReviewDto.review_date} <br>
-					
+				<hr color="white"><br>
+				<div class="container">
+				<c:forEach var="pictures" items="${ReviewDto.picture}">
+				<img src="/file/file-down/${pictures}" width="190">
+				</c:forEach> 
+				</div>
+				<br>
+				<hr color="white"><br>
+				작성 시간 : ${ReviewDto.review_date } <br>
+				
 	        </div>
-	        <div class="card-action">
+	        <!-- <div class="card-action">
 	          <center><a class="waves-effect waves-light btn modal-trigger" href="#modal1">상세보기</a></center>
-	        </div>
+	        </div> -->
 	      </div>
 	    </div>
 	  </div>

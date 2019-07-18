@@ -1,5 +1,7 @@
 package com.charida.app.review.dto;
 
+import java.util.List;
+
 public class ReviewDto {
 	private String serv_id;
 	private String mem_id;
@@ -13,7 +15,72 @@ public class ReviewDto {
 	private String file_yn;
 	private String blind_yn;
 	private String review_date;
+	private List<Integer> picture;
 	
+	private int file_seq;
+	private int file_id;
+	private int servicePicture1;
+	private int servicePicture2;
+	private int servicePicture3;
+	private int servicePicture4;
+	private int servicePicture5;
+	private int servicePicture6;
+	
+	
+	public int getFile_seq() {
+		return file_seq;
+	}
+	public int getFile_id() {
+		return file_id;
+	}
+	public void setFile_seq(int file_seq) {
+		this.file_seq = file_seq;
+	}
+	public void setFile_id(int file_id) {
+		this.file_id = file_id;
+	}
+	public List<Integer> getPicture() {
+		return picture;
+	}
+	public void setPicture(List<Integer> picture) {
+		this.picture = picture;
+	}
+	public int getServicePicture1() {
+		return servicePicture1;
+	}
+	public int getServicePicture2() {
+		return servicePicture2;
+	}
+	public int getServicePicture3() {
+		return servicePicture3;
+	}
+	public int getServicePicture4() {
+		return servicePicture4;
+	}
+	public int getServicePicture5() {
+		return servicePicture5;
+	}
+	public int getServicePicture6() {
+		return servicePicture6;
+	}
+	public void setServicePicture1(int servicePicture1) {
+		this.servicePicture1 = servicePicture1;
+	}
+	public void setServicePicture2(int servicePicture2) {
+		this.servicePicture2 = servicePicture2;
+	}
+	public void setServicePicture3(int servicePicture3) {
+		this.servicePicture3 = servicePicture3;
+	}
+	public void setServicePicture4(int servicePicture4) {
+		this.servicePicture4 = servicePicture4;
+	}
+	public void setServicePicture5(int servicePicture5) {
+		this.servicePicture5 = servicePicture5;
+	}
+	public void setServicePicture6(int servicePicture6) {
+		this.servicePicture6 = servicePicture6;
+	}
 	public String getReview_date() {
 		return review_date;
 	}

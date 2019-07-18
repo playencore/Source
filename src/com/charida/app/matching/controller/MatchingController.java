@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.charida.app.matching.dao.MatchingDao;
 import com.charida.app.matching.dto.MatchingDto;
@@ -38,6 +39,13 @@ public class MatchingController {
 		req.setAttribute("matchingFail", matchingFail);
 		
 		return "/customer/matchingFail";
+	}
+	//구매자 재신청
+	@RequestMapping("/customer/application.do")
+	public String reApplication(@RequestParam("serv_id")String serv_id, HttpServletRequest req, HttpServletResponse resp) {
+		List<MatchingDto> matchingFailAnswer = matchingDao.matchingFailAnswer(serv_id);
+		req.setAttribute("matchingFailAnswer", matchingFailAnswer);
+		return "/service/reApplication";
 	}
 	
 	//구매자 완료리스트

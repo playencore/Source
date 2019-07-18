@@ -23,6 +23,9 @@
   	CONTENT 
   	FROM CRD_SERV_REVIEW
   </select>
+  <select id="getFiles" parameterType="String" resultType="Integer">
+  	SELECT file_id FROM CRD_SERV_REVIEW_FILE WHERE SERV_ID = #{serv_id}
+  </select>
   
   <select id="ownReview" parameterType="String" resultType="com.charida.app.review.dto.ReviewDto">
 	SELECT 
@@ -107,5 +110,15 @@
 	AND A.SERV_ID = S.SERV_ID 
 	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
   </select>
+  <select id="getPictureMaxSeq" resultType="String">
+  	SELECT MAX(FILE_SEQ) FROM CRD_SERV_REVIEW_FILE
+  </select>
+  <insert id="setPicture" parameterType="java.util.Map">
+  	INSERT INTO CRD_SERV_REVIEW_FILE
+  	VALUES(#{serv_id},#{file_seq},#{file_id})
+  </insert>
+  <delete id="delpicture" parameterType="String">
+  	DELETE FROM CRD_SERV_REVIEW_FILE WHERE SERV_ID = #{serv_id}
+  </delete>
   
 </mapper>

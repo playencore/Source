@@ -33,6 +33,8 @@ public class MatchingDao {
 	public List<MatchingDto> supplierMatchingSearch(MatchingDto matchingDto){
 		return sqlsession.selectList("Matching.supplierMatchingSearch",matchingDto);
 	}
-
+	public List<MatchingDto> matchingFailAnswer(String serv_id){
+		return sqlsession.selectList("Matching.matchingFailAnswer",serv_id);
+	}
 
 }
