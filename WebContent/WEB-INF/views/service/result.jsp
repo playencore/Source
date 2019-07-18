@@ -16,8 +16,7 @@
 		          <p>신청번호로 신청이 완료되었습니다. 판매자 매칭은 최대 하루까지 소요될 수 있습니다.<br><br> 신청번호 : ${appId }</p>
 		        </div>
 		        <div class="card-action">
-		          <!-- <a href="#">신청내역 보기</a> -->
-		          <a href="http://localhost:8080/service/cus-app-list.do">신청내역 보기</a>
+		          <a href="/service/cus-app-list.do">신청내역 보기</a>
 		        </div>
 		      </div>
 		</div>
