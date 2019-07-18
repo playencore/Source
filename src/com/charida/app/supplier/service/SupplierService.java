@@ -7,8 +7,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
+import com.charida.app.common.service.TestService;
 import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.join.JoinComponent;
 import com.charida.app.component.serv.ApplicationComponent;
@@ -20,7 +23,7 @@ import com.charida.app.supplier.dto.SupplierDto;
 
 @Service
 public class SupplierService {
-	
+	protected Log log = LogFactory.getLog(TestService.class);
 	@Resource
 	SupplierComponent supplierComponent ;
 	@Resource
@@ -214,6 +217,21 @@ public class SupplierService {
 			serv.put("EVENT_TYPE",event_type) ;
 	}
 		return serchServList ;
+	}
+	////////////////제안 넣기 
+	public int setSuggestTx(Map<String , Object> param) {
+		List<Object> menulist = (ArrayList<Object>)param.get("menulist") ;
+		List<String> menu = (List<String>)menulist.get(0) ;
+		String serv_id = menu.get(4);
+		param.put("serv_id", serv_id) ;
+		String sugg_id = serv_id +"/"+ supplierComponent.getSupplier((String)param.get("mem_id")).getRegist_num() ;
+		param.put("sugg_id", sugg_id) ;
+		int setservsugg = supplierComponent.setSuggest(param) ;
+		int setservmenu = supplierComponent.setSuggMenu(param) ;
+		
+		int result = setservsugg+setservmenu ;
+		
+		return result ;
 	}
 }
 

@@ -36,6 +36,7 @@ public class SupplierComponent {
 
 		return result;
 	}
+	
 
 	// crd_service_Type
 	public String getServiceCategoryMaxSeq(String mem_id) {
@@ -126,6 +127,9 @@ public class SupplierComponent {
 	public List<SupplierDto> getSuppliers() {
 		return supplierDao.selectSuppliers();
 	}
+	public SupplierDto getSupplier(String mem_id) {
+		return supplierDao.selectSupplier(mem_id);
+	}
 
 	public List<Map<String, String>> getNotPermissionSuppliers() {
 		return supplierDao.selectNotPermissionSuppliers();
@@ -163,5 +167,35 @@ public class SupplierComponent {
 	}
 	public List<Map<String, Object>> getSearchServList(Map<String, String> param){
 		return supplierDao.selectSearchServList(param) ;
+	}
+	//////////////////////////////제안하기
+	public int setSuggest(Map<String, Object> param) {
+		return supplierDao.insertSuggest(param);
+	}
+	public String getSuggMenuMaxSeq(String sugg_id) {
+		return supplierDao.getSuggMenuMaxSeq(sugg_id);
+	}
+	public int setSuggMenu(Map<String, Object> param) {
+		String smaxseq = getSuggMenuMaxSeq((String)param.get("sugg_id")) ;
+		if(smaxseq == null || smaxseq.equals("")) {
+			smaxseq = "0" ;
+		}
+		int maxseq = Integer.parseInt(smaxseq) ;
+		Map<String, Object> menu = null ;
+		int menuresult = 0 ;
+		for(Object menus : (ArrayList<Object>)param.get("menulist")) {
+			menu = new HashMap<String, Object>() ;
+			List<Object> menuinfo = (List<Object>)menus ;
+			menu.put("sugg_id", param.get("sugg_id"));
+			menu.put("menu_seq", maxseq);
+			menu.put("name", menuinfo.get(0));
+			menu.put("weight", menuinfo.get(1));
+			menu.put("explanation", menuinfo.get(2));
+			menu.put("file_id",menuinfo.get(3));
+			menuresult += supplierDao.insertServSuggMenu(menu);
+			maxseq++;
+		}
+		
+		return menuresult ;
 	}
 }

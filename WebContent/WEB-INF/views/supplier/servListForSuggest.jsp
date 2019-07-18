@@ -4,8 +4,13 @@
 
 <script>
 	//<!--
+var menucountarr = new Array() ;
 
 $(document).ready(function(){
+	//구분자
+	for(var i = 0 ; i<${servlistsize} ; i++){
+		menucountarr[i] = new Array();
+	}
 	
 	setDatePicker() ;
 	setModal();
@@ -28,12 +33,12 @@ $(document).ready(function(){
 								"eddate":eddate	
 							},
 							dataType:"json",
-							success:function(data){
+							success:function(result){
 								$("#startdate").val('') ;
 								$("#enddate").val('') ;
-								alert("조회성공 리스트 사이즈는 : "+Object.keys(data).length) ;
-								showServeList(data);
-								searchResultModal(data);
+								alert("조회성공 리스트 사이즈는 : "+Object.keys(result.data).length) ;
+								showServeList(result);
+								searchResultModal(result);
 							},
 							error: function(data){
 								$("#startdate").val('') ;
@@ -54,35 +59,39 @@ $(document).ready(function(){
 function setModal(){
 	for(var i = 0 ; i<${servlistsize} ; i++){
 		$('#servModal'+i).modal();
-		$('#suggestModal'+i).modal();
+		$('#suggestModal'+i).modal({dismissible: false});
 	}
 }
 
-function searchResultModal(data){
-	for(var i = 0 ; i<Object.keys(data).length ; i++){
+function searchResultModal(result){
+	for(var i = 0 ; i<Object.keys(result.data).length ; i++){
 		$('#servlistModal'+i).modal();
-		$('#suggestModal'+i).modal();
+		$('#suggestModal'+i).modal({dismissible: false});
 	}
 }
 	
-function showServeList(data){
+function showServeList(result){
 	$("#servlist").html("");
+	var menuslist = JSON.stringify(result.menulist);
+	var menuss = JSON.parse(menuslist);
+	alert("메뉴 사이지:"+ menuss.length) ;
 	var slist = "" ;
-	for(var i = 0 ; i < Object.keys(data).length ; i++){
+	for(var i = 0 ; i < Object.keys(result.data).length ; i++){
 		slist = slist
 		+		"<div class = 'col s6'>"
 		+			"<div class='card'>"
 		+				"<div class='card-content black-text'>"
-		+					"<span class='card-title'>서비스 아이디 :"+data[i].SERV_ID+"</span>"
+		+					"<span class='card-title'>서비스 아이디 :"+result.data[i].SERV_ID+"</span>"
 		+					"<p>"
-		+						"서비스 장소 :"+data[i].ADDRESS+"<br>"
-		+						"서비스 상세 장소"+data[i].ADDRESS_DETAIL+"<br>"
-		+						"1인당 금액 :"+data[i].PER_BUD+"<br>"
-		+						"서비스 제공 일시 :"+data[i].APP_DATE+"<br>"
+		+						"서비스 장소 :"+result.data[i].ADDRESS+"<br>"
+		+						"서비스 상세 장소"+result.data[i].ADDRESS_DETAIL+"<br>"
+		+						"1인당 금액 :"+result.data[i].PER_BUD+"<br>"
+		+						"서비스 제공 일시 :"+result.data[i].APP_DATE+"<br>"
 		+					"</p>"
 		+				"</div>"
 		+				"<div class='card-action'>"
 		+					"<a class = 'waves-effect waves-light modal-trigger' href='#servlistModal"+i+"' >상세보기</a>"
+		+					"<a id = 'suggestMenu' class = 'waves-effect waves-light modal-trigger' href='#suggestModal"+i+"' >제안하기</a>"
 		+				"</div>"
 		+			"</div>"
 		+		"</div>"
@@ -91,55 +100,56 @@ function showServeList(data){
 		+				"<div class='modal-content'>"
 		+					"<h4>신청 상세보기</h4>"
 		+					"<p>"
-		+						"신청_id :"+data[i].SERV_ID+"<br>"
-		+						"서비스 제공 우편번호 :"+data[i].ZIPCODE+"<br>"
-		+						"서비스 제공 주소 :"+data[i].ADDRESS+"<br>"
-		+						"서비스 제공 상세주소 "+data[i].ADDRESS_DETAIL+"<br>"
+		+						"신청_id :"+result.data[i].SERV_ID+"<br>"
+		+						"서비스 제공 우편번호 :"+result.data[i].ZIPCODE+"<br>"
+		+						"서비스 제공 주소 :"+result.data[i].ADDRESS+"<br>"
+		+						"서비스 제공 상세주소 "+result.data[i].ADDRESS_DETAIL+"<br>"
 		+						"판매자 선호 메뉴 :" ;
 		
-									if(data[i].PREFLIST !=null){
-										for(var j  = 0 ; j < Object.keys(data[i].PREFLIST).length ; j++){
-											if(data[i].PREFLIST[j] != null){
-												slist=slist+data[i].PREFLIST[j]
+									if(result.data[i].PREFLIST !=null){
+										for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
+											if(result.data[i].PREFLIST[j] != null){
+												slist=slist+result.data[i].PREFLIST[j]
 											}
 										}
 									}
 		slist=slist							
 		+						"<br>"
-		+						"1인당 예산 : "+data[i].PER_BUD+"<br>"
-		+						"참가자수 :  "+data[i].PARTICIPANT+"<br>"
-		+						"연령층 :  "+data[i].AGE_MIN+" ~ "+data[i].AGE_MAX+"<br>"
-		+						"참가자 남여 비율 : [남:여]   "+data[i].PER_MEN+" :  "+(10-data[i].PER_MEN)+"<br>"
-		+						"서비스 형식 :  "+data[i].SERV_TYPE+"<br>"
-		+						"행사 형식 :  "+data[i].EVENT_TYPE+"<br>"
+		+						"1인당 예산 : "+result.data[i].PER_BUD+"<br>"
+		+						"참가자수 :  "+result.data[i].PARTICIPANT+"<br>"
+		+						"연령층 :  "+result.data[i].AGE_MIN+" ~ "+result.data[i].AGE_MAX+"<br>"
+		+						"참가자 남여 비율 : [남:여]   "+result.data[i].PER_MEN+" :  "+(10-result.data[i].PER_MEN)+"<br>"
+		+						"서비스 형식 :  "+result.data[i].SERV_TYPE+"<br>"
+		+						"행사 형식 :  "+result.data[i].EVENT_TYPE+"<br>"
 		+						"후식 : ";
-								if(data[i].DRTLIST !=null){
-									for(var j  = 0 ; j < Object.keys(data[i].DRTLIST).length ; j++){
-										slist=slist+data[i].DRTLIST[j] 
+								if(result.data[i].DRTLIST !=null){
+									for(var j  = 0 ; j < Object.keys(result.data[i].DRTLIST).length ; j++){
+										slist=slist+result.data[i].DRTLIST[j] 
 									}
 								}
 		slist=slist						
 		+						"<br>"
-		+						"서비스 제공일시 : "+data[i].APP_DATE+"<br>"
-		+						"실내여부 : "+data[i].INTERIOR_YN+"<br>"
-		+						"취사여부 : "+data[i].COOKING_YN+"<br>"
-		+						"쓰레기 배출 여부 : "+data[i].DISCHARGE_YN+"<br>"
-		+						"엘리베이터 여부 : "+data[i].ELEVATOR_YN+"<br>"
-		+						"주차장 여부 : "+data[i].PARKING_YN+"<br>"
+		+						"서비스 제공일시 : "+result.data[i].APP_DATE+"<br>"
+		+						"실내여부 : "+result.data[i].INTERIOR_YN+"<br>"
+		+						"취사여부 : "+result.data[i].COOKING_YN+"<br>"
+		+						"쓰레기 배출 여부 : "+result.data[i].DISCHARGE_YN+"<br>"
+		+						"엘리베이터 여부 : "+result.data[i].ELEVATOR_YN+"<br>"
+		+						"주차장 여부 : "+result.data[i].PARKING_YN+"<br>"
 		+						"추가 식기 :";
-								if(data[i].TBWLIST != null){
-									for(var j  = 0 ; j < Object.keys(data[i].TBWLIST).length ; j++){
-										slist=slist+data[i].TBWLIST[j] 
+								if(result.data[i].TBWLIST != null){
+									for(var j  = 0 ; j < Object.keys(result.data[i].TBWLIST).length ; j++){
+										slist=slist+result.data[i].TBWLIST[j] 
 									}
 								}
 		slist=slist						
 		+						"<br>"
-		+						"코디 네이터 신청 여부 : "+data[i].COORDINATOR_YN+"<br>"
+		+						"코디 네이터 신청 여부 : "+result.data[i].COORDINATOR_YN+"<br>"
 		+						"요청 사항 : " ;
 		
-								if(data[i].REQUESTED_TERM !=null){
-									slist=slist+data[i].REQUESTED_TERM+""
+								if(result.data[i].REQUESTED_TERM !=null){
+									slist=slist+result.data[i].REQUESTED_TERM+"" 
 								}
+								
 		slist=slist						
 		+					"</p>"
 		+				"</div>"
@@ -147,10 +157,57 @@ function showServeList(data){
 		+					"<a href='#!' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
 		+				"</div>"
 		+			"</div>"
-		+		"</div>" ;
+		+		"</div>" 
+		+	"<div class = 'modallist'>"
+		+		"<div id='suggestModal"+i+"' class='modal'>"
+		+			"<div class='modal-content' id = 'selectmenu'>"
+		+				"서비스 제안하기 <p>*등록한 메뉴만 제안 가능합니다.</p>"
+		+				"<div class = 'row'>"
+		+					"<div class = 'col s5'>"
+		+						"<select id='selectfood' name = 'foodselect"+i+"' class='icons'>"
+		+							"<option value='' disabled selected>메뉴를 선택해주세요.</option>";
+									for(var j=0 ; j < menuss.length; j++ ){
+										slist=slist+"<option value='"+menuss[j].name+"/"+menuss[j].weight+"/"+menuss[j].explanation+"/"+menuss[j].file_id+"/"+result.data[i].SERV_ID+"' id ='"+menuss[j].menu_id+"' data-icon='/file/file-down/"+menuss[j].file_id+"'>"+menuss[j].name+"</option>";
+									}
+		slist=slist
+		+						"</select>"
+		+					"</div>"
+		+					"<div class = 'col s3'>"
+		+						"<a id = 'addmenu' class='waves-effect waves-light btn' onclick='setmenuaddlist("+i+")' >제안 메뉴 설정하기</a>"
+		+					"</div>"
+		+				"</div>";
+		slist=slist
+		+				"<div class = 'row'>"
+		+					"<div class= 'col s12'>"
+		+						"<table id ='setmenulisttable'>"
+		+							"<tr>"
+		+								"<th>메뉴 이름</th>"
+		+								"<th>메뉴 중량</th>"
+		+								"<th width='40%'>메뉴 설명</th>"
+		+								"<th>메뉴 사진</th>"
+		+							"</tr>"
+		+							"<tbody id = 'addrow"+i+"'>"
+		+							"</tbody>"
+		+							"<tr>"
+		+								"<th colspan='4'>"
+		+									"인당 금액 : <input type = 'text' name = 'perbud"+i+"' placeholder='인당 가격을 넣어주세요'>"
+		+								"</th>"
+		+							"</tr>"
+		+						"</table>"
+		+					"</div>"
+		+				"</div>"
+		+				"<br><br><br><br><br>"
+		+			"</div>"
+		+			"<div class='modal-footer'>"
+		+				"<a onclick='menusubmit("+i+")' class='modal-close waves-effect waves-green btn-flat'>제안하기</a>"
+		+				"<a onclick='resetcount()' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
+		+			"</div>"
+		+		"</div>"
+		+	"</div>" ;
+		
 	}
-	
 	$("#servlist").html(slist);
+	$('select').formSelect();
 	
 }
 
@@ -215,23 +272,83 @@ function setDatePicker(){
 		}});
 }
 
-function setmenu(list){
-	var foodname = $("#foodname").val() ;
-	alert(foodname);
-	var ind ;
-	var row  = "" ;
-	if(foodname == null || foodname==""){
-		alert("선택해주세요");
-	}else{
-		for(var i = 0; i < Object.keys(list).length ; i ++){
-			if(list[i].name == foodname){
-				ind = i ;
-			}
-		}
+function setmenuaddlist(count){
+	var foodct = menucountarr[count].length ;
+ 	var menuinfo = $("select[name = foodselect"+count+"]").val().split("/") ;
+ 	var tableadd = ""
+	+"<tr>"
+	+	"<td>"
+	+		"<input type = 'text' name = 'suggmenuname"+foodct+"' value = '"+menuinfo[0]+"' readonly>"
+	+	"</td>"
+	+	"<td>"
+	+		"<input type = 'text' name = 'suggweight"+foodct+"' value = '"+menuinfo[1]+"'>"
+	+	"</td>"
+	+	"<td>"
+	+		"<textarea style = 'margin-top:2%' name='suggmenuexplanation"+foodct+"' class='materialize-textarea'>"+menuinfo[2]+"</textarea>"
+	+	"</td>"
+	+	"<td>"
+	+		"<img name = 'suggfile_id' class='materialboxed' height='50' width='50' src='/file/file-down/"+menuinfo[3]+"'>"
+	+	"</td>"
+	+"</tr>" ;
+	$("#addrow"+count).append(tableadd);
+	var arrindex = menucountarr[count].length ;
+	menucountarr[count][arrindex] = menuinfo ;
+	//alert(menucountarr[count][arrindex][0]) ;
 	
+}
+
+function menusubmitvalidataion(ct){
+	var result = 0 ;
+	for(var i = 0 ; i < menucountarr[ct].length ; i++){
+		if( $("input[name=suggweight"+i+"]").val() == null || $("input[name=suggweight"+i+"]").val() ==""){
+			alert("메뉴의 중량을 모두 입력해주세요.");
+			//$('#suggestModal'+ct).modal('open');
+			return 1;
+		}
 	}
 	
-	$("#addrow").html();
+	for(var i = 0 ; i < menucountarr[ct].length ; i++){
+		if( $("textarea[name=suggmenuexplanation"+i+"]").val() == null || $("textarea[name=suggmenuexplanation"+i+"]").val() ==""){
+			alert("메뉴의 설명을 모두 입력해주세요.");
+			return 1;
+		}
+	}
+	
+	if($("input[name = perbud"+ct+"]").val() == null || $("input[name = perbud"+ct+"]").val() == "" ){
+		alert("1인당 금액을 입력해주세요.");
+		return 1 ;
+	}
+	return result ;
+}
+
+function menusubmit(ct){
+	if( menusubmitvalidataion(ct) == 1 ){
+		return
+	}else{
+	var jsonn = JSON.stringify(menucountarr[ct]) ;
+	var perbud = $("input[name = perbud"+ct+"]").val() ;
+	var memid = "${mem_id}" ;
+	
+	  $.ajax(
+			{
+				type : "POST",
+				url: "/supplier/suggmenu.do",
+				data : 
+				{
+					"mem_id" : memid,
+					"per_bud" : perbud,
+					"suggarr" : jsonn
+				},
+				dataType:"json",
+				success:function(data){
+					alert(data.result);
+				},
+				error: function(data){
+					alert("ajax오류") ;
+				}
+			}		
+		); 
+	}
 }
 
 	//-->
@@ -334,36 +451,42 @@ function setmenu(list){
 							서비스 제안하기 <p>*등록한 메뉴만 제안 가능합니다.</p>
 							<div class = "row">
 								<div class = "col s5">
-									<select name = "foodname" class="icons">
+									<select name = "foodselect${count}" class="icons">
 										<option value="" disabled selected>메뉴를 선택해주세요.</option>
 										<c:forEach var = "foodlist" items="${suppfoodlist}">
-											<option id = "${foodlist.menu_id}" data-icon="/file/file-down/${foodlist.file_id}"> ${foodlist.name}</option>
+											<option  value="${foodlist.name}/${foodlist.weight}/${foodlist.explanation}/${foodlist.file_id}/${serv.SERV_ID}" id = "${foodlist.menu_id}" data-icon="/file/file-down/${foodlist.file_id}"> ${foodlist.name}</option>
 										</c:forEach>
 									</select>
 								</div>
 								<div class = "col s3">
-									<a id = "addmenu" class="waves-effect waves-light btn" >제안 메뉴 설정하기</a>
+									<a id = "addmenu" class="waves-effect waves-light btn" onclick="setmenuaddlist(${count})" >제안 메뉴 설정하기</a>
 								</div>
 							</div>
 							<div class = "row">
-								<div class= "col s10">
+								<div class= "col s12">
 									<table id ="setmenulisttable">
 										<tr>
 											<th>메뉴 이름</th>
-											<th>메뉴 설명</th>
 											<th>메뉴 중량</th>
+											<th width="40%">메뉴 설명</th>
 											<th>메뉴 사진</th>
 										</tr>
-										<tbody id = "addrow">
+										<tbody id = "addrow${count}">
 										
 										</tbody>
+										<tr>
+											<th colspan="4">
+												인당 금액 : <input type = "text" name = "perbud${count}" placeholder="인당 가격을 넣어주세요">
+											</th>
+										</tr>
 									</table>
 								</div>
 							</div>
 							<br><br><br><br><br>
 						</div>
 						<div class="modal-footer">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
+							<a onclick="menusubmit(${count})" class="modal-close waves-effect waves-green btn-flat">제안하기</a>
+							<a onclick="resetcount()" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
 						</div>
 					</div>
 				</div>
@@ -376,3 +499,4 @@ function setmenu(list){
 </div>
 </body>
 </html>
+

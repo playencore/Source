@@ -66,6 +66,9 @@
 	<select id = "selectSuppliers" resultType="com.charida.app.supplier.dto.SupplierDto">
 		SELECT * FROM CRD_COMPANY
 	</select>
+	<select id="selectSupplier" resultType="com.charida.app.supplier.dto.SupplierDto" parameterType="String">
+		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{mem_id}
+	</select>
 	
 	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
 		SELECT 
@@ -169,5 +172,19 @@
          AND
          TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
 	</select>
+	
+	<insert id="insertSuggest" parameterType="map">
+		INSERT 
+		INTO CRD_SERV_SUGG (SUGG_ID,MEM_ID,SERV_ID,PER_BUD,SUGG_DATE)
+		VALUES(#{sugg_id},#{mem_id},#{serv_id},#{per_bud},SYSDATE)
+	</insert>
+	<select id="selectSerSuggMaxSeq" parameterType="String" resultType="String">
+		SELECT MAX(MENU_SEQ) FROM CRD_SERV_SUGG_MENU WHERE SUGG_ID = #{sugg_id}
+	</select>
+	<insert id="insertServSuggMenu" parameterType="map">
+		INSERT
+		INTO CRD_SERV_SUGG_MENU
+		VALUES(#{sugg_id},${menu_seq},#{name},#{weight},#{explanation},#{file_id})
+	</insert>
 	
 </mapper>

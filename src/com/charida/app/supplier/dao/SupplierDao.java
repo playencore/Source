@@ -69,6 +69,9 @@ public class SupplierDao {
 	public List<SupplierDto> selectSuppliers(){
 		return sqlSession.selectList("Supplier.selectSuppliers") ;
 	}
+	public SupplierDto selectSupplier(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectSupplier", mem_id) ;
+	}
 	public List<Map<String, String>> selectNotPermissionSuppliers(){
 		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers") ;
 	} 
@@ -107,4 +110,15 @@ public class SupplierDao {
 	public List<Map<String, Object>> selectSearchServList(Map<String, String> param){
 		return sqlSession.selectList("Supplier.selectSearchServList", param) ;
 	}
+	////////////////////////////////////////////제안
+	public int insertSuggest(Map<String, Object> param) {
+		return sqlSession.insert("Supplier.insertSuggest", param) ;
+	}
+	public String getSuggMenuMaxSeq(String sugg_id) {
+		return sqlSession.selectOne("Supplier.selectSerSuggMaxSeq", sugg_id);
+	}
+	public int insertServSuggMenu(Map<String, Object> menuparam) {
+		return sqlSession.insert("Supplier.insertServSuggMenu", menuparam) ;
+	}
+
 }
