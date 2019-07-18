@@ -16,14 +16,19 @@ function activeItem(txt){
 	$('#navbar').find('a').each(function(i,e){
 		if($(e).text()==txt){
 			$(e).parent().addClass("active");	
+		}else{
+			$(e).parent().removeClass("active");	
 		}
 	});
 }
-function activeSubItem(txt){
-	$('.tabs-transparent').find('a').each(function(i,e){
+function activeSubItem(txt,idx){
+	$($('.tabs-transparent')[idx]).find('a').each(function(i,e){
 		if($(e).text()==txt){
 			$(e).addClass("active");	
 			$(e).parent().addClass("active");	
+		}else{
+			$(e).removeClass("active");	
+			$(e).parent().removeClass("active");	
 		}
 	});
 }

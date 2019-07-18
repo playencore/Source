@@ -88,3 +88,6 @@ nav ul a {
 .hide-on-med-and-down li a{
 	line-height:64px;
 }
+.pagination li.active {
+	background-color: #26a69a;
+}

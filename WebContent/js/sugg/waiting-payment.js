@@ -1,21 +1,20 @@
 /**
- * suggestion-list.js
+ * 
  */
 $(function(){
-		activeItem('마이 페이지');
-		showExtendedMenu('#nav_mypage');
-		activeSubItem('제안 리스트',0);
-		activeSubItem('진행(실패) 목록',1);
-		$('.modal').modal();
-		
+	activeItem('마이 페이지');
+	showExtendedMenu('#nav_mypage');
+	activeSubItem('제안 리스트',0);
+	activeSubItem('결제 대기',1);
+	$('.modal').modal();
 });
-
+	
 function showDetail(num){
 	
 	$.ajax({
 	    
 	    type : "post",
-	    url : "/sugg/getSuggestInfo.do",
+	    url : "/sugg/getWaitInfo.do",
 	    data:{
 	    	suggId:num
 	    },
@@ -40,16 +39,21 @@ function updateUi(data,suggId){
 	$('#sugg_title').text(suggId + "상세 내역");
 	$('#sugg_date').text(data.SUGG_DATE);
 	$('#sup_name').text(data.NAME);
-	var choose_yn = data.CHOOSE_YN;
-	if(choose_yn=='N'){
-		$('#choose_yn').text("불채택");
-		$('#choose_yn').addClass("red-text text-lighten-1");
-	}else{
-		$('#choose_yn').text("진행중");
-	}
+	$('#choose_yn').text("구매자 결제 대기중");
+	
+	var li_pay ="";
+	var ratio =(data.payInfos.AMOUNT/100) * data.payInfos.RATIO;
+	var vat = (data.payInfos.AMOUNT/100) * 10;
+	li_pay += createHeader('금액');
+	//결제마감일
+	li_pay += createBody('결제 총액 ',numbeComma(data.payInfos.AMOUNT)+" 원");
+	li_pay += createBody('수수료액( '+data.payInfos.RATIO+'% )',numbeComma(ratio) + " 원");
+	li_pay += createBody('VAT ',numbeComma(vat) + " 원");
+	li_pay += createBody('예상 매출액 ',numbeComma(data.payInfos.AMOUNT -ratio -vat)+ " 원");
+	
+	$('#ul_pay').html(li_pay);
 	
 	$('#per_bud').text(data.PER_BUD+" 원");
-	
 	var menuBody = "";
 	if(data.menuInfo != null){
 		$('#li_menu').css('display','block');

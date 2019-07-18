@@ -70,7 +70,7 @@ public class ApplicationComponent {
 		Map<String, Object> appEntities = new HashMap<String, Object>();
 	
 		appEntities.put("customer_id", params.get("sessionId"));
-		appEntities.put("progress_code", "00010001");
+		appEntities.put("progress_code", "STU0010001");
 		appEntities.put("zipcode", params.get("zipcode"));
 		appEntities.put("address", params.get("addr"));
 		appEntities.put("address_detail", params.get("addr2"));
@@ -159,5 +159,13 @@ public class ApplicationComponent {
 		}
 		
 		return prefNameList;
+	}
+	
+	public int updateProgress(String servId,String progressCode) {
+		Map<String, String> datas = new HashMap<String, String>();
+		datas.put("servId", servId);
+		datas.put("progressCode", progressCode);
+		
+		return applicationDao.updateProgress(datas);
 	}
 }

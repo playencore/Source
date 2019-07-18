@@ -17,8 +17,8 @@ public class ApplicationDao {
 		return sqlSession.selectOne("App.selectServId",idPrefix);
 	}
 	
-	public int insertRow(Map<String, Object> entity) {
-		return sqlSession.insert("App.insertRow", entity);
+	public int insertRow(Map<String, Object> datas) {
+		return sqlSession.insert("App.insertRow", datas);
 	}
 	
 	public List<String> selectPrefList(String servId){
@@ -27,5 +27,8 @@ public class ApplicationDao {
 	
 	public List<String> selectAddOrderList(String servId){
 		return sqlSession.selectList("App.selectAddOrderList", servId);
+	}
+	public int updateProgress(Map<String,String> datas) {
+		return sqlSession.update("App.updateProgress", datas);
 	}
 }

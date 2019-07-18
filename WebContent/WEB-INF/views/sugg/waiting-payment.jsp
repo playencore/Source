@@ -23,7 +23,7 @@
 	}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
-<script type="text/javascript" src="/js/sugg/suggestion-list.js"></script>
+<script type="text/javascript" src="/js/sugg/waiting-payment.js"></script>
 <!-- <div class="section" style="background-color: white;">
 	<h5 style="padding-left: 40px;">
 		제안 리스트
@@ -38,50 +38,39 @@
 				<div class="col m12" style="border: 1px solid #eeeeee">
 					<h5 style="margin-bottom: 30px">제안 리스트</h5>
 					<%@include file="/include/sugg/sub-menu.jsp" %>
-		    		<c:forEach items="${suggList }" var="sugg">
+		    		<c:forEach items="${waitList }" var="waitItem">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
 									<h5 class="task-card-title mb-3" style="text-align: right;">
-										<c:if test="${empty sugg.CHOOSE_YN}">
-											<i class="material-icons left" style="color: green">check_circle</i>
-										</c:if>
-										<c:if test="${ sugg.CHOOSE_YN eq 'N' }">
-											<i class="material-icons left" style="color: red">check_circle</i>
-										</c:if>
-										${sugg.NAME } 님께한 제안
+										${waitItem.NAME } 님께한 제안
 									</h5>
-									<p class="task-card-date" style="text-align: right;">${sugg.SUGG_DATE }</p>
+									<p class="task-card-date" style="text-align: right;">${waitItem.SUGG_DATE }</p>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">상태</span>
-									<c:if test="${empty sugg.CHOOSE_YN}">
-										<span class="secondary-content"><span > 진행중 </span></span>
-									</c:if>
-									<c:if test="${ sugg.CHOOSE_YN eq 'N' }">
-										<span class="secondary-content"><span class="red-text text-lighten-1"> 불채택 </span></span>
-									</c:if>
+									<span class="secondary-content"><span > 결제 대기 </span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">제안번호</span>
-									<span  class="secondary-content"><span class="">${sugg.SUGG_ID }</span></span>
+									<span  class="secondary-content"><span class="">${waitItem.SUGG_ID }</span></span>
 								</li>
 								<li class="collection-item dismissable">
-									<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-									<span  class="secondary-content"><span class="">${sugg.PER_BUD } 원</span></span>
+									<span class="width-100" style="font-size: 14px">제안 채택일</span>
+									<span class="secondary-content"><span class="task-card-date"> ${waitItem.CHOOSE_DATE } </span></span>
 								</li>
 								<li class="collection-item dismissable">
-									<span class="width-100" style="font-size: 14px">서비스 제공일</span>
-									<span class="secondary-content"><span class="task-card-date"> ${sugg.SERV_DATE } </span></span>
+									<span class="width-100" style="font-size: 14px">총 결제액</span>
+									<span  class="secondary-content"><span class="">${waitItem.AMOUNT} 원</span></span>
 								</li>
 								<li class="collection-item dismissable center">
-									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${sugg.SUGG_ID}')">상세보기</a>
+									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${waitItem.SUGG_ID}')">상세보기</a>
 								</li>
 							</ul>
 						</div>
 					</c:forEach>
-					<c:if test="${empty suggList}">
+					<c:if test="${empty waitList}">
 						<div class="col m12" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
@@ -116,6 +105,9 @@
 				<span class="width-100" style="font-size: 14px">상태</span>
 				<span class="secondary-content"><span class="" id="choose_yn"></span></span>
 			</li>
+		</ul>
+		<ul class="collection with-header" id="ul_pay">
+			
 		</ul>
 		<ul class="collection with-header">
 			<li class="collection-header" style="background-color: #eee">
@@ -154,7 +146,7 @@
 	</div>
 </div>
 <form name="dForm" method="post">
-<input type="hidden" name ="pageNo"value="${pageNo}">
+	<input type="hidden" name ="pageNo"value="${pageNo}">
 </form>
 <%@include file="/include/footer.jsp" %>
 </body>

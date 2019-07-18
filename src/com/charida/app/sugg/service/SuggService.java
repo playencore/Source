@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.pagination.PaginationInfo;
+import com.charida.app.component.payment.PaymentComponent;
 import com.charida.app.component.serv.ApplicationComponent;
+import com.charida.app.component.shipping.ShippingComponent;
 import com.charida.app.component.sugg.SuggestionComponent;
 
 @Service
@@ -23,7 +25,12 @@ public class SuggService {
 	private ApplicationComponent applicationComponent;
 	@Resource
 	private CategoryComponent categoryComponent;
+	@Resource
+	private PaymentComponent paymentComponent;
+	@Resource
+	private ShippingComponent shippingComponent;
 	
+	private final String errMsg = "데이터 갱신에 실패했습니다.";
 	public List<Map<String,Object>> getList(Map<String, Object> parmas,HttpServletRequest req){
 		String memId = (String)parmas.get("sessionId");
 		int pageNo = 1;
@@ -61,6 +68,103 @@ public class SuggService {
 		return suggList;
 	}
 	
+	public List<Map<String,Object>> getWaitList(Map<String, Object> parmas,HttpServletRequest req){
+		String memId = (String)parmas.get("sessionId");
+		int pageNo = 1;
+		if(parmas.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)parmas.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		paging.setTotalRecordCount(suggestionComponent.getWaitListCount(memId));
+		req.setAttribute("paging", paging);
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		listParam.put("memId", memId);
+		listParam.put("startNum", paging.getFirstRecordIndex());
+		listParam.put("endNum", paging.getLastRecordIndex());
+
+		List<Map<String,Object>> waitList = suggestionComponent.getWaitList(listParam);
+		
+		if(waitList != null) {
+			for(Map<String,Object> item : waitList) {
+				
+				if(item.get("PER_BUD") != null) {
+					String per_bud = ((BigDecimal)item.get("PER_BUD")).toString();
+					item.remove("PER_BUD");
+					item.put("PER_BUD", suggestionComponent.formatByComma(per_bud));
+					
+					if(item.get("PARTICIPANT") != null) {
+						int partic = ((BigDecimal)item.get("PARTICIPANT")).intValue();
+						partic = partic * Integer.parseInt(per_bud);
+						item.put("AMOUNT", suggestionComponent.formatByComma(Integer.toString(partic)));
+					}
+				}
+			}
+		}
+		return waitList;
+	}
+	public List<Map<String,Object>> getPreparingList(Map<String, Object> parmas,HttpServletRequest req){
+		String memId = (String)parmas.get("sessionId");
+		
+		int pageNo = 1;
+		if(parmas.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)parmas.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		paging.setTotalRecordCount(suggestionComponent.getPreparingListCount(memId));
+		req.setAttribute("paging", paging);
+		
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		listParam.put("memId", memId);
+		listParam.put("startNum", paging.getFirstRecordIndex());
+		listParam.put("endNum", paging.getLastRecordIndex());
+
+		return suggestionComponent.getPreparingList(listParam);
+	}
+	public List<Map<String,Object>> getShippingList(Map<String, Object> parmas,HttpServletRequest req){
+		String memId = (String)parmas.get("sessionId");
+		
+		int pageNo = 1;
+		if(parmas.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)parmas.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		paging.setTotalRecordCount(suggestionComponent.getShippingListCount(memId));
+		req.setAttribute("paging", paging);
+		
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		listParam.put("memId", memId);
+		listParam.put("startNum", paging.getFirstRecordIndex());
+		listParam.put("endNum", paging.getLastRecordIndex());
+
+		return suggestionComponent.getShippingList(listParam);
+	}
+	public Map<String, Object> getShippingInfo(String suggId){
+		Map<String, Object> result = getWaitInfo(suggId);
+		if(result == null || result.isEmpty()) {
+			return null;
+		}
+		result.put("shipInfos", shippingComponent.getShippingInfo((String)result.get("SERV_ID")));
+		
+		return result;
+	}
+	public Map<String, Object> getWaitInfo(String suggId){
+		Map<String, Object> result = getSuggInfo(suggId);
+		
+		if(result == null || result.isEmpty()) {
+			return null;
+		}
+		result.put("payInfos", paymentComponent.getWaitPayInfo((String)result.get("SERV_ID")));
+		
+		return result;
+	}
 	public Map<String, Object> getSuggInfo(String suggId){
 		Map<String, Object> result = suggestionComponent.getSuggInfo(suggId);
 		
@@ -103,5 +207,43 @@ public class SuggService {
 		}
 		
 		return result;
+	}
+	public String startShippingTx(Map<String, Object> parmas) {
+		String msg = null;
+		
+		if(parmas.get("servId") == null) {
+			return errMsg;
+		}
+
+		String servId =(String)parmas.get("servId");
+		msg = shippingComponent.insertEntity(servId);
+		if(msg == null) {
+			return errMsg;
+		}
+		
+		int result = applicationComponent.updateProgress(servId, "STU0050001");
+		
+		if(result == 0) {
+			return errMsg;
+		}
+		return msg;
+	}
+	public String cmpltShippingTx(Map<String, Object> parmas) {
+		String msg = "요청이 성공적으로 처리되었습니다.";
+		
+		if(parmas.get("servId") == null) {
+			return errMsg;
+		}
+		String servId =(String)parmas.get("servId");
+		int update = shippingComponent.updateEndDate(servId);
+		if(update == 0) {
+			return errMsg;
+		}
+		int result = applicationComponent.updateProgress(servId, "STU0050002");
+		
+		if(result == 0) {
+			return errMsg;
+		}
+		return msg;
 	}
 }

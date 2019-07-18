@@ -43,4 +43,9 @@
 		WHERE SERV_ID = #{servId} 
 		ORDER BY ADD_SEQ ASC
 	</select>
+	<update id="updateProgress" parameterType="java.util.Map">
+		UPDATE CRD_SERV_APP 
+		SET PROGRESS_CODE = #{progressCode} 
+		WHERE SERV_ID = #{servId}
+	</update>
 </mapper>
