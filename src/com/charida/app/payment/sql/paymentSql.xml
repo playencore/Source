@@ -10,4 +10,113 @@
 		FROM CRD_SERV_PAY 
 		WHERE SERV_ID =#{servId}
 	</select>
+	<!-- <select id="selectSalesList" resultType="java.util.Map">
+		SELECT AMOUNT,SUPPLY_PAYMENT,PAY_DATE FROM CRD_SERV_PAY order by pay_date asc
+	</select> -->
+	<!-- <select id="selectSalesList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			PAY_DATE, SUM(SUPPLY_PAYMENT) AS SUM_PAY 
+		FROM(
+			SELECT 
+				<choose>
+				<when test="colCondition == 2">
+					<include refid="colMonth"></include>
+				</when>
+				<otherwise>
+					<include refid="colDay"></include>
+				</otherwise>
+				</choose>
+			FROM CRD_SERV_PAY 
+			WHERE PAY_DATE BETWEEN TO_DATE(#{startDate} ||' 00:00:00','YYYY-MM-DD HH24:MI:SS') 
+				  AND TO_DATE(#{endDate} ||' 23:59:59','YYYY-MM-DD HH24:MI:SS') 
+		)
+		GROUP BY PAY_DATE
+		ORDER BY PAY_DATE ASC
+
+	</select> -->
+	<select id="selectSalesList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			DAY, NVL(SUM_PAY,0) AS  SUM_PAY 
+		FROM
+			(
+				<choose>
+				<when test="colCondition == 2">
+					<include refid="tempMonth"></include>
+				</when>
+				<otherwise>
+					<include refid="tempDay"></include>
+				</otherwise>
+				</choose>
+			) A
+			,(
+				SELECT 
+						PAY_DATE, SUM(SUPPLY_PAYMENT) AS SUM_PAY 
+				FROM(
+					SELECT 
+						<choose>
+						<when test="colCondition == 2">
+							<include refid="colMonth"></include>
+						</when>
+						<otherwise>
+							<include refid="colDay"></include>
+						</otherwise>
+						</choose>
+					FROM CRD_SERV_PAY 
+					WHERE PAY_DATE BETWEEN TO_DATE(#{startDate} ||' 00:00:00','YYYY-MM-DD HH24:MI:SS') 
+					AND TO_DATE(#{endDate} ||' 23:59:59','YYYY-MM-DD HH24:MI:SS') 
+				)
+				GROUP BY PAY_DATE
+				ORDER BY PAY_DATE ASC
+			) B
+		where A.DAY = B.PAY_DATE (+)
+		ORDER BY DAY ASC
+	</select>
+	<select id="getSaleInfo" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			PAY_DATE,AMOUNT,VAT, TRUNC((AMOUNT-VAT)*((RATIO)/100)) AS RATIO,SUPPLY_PAYMENT 
+		FROM(
+			SELECT 
+				TO_CHAR(PAY_DATE,'YYYY-MM-DD') as PAY_DATE
+				,AMOUNT
+				,TRUNC(AMOUNT*((VAT)/100)) AS VAT 
+				,RATIO,SUPPLY_PAYMENT 
+			FROM CRD_SERV_PAY
+			WHERE PAY_DATE BETWEEN TO_DATE(#{startDate} ||' 00:00:00','YYYY-MM-DD HH24:MI:SS') 
+			AND TO_DATE(#{endDate} ||' 23:59:59','YYYY-MM-DD HH24:MI:SS')
+			ORDER BY PAY_DATE ASC
+		)
+		UNION ALL
+		SELECT 
+			'합계' AS PAY_DATE,SUM(AMOUNT),SUM(VAT), SUM(TRUNC((AMOUNT-VAT)*((RATIO)/100))) AS RATIO,SUM(SUPPLY_PAYMENT )
+		FROM(
+			SELECT 
+				TO_CHAR(PAY_DATE,'YYYY-MM-DD') as PAY_DATE
+				,AMOUNT
+				,TRUNC(AMOUNT*((VAT)/100)) AS VAT 
+				,RATIO,SUPPLY_PAYMENT 
+			FROM CRD_SERV_PAY
+			WHERE PAY_DATE BETWEEN TO_DATE('2019-09-01' ||' 00:00:00','YYYY-MM-DD HH24:MI:SS') 
+			AND TO_DATE('2019-09-30' ||' 23:59:59','YYYY-MM-DD HH24:MI:SS') 
+		)
+	</select>
+	<sql id="colDay">
+		TO_CHAR(PAY_DATE,'YYYY-MM-DD') AS PAY_DATE, SUPPLY_PAYMENT 
+	</sql>
+	<sql id="colMonth">
+		TO_CHAR(PAY_DATE,'YYYY-MM') AS PAY_DATE, SUPPLY_PAYMENT 
+	</sql>
+	<sql id="tempDay">
+		SELECT
+			TO_CHAR((TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL -1),'YYYY-MM-DD') AS DAY
+		FROM DUAL
+		CONNECT BY LEVEL  
+			<![CDATA[<=]]>(TO_DATE(#{endDate},'YYYY-MM-DD') - TO_DATE(#{startDate},'YYYY-MM-DD') + 1)
+	</sql>
+	<sql id="tempMonth">
+		SELECT
+			TO_CHAR(ADD_MONTHS(TO_DATE(#{startMonth},'YYYY-MM'),LEVEL-1),'YYYY-MM' )AS DAY
+		FROM DUAL
+		CONNECT BY LEVEL 
+			<![CDATA[<=]]>CEIL(MONTHS_BETWEEN(TO_DATE(#{endMonth},'YYYY-MM'),TO_DATE(#{startMonth},'YYYY-MM') ))+1
+	</sql>
 </mapper>
