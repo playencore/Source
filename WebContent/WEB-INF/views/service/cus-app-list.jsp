@@ -52,42 +52,36 @@
 				        <li class="tab"><a href="/service/cus-deli-list.do">배송 현황</a></li>
 				      </ul>
 		    		</div>
-		    		<c:forEach items="${suggList }" var="sugg">
+		    		<c:forEach items="${appliList }" var="appli">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
 									<h5 class="task-card-title mb-3" style="text-align: right;">
-										<c:if test="${empty sugg.CHOOSE_YN}">
-											<i class="material-icons left" style="color: green">check_circle</i>
-										</c:if>
-										<c:if test="${ sugg.CHOOSE_YN eq 'N' }">
-											<i class="material-icons left" style="color: red">check_circle</i>
-										</c:if>
-										${sugg.NAME } 님께한 제안
+										<%-- 현재 제안  : ${appli.SUGG_CNT} 건 --%>   <br>신청장소  : ${appli.ADDRESS}
 									</h5>
-									<p class="task-card-date" style="text-align: right;">${sugg.SUGG_DATE }</p>
+									<p class="task-card-date" style="text-align: right;">${appli.APP_DATE }</p>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">상태</span>
-									<c:if test="${empty sugg.CHOOSE_YN}">
-										<span class="secondary-content"><span > 진행중 </span></span>
+									<c:if test="${appli.SUGG_CNT gt 0}">
+										<span class="secondary-content"><span > ${appli.SUGG_CNT} 건 </span></span>
 									</c:if>
-									<c:if test="${ sugg.CHOOSE_YN eq 'N' }">
-										<span class="secondary-content"><span class="red-text text-lighten-1"> 불채택 </span></span>
+									<c:if test="${appli.SUGG_CNT eq 0}">
+										<span class="secondary-content"><span class="red-text text-lighten-1"> 제안없음 </span></span>
 									</c:if>
 								</li>
 								<li class="collection-item dismissable">
-									<span class="width-100" style="font-size: 14px">제안번호</span>
-									<span  class="secondary-content"><span class="">${sugg.SUGG_ID }</span></span>
+									<span class="width-100" style="font-size: 14px">신청번호</span>
+									<span  class="secondary-content"><span class="">${appli.SERV_ID }</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-									<span  class="secondary-content"><span class="">${sugg.PER_BUD } 원</span></span>
+									<span  class="secondary-content"><span class="">${appli.PER_BUD } 원</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">서비스 제공일</span>
-									<span class="secondary-content"><span class="task-card-date"> ${sugg.SERV_DATE } </span></span>
+									<span class="secondary-content"><span class="task-card-date"> ${appli.SERV_DATE } </span></span>
 								</li>
 								<li class="collection-item dismissable center">
 									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${sugg.SUGG_ID}')">상세보기</a>
@@ -97,7 +91,7 @@
 					</c:forEach>
 				</div>
 				<div class="col m12 center">
-					<%-- <ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/> --%>
+					<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
 				</div>
 			</div>
 		</div>

@@ -4,4 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Appli">
+	<!-- 한명의 구매자가 서비스를 신청한 건수 -->
+	<select id="getAppliListCount" resultType="int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM CRD_SERV_APP
+		WHERE CUSTOMER_ID = #{customerid}
+	</select>
+	
+	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 기본정보 -->
+	<select id="getAppliList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			D.ADDRESS, D.APP_DATE, SUGG_CNT, D.SERV_ID, D.PER_BUD, D.SERV_DATE
+		FROM (
+				SELECT
+					C.*, ROWNUM AS NUM
+				FROM (
+						SELECT ADDRESS, TO_CHAR(APP_DATE ,'YYYY-MM-DD HH24:MI:SS' ) APP_DATE
+							, (	SELECT COUNT(SUGG_ID) FROM CRD_SERV_SUGG B WHERE B.SERV_ID = A.SERV_ID) AS SUGG_CNT
+							, SERV_ID, PER_BUD, TO_CHAR(SERV_DATE ,'YYYY-MM-DD HH24:MI:SS' ) SERV_DATE
+						FROM CRD_SERV_APP A
+						WHERE CUSTOMER_ID = #{memId}
+				) C
+		) D
+		WHERE 
+			NUM BETWEEN #{startNum} AND #{endNum}
+	</select>
 </mapper>
