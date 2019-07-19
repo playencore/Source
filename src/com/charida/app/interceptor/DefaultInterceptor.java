@@ -38,6 +38,10 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/joinuser/joinmember.do"
 			,"/join/join-basic/checkid.do"
 			,"/mail/send-mail.do"
+			,"/joinuser/joinsupplier.do"
+			,"/member/findid.do"
+			,"/member/getemailyn.do"
+			,"/member/getmemidtoemail.do"
 		};
 	
 	@Override

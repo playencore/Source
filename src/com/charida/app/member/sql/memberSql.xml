@@ -21,4 +21,32 @@
 			sysdate , #{gender} , #{job} 
 		)
 	</insert>
+	<select id="selectMemberInfo" parameterType="String" resultType="com.charida.app.member.dto.MemberDto">
+		SELECT 
+		*
+		FROM
+		CRD_MEM
+		WHERE 
+		MEM_ID = #{mem_id}
+	</select>
+	
+	<update id="updateMemberInfo" parameterType="com.charida.app.member.dto.MemberDto">
+		UPDATE CRD_MEM 
+		SET PASSWD = #{passwd} , NAME = #{name}, EMAIL = #{email}
+		, ZIPCODE = #{zipcode}, ADDRESS = #{address}, ADDRESS_DETAIL = #{address_detail}
+		, TEL = #{tel}, BIRTH_DATE = #{birth_date}, JOB = #{job}
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<select id="selectEmails" resultType="int" parameterType="String" >
+		SELECT COUNT(*) 
+		FROM CRD_MEM
+		WHERE EMAIL = #{email}
+	</select>
+	<select id="selectMemIdToEmail" resultType="String" parameterType="String">
+		SELECT MEM_ID 
+		FROM CRD_MEM
+		WHERE EMAIL = #{email}
+	</select>
+	
 </mapper>

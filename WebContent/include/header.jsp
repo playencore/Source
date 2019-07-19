@@ -30,7 +30,7 @@
 </head>
 <body style="background-color: #dfdfdd6b">
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!">정보수정</a></li>
+    <li><a href="/member/modifyinfo.do">정보수정</a></li>
     <li class="divider" tabindex="-1"></li>
     <li><a href="/login/logout.do">로그아웃</a></li>
   </ul>
@@ -39,7 +39,12 @@
     <a href="/main.do" class="brand-logo">&nbsp;&nbsp;차리다</a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger">menu</a>
     <ul id="navbar" class="right hide-on-med-and-down">
-      <li><a href="/service/application.do">서비스 신청</a></li>
+    	<c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '3'}">
+    		<li><a href="/supplier/servlistforsuggest.do">서비스 제안</a></li>
+    	</c:if>
+    	<c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '2'}">
+    		 <li><a href="/service/application.do">서비스 신청</a></li>
+    	</c:if>
       <li><a href="/review/review.do">서비스 후기</a></li>
       <li><a href="/intro/introduce.do" >회사 소개</a></li>
       <c:if test="${sessionScope.session_name ne null}">
@@ -72,7 +77,7 @@
        <li class="tab"><a href="/sugg/suggestions-list.do">제안 리스트</a></li>
        <li class="tab"><a href="/supplier/matchingSuccess.do">완료 리스트</a></li>
        <li class="tab"><a href="/sales/sales-management.do">매출 관리</a></li>
-       <li class="tab"><a href="#test4">판매정보 수정</a></li>
+       <li class="tab"><a href="/supplier/setfood.do">판매정보 수정</a></li>
      </ul>
    </div>
   </c:if>

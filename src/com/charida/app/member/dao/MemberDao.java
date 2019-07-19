@@ -1,5 +1,9 @@
 package com.charida.app.member.dao;
 
+
+
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.logging.Log;
@@ -25,5 +29,19 @@ public class MemberDao {
 	public int insertMember( MemberDto member ) {
 		log.debug("MemberDao > insertMember : SQL진행 : " + member );
 		return sqlSession.insert("Member.insertMember", member );
+	}
+	
+	public MemberDto selectMemberInfo(String mem_id) {
+		return sqlSession.selectOne("Member.selectMemberInfo", mem_id) ;
+	}
+	
+	public int updateMemberInfo(MemberDto dto) {
+		return sqlSession.update("Member.updateMemberInfo", dto) ;
+	}
+	public int selectEmailYN(String email){
+		return sqlSession.selectOne("Member.selectEmails", email);
+	} 
+	public List<String> selectMemIdtoEamil(String email){
+		return sqlSession.selectList("Member.selectMemIdToEmail", email) ;
 	}
 }
