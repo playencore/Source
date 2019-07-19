@@ -159,9 +159,9 @@ public class SupplierService {
 		return supplierComponent.modifyMenu(dto) ;
 	}
 	/////////////////////////////////////////////////////////////////////////////
-	public List<Map<String,Object>> getServiceList(){
+	public List<Map<String,Object>> getServiceList(String mem_id){
 		List<Map<String,Object>> servlist = new ArrayList<Map<String,Object>>();
-		servlist = supplierComponent.getServiceList() ;
+		servlist = supplierComponent.getServiceList(mem_id) ;
 		for(Map<String, Object> serv : servlist ) {
 			List<String> prefList =applicationComponent.getPrefList((String)serv.get("SERV_ID"),true);
 			serv.put("PREFLIST", prefList);

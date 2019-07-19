@@ -154,12 +154,19 @@
 		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}
 		WHERE MENU_ID = #{menu_id}
 	</update>
-	<select id="selectServiceList" resultType="map">
+	<select id="selectServiceList" resultType="map" parameterType="String">
 		SELECT 
 		*
 		FROM
 		CRD_SERV_APP
-		WHERE SERV_DATE > TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI:SS'),'YYYY/MM/DD HH24:MI:SS') 
+		WHERE SERV_DATE > TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI:SS'),'YYYY/MM/DD HH24:MI:SS')
+		AND
+		SERV_ID NOT IN
+		(
+			SELECT SERV_ID
+			FROM CRD_SERV_SUGG
+			WHERE MEM_ID = #{mem_id}
+		)
 		
 	</select>
 	<select id="selectSearchServList" parameterType="hashMap" resultType="map">
@@ -171,6 +178,13 @@
          TO_DATE(#{stdate} || ' 00:00:00' ,'YYYY/MM/DD HH24:MI:SS') 
          AND
          TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
+         AND
+		SERV_ID NOT IN
+		(
+			SELECT SERV_ID
+			FROM CRD_SERV_SUGG
+			WHERE MEM_ID = #{mem_id}
+		)
 	</select>
 	
 	<insert id="insertSuggest" parameterType="map">

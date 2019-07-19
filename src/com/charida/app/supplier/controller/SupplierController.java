@@ -90,12 +90,15 @@ public class SupplierController {
 	
 	@RequestMapping("/supplier/servlistforsuggest.do")
 	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
-		List<Map<String,Object>> servlist = supplierService.getServiceList();
+		String mem_id =  (String) req.getSession().getAttribute("mem_id");
+		if(mem_id == null || mem_id.equals("")) {
+			mem_id = "test" ;
+		}
+		List<Map<String,Object>> servlist = supplierService.getServiceList("test");
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
-		//String mem_id =  (String) req.getSession().getAttribute("mem_id");
 		//세션 하면 이거 진행
-		req.setAttribute("mem_id", "test");
+		req.setAttribute("mem_id",  "test");
 		req.setAttribute("suppfoodlist", supplierService.getFoodList("test"));
 		req.setAttribute("suppfoodlistsize", supplierService.getFoodList("test").size());
 		return "/supplier/servListForSuggest" ;
@@ -106,6 +109,11 @@ public class SupplierController {
 		Map<String,String> param = new HashMap<String, String>();
 		param.put("stdate",req.getParameter("stdate") );
 		param.put("eddate", req.getParameter("eddate")) ;
+		String mem_id =  (String) req.getSession().getAttribute("mem_id");
+		if(mem_id == null || mem_id.equals("")) {
+			mem_id = "test" ;
+		}
+		param.put("mem_id", "test");
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("data",  supplierService.getSearchServList(param)) ;
 		result.put("menulist",supplierService.getFoodList("test") ) ;

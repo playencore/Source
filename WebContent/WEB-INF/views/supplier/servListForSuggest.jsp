@@ -34,9 +34,9 @@ $(document).ready(function(){
 							},
 							dataType:"json",
 							success:function(result){
+								alert("검색에 성공했습니다.") ;
 								$("#startdate").val('') ;
 								$("#enddate").val('') ;
-								alert("조회성공 리스트 사이즈는 : "+Object.keys(result.data).length) ;
 								showServeList(result);
 								searchResultModal(result);
 							},
@@ -74,7 +74,6 @@ function showServeList(result){
 	$("#servlist").html("");
 	var menuslist = JSON.stringify(result.menulist);
 	var menuss = JSON.parse(menuslist);
-	alert("메뉴 사이지:"+ menuss.length) ;
 	var slist = "" ;
 	for(var i = 0 ; i < Object.keys(result.data).length ; i++){
 		slist = slist
@@ -199,7 +198,7 @@ function showServeList(result){
 		+				"<br><br><br><br><br>"
 		+			"</div>"
 		+			"<div class='modal-footer'>"
-		+				"<a onclick='menusubmit("+i+")' class='modal-close waves-effect waves-green btn-flat'>제안하기</a>"
+		+				"<a onclick='menusubmit("+i+")' class=' waves-effect waves-green btn-flat'>제안하기</a>"
 		+				"<a onclick='resetcount()' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
 		+			"</div>"
 		+		"</div>"
@@ -301,21 +300,20 @@ function menusubmitvalidataion(ct){
 	var result = 0 ;
 	for(var i = 0 ; i < menucountarr[ct].length ; i++){
 		if( $("input[name=suggweight"+i+"]").val() == null || $("input[name=suggweight"+i+"]").val() ==""){
-			alert("메뉴의 중량을 모두 입력해주세요.");
-			//$('#suggestModal'+ct).modal('open');
+			M.toast({html: "메뉴의 중량을 모두 입력해주세요."});
 			return 1;
 		}
 	}
 	
 	for(var i = 0 ; i < menucountarr[ct].length ; i++){
 		if( $("textarea[name=suggmenuexplanation"+i+"]").val() == null || $("textarea[name=suggmenuexplanation"+i+"]").val() ==""){
-			alert("메뉴의 설명을 모두 입력해주세요.");
+			M.toast({html: '메뉴의 설명을 모두 입력해주세요.'});
 			return 1;
 		}
 	}
 	
 	if($("input[name = perbud"+ct+"]").val() == null || $("input[name = perbud"+ct+"]").val() == "" ){
-		alert("1인당 금액을 입력해주세요.");
+		M.toast({html: '1인당 금액을 입력해주세요.'})
 		return 1 ;
 	}
 	return result ;
@@ -344,7 +342,7 @@ function menusubmit(ct){
 					alert(data.result);
 				},
 				error: function(data){
-					alert("ajax오류") ;
+					alert("다시 시도해주세요.") ;
 				}
 			}		
 		); 
@@ -485,7 +483,7 @@ function menusubmit(ct){
 							<br><br><br><br><br>
 						</div>
 						<div class="modal-footer">
-							<a onclick="menusubmit(${count})" class="modal-close waves-effect waves-green btn-flat">제안하기</a>
+							<a onclick="menusubmit(${count})" class=" waves-effect waves-green btn-flat">제안하기</a>
 							<a onclick="resetcount()" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
 						</div>
 					</div>
