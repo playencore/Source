@@ -137,6 +137,11 @@ public class SupplierController {
 		}
 		return resultMap;
 	}
+	@RequestMapping("/supplier/modifyDefaultInfo.do")
+	public String supplierModifyDefaultInfo(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/supplier/modifyDefaultInfo";
+	}
 	
 	
 }

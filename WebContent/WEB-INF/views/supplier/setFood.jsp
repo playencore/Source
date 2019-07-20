@@ -117,7 +117,7 @@
 		<div class="col s1"></div>
 		<div class="col s2">
 			<div class="collection">
-				<a href="#!" class="collection-item ">기본정보 수정</a> <a href="#!"
+				<a href="/supplier/modifyDefaultInfo.do" class="collection-item ">기본정보 수정</a> <a href="#!"
 					class="collection-item ">판매 카테고리 수정</a> <a href="#!"
 					class="collection-item active">메뉴 추가 및 수정</a> <a href="#!"
 					class="collection-item">Alvin</a>
