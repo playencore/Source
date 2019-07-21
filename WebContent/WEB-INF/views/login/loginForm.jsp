@@ -72,9 +72,9 @@
 		<div class="col s12">
 			<div class="col s4"></div>
 			<div class="col s3">
-			<a href="#"> 아이디 찾기</a>
+			<a href="/member/findid.do"> 아이디 찾기</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#">비밀번호 찾기</a><br>
+			<a href="/member/findmemberpassowrd.do">비밀번호 찾기</a><br>
 			<a href="/joinuser/joinmember.do">구매자 회원가입</a>
 			<br>
 			<a href="/joinuser/joinsupplier.do">판매자 회원가입</a>
