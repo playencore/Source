@@ -45,10 +45,10 @@ public class AdminController {
 	
 		return "/admin/updateSupplierPermission";
 	}
-	@RequestMapping("/admin/supplierSerch.do")
+	@RequestMapping("/admin/supplierSearch.do")
 	public String supplierSerch(HttpServletRequest req, HttpServletResponse resp) {
 	
-		return "/admin/supplierSerch";
+		return "/admin/supplierSearch";
 	}
 	
 	@RequestMapping("/admin/serchsupplierajax.do")

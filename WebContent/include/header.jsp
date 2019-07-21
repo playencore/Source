@@ -58,6 +58,15 @@
       </c:if>
     </ul>
   </div>
+  <c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '1'}">
+   <div class="nav-content" id="nav_mypage" style="display:none;    border-bottom: 1px solid #999;">
+     <ul class="tabs tabs-transparent">
+       <li class="tab"><a href="/admin/supplierSearch.do">판매자 조회</a></li>
+       <li class="tab"><a href="/admin/notPermissionList.do">판매자 승인/반려</a></li>
+       <li class="tab"><a href="/sales/sales-management.do">매출 관리</a></li>
+     </ul>
+   </div>
+  </c:if>
   
   <c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '2'}">
    <div class="nav-content" id="nav_mypage" style="display:none; border-bottom: 1px solid #999;">
