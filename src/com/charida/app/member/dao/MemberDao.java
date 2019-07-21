@@ -3,6 +3,7 @@ package com.charida.app.member.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -43,5 +44,14 @@ public class MemberDao {
 	} 
 	public List<String> selectMemIdtoEamil(String email){
 		return sqlSession.selectList("Member.selectMemIdToEmail", email) ;
+	}
+	public int selectMemIdYN(String mem_id) {
+		return sqlSession.selectOne("Member.selectMemIdYN", mem_id) ;
+	}
+	public Map<String, Object> selectEmail(String mem_id){
+		return sqlSession.selectOne("Member.selectEmail",mem_id);
+	}
+	public Map<String, Object> selectPasswd(String mem_id){
+		return sqlSession.selectOne("Member.selectPasswd",mem_id);
 	}
 }

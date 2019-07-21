@@ -48,5 +48,20 @@
 		FROM CRD_MEM
 		WHERE EMAIL = #{email}
 	</select>
+	<select id="selectMemIdYN" parameterType="String" resultType="int">
+		SELECT COUNT(MEM_ID)
+		FROM CRD_MEM
+		WHERE MEM_ID = #{mem_id}
+	</select>
+	<select id="selectEmail" resultType="map" parameterType="String">
+		SELECT EMAIL
+		FROM CRD_MEM
+		WHERE MEM_ID = #{mem_id} 
+	</select>
+	<select id="selectPasswd" parameterType="String" resultType="map">
+		SELECT PASSWD
+		FROM CRD_MEM
+		WHERE MEM_ID = #{mem_id}
+	</select>
 	
 </mapper>

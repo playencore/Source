@@ -13,11 +13,8 @@
 		return "인증번호는 [ "+authNum+" ] 입니다.";
 	}
 
-	function sendemail(flag){
-		if(flag == "0"){
-			
-		}else{
-			var email = $("input[name=email]").val();
+	function sendemail(email){
+			alert(email) ;
 			var code = makeRandom(1000, 9999);
 			alert("생성된 인증번호 : " + code );
 			$("input[name=emailcode]").val(code);	
@@ -37,7 +34,6 @@
 					alert("이메일 요청이 취소되었습니다. 방어벽 확인해주세요.");
 				}
 			});
-		}
 	}
 	
 	function codecompare(){
@@ -52,60 +48,83 @@
 				$("#emailcheck_comment").html("<span style='color:green'>" + "인증되었습니다." + "</span>");
 				$("input[name=emailkeycheck]").val("1");
 				$("#email_comment").text("이메일 인증이 완료되었습니다.").css("color", "green");
-				showid() ;
+				showpasswd() ;
 				
-			} 
+			}
 		}else {
-			alert("불일치");
-			$("#emailcheck_comment").html( "<span style='color:red'>" + "인증에 실패하였습니다." + "</span>");
-		}
-	}
-	function emailcheckDB(){
-		var email = $("input[name=email]").val();
-		if(email == null || email == ""){
-			alert("이메일을 입력해주세요.");
-		}else{
-			$.ajax(
-				{
-					type : "post",
-					url : "/member/getemailyn.do",
-					data : {
-						"inemail" : email
-					}, 
-					dataType : "json",
-					success : function(data) {
-						alert(data.result);
-						sendemail(data.flag);
-					},
-					error : function(data) {
-						alert("이메일 체크에 문제가 발생했습니다. 관리자에게 연락주세요.");
-					}
-				}
-			);
+			alert("인증번호가 틀렸습니다. 다시 입력해주세요.");
 		}
 	}
 	
-	function showid(){
-		var email = $("input[name=email]").val();
+	function showpasswd(){
+		var mem_id = $("input[name=mem_id ]").val() ;
 		$.ajax(
 				{
 					type : "post",
-					url : "/member/getmemidtoemail.do",
+					url : "/member/getpasswd.do",
 					data : {
-						"inemail" : email
+						inmem_id : mem_id
 					}, 
 					dataType : "json",
 					success : function(data) {
-						alert(data.result) ;
-						$("#resultId").show();
-						$("#memid").html("아이디는 : " + data.mem_id ) ;
+						$("#resultPasswd").show();
+						$("#memPasswd").html("비밀번호 : " + data.PASSWD ) ;
 
 					},
 					error : function(data) {
-						alert("이메일 체크에 문제가 발생했습니다. 관리자에게 연락주세요.");
+						alert("패스워드 찾기에 문제가 발생했습니다. 관리자에게 연락주세요.");
 					}
 				}
 			);
+	}
+	
+	function getEmail(mem_id){
+		$.ajax({
+			type : "post",
+			url : "/member/getEmail.do",
+			async : false,
+			data : {
+				mem_id : mem_id 
+			}, // HTTP 요청과 함께 서버로 보낼 데이터(URL뒤에 붙이는 내용)
+			success : function(result) {
+				sendemail(result.EMAIL);
+			},
+			error : function(result) {
+				alert("이메일 요청이 취소되었습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	}
+	
+	
+	function mem_idcheckDB(){
+		var mem_id = $("input[name=mem_id ]").val() ;
+		if(mem_id == "" || mem_id == null){
+			alert("아이디를 입력해주세요.") ;
+			$("input[name=mem_id]").focus(); 
+			return false ;
+		}else{
+			$.ajax(
+					{
+						type : "post",
+						url : "/member/checkMem_idDB.do",
+						data : {
+							inmem_id : mem_id
+						}, 
+						dataType : "json",
+						success : function(data) {
+							alert(data.result) ;
+							if(data.flag == 1){
+								getEmail(mem_id);
+								$("#inputemail").show();
+							}
+							
+						},
+						error : function(data) {
+							alert("이메일 체크에 문제가 발생했습니다. 관리자에게 연락주세요.");
+						}
+					}
+				);
+		}
 	}
 	
 	//-->
@@ -115,29 +134,29 @@
 <div class = "row">
 	<div class = "col s2"></div>
 	<div class = "col s10">
-		<h4>아이디 찾기</h4>
+		<h4>비밀번호 찾기</h4>
 		<hr size="5" color="black" width = "80%" align="left">
 		<div class ="col s12">
 		<p>이메일을 통해 찾습니다.</p>
 			<div class = "col s8 card-panel">
-				<div style = "margin : 5%">
-					가입한 이메일을 입력해주세요.
-					<br><br>
-					<div class="col s12">
+				<div style = "margin :5%" id = "inputId" >
+					<div class= "col s12">
 						<div class="input-field col s8">
-							<input name="email" id="email" type="email" class="validate"> 
-							<label for="email">*이메일</label>
-							<span class="helper-text" id="email_comment"></span>
+							<input name="mem_id" id="mem_id" type="text" class=""> 
+							<label for="mem_id">*아이디</label>
+							<span class="helper-text" id="mem_id_comment"></span>
 						</div>
 						<div class="col s4">
 							<a class="waves-effect waves-light btn" style="margin-top: 20px"
-								onclick="emailcheckDB()">이메일 인증 </a>
+								onclick=" mem_idcheckDB()"> 아이디확인 </a>
 						</div>
 					</div>
+				</div>
+				<div style = "display: none; margin:5%" id = "inputemail">
+					<br><br>
 					<div class="col s12">
 						<div class="input-field col s8">
 							<input type="hidden" name="emailcode" value=""> 
-							<input type="hidden" value="1" name="emailkeycheck"> 
 							<input name="emailcheck" id="emailcheck" type="text" class="">
 							<label for="emailcheck">*이메일 인증번호 입력</label> 
 							<span class="helper-text" id="emailcheck_comment"></span>
@@ -147,13 +166,13 @@
 								style="margin-top: 20px" onclick="codecompare()">인증번호 확인</a>
 						</div>
 					</div>
-					<div class = "col 12">
+					<div class = "col s12">
 						<div class = "col s8">
-							<div id = "resultId" style="display:none">
-								<div id = "memid">
+							<div id = "resultPasswd" style="display:none">
+								<div id = "memPasswd">
 									
 								</div>
-								<a href="/login/loginForm.do" class="waves-effect waves-light btn">로그인하기</a>
+								<a style="margin-top:5% ; margin-bottom:5%" href="/login/loginForm.do" class="waves-effect waves-light btn">로그인하기</a>
 							</div>
 						</div>
 					</div>	
@@ -162,5 +181,6 @@
 		</div>
 	</div>
 </div>
+
 </body>
 </html>

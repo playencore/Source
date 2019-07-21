@@ -42,6 +42,10 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/member/findid.do"
 			,"/member/getemailyn.do"
 			,"/member/getmemidtoemail.do"
+			,"/member/findmemberpassowrd.do"
+			,"/member/checkMem_idDB.do"
+			,"/member/getEmail.do"
+			,"/member/getpasswd.do"
 		};
 	
 	@Override
