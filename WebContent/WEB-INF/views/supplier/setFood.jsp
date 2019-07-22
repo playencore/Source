@@ -90,39 +90,10 @@
 </script>
 <br>
 <br>
-<div class="row  card">
-	<div class="col s12  ">
-		<div class="col s1"></div>
-		<div class="col s2">
-			<br>
-			<h5>판매자 마이페이지</h5>
-			<br>
-			<br>
-		</div>
-	</div>
-	<div class="col s1"></div>
-	<div class="col s6  ">
-		<ul class="tabs ">
-			<li class="tab col s3"><a class="" href="#test1">매칭리스트 조회</a></li>
-			<li class="tab col s3"><a class="active" href="#test2">메뉴 추가
-					및 수정</a></li>
-			<li class="tab col s3"><a class="" href="#test3">후기 조회 및 관리</a></li>
-			<li class="tab col s3"><a class="" href="#test4">홈페이지 관리</a></li>
-		</ul>
-		<br>
-	</div>
-</div>
+
 <div class="row">
 	<div class="col s12">
-		<div class="col s1"></div>
-		<div class="col s2">
-			<div class="collection">
-				<a href="/supplier/modifyDefaultInfo.do" class="collection-item ">기본정보 수정</a> <a href="#!"
-					class="collection-item ">판매 카테고리 수정</a> <a href="#!"
-					class="collection-item active">메뉴 추가 및 수정</a> <a href="#!"
-					class="collection-item">Alvin</a>
-			</div>
-		</div>
+		<div class="col s3"></div>
 		<div class="col s7">
 			<p style="padding-left: 10px">메뉴 추가 및 수정</p>
 			<c:if test="${empty foodList}">
@@ -221,7 +192,6 @@
 			<form name="addfoodform" method="post" action="/supplier/setfoodPro.do"
 				enctype="multipart/form-data" onsubmit="return foodsubmit() "
 				class="col s8">
-				<input type="hidden" name="mem_id" value = "test">
 				<div class="row">
 					<div class="input-field col s12">
 						<input name="name" id="name" type="text" class="validate"

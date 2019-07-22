@@ -12,7 +12,7 @@
 		}else{
 			alert("추가진행중 오류가 발생 되었습니다. 다시 시도해주세요");
 		}
-		window.location.replace("/supplier/setfood.do");
+		window.location.href = '/supplier/setfood.do';
 	//-->
 </script>
 </head>

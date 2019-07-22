@@ -76,7 +76,6 @@
        <li class="tab"><a href="/review/ownReview.do">작성한 후기</a></li>
        <li class="tab"><a href="/review/ableToReview.do">작성가능한 후기</a></li>
        <li class="tab"><a href="/service/cus-app-list.do">신청 리스트</a></li>
-       <li class="tab"><a href="#test2">구매자2</a></li>
      </ul>
    </div>
   </c:if>
@@ -86,7 +85,8 @@
        <li class="tab"><a href="/sugg/suggestions-list.do">제안 리스트</a></li>
        <li class="tab"><a href="/supplier/matchingSuccess.do">완료 리스트</a></li>
        <li class="tab"><a href="/sales/sales-management.do">매출 관리</a></li>
-       <li class="tab"><a href="/supplier/setfood.do">판매정보 수정</a></li>
+       <li class="tab"><a href="/supplier/modifyDefaultInfo.do">판매 정보 수정</a></li>
+       <li class="tab"><a href="/supplier/setfood.do">판매메뉴 추가/수정</a></li>
      </ul>
    </div>
   </c:if>
