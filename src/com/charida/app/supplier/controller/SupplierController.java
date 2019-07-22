@@ -37,8 +37,8 @@ public class SupplierController {
 
 	@RequestMapping("/supplier/setfood.do")
 	public String setFood(HttpServletRequest req, HttpServletResponse resp) {
-		
-		List<FoodDto> foodList = supplierService.getFoodList("test") ;
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
+		List<FoodDto> foodList = supplierService.getFoodList(mem_id) ;
 		req.setAttribute("foodList", foodList);
 		req.setAttribute("listsize", foodList.size());
 		return "/supplier/setFood";
@@ -53,7 +53,8 @@ public class SupplierController {
 		}
 		int menu_id = Integer.parseInt(maxSeq) +1 ;
 		FoodDto dto = new FoodDto();
-		dto.setMem_id(req.getParameter("mem_id"));
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
+		dto.setMem_id(mem_id);
 		dto.setMenu_id(menu_id);
 		dto.setName(req.getParameter("name"));
 		dto.setExplanation(req.getParameter("explanation"));
@@ -80,9 +81,9 @@ public class SupplierController {
 	}
 	@RequestMapping("/supplier/modifymenu.do")
 	public String modifyMenu(HttpServletRequest req, HttpServletResponse resp) {
-		
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		FoodDto dto = new FoodDto();
-		dto.setMem_id(req.getParameter("mmem_id"));
+		dto.setMem_id(mem_id);
 		dto.setMenu_id(Integer.parseInt(req.getParameter("mmenu_id")));
 		dto.setName(req.getParameter("mname"));
 		dto.setExplanation(req.getParameter("mexplanation"));
@@ -97,17 +98,17 @@ public class SupplierController {
 	
 	@RequestMapping("/supplier/servlistforsuggest.do")
 	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
-		String mem_id =  (String) req.getSession().getAttribute("mem_id");
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		if(mem_id == null || mem_id.equals("")) {
 			mem_id = "test" ;
 		}
-		List<Map<String,Object>> servlist = supplierService.getServiceList("test");
+		List<Map<String,Object>> servlist = supplierService.getServiceList(mem_id);
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
 		//세션 하면 이거 진행
-		req.setAttribute("mem_id",  "test");
-		req.setAttribute("suppfoodlist", supplierService.getFoodList("test"));
-		req.setAttribute("suppfoodlistsize", supplierService.getFoodList("test").size());
+		req.setAttribute("mem_id", mem_id);
+		req.setAttribute("suppfoodlist", supplierService.getFoodList(mem_id));
+		req.setAttribute("suppfoodlistsize", supplierService.getFoodList(mem_id).size());
 		return "/supplier/servListForSuggest" ;
 	}
 	@RequestMapping("/supplier/servlistserch.do")
@@ -116,23 +117,24 @@ public class SupplierController {
 		Map<String,String> param = new HashMap<String, String>();
 		param.put("stdate",req.getParameter("stdate") );
 		param.put("eddate", req.getParameter("eddate")) ;
-		String mem_id =  (String) req.getSession().getAttribute("mem_id");
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		if(mem_id == null || mem_id.equals("")) {
 			mem_id = "test" ;
 		}
-		param.put("mem_id", "test");
+		param.put("mem_id", mem_id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("data",  supplierService.getSearchServList(param)) ;
-		result.put("menulist",supplierService.getFoodList("test") ) ;
+		result.put("menulist",supplierService.getFoodList(mem_id) ) ;
 		return result ;
 	}
 	@RequestMapping("/supplier/suggmenu.do")
 	@ResponseBody
 	public Map<String,String> setSuggest(HttpServletRequest req, HttpServletResponse resp){
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		JSONArray json = new JSONArray(req.getParameter("suggarr"));
 		List<Object> list = json.toList() ;
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mem_id", req.getParameter("mem_id")) ;
+		param.put("mem_id", req.getParameter(mem_id)) ;
 		param.put("per_bud", req.getParameter("per_bud"));
 		param.put("menulist", list) ;
 		int result = supplierService.setSuggestTx(param);
@@ -146,14 +148,14 @@ public class SupplierController {
 	}
 	@RequestMapping("/supplier/modifyDefaultInfo.do")
 	public String supplierModifyDefaultInfo(HttpServletRequest req, HttpServletResponse resp) {
-		String id = (String)req.getSession().getAttribute("session_id");
-		List<SupplierDto> supplier_info = supplierService.supplier_info(id);
+		String mem_id =  (String) req.getSession().getAttribute("session_id");
+		List<SupplierDto> supplier_info = supplierService.supplier_info(mem_id);
 		req.setAttribute("supplier_info", supplier_info);
-		List<ServiceTypeDto> serviceType = supplierDao.serviceType(id);
+		List<ServiceTypeDto> serviceType = supplierDao.serviceType(mem_id);
 		req.setAttribute("serviceType", serviceType);
-		List<FoodStyleDto> foodStyle = supplierDao.foodStyle(id);
+		List<FoodStyleDto> foodStyle = supplierDao.foodStyle(mem_id);
 		req.setAttribute("foodStyle", foodStyle);
-		List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(id);
+		List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(mem_id);
 		req.setAttribute("serviceArea", serviceArea);
 		
 		return "/supplier/modifyDefaultInfo";
