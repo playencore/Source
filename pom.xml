@@ -204,6 +204,13 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.1</version>
 		</dependency> 
+		<!-- telegram -->
+		<dependency>
+	        <groupId>org.telegram</groupId>
+	        <artifactId>telegrambots</artifactId>
+	        <version>4.3.1</version>
+		</dependency>
+		
 
 	</dependencies>
 </project>

@@ -15,11 +15,8 @@
 								.on(
 										"keyup",
 										function(event) {
-											var regist_num = $(
-													"input[name=regist_num]")
-													.val();
-											$
-													.ajax({
+											var regist_num = $("input[name=regist_num]").val();
+											$.ajax({
 														type : "POST",
 														url : "/joinUser/checkRegist_num.do",
 														data : {
@@ -29,20 +26,10 @@
 														success : function(data) {
 															$(
 																	"#supplierlicensNumval")
-																	.html(
-																			data.result)
-																	.attr(
-																			"style",
-																			data.color);
+																	.html(data.result).attr("style",data.color);
 														},
 														error : function(data) {
-															$(
-																	"#supplierlicensNumval")
-																	.html(
-																			"다시 시도해주세요.")
-																	.attr(
-																			"style",
-																			"color:red");
+															$("#supplierlicensNumval").html("다시 시도해주세요.").attr("style","color:red");
 														}
 													});
 										}); // 업체넘버 중복 방지 ajax

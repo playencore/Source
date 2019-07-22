@@ -155,7 +155,6 @@
 										<form name="modifyMenu" method="post" action="/supplier/modifymenu.do"
 											enctype="multipart/form-data" onsubmit="return modifysubmit() "
 											class="col s8">
-											<input type="hidden" name="mmem_id" value = "test">
 											<input type = "hidden" name = "mmenu_id" value = "${list.menu_id}">
 											<div class="row">
 												<div class="input-field col s12">

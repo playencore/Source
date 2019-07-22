@@ -99,9 +99,7 @@ public class SupplierController {
 	@RequestMapping("/supplier/servlistforsuggest.do")
 	public String suggestListForSuggest(HttpServletRequest req, HttpServletResponse resp) {
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
-		if(mem_id == null || mem_id.equals("")) {
-			mem_id = "test" ;
-		}
+		
 		List<Map<String,Object>> servlist = supplierService.getServiceList(mem_id);
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
@@ -118,9 +116,6 @@ public class SupplierController {
 		param.put("stdate",req.getParameter("stdate") );
 		param.put("eddate", req.getParameter("eddate")) ;
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
-		if(mem_id == null || mem_id.equals("")) {
-			mem_id = "test" ;
-		}
 		param.put("mem_id", mem_id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("data",  supplierService.getSearchServList(param)) ;

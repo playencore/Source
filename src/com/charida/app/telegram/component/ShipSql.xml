@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ShipList">
+	<select id="getServShipListCount" resultType="int" parameterType="java.lang.String">
+		SELECT 
+			COUNT(*)
+		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
+		WHERE SER.SERV_ID = SUG.SERV_ID 
+		AND SER.CUSTOMER_ID= #{mem_id}
+		AND PROGRESS_CODE IN ('STU0040001','STU0050001','STU0050002')
+		AND SUG.CHOOSE_YN = 'Y'
+	</select>
+	<select id="selectServList" resultType="map" parameterType="map">
+		
+	SELECT 
+	SERV_ID, PROGRESS_CODE , ADDRESS, ADDRESS_DETAIL, SERV_DATE, PER_BUD , COMPANY_NAME, SUGG_ID 
+	FROM 
+		(SELECT A.*,ROWNUM AS NUM 
+		FROM(
+		SELECT
+			SERV.SERV_ID  SERV_ID, 
+			SERV.PROGRESS_CODE  PROGRESS_CODE ,
+			SERV.ADDRESS  ADDRESS , 
+			SERV.ADDRESS_DETAIL  ADDRESS_DETAIL,
+			TO_CHAR(SERV.SERV_DATE ,'YYYY-MM-DD HH24:MI:SS') AS SERV_DATE, 
+			SERV.PER_BUD AS PER_BUD, 
+			SUGG.NAME AS COMPANY_NAME,
+			SERVSUGG.SUGG_ID AS SUGG_ID 
+		FROM CRD_SERV_APP SERV , CRD_COMPANY SUGG, CRD_SERV_SUGG SERVSUGG
+		WHERE SERV.CUSTOMER_ID = #{mem_id}
+		AND SERV.SERV_ID = SERVSUGG.SERV_ID
+		AND SERVSUGG.CHOOSE_YN = 'Y'
+		AND SERV.PROGRESS_CODE IN ('STU0040001','STU0050001','STU0050002')
+		AND SUGG.MEM_ID = SERVSUGG.MEM_ID
+		ORDER BY SERV_DATE DESC
+		 ) A 
+	)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+		
+	</select>
+	
+	<update id="updateStatusComplete" parameterType="String">
+		UPDATE CRD_SERV_APP SET PROGRESS_CODE='STU0060001' WHERE SERV_ID = #{serv_id}
+	</update>
+	
+</mapper>
