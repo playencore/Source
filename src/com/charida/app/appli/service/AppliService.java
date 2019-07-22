@@ -24,14 +24,13 @@ public class AppliService {
 	
 	private final String errMsg = "데이터 갱신에 실패했습니다.";
 	
-	
+	// 신청 기본정보에 필요한 정보를 조회해 옴
 	public List<Map<String, Object>> getList(Map<String, Object> params, HttpServletRequest req){
 		String memId = (String)params.get("sessionId");
 		int pageNo = 1;
 		if(params.get("pageNo")!= null) {
 			pageNo = Integer.parseInt(((String)params.get("pageNo")));
 		}
-		log.debug("1/4");
 		req.setAttribute("pageNo", pageNo);
 		PaginationInfo paging = new PaginationInfo();
 		paging.setCurrentPageNo(pageNo);
@@ -42,9 +41,7 @@ public class AppliService {
 		listParam.put("startNum", paging.getFirstRecordIndex());
 		listParam.put("endNum", paging.getLastRecordIndex());
 		
-		log.debug("2/4");
 		List<Map<String, Object>> appliList = appliComponent.getAppliList(listParam);
-		log.debug("3/4");
 		
 		if(appliList != null) {
 			for(Map<String, Object> appli : appliList) {
@@ -56,10 +53,21 @@ public class AppliService {
 				}
 			}
 		}
-		log.debug("4/4");
 		return appliList;
 	}
 	
+	// 신청 상세정보에 필요한 정보를 조회해 옴
+	public Map<String, Object> getAppliInfo(String appliId){
+		// 모든 신청정보 조회
+		Map<String, Object> result = appliComponent.getAppliInfo(appliId);
+		log.debug("sev result1 : " + result);
+		if(result == null || result.isEmpty()) {
+			return null;
+		}
+		
+		log.debug("sev result2 : " + result);
+		return result;
+	}
 	//결제대기 리스트
 //	public List<Map<String, Object>> getWaitList(Map<String, Object> params, HttpServletRequset req) {
 //		

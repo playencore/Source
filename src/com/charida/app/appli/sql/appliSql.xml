@@ -29,4 +29,18 @@
 		WHERE 
 			NUM BETWEEN #{startNum} AND #{endNum}
 	</select>
+	
+	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 상세정보 -->
+	<!-- (M.NAME, SERV_DATE, APP_DATE, MODIFIED_DATE, END_DATE, A.*)-->
+	<select id="getAppliInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT M.NAME
+		,TO_CHAR(A.SERV_DATE,'YYYY-MM-DD HH24:MI:SS') AS SERV_DATE
+		,TO_CHAR(A.APP_DATE,'YYYY-MM-DD HH24:MI:SS') AS APP_DATE
+		,TO_CHAR(A.MODIFIED_DATE,'YYYY-MM-DD HH24:MI:SS') AS MODIFIED_DATE
+		,TO_CHAR(A.END_DATE,'YYYY-MM-DD HH24:MI:SS') AS END_DATE
+		,A.* 
+		FROM CRD_SERV_APP A, CRD_MEM M
+		WHERE A.CUSTOMER_ID = M.MEM_ID
+		AND SERV_ID = #{appliId}
+	</select>
 </mapper>

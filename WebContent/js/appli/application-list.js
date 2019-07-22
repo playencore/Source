@@ -8,24 +8,24 @@ $(function(){
 		$('.modal').modal();
 		
 });
-
-function showDetail(APPLI_ID){
-	
+// 상세보기 버튼 클릭시 동작(모달)
+function showDetail(SERV_ID){
 	$.ajax({
 	    
 	    type : "post",
 	    url : "/appli/getApplicationInfo.do",
 	    data:{
-	    	appliId:APPLI_ID
+	    	appliId:SERV_ID
 	    },
 	    dataType : "json",
 	    error : function(data){
 	        alert('상세정보 조회를 실패하셨습니다.')
 	    },
 	    success : function(data){
-	    	updateUi(data,APPLI_ID);
-	    	viewMap(data.ADDRESS);
+	    	updateUi(data,SERV_ID);
+//	    	viewMap(data.ADDRESS);
 	    	$('.modal').modal('open');
+	    	alert("js ajax end");
 	    }     
 	});
 	
@@ -35,98 +35,138 @@ function showDetail(APPLI_ID){
 }
 
 function updateUi(data,appliId){
+	alert("js updateUi 시작");
+	$('#app_title').text("신청번호 " + appliId);
+	$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50
+	$('#app_name').text(data.NAME);
+	$('#modified_date').text(data.MODIFIED_DATE);	// MODIFIED_DATE: 2019-07-17 17:59:50
 	
-	$('#appli_title').text(appliId + "상세 내역");
-	$('#appli_date').text(data.APPLI_DATE);
-	$('#sup_name').text(data.NAME);
+	// 일정정보
+	$('#serv_date').text(data.SERV_DATE);	// 서비스 제공일 SERV_DATE: 2019-07-25 20:30:00
 	
-	var choose_yn = data.CHOOSE_YN;
-	if(choose_yn=='N'){
-		$('#choose_yn').text("불채택");
-		$('#choose_yn').addClass("red-text text-lighten-1");
-	}else{
-		$('#choose_yn').text("진행중");
-	}
+	// 현장정보
+	$('#address').text(data.ADDRESS);	// 주소 ADDRESS: "서울 서초구 서초대로46길 3"
+	$('#address_detail').text(data.ADDRESS_DETAIL);	// ADDRESS_DETAIL: "앤코앙23호"
+	$('#interior_yn').text(data.INTERIOR_YN);	// INTERIOR_YN: "Y"
+	$('#parking_yn').text(data.PARKING_YN);	// PARKING_YN: "Y"
+	$('#elevator_yn').text(data.ELEVATOR_YN);	// ELEVATOR_YN: "Y"
+	$('#discharge_yn').text(data.DISCHARGE_YN);	// DISCHARGE_YN: "Y"
+	$('#cooking_yn').text(data.COOKING_YN);	// COOKING_YN: "Y"
 	
-	$('#per_bud').text(data.PER_BUD+" 원");
+	//참석자정보
+	$('#participant').text(data.PARTICIPANT+" 명");	// 참가인원 PARTICIPANT: 100
+	$('#per_bud').text(data.PER_BUD+" 원");	// 1인당 금액 PER_BUD: "30,000"
+	var str_per_bud = data.PER_BUD;
+	var int_per_bud = str_per_bud.replace(",","");
+	var total = data.PARTICIPANT * int_per_bud;
+	total = numbeComma(total);
+	$('#per_totalbud').text(total+" 원");
 	
-	var menuBody = "";
-	if(data.menuInfo != null){
-		$('#li_menu').css('display','block');
-		data.menuInfo.forEach((function(e,i){
-			menuBody += "<tr>";
-			menuBody += "<td>" +e.NAME+ "</td>";
-			menuBody += "<td>" +numbeComma(e.WEIGHT)+ "</td>";
-			menuBody += "<td>" 
-				+ "<img alt='' src='/file/file-down/" 
-				+ e.FILE_ID
-				+ "' width='75px' height='75px'>"
-				+ "</td>";
-			
-			
-			menuBody += "</tr>";
-		}));
-		$('#menu_info').html(menuBody);
-	}else{
-		$('#li_menu').css('display','none');
-	}
+	$('#age_max').text(data.AGE_MAX);	// AGE_MAX: 60
+	$('#age_min').text(data.AGE_MIN);	// AGE_MIN: 26
+	$('#age_minmax').text(data.AGE_MIN+" ~ "+data.AGE_MAX+" 세");
 	
+	$('#per_men').text(data.PER_MEN+" %");	// 남자성비 PER_MEN: 3
+	var women = 100 - data.PER_MEN;
+	$('#per_women').text(women+" %");	// 남자성비 PER_MEN: 3
+	
+	//행사정보
+	$('#serv_type_code').text(data.SERV_TYPE_CODE);	//서비스 타입코드 SERV_TYPE_CODE: "SER0000010"
+	$('#event_type_code').text(data.EVENT_TYPE_CODE);	// 행사형식코드 EVENT_TYPE_CODE: "EVT0000010"
+	$('#coordinator_yn').text(data.COORDINATOR_YN);	// 코디네이터 COORDINATOR_YN: "Y"
+	$('#tableware_yn').text(data.TABLEWARE_YN);	// 추가식기 TABLEWARE_YN: "Y"
+	$('#dessert_yn').text(data.DESSERT_YN);	// 후식 DESSERT_YN: "Y"
+
+	// 추가요청사항
+	$('#requested_team').text(data.REQUESTED_TERM);	// REQUESTED_TERM: "추가 요청사항은 없습니다."
+	
+	$('#customer_id').text(data.CUSTOMER_ID);	// CUSTOMER_ID: "gggggg"
+	$('#other_order_yn').text(data.OTHER_ORDER_YN);	// OTHER_ORDER_YN: "Y"
+	$('#progress_code').text(data.PROGRESS_CODE);	// PROGRESS_CODE: "00010001  "
+	$('#serv_id').text(data.SERV_ID);	// SERV_ID: "S190717-0001"
+	$('#zipcode').text(data.ZIPCODE);	// ZIPCODE: "06646"
+	$('#end_date').text(data.END_DATE);	// END_DATE: "[null]"
+	
+	
+	
+//	
+//	var menuBody = "";
+//	if(data.menuInfo != null){
+//		$('#li_menu').css('display','block');
+//		data.menuInfo.forEach((function(e,i){
+//			menuBody += "<tr>";
+//			menuBody += "<td>" +e.NAME+ "</td>";
+//			menuBody += "<td>" +numbeComma(e.WEIGHT)+ "</td>";
+//			menuBody += "<td>" 
+//				+ "<img alt='' src='/file/file-down/" 
+//				+ e.FILE_ID
+//				+ "' width='75px' height='75px'>"
+//				+ "</td>";
+//			
+//			
+//			menuBody += "</tr>";
+//		}));
+//		$('#menu_info').html(menuBody);
+//	}else{
+//		$('#li_menu').css('display','none');
+//	}
+//	
 	var li ="";
-	li += createHeader('신청 내용');
-	li += createBody('행사형식',data.SERV_TYPE_NAME);
-	li += createBody('진행형식',data.EVENT_TYPE_NAME);
-	li += createBody('서비스 제공일',data.SERV_DATE);
-	li += createBody('참가자 수',numbeComma(data.PARTICIPANT) + " 명");
-	li += createBody('참여 연령(남녀 비율)',data.AGE_MIN +" ~ " +data.AGE_MAX 
-			+"( " +data.PER_MEN + " : " +(10-data.PER_MEN) + " )");
-	
-	
-	li += createBody('선호 메뉴',data.prefList.toString());
-	
-	if(data.DESSERT_YN == 'Y'){
-		var title;
-		var content ="";
-		
-		data.drtList.forEach(function(e,i){
-			if(i==0){
-				title = e;
-			}else{
-				content += e + ",";
-			}
-		});
-		content = content.substring(0,content.lastIndexOf(','));
-		li +=createBody(title,content);
-	}
-	
-	if(data.TABLEWARE_YN == 'Y'){
-		var title;
-		var content ="";
-		
-		data.tbwList.forEach(function(e,i){
-			if(i==0){
-				title = e;
-			}else{
-				content += e+ ",";
-			}
-		});
-		content = content.substring(0,content.lastIndexOf(','));
-		li +=createBody(title,content);
-	}
-	
-	if(data.OTHER_ORDER_YN == 'Y'){
-		var title;
-		var content ="";
-		
-		data.rtlList.forEach(function(e,i){
-			if(i==0){
-				title = e;
-			}else{
-				content += e+ ",";
-			}
-		});
-		content = content.substring(0,content.lastIndexOf(','));
-		li +=createBody(title,content);
-	}
+//	li += createHeader('신청 내용');
+//	li += createBody('행사형식',data.SERV_TYPE_NAME);
+//	li += createBody('진행형식',data.EVENT_TYPE_NAME);
+//	li += createBody('서비스 제공일',data.SERV_DATE);
+//	li += createBody('참가자 수',numbeComma(data.PARTICIPANT) + " 명");
+//	li += createBody('참여 연령(남녀 비율)',data.AGE_MIN +" ~ " +data.AGE_MAX 
+//			+"( " +data.PER_MEN + " : " +(10-data.PER_MEN) + " )");
+//	
+//	
+//	li += createBody('선호 메뉴',data.prefList.toString());
+//	
+//	if(data.DESSERT_YN == 'Y'){
+//		var title;
+//		var content ="";
+//		
+//		data.drtList.forEach(function(e,i){
+//			if(i==0){
+//				title = e;
+//			}else{
+//				content += e + ",";
+//			}
+//		});
+//		content = content.substring(0,content.lastIndexOf(','));
+//		li +=createBody(title,content);
+//	}
+//	
+//	if(data.TABLEWARE_YN == 'Y'){
+//		var title;
+//		var content ="";
+//		
+//		data.tbwList.forEach(function(e,i){
+//			if(i==0){
+//				title = e;
+//			}else{
+//				content += e+ ",";
+//			}
+//		});
+//		content = content.substring(0,content.lastIndexOf(','));
+//		li +=createBody(title,content);
+//	}
+//	
+//	if(data.OTHER_ORDER_YN == 'Y'){
+//		var title;
+//		var content ="";
+//		
+//		data.rtlList.forEach(function(e,i){
+//			if(i==0){
+//				title = e;
+//			}else{
+//				content += e+ ",";
+//			}
+//		});
+//		content = content.substring(0,content.lastIndexOf(','));
+//		li +=createBody(title,content);
+//	}
 	li += createBody('코디네이터 신청여부',data.COORDINATOR_YN);
 	li += createBody('실내여부',data.INTERIOR_YN);
 	li += createBody('취사여부',data.COOKING_YN);

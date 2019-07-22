@@ -20,4 +20,7 @@ public class AppliDao extends CommonDao{
 	public int getAppliListCount(String appliId) {
 		return sqlSession.selectOne("Appli.getAppliListCount", appliId);
 	}
+	public Map<String, Object> getAppliInfo(String appliId){
+		return sqlSession.selectOne("Appli.getAppliInfo", appliId);
+	}
 }

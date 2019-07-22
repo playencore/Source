@@ -1,5 +1,6 @@
 package com.charida.app.component.appli;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,24 @@ public class AppliComponent {
 		return appliDao.getAppliListCount(appli_id);
 	}
 	
+	// 주문번호(appliId)를 통하여 모든 정보를 갖고옴
+	public Map<String, Object> getAppliInfo(String appliId){
+		Map<String, Object> appliInfo = appliDao.getAppliInfo(appliId);
+		
+		if(appliInfo == null || appliInfo.isEmpty()) {
+			return null;
+		}
+		if(appliInfo.get("PER_BUD") == null) {
+			return appliInfo;
+		}
+		
+		String per_bud = ((BigDecimal)appliInfo.get("PER_BUD")).toString();
+		per_bud = formatByComma(per_bud) ;
+		appliInfo.remove("PER_BUD");
+		appliInfo.put("PER_BUD", per_bud);
+			
+			return appliInfo;
+	}
 	
 	public String formatByComma(String str) {
 		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
