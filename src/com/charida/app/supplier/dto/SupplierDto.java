@@ -1,5 +1,6 @@
 package com.charida.app.supplier.dto;
 
+import java.util.List;
 
 public class SupplierDto {
 	
@@ -11,7 +12,15 @@ public class SupplierDto {
 	private int minimum_seating ;
 	private int cert_file_id ;
 	private String telegram_id ;
+	private List<Integer> picture;
+
 	
+	public List<Integer> getPicture() {
+		return picture;
+	}
+	public void setPicture(List<Integer> picture) {
+		this.picture = picture;
+	}
 	public String getMem_id() {
 		return mem_id;
 	}

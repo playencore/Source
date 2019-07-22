@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.dto.FoodDto;
+import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.PermissionDto;
+import com.charida.app.supplier.dto.ServiceAreaDto;
+import com.charida.app.supplier.dto.ServiceTypeDto;
 import com.charida.app.supplier.dto.SupplierDto;
 
 @Repository
@@ -122,6 +125,33 @@ public class SupplierDao {
 	}
 	public List<SupplierDto> supplier_info(String id){
 		return sqlSession.selectList("Supplier.supplier_info",id);
+	}
+	public List<Integer> getFiles(String id){
+		return sqlSession.selectList("Supplier.getFiles",id);
+	}
+	public List<ServiceTypeDto> serviceType(String id){
+		return sqlSession.selectList("Supplier.serviceType",id);
+	}
+	public List<FoodStyleDto> foodStyle(String id){
+		return sqlSession.selectList("Supplier.foodStyle",id);
+	}
+	public List<ServiceAreaDto> serviceArea(String id){
+		return sqlSession.selectList("Supplier.serviceArea",id);
+	}
+	public int modifySupplier(SupplierDto supplierDto) {
+		return sqlSession.update("Supplier.modifySupplier",supplierDto);
+	}
+	public int del_service_type(String mem_id) {
+		return sqlSession.delete("Supplier.del_service_type",mem_id);
+	}
+	public int del_food_style(String mem_id) {
+		return sqlSession.delete("Supplier.del_food_style",mem_id);
+	}
+	public int del_service_area(String mem_id) {
+		return sqlSession.delete("Supplier.del_service_area",mem_id);
+	}
+	public int del_picture(String mem_id) {
+		return sqlSession.delete("Supplier.del_picture",mem_id);
 	}
 
 }

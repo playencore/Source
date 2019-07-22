@@ -46,6 +46,9 @@ public class SupplierComponent {
 	public int setServiceCategoryType(Map<String, Object> listMap) {
 		return supplierDao.insertServiceCategoryType(listMap);
 	}
+	public int del_service_type(String mem_id) {
+		return supplierDao.del_service_type(mem_id);
+	}
 
 	// crd_food_Style
 	public String getFoodStyleMaxSeq(String mem_id) {
@@ -54,6 +57,9 @@ public class SupplierComponent {
 
 	public int setFoodStyle(Map<String, Object> listMap) {
 		return supplierDao.insertFoodStyle(listMap);
+	}
+	public int del_food_style(String mem_id) {
+		return supplierDao.del_food_style(mem_id);
 	}
 
 	// crd_service_location
@@ -64,6 +70,9 @@ public class SupplierComponent {
 	public int setServiceLocation(Map<String, Object> listMap) {
 		return supplierDao.insertServiceLocation(listMap);
 	}
+	public int del_service_area(String mem_id) {
+		return supplierDao.del_service_area(mem_id);
+	}
 
 	// CRD_INTRO_FILE
 	public String getIntroFileMaxSeq(String mem_id) {
@@ -72,6 +81,9 @@ public class SupplierComponent {
 
 	public int setIntroFile(Map<String, Object> listMap) {
 		return supplierDao.insertIntroFile(listMap);
+	}
+	public int del_picture(String mem_id) {
+		return supplierDao.del_picture(mem_id);
 	}
 
 	// CRD_MEM_PERMISSION
@@ -197,5 +209,12 @@ public class SupplierComponent {
 		}
 		
 		return menuresult ;
+	}
+	public List<Integer> getfiles(String id) {
+		return supplierDao.getFiles(id);
+	}
+	
+	public int modifySupplier(SupplierDto supplierDto) {
+		return supplierDao.modifySupplier(supplierDto);
 	}
 }

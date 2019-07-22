@@ -17,8 +17,13 @@ import com.charida.app.component.join.JoinComponent;
 import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.supplier.SupplierComponent;
 import com.charida.app.member.dto.MemberDto;
+import com.charida.app.review.dto.ReviewDto;
+import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.FoodDto;
+import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.PermissionDto;
+import com.charida.app.supplier.dto.ServiceAreaDto;
+import com.charida.app.supplier.dto.ServiceTypeDto;
 import com.charida.app.supplier.dto.SupplierDto;
 
 @Service
@@ -32,6 +37,8 @@ public class SupplierService {
 	CategoryComponent categoryComponent ;
 	@Resource
 	JoinComponent joinComponent;
+	@Resource
+	SupplierDao supplierDao;
 	
 	public int setSupplierTx(Map <String,String[]> supplierMap) {
 		int result = 0 ;
@@ -53,7 +60,7 @@ public class SupplierService {
 		result += joinComponent.setMember(memberDto) ;
 		
 		//crd_company insert-----------------------------------------------------------------------------------
-		SupplierDto supplierDto = new SupplierDto() ;
+		SupplierDto supplierDto = new SupplierDto();
 		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
 		supplierDto.setName(supplierMap.get("companyname")[0]);
 		supplierDto.setRegist_num(Integer.parseInt(supplierMap.get("regist_num")[0]));
@@ -232,6 +239,100 @@ public class SupplierService {
 		int result = setservsugg+setservmenu ;
 		
 		return result ;
+	}
+	public List<SupplierDto> supplier_info(String id){
+		List<SupplierDto> result = supplierDao.supplier_info(id);
+		for(int i = 0 ; i < result.size() ; i++) {
+			//전체중 한개의 Dto
+			SupplierDto info = result.get(i);
+			//한 개의 serv_id에 해당하는 file_id의 집합 리스트
+			List<Integer> files = supplierComponent.getfiles(id);
+			// 해당번째의 Dto에 file_id 삽입
+//			List<ServiceTypeDto> serviceType = supplierDao.serviceType(id);
+//			List<FoodStyleDto> foodStyle = supplierDao.foodStyle(id);
+//			List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(id);
+			info.setPicture(files);	
+		}		
+
+		return result;
+	}
+	public int modifyinfo(Map<String, String[]> supplierMap) {
+		int result = 0 ;
+				
+		//crd_company update-----------------------------------------------------------------------------------
+		SupplierDto supplierDto = new SupplierDto();
+		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
+		supplierDto.setName(supplierMap.get("companyname")[0]);
+		supplierDto.setRegist_num(Integer.parseInt(supplierMap.get("regist_num")[0]));
+		supplierDto.setExplanation(supplierMap.get("explanation")[0]);
+		supplierDto.setMaximum_seating(Integer.parseInt(supplierMap.get("maximum_seating")[0]));
+		supplierDto.setMinimum_seating(Integer.parseInt(supplierMap.get("minimum_seating")[0]));
+		supplierDto.setTelegram_id("telegram");
+		
+		
+		
+		result += supplierComponent.modifySupplier(supplierDto) ;
+		
+		//crd_service_type---------------------------------------------------------------------------------------
+		/* int del_service_type = */supplierComponent.del_service_type(supplierMap.get("mem_id")[0]);
+		
+		String checkseq = supplierComponent.getServiceCategoryMaxSeq(supplierMap.get("mem_id")[0]) ;
+		if(checkseq == null ) {
+			checkseq = "0" ;
+		}
+		int seq = Integer.parseInt(checkseq) ;
+		Map<String, Object> listMap = supplierComponent.getCodeListMap("service", supplierMap.get("mem_id")[0], 
+				seq, supplierMap.get("serviceCategory")) ;
+		result += supplierComponent.setServiceCategoryType(listMap) ;
+		
+		//crd_food_Style----------------------------------------------------------------------------
+		/* int del_food_style = */supplierComponent.del_food_style(supplierMap.get("mem_id")[0]);
+		
+		checkseq = supplierComponent.getFoodStyleMaxSeq(supplierMap.get("mem_id")[0]) ;
+		if(checkseq == null ) {
+			checkseq = "0" ;
+		}
+		seq = Integer.parseInt(checkseq) ;
+		Map<String, Object> flistMap = supplierComponent.getCodeListMap("food", supplierMap.get("mem_id")[0], 
+				seq, supplierMap.get("foodCategory")) ;
+		result += supplierComponent.setFoodStyle(flistMap) ;
+		
+		//CRD_SERVICE_AREA------------------------------------------------------------------------------------
+		/* int del_service_area = */supplierComponent.del_service_area(supplierMap.get("mem_id")[0]);
+		
+		checkseq = supplierComponent.getServiceLocationMaxSeq(supplierMap.get("mem_id")[0]) ;
+		if(checkseq == null ) {
+			checkseq = "0" ;
+		}
+		seq = Integer.parseInt(checkseq) ;
+		Map<String, Object> alistMap = supplierComponent.getCodeListMap("area", supplierMap.get("mem_id")[0], 
+				seq, supplierMap.get("serviceLocation")) ;
+		result += supplierComponent.setServiceLocation(alistMap) ;
+		
+		//info picture -------------------------------------------------------------------------------------
+		if(supplierMap.get("supplierInfoFile").length!=0) {
+		/* int del_picture = */supplierComponent.del_picture(supplierMap.get("mem_id")[0]);
+		Map<String,Object> plistMap = new HashMap<String, Object>() ;
+		List<Integer> list = new ArrayList<Integer>() ;
+		for(int i = 0 ; i <supplierMap.get("supplierInfoFile").length ; i++ ) {
+			String supplierinfoFile = supplierMap.get("supplierInfoFile")[i] ;
+			if(supplierinfoFile!=null) {
+				list.add(Integer.parseInt(supplierinfoFile)) ;
+			}
+		}
+		checkseq = supplierComponent.getIntroFileMaxSeq(supplierMap.get("mem_id")[0]) ;
+		if(checkseq == null ) {
+			checkseq = "0" ;
+		}
+		seq = Integer.parseInt(checkseq) ;
+		plistMap.put("mem_id",supplierMap.get("mem_id")[0]) ;
+		plistMap.put("intro_seq", seq) ;
+		plistMap.put("list",list) ;
+		result += supplierComponent.setIntroFile(plistMap);
+	
+		return result;
+		}
+		return result;
 	}
 }
 

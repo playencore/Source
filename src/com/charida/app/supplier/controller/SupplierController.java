@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.FoodDto;
+import com.charida.app.supplier.dto.FoodStyleDto;
+import com.charida.app.supplier.dto.ServiceAreaDto;
+import com.charida.app.supplier.dto.ServiceTypeDto;
 import com.charida.app.supplier.dto.SupplierDto;
 import com.charida.app.supplier.service.SupplierService;
 
@@ -144,8 +147,34 @@ public class SupplierController {
 	@RequestMapping("/supplier/modifyDefaultInfo.do")
 	public String supplierModifyDefaultInfo(HttpServletRequest req, HttpServletResponse resp) {
 		String id = (String)req.getSession().getAttribute("session_id");
-		List<SupplierDto> supplier_info = supplierDao.supplier_info(id);
+		List<SupplierDto> supplier_info = supplierService.supplier_info(id);
 		req.setAttribute("supplier_info", supplier_info);
+		List<ServiceTypeDto> serviceType = supplierDao.serviceType(id);
+		req.setAttribute("serviceType", serviceType);
+		List<FoodStyleDto> foodStyle = supplierDao.foodStyle(id);
+		req.setAttribute("foodStyle", foodStyle);
+		List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(id);
+		req.setAttribute("serviceArea", serviceArea);
+		
+		return "/supplier/modifyDefaultInfo";
+	}
+	@RequestMapping("/supplier/modifyDefaultInfoPro.do")
+	public String modifyDefaultInfoPro(HttpServletRequest req, HttpServletResponse resp) {
+		String mem_id[] = {(String)req.getSession().getAttribute("session_id")};
+		Map<String, String[]> supplierMap = req.getParameterMap();
+		supplierMap.put("mem_id", mem_id);
+		String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
+		String supplierInfoFile[] = new String[3] ;
+		for(int i = 2 ; i<5 ; i++) {
+			if(req.getAttribute("file_id"+i)!=null) {
+				supplierInfoFile[i-2] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+			}
+		}
+		supplierMap.put("cert_file_id",cert_file_id ) ;
+		supplierMap.put("supplierInfoFile",supplierInfoFile) ;
+		int result = supplierService.modifyinfo(supplierMap);
+		
+		
 		
 		return "/supplier/modifyDefaultInfo";
 	}

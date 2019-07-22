@@ -203,5 +203,39 @@
 	<select id="supplier_info" parameterType="String" resultType="com.charida.app.supplier.dto.SupplierDto">
 		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{session_id}
 	</select>
+	<select id="getFiles" parameterType="String" resultType="Integer">
+  		SELECT file_id FROM CRD_INTRO_FILE WHERE MEM_ID = #{id}
+	</select>
+	<select id="serviceType" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceTypeDto">
+		SELECT TYPE_CODE FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{id}
+	</select>
+	<select id="foodStyle" parameterType="String" resultType="com.charida.app.supplier.dto.FoodStyleDto">
+		SELECT FOOD_STYLE_CODE FROM CRD_FOOD_STYLE WHERE MEM_ID = #{id}
+	</select>
+	<select id="serviceArea" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceAreaDto">
+		SELECT SERVICE_AREA_CODE FROM CRD_SERVICE_AREA WHERE MEM_ID = #{id}
+	</select>
+	<update id="modifySupplier" parameterType="com.charida.app.supplier.dto.SupplierDto">
+		UPDATE CRD_COMPANY SET
+		REGIST_NUM = #{regist_num},
+		EXPLANATION = #{explanation},
+		NAME = #{name},
+		MAXIMUM_SEATING = #{maximum_seating},
+		MINIMUM_SEATING = #{minimum_seating},
+		TELEGRAM_ID = #{telegram_id}
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	<delete id="del_service_type" parameterType="String">
+		DELETE FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_food_style" parameterType="String">
+		DELETE FROM CRD_FOOD_STYLE WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_service_area" parameterType="String">
+		DELETE FROM CRD_SERVICE_AREA WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_picture" parameterType="String">
+		DELETE FROM CRD_INTRO_FILE WHERE MEM_ID = #{mem_id}
+	</delete>
 	
 </mapper>
