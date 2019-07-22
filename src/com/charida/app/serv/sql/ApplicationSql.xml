@@ -48,4 +48,41 @@
 		SET PROGRESS_CODE = #{progressCode} 
 		WHERE SERV_ID = #{servId}
 	</update>
+	<select id="getPayListCount" resultType="int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM CRD_SERV_APP APP,CRD_SERV_SUGG  SUGG
+		WHERE APP.SERV_ID = SUGG.SERV_ID 
+		AND CUSTOMER_ID = #{memId}
+		AND PROGRESS_CODE = 'STU0030001'
+		AND CHOOSE_YN = 'Y'
+	</select>
+	<select id="getPayList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			SERV_ID,SUGG_ID,SERV_DATE,SERV_DAY,APP_DATE,PROGRESS_CODE, CHOOSE_DATE, PER_BUD, PARTICIPANT,COMPANY_NAME
+		FROM (
+			SELECT 
+				A.*,ROWNUM AS NUM 
+			FROM (
+				SELECT 
+					APP.SERV_ID
+					,SUGG_ID
+					,TO_CHAR(APP.SERV_DATE ,'YYYY-MM-DD HH24:MI:SS') AS SERV_DATE 
+					,TO_CHAR(APP.SERV_DATE ,'YYYY-MM-DD') AS SERV_DAY
+					,TO_CHAR(APP.APP_DATE,'YYYY-MM-DD HH24:MI:SS') AS APP_DATE
+					,PROGRESS_CODE
+					,TO_CHAR(CHOOSE_DATE ,'YYYY-MM-DD HH24:MI:SS') AS CHOOSE_DATE 
+					,SUGG.PER_BUD 
+					,PARTICIPANT
+					,(SELECT NAME FROM CRD_COMPANY WHERE MEM_ID = SUGG.MEM_ID) AS COMPANY_NAME
+				FROM 
+					CRD_SERV_APP APP,CRD_SERV_SUGG  SUGG
+				WHERE 
+					APP.SERV_ID = SUGG.SERV_ID 
+					AND CUSTOMER_ID = #{memId}
+					AND PROGRESS_CODE = 'STU0030001'
+					AND CHOOSE_YN = 'Y'
+				ORDER BY SERV_DATE ASC
+			) A
+		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+	</select>
 </mapper>

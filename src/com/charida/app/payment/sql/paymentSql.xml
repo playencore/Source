@@ -134,4 +134,12 @@
 		CONNECT BY LEVEL 
 			<![CDATA[<=]]>CEIL(MONTHS_BETWEEN(TO_DATE(#{endMonth},'YYYY-MM'),TO_DATE(#{startMonth},'YYYY-MM') ))+1
 	</sql>
+	<update id="updatePayment" parameterType="java.util.Map">
+		UPDATE CRD_SERV_PAY  
+		SET STATUS='Y'
+			,SUPPLY_PAYMENT=#{supplyPayment}
+			,PAY_DATE=SYSDATE
+			,METHOD=#{payMethod}
+		WHERE SERV_ID = #{servId}
+	</update>
 </mapper>

@@ -1,14 +1,29 @@
 package com.charida.app.serv.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -42,36 +57,29 @@ public class ApplicationController extends CommonController{
 
 		return "/service/result";
 	}
-//	@RequestMapping("/service/result.do")
-//	public ModelAndView result(HttpServletRequest req,HttpServletResponse resp) {
-//		Map<String,Object> params = getParameterMap(req);
-//		
-//		params.put("sessionId", (String)req.getSession().getAttribute("id"));
-//		String appId = applicationService.applicationTx(params);
-//		
-//		ModelAndView mav = new ModelAndView();
-//
-//		RedirectView redirectView = new RedirectView(); // redirect url 설정
-//		redirectView.addStaticAttribute("appId2", appId);
-//		redirectView.setUrl("/service/resultFrom.do");
-//		redirectView.setExposeModelAttributes(false);
-//		mav.addObject("appId", appId);
-//		mav.setView(redirectView);
-//		
-//		return mav;
-//	}
-	
-	/*
-	 * @RequestMapping("/service/result.do") public String result(HttpServletRequest
-	 * req,HttpServletResponse resp) { //Map<String, String[]> params =
-	 * req.getParameterMap(); Map<String,Object> params = getParameterMap(req);
-	 * 
-	 * //params.put("sessionId", new String[]
-	 * {(String)req.getSession().getAttribute("id")}); params.put("sessionId",
-	 * (String)req.getSession().getAttribute("id")); String appid =
-	 * applicationService.applicationTx(params); req.setAttribute("appid", appid);
-	 * req.setAttribute( View.RESPONSE_STATUS_ATTRIBUTE,
-	 * HttpStatus.TEMPORARY_REDIRECT); return "redirect:/service/resultFrom.do"; }
-	 */
-	
+	@RequestMapping("/service/pay-list.do")
+	public String resultForm(HttpServletRequest req) {
+		req.setAttribute("payList", applicationService.getPayList(getParameterMap(req,true),req));
+		return "/service/pay-list";
+	}
+	@RequestMapping("/service/getPayInfo.do")
+	@ResponseBody
+	public Map<String, Object> getPayInfo(@RequestParam("suggId") String suggId){
+		return applicationService.getPayInfo(suggId);
+	}
+	@RequestMapping("/service/kakao-pay.do")
+	@ResponseBody
+	public Map<String, Object> getPayInfo(HttpServletRequest req){
+		return applicationService.getPayPage(getParameterMap(req,true),req);
+	}
+	@RequestMapping("/service/kakao-approve.do")
+	public String kakaoReq(@RequestParam("pg_token") String token
+			,@SessionAttribute("partner_order_id")String servId
+			,@SessionAttribute("session_id")String memId
+			,@SessionAttribute("tid")String tid
+			,ModelMap modelMap) {
+		
+		modelMap.addAttribute("approveInfo", applicationService.kakaoApproveTx(servId,memId,tid,token));
+		return "/service/result-pay";
+	}
 }

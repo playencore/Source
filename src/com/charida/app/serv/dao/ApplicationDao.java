@@ -31,4 +31,10 @@ public class ApplicationDao {
 	public int updateProgress(Map<String,String> datas) {
 		return sqlSession.update("App.updateProgress", datas);
 	}
+	public List<Map<String, Object>> getPayList(Map<String, Object> param){
+		return sqlSession.selectList("App.getPayList", param);
+	}
+	public int getPayListCount(String memId){
+		return sqlSession.selectOne("App.getPayListCount", memId);
+	}
 }

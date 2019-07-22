@@ -21,9 +21,54 @@
 	    border-radius: 2px;
 	    will-change: top, opacity;
 	}
+	.modal2 {
+	    display: none;
+	    position: fixed;
+	    left: 0;
+	    right: 0;
+	    background-color: #fafafa;
+	    padding: 0;
+	    max-height: 45%;
+	    width: 30%;
+	    margin: auto;
+	    overflow-y: auto;
+	    border-radius: 2px;
+	    will-change: top, opacity;
+	}
+	.z-depth-5, .modal2 {
+	   -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	   box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	}
+	.modal2.modal-fixed-footer {
+	    padding: 0;
+	    height: 45%;
+	}
+	.modal2.modal-fixed-footer .modal-content {
+	    position: absolute;
+	    height: calc(100% - 56px);
+	    max-height: 100%;
+	    width: 100%;
+	    overflow-y: auto;
+	}
+	.modal2 .modal-content {
+	    padding: 24px;
+	}
+	.modal2.modal-fixed-footer .modal-footer {
+	    border-top: 1px solid rgba(0, 0, 0, 0.1);
+	    position: absolute;
+	    bottom: 0;
+	}
+	.modal2 .modal-footer {
+	    border-radius: 0 0 2px 2px;
+	    background-color: #fafafa;
+	    padding: 4px 6px;
+	    height: 56px;
+	    width: 100%;
+	    text-align: right;
+	}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
-<script type="text/javascript" src="/js/sugg/waiting-payment.js"></script>
+<script type="text/javascript" src="/js/serv/pay-list.js"></script>
 <!-- <div class="section" style="background-color: white;">
 	<h5 style="padding-left: 40px;">
 		제안 리스트
@@ -36,41 +81,49 @@
 		<div class="col m12" style="background-color: white;">
 			<div class="row">
 				<div class="col m12" style="border: 1px solid #eeeeee">
-					<h5 style="margin-bottom: 30px">결제대기 목록</h5>
-					<%@include file="/include/sugg/sub-menu.jsp" %>
-		    		<c:forEach items="${waitList }" var="waitItem">
+					<h5 style="margin-bottom: 30px">제안 리스트</h5>
+					<%@include file="/include/service/sub_menu.jsp" %>
+		    		<c:forEach items="${payList }" var="payItem">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
 									<h5 class="task-card-title mb-3" style="text-align: right;">
-										${waitItem.NAME } 님께한 제안
+										${payItem.SERV_DAY }일 행사
 									</h5>
-									<p class="task-card-date" style="text-align: right;">${waitItem.SUGG_DATE }</p>
+									<p class="task-card-date" style="text-align: right;">${payItem.APP_DATE }</p>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">상태</span>
 									<span class="secondary-content"><span > 결제 대기 </span></span>
 								</li>
 								<li class="collection-item dismissable">
-									<span class="width-100" style="font-size: 14px">제안번호</span>
-									<span  class="secondary-content"><span class="">${waitItem.SUGG_ID }</span></span>
+									<span class="width-100" style="font-size: 14px">행사일</span>
+									<span  class="secondary-content"><span class="">${payItem.SERV_DATE }</span></span>
+								</li>
+								<li class="collection-item dismissable">
+									<span class="width-100" style="font-size: 14px">신청번호</span>
+									<span  class="secondary-content"><span class="">${payItem.SERV_ID }</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">제안 채택일</span>
-									<span class="secondary-content"><span class="task-card-date"> ${waitItem.CHOOSE_DATE } </span></span>
+									<span class="secondary-content"><span class="task-card-date"> ${payItem.CHOOSE_DATE } </span></span>
+								</li>
+								<li class="collection-item dismissable">
+									<span class="width-100" style="font-size: 14px">제안한 회사</span>
+									<span class="secondary-content"><span class="task-card-date"> ${payItem.COMPANY_NAME } </span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">총 결제액</span>
-									<span  class="secondary-content"><span class="">${waitItem.AMOUNT} 원</span></span>
+									<span  class="secondary-content"><span class="">${payItem.AMOUNT} 원</span></span>
 								</li>
 								<li class="collection-item dismissable center">
-									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${waitItem.SUGG_ID}')">상세보기</a>
+									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${payItem.SUGG_ID}','${payItem.COMPANY_NAME }')">상세보기</a>
 								</li>
 							</ul>
 						</div>
 					</c:forEach>
-					<c:if test="${empty waitList}">
+					<c:if test="${empty payList}">
 						<div class="col m12" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
@@ -98,7 +151,7 @@
 				<p class="task-card-date" style="text-align: right;" id="sugg_date"></p>
 			</li>
 			<li class="collection-item dismissable">
-				<span class="width-100" style="font-size: 14px">신청자 이름</span>
+				<span class="width-100" style="font-size: 14px">제안한 회사</span>
 				<span class="secondary-content"><span id="sup_name"></span></span>
 			</li>
 			<li class="collection-item dismissable">
@@ -112,7 +165,7 @@
 		<ul class="collection with-header">
 			<li class="collection-header" style="background-color: #eee">
 				<h6 class="task-card-title mb-3" style="text-align: center;">
-					제안 내용
+					채택한 제안 내용
 				</h6>
 			</li>
 			<li class="collection-item dismissable">
@@ -145,8 +198,22 @@
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
 	</div>
 </div>
+<div id="modal2" class="modal2 modal-fixed-footer">
+	<div class="modal-content">
+		<ul class="collection with-header" id="ul_payment">
+			
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="waves-effect waves-green btn-flat" onclick="window.location.reload()">확인</a>
+	</div>
+</div>
 <form name="dForm" method="post">
 	<input type="hidden" name ="pageNo"value="${pageNo}">
+</form>
+<form name="payForm" method="post">
+	<input type="hidden" name="tid">
+	<input type="hidden" name="next_redirect_pc_url">
 </form>
 <%@include file="/include/footer.jsp" %>
 </body>

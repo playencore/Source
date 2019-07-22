@@ -20,4 +20,7 @@ public class PaymentDao extends CommonDao{
 	public List<Map<String, Object>> getSaleInfo(Map<String, String> params){
 		return sqlSession.selectList("Pay.getSaleInfo",params);
 	}
+	public int updatePayment (Map<String, Object> params) {
+		return sqlSession.update("Pay.updatePayment", params);
+	}
 }

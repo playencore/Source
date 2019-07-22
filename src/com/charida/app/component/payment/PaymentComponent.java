@@ -20,10 +20,6 @@ public class PaymentComponent {
 		
 	}
 	
-	public String formatByComma(String str) {
-		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
-	}
-	
 	public List<Map<String, Object>> getSalesList(String memId, String startDate
 			, String endDate,String colCondition){
 		Map<String,String> params = new HashMap<String, String>();
@@ -50,4 +46,20 @@ public class PaymentComponent {
 		
 		return paymentDao.getSaleInfo(params);
 	}
+	public int updatePayment(int amount,String payMethod,String servId) {
+		//소수점 버림
+		Map<String,Object> params = new HashMap<String, Object>();
+		
+		int vat =(int)(amount * 0.1);
+		int ratio = (int)(vat*0.05);
+		params.put("supplyPayment",amount - vat - ratio);
+		params.put("payMethod", payMethod);
+		params.put("servId", servId);
+		
+		return paymentDao.updatePayment(params);
+	}
+	public String formatByComma(String str) {
+		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+	}
+	
 }

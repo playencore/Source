@@ -29,8 +29,8 @@ public class SuggService {
 	private PaymentComponent paymentComponent;
 	@Resource
 	private ShippingComponent shippingComponent;
-	
 	private final String errMsg = "데이터 갱신에 실패했습니다.";
+	
 	public List<Map<String,Object>> getList(Map<String, Object> parmas,HttpServletRequest req){
 		String memId = (String)parmas.get("sessionId");
 		int pageNo = 1;

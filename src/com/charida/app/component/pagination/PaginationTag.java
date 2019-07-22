@@ -16,11 +16,16 @@ public class PaginationTag extends TagSupport {
 	public int doEndTag() throws JspException{
 		
 		try {
-			
 			JspWriter out = pageContext.getOut();
             
             PaginationRenderer paginationRenderer = new DefaultPaginationRenderer();
             
+            if(paginationInfo == null) {
+            	paginationInfo = new PaginationInfo();
+            	paginationInfo.setCurrentPageNo(1);
+            	paginationInfo.setTotalRecordCount(0);
+            	
+            }
             String contents = paginationRenderer.renderPagination(paginationInfo, jsFunction);
             
             out.println(contents);

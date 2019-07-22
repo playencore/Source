@@ -168,4 +168,14 @@ public class ApplicationComponent {
 		
 		return applicationDao.updateProgress(datas);
 	}
+	
+	public List<Map<String, Object>> getPayList(Map<String, Object> param){
+		return applicationDao.getPayList(param);
+	}
+	public int getPayListCount(String memId){
+		return applicationDao.getPayListCount(memId);
+	}
+	public String formatByComma(String str) {
+		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+	}
 }
