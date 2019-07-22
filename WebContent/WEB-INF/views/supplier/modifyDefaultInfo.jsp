@@ -7,6 +7,7 @@
 <script src="/js/mail/sendmail.js"></script>
 <script src="/js/addresssearch.js"></script>
 
+<c:forEach var="SupplierDto" items="${supplier_info}">
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -48,10 +49,11 @@
 										}); // 업체넘버 중복 방지 ajax
 
 						$('select').formSelect();
-
+						
 						var slider = document.getElementById('test-slider');
 						noUiSlider.create(slider, {
-							start : [ 20, 80 ],
+							
+							start : [ ${SupplierDto.minimum_seating}, ${SupplierDto.maximum_seating} ],
 							connect : true,
 							step : 1,
 							orientation : 'horizontal', // 'horizontal' or 'vertical'
@@ -186,15 +188,17 @@
 	}
 //-->
 </script>
+</c:forEach>
 <br>
 <br>
+
 <div class="row  card">
 	<div class="col s12  ">
 		<div class="col s1"></div>
 		<div class="col s2">
 			<br>
-			<h5>판매자 마이페이지</h5>
-			<br>
+			<h5>판매자 마이페이지 </h5>
+			<br>	
 			<br>
 		</div>
 	</div>
@@ -221,151 +225,21 @@
 					class="collection-item">Alvin</a>
 			</div>
 		</div>
-		<div class="col s7">
+<c:forEach var="SupplierDto" items="${supplier_info}">
+<div class="col s7">		
 <div class="row">
 	<div class="col s10">
 		<div class="col s10"></div>
 		<div class="col s10 card-panel">
-			<p class="header">&nbsp;&nbsp;&nbsp;기본정보 수정</p>
+			<p class="header">&nbsp;&nbsp;&nbsp;기본정보 수정  </p>
 			<form name="joinsupplierForm" method="post"
 				action="/joinUser/joinSupplierPro.do" enctype="multipart/form-data"
 				onsubmit="return supplierinput() ">
-				<div id="memberForm">
-					<div id="memberForm">
-						<input type="hidden" name="authority" value="3">
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="mem_id" id="mem_id" type="text" class="validate">
-								<label for="mem_id">*아이디</label> <span class="helper-text"
-									id="mem_id_comment"></span>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="passwd" id="passwd" type="password"
-									class="validate"> <label for="passwd">*비밀번호</label> <span
-									class="helper-text" id="passwd_comment"></span>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="passwdcheck" id="passwdcheck" type="password"
-									class="validate"> <label for="passwdcheck">*비밀번호
-									확인</label> <span class="helper-text" id="passwdcheck_comment"></span>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="name" id="name" type="text" class="validate">
-								<label for="name">*이름</label> <span class="helper-text"
-									id="name_comment"></span>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s8">
-								<input name="email" id="email" type="email" class="validate">
-								<label for="email">*이메일</label> <span class="helper-text"
-									id="email_comment"></span>
-							</div>
-							<div class="col s4">
-								<a class="waves-effect waves-light btn" style="margin-top: 20px"
-									onclick="sendemail();" contenteditable="true">이메일 인증 </a>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s8">
-								<input type="hidden" name="emailcode" value=""> <input
-									name="emailcheck" id="emailcheck" type="text" class="">
-								<label for="emailcheck">*이메일 인증번호 입력</label> <span
-									class="helper-text" id="emailcheck_comment"></span>
-							</div>
-							<div class="col s4">
-								<a id="bt_sendemail" class="waves-effect waves-light btn"
-									style="margin-top: 20px" onclick="codecompare();">인증번호 확인</a>
-							</div>
-						</div>
-						<!--  주소 넣기 -->
-						<div>
-							<div class="col s12">
-								<div id="sec_addr" style="margin-bottom: 0px;">
-									<div class="col s8">
-										<div class="input-field">
-											<input type="hidden" id="zipcode" name="zipcode"> <input
-												readonly="readonly" value="검색 버튼을 눌러주세요." id="address"
-												name="address" type="text" class="validate"> <label
-												for="address">*주소입력</label>
-										</div>
-									</div>
-									<div id="serchadress" class="col s4">
-										<a class="btn waves-effect waves-light modal-trigger "
-											href="#modal1" onclick="daumPostcode()"
-											style="margin-top: 15px; margin-left: 10px" id="btn_addr">주소
-											검색</a>
-									</div>
-									<div class="col s12">
-										<div class="input-field">
-											<input id="address_detail" name="address_detail" type="text"
-												class="validate" data-length="50"> <label
-												for="address_detail">*상세주소</label>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="tel" id="tel" type="text" class="validate">
-								<label for="tel">*전화번호</label> <span class="helper-text"
-									id="tel_comment">-를 제외한 번호만 입력하세요</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s12">
-								<input name="birth_date" id="birth_date" type="text"
-									class="validate"> <label for="birth_date">*생년월일</label>
-								<span class="helper-text" id="birth_date_comment">ex)19000101</span>
-							</div>
-						</div>
-						<br> &nbsp; &nbsp; &nbsp;*성별
-						<div class="col s12">
-							<div class="col s6">
-								<p>
-									<label> <input class="with-gap" name="gender"
-										type="radio" value="0" checked /> <span>남자</span>
-									</label>
-								</p>
-							</div>
-							<div class="col s6">
-								<p>
-									<label> <input class="with-gap" name="gender"
-										type="radio" value="1" /> <span>여자</span>
-									</label>
-								</p>
-							</div>
-						</div>
-						<br>
-					</div>
-					<div class="input-field col s12" style="margin-left: 10px;">
-						<select name="job">
-							<option value="" disabled selected>직업을 선택해주세요</option>
-							<option value="1">학생</option>
-							<option value="2">회사원</option>
-							<option value="3">주부</option>
-							<option value="4">기타</option>
-						</select> <label>직업을 선택해주세요</label>
-					</div>
-					<div class="col s6">
-						<a class="waves-effect waves-light btn"
-							onclick="return showSupplierForm() " id="btn_next">다음 <i
-							class="fas fa-caret-right"
-							style="margin-left: 5px; font-size: 14px"></i></a> <br> <br>
-					</div>
-				</div>
-				<div id="supplierForm" style="display: none">
+				<div id="supplierForm" >
 					<div class="col s12">
 						<div class="input-field col s12">
 							<input name="companyname" id="companyname" type="text"
-								class="validate" data-length="13"> <label
+								class="validate" data-length="13" value="${SupplierDto.name}"> <label
 								for="companyname">*업체 이름</label> <span class="helper-text"
 								id="companynamecheck"></span>
 						</div>
@@ -373,7 +247,7 @@
 					<div class="col s12">
 						<div class="input-field col s12">
 							<input name="regist_num" id="regist_num" type="number"
-								class="validate" placeholder="-를 제외한 숫자만 입력해주세요."> <label
+								class="validate" placeholder="-를 제외한 숫자만 입력해주세요." value="${SupplierDto.regist_num}"> <label
 								for="regist_num">*사업자번호</label> <span class="helper-text"
 								id="supplierlicensNumval"></span>
 						</div>
@@ -381,7 +255,7 @@
 					<div class="col s12">
 						<div class="input-field col s12">
 							<textarea name="explanation" id="explanation"
-								class="validate materialize-textarea" data-length="130"></textarea>
+								class="validate materialize-textarea" data-length="130">${SupplierDto.explanation}</textarea>
 							<label for="explanation">업체 소개</label> <span class="helper-text"
 								id="explanationcheck"></span>
 						</div>
@@ -392,7 +266,7 @@
 						<br>
 						<div id="test-slider" class="col s12"></div>
 						<div class="input-field col s6">
-							<input type="text" name="minimum_seating" value="1"
+							<input type="text" name="minimum_seating" 
 								class="validate center-align" readOnly> <label
 								for="minimum_seating"></label> <span class="helper-text">*최소수용인원</span>
 
@@ -407,7 +281,7 @@
 					<div class="col s12">
 						<p>사업자 등록증</p>
 						<input name="cert_file_id" type="file" class="dropify"
-							data-height="100">
+							data-height="100" src="/file/file-down/${SupplierDto.cert_file_id}">
 					</div>
 
 					<div class="col s12">
@@ -551,15 +425,13 @@
 							</label>
 						</div>
 					</div>
+
+
 					<div class="col s6">
-						<a class="waves-effect waves-light btn" href="#"
-							onclick="return showMemberForm()" id="btn_next">이전 <i
-							class="fas fa-caret-left"
-							style="margin-left: 5px; font-size: 14px"></i></a>
 					</div>
 					<div class="col s6">
 						<button class="btn waves-effect waves-light" type="submit">
-							<i class="material-icons right">send</i> 판매자회원가입
+							<i class="material-icons right">send</i> 정보수정하기
 						</button>
 						<br> <br>
 					</div>
@@ -572,6 +444,7 @@
 </div>
 
 </div>
+</c:forEach>
 </div>
 </div>
 

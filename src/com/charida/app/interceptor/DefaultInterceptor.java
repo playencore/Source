@@ -46,6 +46,8 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/member/checkMem_idDB.do"
 			,"/member/getEmail.do"
 			,"/member/getpasswd.do"
+			,"/joinUser/checkRegist_num.do"
+			,"/joinUser/joinSupplierPro.do"
 		};
 	
 	@Override

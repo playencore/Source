@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.common.service.TestService;
+import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.FoodDto;
+import com.charida.app.supplier.dto.SupplierDto;
 import com.charida.app.supplier.service.SupplierService;
 
 @Controller
@@ -27,6 +29,8 @@ public class SupplierController {
 
 	@Resource
 	SupplierService supplierService;
+	@Resource
+	SupplierDao supplierDao;
 
 	@RequestMapping("/supplier/setfood.do")
 	public String setFood(HttpServletRequest req, HttpServletResponse resp) {
@@ -139,6 +143,9 @@ public class SupplierController {
 	}
 	@RequestMapping("/supplier/modifyDefaultInfo.do")
 	public String supplierModifyDefaultInfo(HttpServletRequest req, HttpServletResponse resp) {
+		String id = (String)req.getSession().getAttribute("session_id");
+		List<SupplierDto> supplier_info = supplierDao.supplier_info(id);
+		req.setAttribute("supplier_info", supplier_info);
 		
 		return "/supplier/modifyDefaultInfo";
 	}

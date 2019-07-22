@@ -120,5 +120,8 @@ public class SupplierDao {
 	public int insertServSuggMenu(Map<String, Object> menuparam) {
 		return sqlSession.insert("Supplier.insertServSuggMenu", menuparam) ;
 	}
+	public List<SupplierDto> supplier_info(String id){
+		return sqlSession.selectList("Supplier.supplier_info",id);
+	}
 
 }

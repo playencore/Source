@@ -200,5 +200,8 @@
 		INTO CRD_SERV_SUGG_MENU
 		VALUES(#{sugg_id},${menu_seq},#{name},#{weight},#{explanation},#{file_id})
 	</insert>
+	<select id="supplier_info" parameterType="String" resultType="com.charida.app.supplier.dto.SupplierDto">
+		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{session_id}
+	</select>
 	
 </mapper>
