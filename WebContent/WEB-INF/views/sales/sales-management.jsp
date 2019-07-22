@@ -170,10 +170,25 @@ function getSaleInfo(){
                },
                ticks: {
                   beginAtZero: false,
-                  fontColor: "#fff"
+                  fontColor: "#fff",
+                  callback: function(value, index, values) {
+                      return '￦' + numbeComma(value);
+                  }
                }
             }
-         ]
+         ],
+         tooltips: {
+        	callbacks: {
+        		label: function(t, e) {
+        			 var i = e.datasets[t.datasetIndex].label || "";
+        			 if (i) {
+                         i += ': ';
+                         i += '￦' + t.yLabel;
+                     }
+        			 return i;
+        		}
+        	}
+         }
       }
    };
 	$.ajax({
@@ -190,12 +205,24 @@ function getSaleInfo(){
 	        alert('상세정보 조회를 실패하셨습니다.');
 	    },
 	    success : function(data){
+	    	if(data.length == 0){
+	    		$('#sec_none').css('display','block');
+	    		$('#sec_data').css('display','none');
+	    		return;
+	    	}
 	    	var labelTxt = "[";
 	    	var serieTxt = "[";
+	    	var total = 0;
 	    	data.forEach(function(e,i){
 	    		labelTxt += "'"+e.DAY+"',";
 	    		serieTxt += "'"+e.SUM_PAY+"',";
+	    		total += e.SUM_PAY;
 	    	});
+	    	if(total == 0 ){
+	    		$('#sec_none').css('display','block');
+	    		$('#sec_data').css('display','none');
+	    		return;
+	    	}
 	    	labelTxt += "]";
 	    	serieTxt += "]";
 	    	
@@ -239,7 +266,9 @@ function getSaleInfo(){
    		      data: chartDatas
    		   };
    		   lineChart = new Chart(ctx, chartConfig);
-   			getTable();
+   		   getTable();
+   		   $('#sec_none').css('display','none');
+		   $('#sec_data').css('display','block');
 	    }     
 	});
 }
@@ -308,7 +337,16 @@ function showToast(msg){
 		         		<a class="waves-effect waves-light btn" onclick="getSaleInfo()">검색</a>
 		         	</div>
 				</div>
-				<div class="col m12" style="padding: 8px;">
+				<div class="col m12" style="border: 1px solid #eeeeee; margin-bottom: 20px;display:none;" id="sec_none">
+					<ul class="collection with-header">
+						<li class="collection-header">
+							<h5 class="task-card-title mb-3" style="text-align: center;">
+								조회된 내용이 없습니다.
+							</h5>
+						</li>
+					</ul>
+				</div>
+				<div class="col m12" style="padding: 8px; display: none" id="sec_data">
 			         <div class="card animate fadeUp" style="overflow: hidden;">
 			            <div class="card-move-up waves-effect waves-block waves-light">
 			               <div class="move-up cyan darken-1">
@@ -357,13 +395,7 @@ function showToast(msg){
 			                     </tr>
 			                  </thead>
 			                  <tbody id = "tby_result">
-			                     <tr>
-			                        <td>2019-01-01</td>
-			                        <td>￦ 3,999,1000</td>
-			                        <td>￦ 120,000</td>
-			                        <td>￦ 123,123</td>
-			                        <td>￦ 2,898,123</td>
-			                     </tr>
+			                     
 			                  </tbody>
 			               </table>
 			            </div>

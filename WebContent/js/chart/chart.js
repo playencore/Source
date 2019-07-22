@@ -4001,9 +4001,14 @@
                 beforeLabel: ut.noop,
                 label: function(t, e) {
                     var i = e.datasets[t.datasetIndex].label || "";
-                    return i && (i += ": "),
+                    if (i) {
+                        i += ': ';
+                        i += '￦ ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                    return i;
+                   /* return i && (i += ": "),
                     ut.isNullOrUndef(t.value) ? i += t.yLabel : i += t.value,
-                    i
+                    i*/
                 },
                 labelColor: function(t, e) {
                     var i = e.getDatasetMeta(t.datasetIndex).data[t.index]._view;

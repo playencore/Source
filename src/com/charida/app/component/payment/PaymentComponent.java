@@ -27,7 +27,7 @@ public class PaymentComponent {
 	public List<Map<String, Object>> getSalesList(String memId, String startDate
 			, String endDate,String colCondition){
 		Map<String,String> params = new HashMap<String, String>();
-		//params.put("memId", memId);
+		params.put("memId", memId);
 		if("2".equals(colCondition)) {
 			String startMonth = startDate.substring(0,startDate.lastIndexOf("-"));
 			String endMonth = endDate.substring(0,endDate.lastIndexOf("-"));
@@ -44,7 +44,7 @@ public class PaymentComponent {
 	public List<Map<String,Object>> getSaleInfo(String memId, String startDate
 			, String endDate){
 		Map<String,String> params = new HashMap<String, String>();
-		//params.put("memId", memId);
+		params.put("memId", memId);
 		params.put("startDate", startDate);
 		params.put("endDate", endDate);
 		
