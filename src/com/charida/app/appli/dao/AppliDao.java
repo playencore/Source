@@ -23,4 +23,16 @@ public class AppliDao extends CommonDao{
 	public Map<String, Object> getAppliInfo(String appliId){
 		return sqlSession.selectOne("Appli.getAppliInfo", appliId);
 	}
+	public List<Map<String, Object>> getSuggInfo(String appliId){
+		return sqlSession.selectList("Appli.getSuggInfo", appliId);
+	}
+	public int setSuggState(String suggId){
+		return sqlSession.update("Appli.setSuggState", suggId);
+	}
+	public int setAppState(String suggId){
+		return sqlSession.update("Appli.setAppState", suggId);
+	}
+	public int addPayRow(Map<String, Object> totalAndServId) {
+		return sqlSession.insert("Appli.addPayRow", totalAndServId);
+	}
 }

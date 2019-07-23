@@ -9,12 +9,17 @@
 		SELECT COUNT(*)
 		FROM CRD_SERV_APP
 		WHERE CUSTOMER_ID = #{customerid}
+		AND PROGRESS_CODE IN (  'STU0010001'
+								, 'STU0010002'
+								, 'STU0010003'
+								, 'STU0010004'
+		)
 	</select>
 	
 	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 기본정보 -->
 	<select id="getAppliList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
-			D.ADDRESS, D.APP_DATE, SUGG_CNT, D.SERV_ID, D.PER_BUD, D.SERV_DATE
+			D.ADDRESS, D.APP_DATE, SUGG_CNT, D.SERV_ID, D.PER_BUD, D.SERV_DATE, PROGRESS_CODE
 		FROM (
 				SELECT
 					C.*, ROWNUM AS NUM
@@ -22,12 +27,19 @@
 						SELECT ADDRESS, TO_CHAR(APP_DATE ,'YYYY-MM-DD HH24:MI:SS' ) APP_DATE
 							, (	SELECT COUNT(SUGG_ID) FROM CRD_SERV_SUGG B WHERE B.SERV_ID = A.SERV_ID) AS SUGG_CNT
 							, SERV_ID, PER_BUD, TO_CHAR(SERV_DATE ,'YYYY-MM-DD HH24:MI:SS' ) SERV_DATE
+							, PROGRESS_CODE
 						FROM CRD_SERV_APP A
 						WHERE CUSTOMER_ID = #{memId}
+							AND PROGRESS_CODE IN (  'STU0010001'
+								, 'STU0010002'
+								, 'STU0010003'
+								, 'STU0010004'
+							)
 				) C
 		) D
 		WHERE 
 			NUM BETWEEN #{startNum} AND #{endNum}
+			
 	</select>
 	
 	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 상세정보 -->
@@ -43,4 +55,36 @@
 		WHERE A.CUSTOMER_ID = M.MEM_ID
 		AND SERV_ID = #{appliId}
 	</select>
+	
+	<!-- 매 신청건마다 제안이 들어온 판매자별 모든정보 -->
+	<select id="getSuggInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		select distinct 
+			s.sugg_id, s.serv_id, s.per_bud, TO_CHAR(s.sugg_date,'YYYY-MM-DD HH24:MI:SS') as sugg_date
+			, m.name m_name, m.weight, m.explanation m_explan, m.file_id
+			, c.explanation c_explan, c.maximum_seating
+		from 
+			crd_serv_sugg s, crd_serv_sugg_menu m, crd_company c
+		where 
+			s.sugg_id = m.sugg_id
+			and s.mem_id = c.mem_id
+			and s.serv_id = #{appliId}
+	</select>
+	<!-- 1.구매자가 제안을 수락한 건의 처리(crd_serv_sugg, crd_serv_app 상태값 변경) -->
+	<update id="setSuggState" parameterType="java.lang.String">
+		update crd_serv_sugg set choose_yn = 'Y'
+		, choose_date = sysdate
+		where sugg_id = #{suggId}
+	</update>
+	<update id="setAppState" parameterType="java.lang.String">
+		update crd_serv_app aa set progress_code = 'STU0030001'
+		where aa.serv_id = (select serv_id from crd_serv_sugg where sugg_id = #{suggId})
+	</update>
+	<!-- 2.구매자가 제안을 수락한 건의 처리(crd_serv_pay row 추가) -->
+	<insert id="addPayRow" parameterType="java.util.Map">
+		INSERT INTO crd_serv_pay
+			(serv_id, status, amount, vat, supply_payment, pay_date, method, ratio)
+		VALUES (
+			#{servId}, 'N', #{total}, 10, 0, null, null, 5
+		)
+	</insert>
 </mapper>

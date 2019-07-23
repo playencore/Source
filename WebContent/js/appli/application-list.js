@@ -13,19 +13,18 @@ function showDetail(SERV_ID){
 	$.ajax({
 	    
 	    type : "post",
-	    url : "/appli/getApplicationInfo.do",
+	    url : "/appli/getDetailInfoList.do",
 	    data:{
 	    	appliId:SERV_ID
 	    },
 	    dataType : "json",
 	    error : function(data){
-	        alert('상세정보 조회를 실패하셨습니다.')
+	        alert('상세정보 조회를 실패하셨습니다.');
 	    },
 	    success : function(data){
 	    	updateUi(data,SERV_ID);
-//	    	viewMap(data.ADDRESS);
+	    	viewMap(data.ADDRESS);
 	    	$('.modal').modal('open');
-	    	alert("js ajax end");
 	    }     
 	});
 	
@@ -35,7 +34,6 @@ function showDetail(SERV_ID){
 }
 
 function updateUi(data,appliId){
-	alert("js updateUi 시작");
 	$('#app_title').text("신청번호 " + appliId);
 	$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50
 	$('#app_name').text(data.NAME);
@@ -65,14 +63,14 @@ function updateUi(data,appliId){
 	$('#age_max').text(data.AGE_MAX);	// AGE_MAX: 60
 	$('#age_min').text(data.AGE_MIN);	// AGE_MIN: 26
 	$('#age_minmax').text(data.AGE_MIN+" ~ "+data.AGE_MAX+" 세");
-	
-	$('#per_men').text(data.PER_MEN+" %");	// 남자성비 PER_MEN: 3
-	var women = 100 - data.PER_MEN;
+	var men = data.PER_MEN * 10
+	$('#per_men').text(men+" %");	// 남자성비 PER_MEN: 3
+	var women = (10 - data.PER_MEN) * 10;
 	$('#per_women').text(women+" %");	// 남자성비 PER_MEN: 3
 	
 	//행사정보
-	$('#serv_type_code').text(data.SERV_TYPE_CODE);	//서비스 타입코드 SERV_TYPE_CODE: "SER0000010"
-	$('#event_type_code').text(data.EVENT_TYPE_CODE);	// 행사형식코드 EVENT_TYPE_CODE: "EVT0000010"
+	$('#serv_type_code').text(data.SERV_TYPE_NAME);	//진행(서비스)형식 타입코드 SERV_TYPE_CODE: "SER0000010"
+	$('#event_type_code').text(data.EVENT_TYPE_NAME);	// 행사형식코드 EVENT_TYPE_CODE: "EVT0000010"
 	$('#coordinator_yn').text(data.COORDINATOR_YN);	// 코디네이터 COORDINATOR_YN: "Y"
 	$('#tableware_yn').text(data.TABLEWARE_YN);	// 추가식기 TABLEWARE_YN: "Y"
 	$('#dessert_yn').text(data.DESSERT_YN);	// 후식 DESSERT_YN: "Y"
@@ -87,8 +85,42 @@ function updateUi(data,appliId){
 	$('#zipcode').text(data.ZIPCODE);	// ZIPCODE: "06646"
 	$('#end_date').text(data.END_DATE);	// END_DATE: "[null]"
 	
+	var sugglist = data.suggInfo;
 	
-	
+	var suggListHead = "";
+	var suggListBody = "";
+	if(sugglist.length != 0){
+		$('#suggListNull').css('display','none');
+		$('#suggListNotNull').css('display','block');
+			suggListHead += "<tr>";
+			suggListHead += "<th>제안일</th>";
+			suggListHead += "<th>메뉴명</th>";
+			suggListHead += "<th>인당금액</th>";
+			suggListHead += "<th>음식중량</th>";
+			suggListHead += "<th>음식설명</th>";
+			suggListHead += "<th>총비용</th>";
+			suggListHead += "<th>채택</th>";
+			suggListHead += "</tr>";
+		sugglist.forEach((function(suggMap,i){
+			var suggTotal = suggMap.PER_BUD * data.PARTICIPANT;
+			suggListBody += "<tr>";
+			suggListBody += "<td>" +suggMap.SUGG_DATE+ "</td>";
+			suggListBody += "<td>" +suggMap.M_NAME+ "</td>";
+			suggListBody += "<td>" +suggMap.PER_BUD+ "</td>";
+			suggListBody += "<td>" +numbeComma(suggMap.WEIGHT)+ "</td>";
+			suggListBody += "<td>" +suggMap.M_EXPLAN+ "</td>";
+			suggListBody += "<td>" +suggTotal+ "</td>";
+			suggListBody += "<td>" +"<input type='button' value='채택' id='suggNum"+ i +"' ";
+			suggListBody += "onclick=\"selectCustomer('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\"></td>";
+			suggListBody += "</tr>"
+		}))
+		$('#sugg_info_head').html(suggListHead);
+		$('#sugg_info_body').html(suggListBody);
+	} else {
+		$('#suggListNull').css('display','block');
+		$('#suggListNotNull').css('display','none');
+	}
+
 //	
 //	var menuBody = "";
 //	if(data.menuInfo != null){
@@ -167,19 +199,42 @@ function updateUi(data,appliId){
 //		content = content.substring(0,content.lastIndexOf(','));
 //		li +=createBody(title,content);
 //	}
-	li += createBody('코디네이터 신청여부',data.COORDINATOR_YN);
-	li += createBody('실내여부',data.INTERIOR_YN);
-	li += createBody('취사여부',data.COOKING_YN);
-	li += createBody('쓰레기 배출여부',data.DISCHARGE_YN);
-	li += createBody('주차가능여부',data.PARKING_YN);
-	li += createBody('엘레베이터 유무',data.ELEVATOR_YN);
-	li += createBody('요청사항',data.REQUESTED_TERM);
+	
 	li += createMap(data.ADDRESS,data.ADDRESS_DETAIL,data.ZIPCODE);
 	$('#ul_app').html(li);
 }
+
+//상세리스트에서 업체를 채택 함
+function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
+	alert( "SUGG_ID" + SUGG_ID );
+	$.ajax({
+		    
+		    type : "post",
+		    url : "/appli/selectCustomer.do",
+		    data:{
+		    	suggId:SUGG_ID,
+		    	total:TOTAL,
+		    	servId:SERV_ID
+		    },
+		    dataType : "json",
+		    error : function(data){
+		        alert('채택에 실패했습니다.');
+		    },
+		    success : function(data){
+		    	alert('채택에 성공했습니다.');
+		    	window.location.href = "/service/cus-app-list.do";
+		    }     
+		});
+}
+
 function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'
-		+'<span class="width-100" style="font-size: 14px">서비스 제공위치</span>'
+		+'<li class="collection-header" style="background-color: #eee">'
+		+'<h6 class="task-card-title mb-3" style="text-align: center;">'
+		+'서비스 제공위치'
+		+'</h6>'
+		+'</li>'
+		
 		+'<p class="secondary-content">'
 		+'<table class="highlight centered">'
 		+'<thead>'

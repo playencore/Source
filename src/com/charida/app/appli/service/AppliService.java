@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.charida.app.common.service.TestService;
 import com.charida.app.component.appli.AppliComponent;
+import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.pagination.PaginationInfo;
 
 @Service
@@ -21,8 +22,10 @@ public class AppliService {
 	protected Log log = LogFactory.getLog(TestService.class);
 	@Resource
 	private AppliComponent appliComponent;
+	@Resource
+	private CategoryComponent categoryComponent;
 	
-	private final String errMsg = "데이터 갱신에 실패했습니다.";
+//	private final String errMsg = "데이터 갱신에 실패했습니다.";
 	
 	// 신청 기본정보에 필요한 정보를 조회해 옴
 	public List<Map<String, Object>> getList(Map<String, Object> params, HttpServletRequest req){
@@ -60,12 +63,37 @@ public class AppliService {
 	public Map<String, Object> getAppliInfo(String appliId){
 		// 모든 신청정보 조회
 		Map<String, Object> result = appliComponent.getAppliInfo(appliId);
-		log.debug("sev result1 : " + result);
 		if(result == null || result.isEmpty()) {
 			return null;
 		}
 		
-		log.debug("sev result2 : " + result);
+		if(result.get("SERV_TYPE_CODE") != null ) {
+			String servCode = (String)result.get("SERV_TYPE_CODE");
+			result.put("SERV_TYPE_NAME", categoryComponent.getCodeName(servCode));
+		}
+		
+		if(result.get("EVENT_TYPE_CODE") != null ) {
+			String eventCode = (String)result.get("EVENT_TYPE_CODE");
+			result.put("EVENT_TYPE_NAME", categoryComponent.getCodeName(eventCode));
+		}
+		result.put("suggInfo", getSuggInfo(appliId));
+		return result;
+	}
+	// 주문번호(appliId)를 통하여 신청테이블(CRD_SERV_SUGG)의 모든 정보를 갖고옴
+	public List<Map<String, Object>> getSuggInfo(String appliId){
+		return appliComponent.getSuggInfo(appliId);
+	}
+	public int setStateAppSuggTx(String suggId, String total, String servId) {
+		suggId = suggId.trim();
+		// 제안테이블 상태 변경(crd_serv_sugg)
+		int result1 = appliComponent.setSuggState(suggId);
+		// 신청테이블 상태 변경(crd_serv_app)
+		int result2 = appliComponent.setAppState(suggId);
+		Map<String, Object> totalAndServId = new HashMap<String, Object>();
+		totalAndServId.put("total", total);
+		totalAndServId.put("servId", servId);
+		int result3 = appliComponent.addPayRow(totalAndServId);
+		int result = result1 * result2 * result3;
 		return result;
 	}
 	//결제대기 리스트

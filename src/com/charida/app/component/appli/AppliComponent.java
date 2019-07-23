@@ -26,7 +26,7 @@ public class AppliComponent {
 		return appliDao.getAppliListCount(appli_id);
 	}
 	
-	// 주문번호(appliId)를 통하여 모든 정보를 갖고옴
+	// 주문번호(appliId)를 통하여 신청테이블(CRD_SERV_APP)의 모든 정보를 갖고옴
 	public Map<String, Object> getAppliInfo(String appliId){
 		Map<String, Object> appliInfo = appliDao.getAppliInfo(appliId);
 		
@@ -41,8 +41,20 @@ public class AppliComponent {
 		per_bud = formatByComma(per_bud) ;
 		appliInfo.remove("PER_BUD");
 		appliInfo.put("PER_BUD", per_bud);
-			
-			return appliInfo;
+		return appliInfo;
+	}
+	// 주문번호(appliId)를 통하여 신청테이블(CRD_SERV_SUGG)의 모든 정보를 갖고옴
+	public List<Map<String, Object>> getSuggInfo(String appliId){
+		return appliDao.getSuggInfo(appliId);
+	}
+	public int setSuggState(String suggId){
+		return appliDao.setSuggState(suggId);
+	}
+	public int setAppState(String suggId){
+		return appliDao.setAppState(suggId);
+	}
+	public int addPayRow(Map<String, Object> totalAndServId) {
+		return appliDao.addPayRow(totalAndServId);
 	}
 	
 	public String formatByComma(String str) {
