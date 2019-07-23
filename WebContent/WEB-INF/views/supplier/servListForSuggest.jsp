@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp"%>
+<style>
+	.modal.modal-fixed-footer {
+	    padding: 0;
+	    height: 80%;
+	}
+	.modal {
+	    display: none;
+	    position: fixed;
+	    left: 0;
+	    right: 0;
+	    background-color: #fafafa;
+	    padding: 0;
+	    max-height: 80%;
+	    width: 55%;
+	    margin: auto;
+	    overflow-y: auto;
+	    border-radius: 2px;
+	    will-change: top, opacity;
+	}
+	.pagination li.active {
+    background-color: #26a69a;
+}
+</style>
 
 <script>
 	//<!--
@@ -8,7 +31,7 @@ var menucountarr = new Array() ;
 
 $(document).ready(function(){
 	//구분자
-	for(var i = 0 ; i<${servlistsize} ; i++){
+	for(var i = 0 ; i< ${servlistsize} ; i++){
 		menucountarr[i] = new Array();
 	}
 	
@@ -37,6 +60,7 @@ $(document).ready(function(){
 								alert("검색에 성공했습니다.") ;
 								$("#startdate").val('') ;
 								$("#enddate").val('') ;
+								resetDatePicker()
 								showServeList(result);
 								searchResultModal(result);
 							},
@@ -97,60 +121,205 @@ function showServeList(result){
 		+		"<div class = 'modallist'>"
 		+			"<div id='servlistModal"+i+"' class='modal'>"
 		+				"<div class='modal-content'>"
-		+					"<h4>신청 상세보기</h4>"
-		+					"<p>"
-		+						"신청_id :"+result.data[i].SERV_ID+"<br>"
-		+						"서비스 제공 우편번호 :"+result.data[i].ZIPCODE+"<br>"
-		+						"서비스 제공 주소 :"+result.data[i].ADDRESS+"<br>"
-		+						"서비스 제공 상세주소 "+result.data[i].ADDRESS_DETAIL+"<br>"
-		+						"판매자 선호 메뉴 :" ;
-		
-									if(result.data[i].PREFLIST !=null){
-										for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
-											if(result.data[i].PREFLIST[j] != null){
-												slist=slist+result.data[i].PREFLIST[j]
+		+					"<ul class = 'collection with-header'>"
+		+						"<li class='collection-header' style='background-color: #eee'>"
+		+							"<h6 class='task-card-title mb-3' style='text-align: center'>"
+		+							"-신청내용-"
+		+							"</h6>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"신청_id"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].SERV_ID
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"서비스 제공 우편번호"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].ZIPCODE
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"서비스 제공 주소"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].ADDRESS
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"서비스 제공 상세주소"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].ADDRESS_DETAIL
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"판매자 선호 메뉴"
+		+							"</span>"
+		+							"<span class='secondary-content'>";
+										if(result.data[i].PREFLIST !=null){
+											for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
+												if(result.data[i].PREFLIST[j] != null){
+													slist=slist+result.data[i].PREFLIST[j]
+												}
 											}
 										}
-									}
-		slist=slist							
-		+						"<br>"
-		+						"1인당 예산 : "+result.data[i].PER_BUD+"<br>"
-		+						"참가자수 :  "+result.data[i].PARTICIPANT+"<br>"
-		+						"연령층 :  "+result.data[i].AGE_MIN+" ~ "+result.data[i].AGE_MAX+"<br>"
-		+						"참가자 남여 비율 : [남:여]   "+result.data[i].PER_MEN+" :  "+(10-result.data[i].PER_MEN)+"<br>"
-		+						"서비스 형식 :  "+result.data[i].SERV_TYPE+"<br>"
-		+						"행사 형식 :  "+result.data[i].EVENT_TYPE+"<br>"
-		+						"후식 : ";
-								if(result.data[i].DRTLIST !=null){
-									for(var j  = 0 ; j < Object.keys(result.data[i].DRTLIST).length ; j++){
-										slist=slist+result.data[i].DRTLIST[j] 
-									}
-								}
-		slist=slist						
-		+						"<br>"
-		+						"서비스 제공일시 : "+result.data[i].APP_DATE+"<br>"
-		+						"실내여부 : "+result.data[i].INTERIOR_YN+"<br>"
-		+						"취사여부 : "+result.data[i].COOKING_YN+"<br>"
-		+						"쓰레기 배출 여부 : "+result.data[i].DISCHARGE_YN+"<br>"
-		+						"엘리베이터 여부 : "+result.data[i].ELEVATOR_YN+"<br>"
-		+						"주차장 여부 : "+result.data[i].PARKING_YN+"<br>"
-		+						"추가 식기 :";
-								if(result.data[i].TBWLIST != null){
-									for(var j  = 0 ; j < Object.keys(result.data[i].TBWLIST).length ; j++){
-										slist=slist+result.data[i].TBWLIST[j] 
-									}
-								}
-		slist=slist						
-		+						"<br>"
-		+						"코디 네이터 신청 여부 : "+result.data[i].COORDINATOR_YN+"<br>"
-		+						"요청 사항 : " ;
+		slist=slist								
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"1인당 예산"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].PER_BUD
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"참가자수"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].PARTICIPANT
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"연령층"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].AGE_MIN+" ~ "+result.data[i].AGE_MAX
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"참가자 남여 비율"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								"[남:여]"+result.data[i].PER_MEN+" : "+(10-result.data[i].PER_MEN)
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"서비스 형식"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].SERV_TYPE
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"행사 형식"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].EVENT_TYPE
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"후식"
+		+							"</span>"
+		+							"<span class='secondary-content'>";
+										if(result.data[i].DRTLIST !=null){
+											for(var j  = 0 ; j < Object.keys(result.data[i].DRTLIST).length ; j++){
+												slist=slist+result.data[i].DRTLIST[j] 
+											}
+										}
+		slist=slist
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"서비스 제공일시"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].APP_DATE
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"실내여부"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].INTERIOR_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"취사여부"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].COOKING_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"쓰레기 배출 여부"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].DISCHARGE_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"엘리베이터 여부"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].ELEVATOR_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"주차장 여부"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].PARKING_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"추가 식기"
+		+							"</span>"
+		+							"<span class='secondary-content'>";
+										if(result.data[i].TBWLIST != null){
+											for(var j  = 0 ; j < Object.keys(result.data[i].TBWLIST).length ; j++){
+												slist=slist+result.data[i].TBWLIST[j] 
+											}
+										}
+		slist=slist									
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"코디 네이터 신청 여부 "
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].COORDINATOR_YN
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"요청 사항 "
+		+							"</span>"
+		+							"<span class='secondary-content'>";
+										if(result.data[i].REQUESTED_TERM !=null){
+											slist=slist+result.data[i].REQUESTED_TERM+"" 
+										}
+		slist=slist
+		+							"</span>"
+		+						"</li>"
+		+					"</ul>" ;
 		
-								if(result.data[i].REQUESTED_TERM !=null){
-									slist=slist+result.data[i].REQUESTED_TERM+"" 
-								}
+		
 								
 		slist=slist						
-		+					"</p>"
 		+				"</div>"
 		+				"<div class='modal-footer'>"
 		+					"<a href='#!' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
@@ -213,6 +382,7 @@ function showServeList(result){
 function setDatePicker(){
 	var deoption = {
 		   minDate:new Date(moment().add(1,'days').format())
+		  ,autoClose:true
 		  ,format:'yyyy-mm-dd'
 		  ,i18n:{
 	  		  cancel:'닫기',
@@ -269,6 +439,11 @@ function setDatePicker(){
 		$('#enddate').on({change:function(){
 			$('#enddate')[0].M_Datepicker.options.maxDate = $('#startdate')[0].M_Datepicker.date
 		}});
+}
+
+function resetDatePicker(){
+	$(".date").datepicker('destroy');
+	setDatePicker();
 }
 
 function setmenuaddlist(count){
@@ -399,42 +574,179 @@ function menusubmit(ct){
 					<div id="servModal${count}" class="modal">
 						<div class="modal-content">
 							<h4>신청 상세보기</h4>
-							<p>
-								신청_id : ${serv.SERV_ID} <br>
-								서비스 제공 우편번호 : ${serv.ZIPCODE} <br>
-								서비스 제공 주소 : ${serv.ADDRESS} <br>
-								서비스 제공 상세주소 : ${serv.ADDRESS_DETAIL} <br>
-								판매자 선호 메뉴 : 
-								<c:forEach var = "PREFLIST" items="${serv.PREFLIST}">
-									${PREFLIST} 
-								</c:forEach>
-								<br>
-								1인당 예산 : ${serv.PER_BUD} <br>
-								참가자수 : ${serv.PARTICIPANT} <br>
-								연령층 : ${serv.AGE_MIN} ~ ${serv.AGE_MAX} <br>
-								참가자 남여 비율 : [남:여]  ${serv.PER_MEN} : ${10-serv.PER_MEN}   <br>
-								서비스 형식 : ${serv.SERV_TYPE} <br>
-								행사 형식 : ${serv.EVENT_TYPE} <br>
-								후식 : 
-								<c:forEach var = "DRT" items="${serv.DRTLIST}">
-									${DRT} 
-								</c:forEach>
-								<br>
-								서비스 제공일시 : ${serv.APP_DATE} <br>
-								실내여부 : ${serv.INTERIOR_YN} <br>
-								취사여부 : ${serv.COOKING_YN } <br>
-								쓰레기 배출 여부 : ${serv.DISCHARGE_YN} <br>
-								엘리베이터 여부 : ${serv.ELEVATOR_YN}<br>
-								주차장 여부 : ${serv.PARKING_YN}<br>
-								추가 식기 :
-								<c:forEach var = "TBW" items="${serv.TBWLIST}">
-									${TBW} 
-								</c:forEach>
-								<br>
-								코디 네이터 신청 여부 : ${serv.COORDINATOR_YN}<br>
-								요청 사항 : ${serv.REQUESTED_TERM} 
-								
-							</p>
+							<ul class = "collection with-header">
+								<li class="collection-header" style="background-color: #eee">
+									<h6 class="task-card-title mb-3" style="text-align: center;">
+											-신청내용-
+									</h6>
+								</li>
+								<li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	신청_id
+									 </span>
+									 <span class="secondary-content">
+										 ${serv.SERV_ID}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	서비스 제공 우편번호
+									 </span>
+									 <span class="secondary-content">
+										${serv.ZIPCODE}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	서비스 제공 주소
+									 </span>
+									 <span class="secondary-content">
+										${serv.ADDRESS}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	서비스 제공 상세주소
+									 </span>
+									 <span class="secondary-content">
+										${serv.ADDRESS_DETAIL}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 선호 메뉴 
+									 </span>
+									 <span class="secondary-content">
+										<c:forEach var = "PREFLIST" items="${serv.PREFLIST}">
+											${PREFLIST} 
+										</c:forEach>
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	1인당 예산
+									 </span>
+									 <span class="secondary-content">
+										${serv.PER_BUD}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	참가자수
+									 </span>
+									 <span class="secondary-content">
+										${serv.PARTICIPANT}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	연령층
+									 </span>
+									 <span class="secondary-content">
+										${serv.AGE_MIN} ~ ${serv.AGE_MAX}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	참가자 남여 비율
+									 </span>
+									 <span class="secondary-content">
+										[남:여]  ${serv.PER_MEN} : ${10-serv.PER_MEN}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	서비스 형식
+									 </span>
+									 <span class="secondary-content">
+										${serv.SERV_TYPE}
+									 </span>
+								 </li>
+								  <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	행사 형식
+									 </span>
+									 <span class="secondary-content">
+										${serv.EVENT_TYPE}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	후식
+									 </span>
+									 <span class="secondary-content">
+										<c:forEach var = "DRT" items="${serv.DRTLIST}">
+											${DRT} 
+										</c:forEach>
+									 </span>
+								 </li>
+								  <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	서비스 제공일시
+									 </span>
+									 <span class="secondary-content">
+										${serv.APP_DATE}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	실내여부
+									 </span>
+									 <span class="secondary-content">
+										${serv.INTERIOR_YN}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	취사여부
+									 </span>
+									 <span class="secondary-content">
+										${serv.COOKING_YN }
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	쓰레기 배출 여부
+									 </span>
+									 <span class="secondary-content">
+										${serv.DISCHARGE_YN}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	엘리베이터 여부
+									 </span>
+									 <span class="secondary-content">
+										${serv.ELEVATOR_YN}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	추가 식기 
+									 </span>
+									 <span class="secondary-content">
+										<c:forEach var = "TBW" items="${serv.TBWLIST}">
+											${TBW} 
+										</c:forEach>
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	코디 네이터 신청 여부
+									 </span>
+									 <span class="secondary-content">
+										${serv.COORDINATOR_YN}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	요청 사항 
+									 </span>
+									 <span class="secondary-content">
+										${serv.REQUESTED_TERM} 
+									 </span>
+								 </li>
+							</ul>
 						</div>
 						<div class="modal-footer">
 							<a href="#!" class="modal-close waves-effect waves-green btn-flat">창닫기</a>

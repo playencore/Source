@@ -4,7 +4,6 @@
 <script src="/js/dropify.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.tabs').tabs();
 		$('#addFood').modal();
 		$('.dropify').dropify(); //파일 업로드
 		$('#name, #explanation').characterCounter();

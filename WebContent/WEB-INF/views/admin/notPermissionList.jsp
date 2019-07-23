@@ -4,7 +4,6 @@
 <script type="text/javascript">
 //<!--
   $(document).ready(function(){
-    $('.tabs').tabs();
     for( var i = 0 ; i < ${listsize} ; i++){
     	$('#infomodal'+i).modal();
     	$('#permissionmodal'+i).modal() ;
@@ -55,22 +54,101 @@
 					<div class = "modallist">
 						<div id="infomodal${count}" class="modal">
 							<div class="modal-content">
-								<h4>업체 상세보기</h4>
-								<p>
-									판매자 이름 : ${notPermissionSupplier.NAME} <br>
-									판매자 아이디 : ${notPermissionSupplier.MEM_ID} <br>
-									판매자 전화번호 :	${notPermissionSupplier.TEL}<br>
-									판매자 이메일 : ${notPermissionSupplier.EMAIL }<br>
-									판매자 사업자 등록번호 : ${notPermissionSupplier.REGIST_NUM} <br>
-									가입 신청일 : ${notPermissionSupplier.JOIN_DATE } <br>
-									최소 수용인원 : ${notPermissionSupplier.MINIMUM_SEATING }<br>
-									최대 수용인원 : ${notPermissionSupplier.MAXIMUM_SEATING}<br>
-									텔레그램 아이디 : ${notPermissionSupplier.TELEGRAM_ID }<br>
-									승인 상태 : N	<br>
-									판매자 소개 : <br>
-									${notPermissionSupplier.EXPLANATION} <br>
-								</p>
-								
+							<ul class = "collection with-header">
+								<li class="collection-header" style="background-color: #eee">
+									<h6 class="task-card-title mb-3" style="text-align: center;">
+											-업체 상세보기-
+									</h6>
+								</li>
+								<li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 이름
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.NAME}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 아이디
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.MEM_ID}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 전화번호
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.MEM_ID}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 이메일
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.EMAIL }
+									 </span>
+								 </li>
+								  <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 사업자 등록번호
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.REGIST_NUM}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	가입 신청일 
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.JOIN_DATE }
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	최소 수용인원
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.MINIMUM_SEATING }
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	최대 수용인원
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.MAXIMUM_SEATING}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	텔레그램 아이디
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.TELEGRAM_ID }
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	승인 상태
+									 </span>
+									 <span class="secondary-content">
+										N
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	판매자 소개
+									 </span>
+									 <span class="secondary-content">
+										${notPermissionSupplier.EXPLANATION}
+									 </span>
+								 </li>
+							</ul>
 							</div>
 							<div class="modal-footer">
 								<a href="#!" class="modal-close waves-effect waves-green btn-flat">창닫기</a>
@@ -81,6 +159,27 @@
 					<div class = "permisionreasonlist">
 						<div id="permissionmodal${count}" class="modal">
 							<div class="modal-content">
+								<ul class="collection with-header">
+									<li class="collection-header">
+										<h5 class="task-card-title mb-3" style="text-align: right;">
+											${shiplist.SERV_ID}의 배송상태
+										</h5>
+										<h6 class="task-card-title mb-3" style="text-align: right;">
+										 	${shiplist.COMPANY_NAME}의 제안
+										</h6>
+										<p class="task-card-date" style="text-align: right;">${shiplist.SERV_DATE }</p>
+									</li>
+									<li class="collection-item dismissable">
+										<span class="width-100" style="font-size: 14px">
+											행사장소
+										</span>
+										<span  class="secondary-content">
+											<span class="">
+												${shiplist.ADDRESS }
+											</span>
+										</span>
+									</li>
+								</ul>
 								<h4>승인 상태 변경하기</h4>
 								<br><br>
 								<p>
