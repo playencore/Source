@@ -156,7 +156,7 @@
 												</div>
 											</div>
 											<button class="btn waves-effect waves-light" type="submit">
-												<i class="material-icons right">add</i> 메뉴등록
+												<i class="material-icons right">add</i> 메뉴수정
 											</button>
 											<br><br>
 										</form>

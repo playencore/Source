@@ -159,27 +159,7 @@
 					<div class = "permisionreasonlist">
 						<div id="permissionmodal${count}" class="modal">
 							<div class="modal-content">
-								<ul class="collection with-header">
-									<li class="collection-header">
-										<h5 class="task-card-title mb-3" style="text-align: right;">
-											${shiplist.SERV_ID}의 배송상태
-										</h5>
-										<h6 class="task-card-title mb-3" style="text-align: right;">
-										 	${shiplist.COMPANY_NAME}의 제안
-										</h6>
-										<p class="task-card-date" style="text-align: right;">${shiplist.SERV_DATE }</p>
-									</li>
-									<li class="collection-item dismissable">
-										<span class="width-100" style="font-size: 14px">
-											행사장소
-										</span>
-										<span  class="secondary-content">
-											<span class="">
-												${shiplist.ADDRESS }
-											</span>
-										</span>
-									</li>
-								</ul>
+								
 								<h4>승인 상태 변경하기</h4>
 								<br><br>
 								<p>

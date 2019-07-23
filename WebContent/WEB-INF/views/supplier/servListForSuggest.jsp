@@ -1,30 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp"%>
-<style>
-	.modal.modal-fixed-footer {
-	    padding: 0;
-	    height: 80%;
-	}
-	.modal {
-	    display: none;
-	    position: fixed;
-	    left: 0;
-	    right: 0;
-	    background-color: #fafafa;
-	    padding: 0;
-	    max-height: 80%;
-	    width: 55%;
-	    margin: auto;
-	    overflow-y: auto;
-	    border-radius: 2px;
-	    will-change: top, opacity;
-	}
-	.pagination li.active {
-    background-color: #26a69a;
-}
-</style>
 
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
 <script>
 	//<!--
 var menucountarr = new Array() ;
@@ -34,6 +13,11 @@ $(document).ready(function(){
 	for(var i = 0 ; i< ${servlistsize} ; i++){
 		menucountarr[i] = new Array();
 	}
+	var mpct = 0 ;
+	<c:forEach var="serv" items="${servlist}" >
+		viewMap("${serv.ADDRESS}",mpct);
+		mpct = mpct + 1 ;
+	</c:forEach>
 	
 	setDatePicker() ;
 	setModal();
@@ -79,7 +63,73 @@ $(document).ready(function(){
 	);
 		
 });
+
+function createMap(adr1,adr2,zipcode,mct){
+	var ui ='<li class="collection-item dismissable">'
+		+'<span class="width-100" style="font-size: 14px">서비스 제공위치</span>'
+		+'<p class="secondary-content">'
+		+'<table class="highlight centered">'
+		+'<thead>'
+		+'<tr>'
+		+'<th>주소</th>'
+		+'<th>상세주소</th>'
+		+'<th>우편번호</th>'
+		+'</tr>'
+		+'</thead>'
+		+'<tbody>'
+		+'<tr>'
+		+'<td>'+adr1+'</td>'
+		+'<td>'+adr2+'</td>'
+		+'<td>'+zipcode+'</td>'
+		+'</tr>'
+		+'</tbody>'
+		+'</table>'
+		+'<br>'
+		+'<div id="map'+mct+'" style="height:400px;"></div>'
+		+'</p>'
+		+'</li>';
 	
+	return ui;
+}
+
+function viewMap(addr,mct){
+	$('#map'+mct).html('<div id="mapInstance" style="width:100%;height:100%;"></div>');
+	var container = document.getElementById('mapInstance'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(33.450701, 126.570667),
+        map: map
+    });
+    
+    geocoder.addressSearch(addr, function(results, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === daum.maps.services.Status.OK) {
+
+            var result = results[0]; //첫번째 결과의 값을 활용
+
+            // 해당 주소에 대한 좌표를 받아서
+            var coords = new daum.maps.LatLng(result.y, result.x);
+            // 지도를 보여준다.
+            container.style.display = "block";
+            map.relayout();
+            // 지도 중심을 변경한다.
+            map.setCenter(coords);
+            // 마커를 결과값으로 받은 위치로 옮긴다.
+            marker.setPosition(coords)
+        }
+    });
+    
+}
+
 function setModal(){
 	for(var i = 0 ; i<${servlistsize} ; i++){
 		$('#servModal'+i).modal();
@@ -99,6 +149,7 @@ function showServeList(result){
 	var menuslist = JSON.stringify(result.menulist);
 	var menuss = JSON.parse(menuslist);
 	var slist = "" ;
+	var maplist = new Array(); 
 	for(var i = 0 ; i < Object.keys(result.data).length ; i++){
 		slist = slist
 		+		"<div class = 'col s6'>"
@@ -314,9 +365,11 @@ function showServeList(result){
 										}
 		slist=slist
 		+							"</span>"
-		+						"</li>"
-		+					"</ul>" ;
+		+						"</li>" ;
 		
+		slist=slist + createMap(result.data[i].ADDRESS,result.data[i].ADDRESS_DETAIL,result.data[i].ZIPCODE,i);
+
+		+					"</ul>" ;
 		
 								
 		slist=slist						
@@ -372,9 +425,12 @@ function showServeList(result){
 		+			"</div>"
 		+		"</div>"
 		+	"</div>" ;
-		
+		maplist[i] = result.data[i].ADDRESS ;
 	}
 	$("#servlist").html(slist);
+	for(var j = 0 ; j< maplist.length ; j++){
+		viewMap(maplist[j],j) ;
+	}
 	$('select').formSelect();
 	
 }
@@ -515,6 +571,7 @@ function menusubmit(ct){
 				dataType:"json",
 				success:function(data){
 					alert(data.result);
+					location.reload();
 				},
 				error: function(data){
 					alert("다시 시도해주세요.") ;
@@ -526,6 +583,7 @@ function menusubmit(ct){
 
 	//-->
 </script>
+
 <div class = "row ">
 	<div class = "col s3">
 		<br><br><br><br><br>
@@ -746,6 +804,29 @@ function menusubmit(ct){
 										${serv.REQUESTED_TERM} 
 									 </span>
 								 </li>
+								 <li class="collection-item dismissable">
+									<span class="width-100" style="font-size: 14px">서비스 제공위치</span>
+										<p class="secondary-content">
+											<table class="highlight centered">
+												<thead>
+													<tr>
+													<th>주소</th>
+													<th>상세주소</th>
+													<th>우편번호</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr>
+													<td>${serv.ZIPCODE}</td>
+													<td>${serv.ADDRESS}</td>
+													<td>${serv.ADDRESS_DETAIL}</td>
+												</tr>
+												</tbody>
+											</table>
+											<br>
+										<div id="map${count}" style="height:400px; width: 700px;"></div>
+									</p>
+								</li>
 							</ul>
 						</div>
 						<div class="modal-footer">
