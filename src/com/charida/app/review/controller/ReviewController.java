@@ -25,7 +25,6 @@ import com.charida.app.review.service.ReviewService;
 
 @Controller
 public class ReviewController {
-	//private final static String returnUrl = "/review/reviewWriteForm";
 	protected Log log = LogFactory.getLog(TestService.class);
 
 	@Resource
@@ -39,7 +38,6 @@ public class ReviewController {
 	public String reviewWriteForm(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		req.setAttribute("serv_id", serv_id);
-		//model.addAttribute("serverTime", formattedDate );
 		
 		return "/review/reviewWriteForm";
 	}
@@ -48,12 +46,8 @@ public class ReviewController {
 	@RequestMapping("/review/setReview.do")
 	public String insertReview(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
-		//model.addAttribute("serverTime", formattedDate );
-		//String serv_id = reviewDao.getServ_id();
 		Map<String, Object> params = getParameterMap(req);
 		params.put("serv_id", serv_id);
-		//params.put("mem_id",(String)req.getSession().getAttribute("session_id"));
-		//mem_id가 아니라 서비스테이블의 serv_id 값을 가져와야한다. 서비스테이블 완성되면 추후 수정해야됨.
 		reviewService.insertReviewTx(params);
 		
 		// 파일이름 받아오기-----------------------------------------
@@ -75,9 +69,7 @@ public class ReviewController {
 		//후기보기페이지 리다이렉트
 		String id = (String)req.getSession().getAttribute("session_id");
 		List<ReviewDto> reviews = reviewService.ownReview(id);
-		//List<ReviewDto> files = reviewDao.getFiles(serv_id);
 		req.setAttribute("reviews", reviews);
-		//req.setAttribute("files", files);
 		
 		return "redirect:/review/ownReview.do";
 	}
@@ -106,9 +98,7 @@ public class ReviewController {
 		
 		
 		List<ReviewDto> reviews = reviewService.ownReview(id);
-		//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);		
 		req.setAttribute("reviews", reviews);
-		//req.setAttribute("files", files);
 		return "/review/ownReview";
 	}
 	
@@ -134,8 +124,6 @@ public class ReviewController {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
-		//String id = (String)req.getSession().getAttribute("session_id");
-		//String serv_id = req.getParameter("serv_id");
 		req.setAttribute("serv_id", serv_id);
 		MatchingDto review = reviewService.modifyReview(serv_id);
 		req.setAttribute("review", review);
@@ -169,17 +157,13 @@ public class ReviewController {
 			req.setAttribute("modify", 0);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
-			//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);
 			req.setAttribute("reviews", reviews);
-			//req.setAttribute("files", files);
 			return "/review/ownReview";
 		}else{
 			req.setAttribute("modify", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
-			//List<ReviewFileDto> files = reviewDao.getFiles(serv_id);
 			req.setAttribute("reviews", reviews);
-			//req.setAttribute("files", files);
 			return "/review/ownReview";
 		}
 		

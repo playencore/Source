@@ -55,7 +55,7 @@
 		<div class="section">
 			<h5>
 				후기 수정 
-				<small id="sub_title"> CHA-RI-DA</small>
+				<small id="sub_title"> CHA-RI-DA </small>
 				<small style="float: right;"> * 는 필수입력 사항입니다.</small>
 			</h5>
 			<div class="divider"></div>

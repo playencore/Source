@@ -256,7 +256,7 @@ public class SupplierService {
 
 		return result;
 	}
-	public int modifyinfo(Map<String, String[]> supplierMap) {
+	public int modifyinfo(Map<String, String[]> supplierMap, String[]supplierInfoFile) {
 		int result = 0 ;
 				
 		//crd_company update-----------------------------------------------------------------------------------
@@ -311,26 +311,28 @@ public class SupplierService {
 		result += supplierComponent.setServiceLocation(alistMap) ;
 		
 		//info picture -------------------------------------------------------------------------------------
-		/*if(supplierMap.get("supplierInfoFile").length!=0) {*/
-		/* int del_picture = */supplierComponent.del_picture(supplierMap.get("mem_id")[0]);
-		Map<String,Object> plistMap = new HashMap<String, Object>() ;
-		List<Integer> list = new ArrayList<Integer>() ;
-		for(int i = 0 ; i <supplierMap.get("supplierInfoFile").length ; i++ ) {
-			String supplierinfoFile = supplierMap.get("supplierInfoFile")[i] ;
-			if(supplierinfoFile!=null) {
-				list.add(Integer.parseInt(supplierinfoFile)) ;
+		if(supplierInfoFile[0]!=null) {
+			supplierComponent.del_picture(supplierMap.get("mem_id")[0]);
+			
+			Map<String,Object> plistMap = new HashMap<String, Object>() ;
+			List<Integer> list = new ArrayList<Integer>() ;
+			for(int i = 0 ; i <supplierInfoFile.length ; i++ ) {
+				String supplierinfoFile = supplierInfoFile[i] ;
+				if(supplierinfoFile!=null) {
+					list.add(Integer.parseInt(supplierinfoFile)) ;
+				}
 			}
-		}
-		checkseq = supplierComponent.getIntroFileMaxSeq(supplierMap.get("mem_id")[0]) ;
-		if(checkseq == null ) {
-			checkseq = "0" ;
-		}
-		seq = Integer.parseInt(checkseq) ;
-		plistMap.put("mem_id",supplierMap.get("mem_id")[0]) ;
-		plistMap.put("intro_seq", seq) ;
-		plistMap.put("list",list) ;
-		result += supplierComponent.setIntroFile(plistMap);
-	
+			checkseq = supplierComponent.getIntroFileMaxSeq(supplierMap.get("mem_id")[0]) ;
+			if(checkseq == null ) {
+				checkseq = "0" ;
+			}
+			seq = Integer.parseInt(checkseq) ;
+			plistMap.put("mem_id",supplierMap.get("mem_id")[0]) ;
+			plistMap.put("intro_seq", seq) ;
+			plistMap.put("list",list) ;
+			result += supplierComponent.setIntroFile(plistMap);
+
+		}	
 		return result;
 		
 	}

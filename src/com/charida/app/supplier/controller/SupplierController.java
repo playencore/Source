@@ -152,28 +152,24 @@ public class SupplierController {
 		req.setAttribute("foodStyle", foodStyle);
 		List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(mem_id);
 		req.setAttribute("serviceArea", serviceArea);
-		
+		req.setAttribute("mem_id", mem_id);
 		return "/supplier/modifyDefaultInfo";
 	}
 	@RequestMapping("/supplier/modifyDefaultInfoPro.do")
 	public String modifyDefaultInfoPro(HttpServletRequest req, HttpServletResponse resp) {
-		String mem_id[] = {(String)req.getSession().getAttribute("session_id")};
+		
 		Map<String, String[]> supplierMap = req.getParameterMap();
-		supplierMap.put("mem_id", mem_id);
 		//String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
 		String supplierInfoFile[] = new String[3] ;
 		for(int i = 1 ; i<4 ; i++) {
 			if(req.getAttribute("file_id"+i)!=null) {
 				supplierInfoFile[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
 			}
-		}
-		//supplierMap.put("cert_file_id",cert_file_id );
-		supplierMap.put("supplierInfoFile",supplierInfoFile);
-		int result = supplierService.modifyinfo(supplierMap);
+		}		
+		supplierService.modifyinfo(supplierMap,supplierInfoFile);
 		
 		
-		
-		return "/supplier/modifyDefaultInfo";
+		return "redirect:/supplier/modifyDefaultInfo.do";
 	}
 	
 	

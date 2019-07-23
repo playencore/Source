@@ -81,9 +81,8 @@
 								.characterCounter();
 						
 					});
-	/* function picture{
-		var picture = $("form[name=modifysupplierForm]").attr("enctype","multipart/form-data");
-		} */
+	
+	
 	
 	function supplierinput() {
 		if ($("input[name=companyname]").val() == null
@@ -103,62 +102,39 @@
 			alert("서비스 가능한 지역을 하나 이상 체크해주세요.");
 			$("#sl").focus();
 			return false;
-		} else if ($("input:file[name=supplierInfoFile1]").val() == ""
-				|| $("input:file[name=supplierInfoFile1]").val() == null) {
-			alert("업체 소개 사진을 하나 이상 입력해주세요 ");
-			return false;
+		} else if ($("#picture").attr("enctype") != null ){
+			if( $("input:file[name=supplierInfoFile1]").val() == ""
+				|| $("input:file[name=supplierInfoFile1]").val() == null ) {
+				alert("판매자 기본정보 수정을 할 수 없습니다. 다음을 확인해주세요. \n 1.소개사진을 하나 이상 첨부해 주세요. \n 2.소개사진 첨부는 첫 번째 칸 부터 첨부해 주세요.");
+				return false;
+			}
+		} else {
+			alert("기본정보 수정이 완료되었습니다.");
 		}
 		
 	}
+	function showPicture(){
+		$("#tr0").show();
+		$("#tr1").show();
+		$("#tr2").show();
+		document.getElementById('picture').setAttribute("enctype","multipart/form-data");
+		}
 //-->
 </script>
 </c:forEach>
 <br>
 <br>
 
-<div class="row  card">
-	<div class="col s12  ">
-		<div class="col s1"></div>
-		<div class="col s2">
-			<br>
-			<h5>판매자 마이페이지 </h5>
-			<br>	
-			<br>
-		</div>
-	</div>
-	<div class="col s1"></div>
-	<div class="col s6  ">
-		<ul class="tabs ">
-			<li class="tab col s3"><a class="" href="#test1">매칭리스트 조회</a></li>
-			<li class="tab col s3"><a class="active" href="#test2">메뉴 추가
-					및 수정</a></li>
-			<li class="tab col s3"><a class="" href="#test3">후기 조회 및 관리</a></li>
-			<li class="tab col s3"><a class="" href="#test4">홈페이지 관리</a></li>
-		</ul>
-		<br>
-	</div>
-</div>
+<c:forEach var="SupplierDto" items="${supplier_info}">
 <div class="row">
 	<div class="col s12">
-		<div class="col s1"></div>
-		<div class="col s2">
-			<div class="collection">
-				<a href="/supplier/modifyDefaultInfo.do" class="collection-item active">기본정보 수정</a> <a href="#!"
-					class="collection-item ">판매 카테고리 수정</a> <a href="#!"
-					class="collection-item ">메뉴 추가 및 수정</a> <a href="#!"
-					class="collection-item">Alvin</a>
-			</div>
-		</div>
-<c:forEach var="SupplierDto" items="${supplier_info}">
-<div class="col s7">		
-<div class="row">
-	<div class="col s10">
-		<div class="col s10"></div>
-		<div class="col s10 card-panel">
+		<div class="col s4"></div>
+		<div class="col s4 card-panel">
 			<p class="header">&nbsp;&nbsp;&nbsp;기본정보 수정  </p>
-			<form name="modifysupplierForm" method="post" enctype="multipart/form-data"
+			<form name="modifysupplierForm" method="post"
 				action="/supplier/modifyDefaultInfoPro.do" 
-				onsubmit="return supplierinput() ">
+				onsubmit="return supplierinput() " id="picture">
+				<input type="hidden" name="mem_id" value="${mem_id}">
 				<div id="supplierForm" >
 					<div class="col s12">
 						<div class="input-field col s12">
@@ -204,7 +180,7 @@
 
 					<div class="col s12">
 						<p>사업자 등록증</p>
-						<center><img src="/file/file-down/${SupplierDto.cert_file_id}" width="400"></center>
+						<center><img src="/file/file-down/${SupplierDto.cert_file_id}" width="300"></center>
 						<br>
 						<%-- <input name="cert_file_id" type="file" class="dropify"
 							data-height="100" data-default-file="/file/file-down/${SupplierDto.cert_file_id}"
@@ -215,26 +191,27 @@
 						<br>
 						<p>업체 소개 사진</p>
 						<c:forEach var="pictures" items="${SupplierDto.picture}">
-						<img src="/file/file-down/${pictures}" width="130">
+						<img src="/file/file-down/${pictures}" width="115">
 						</c:forEach> 
 						<br><br>
 						
 						
-						<!-- <input type='button' value="소개사진 수정하기"  class="btn waves-effect waves-light" name="picture"
-						onClick="document.all.tr0.style.display='block';document.all.tr1.style.display='block';document.all.tr2.style.display='block'; picture()">
-						<br><br> -->
+						<input type='button' value="소개사진 수정하기"  class="btn waves-effect waves-light" name="picture"
+						onclick="showPicture()">
+						<br><br>
+						
 						<!-- <div id="picture"> -->
-						<div class="col s4">
-							<input name="supplierInfoFile1" type="file" class="dropify"
-								data-height="100">
+						<div class="col s4" id="tr0" style="display : none">
+							<input name="supplierInfoFile1" type="file" class="dropify" 
+								data-height="100" >
 						</div>
-						<div class="col s4">
-							<input name="supplierInfoFile2" type="file" class="dropify"
-								data-height="100">
+						<div class="col s4" id="tr1" style="display : none">
+							<input name="supplierInfoFile2" type="file" class="dropify" 
+								data-height="100" >
 						</div>
-						<div class="col s4">
-							<input name="supplierInfoFile3" type="file" class="dropify"
-								data-height="100">
+						<div class="col s4" id="tr2" style="display : none">
+							<input name="supplierInfoFile3" type="file" class="dropify" 
+								data-height="100" >
 						</div>
 						<!-- </div> -->
 						
@@ -489,10 +466,8 @@
 	</div>
 </div>
 
-</div>
 </c:forEach>
-</div>
-</div>
+
 
 <!--  form  -->
 
