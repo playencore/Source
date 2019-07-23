@@ -15,7 +15,13 @@ public class LoginService {
 		if(loginComponent.countId(id) == 1) {
 			//아이디가 있다.
 			if(loginComponent.checkPasswd(id).equals(passwd)) {
-				return 1;	//비밀번호가 일치할때
+				if(loginComponent.authority(id).equals("4")) {
+					// 판매자 승인전일때
+					return 2;
+				}else {
+					// 판매자 가입승인됬을때
+					return 1;
+				}
 			}else {
 				return -1;	//비밀번호가 일치하지 않을때
 			}
