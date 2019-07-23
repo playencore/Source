@@ -217,4 +217,13 @@ public class SupplierComponent {
 	public int modifySupplier(SupplierDto supplierDto) {
 		return supplierDao.modifySupplier(supplierDto);
 	}
+	public List<ServiceTypeDto> serviceType(String mem_id){
+		return supplierDao.serviceType(mem_id);
+	}	
+	public List<FoodStyleDto> foodStyle(String mem_id){
+		return supplierDao.foodStyle(mem_id);
+	}	
+	public List<ServiceAreaDto> serviceArea(String mem_id){
+		return supplierDao.serviceArea(mem_id);
+	}
 }

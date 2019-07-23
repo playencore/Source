@@ -333,8 +333,16 @@ public class SupplierService {
 			result += supplierComponent.setIntroFile(plistMap);
 
 		}	
-		return result;
-		
+		return result;		
+	}
+	public List<ServiceTypeDto> serviceType(String mem_id){
+		return supplierComponent.serviceType(mem_id);
+	}
+	public List<FoodStyleDto> foodStyle(String mem_id){
+		return supplierComponent.foodStyle(mem_id);
+	}
+	public List<ServiceAreaDto> serviceArea(String mem_id){
+		return supplierComponent.serviceArea(mem_id);
 	}
 }
 

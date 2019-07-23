@@ -146,11 +146,11 @@ public class SupplierController {
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		List<SupplierDto> supplier_info = supplierService.supplier_info(mem_id);
 		req.setAttribute("supplier_info", supplier_info);
-		List<ServiceTypeDto> serviceType = supplierDao.serviceType(mem_id);
+		List<ServiceTypeDto> serviceType = supplierService.serviceType(mem_id);
 		req.setAttribute("serviceType", serviceType);
-		List<FoodStyleDto> foodStyle = supplierDao.foodStyle(mem_id);
+		List<FoodStyleDto> foodStyle = supplierService.foodStyle(mem_id);
 		req.setAttribute("foodStyle", foodStyle);
-		List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(mem_id);
+		List<ServiceAreaDto> serviceArea = supplierService.serviceArea(mem_id);
 		req.setAttribute("serviceArea", serviceArea);
 		req.setAttribute("mem_id", mem_id);
 		return "/supplier/modifyDefaultInfo";
