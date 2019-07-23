@@ -41,6 +41,9 @@ public class LoginController {
 		}else if(result == -1) {
 			req.setAttribute("test", -1);
 			return "/login/loginForm";
+		}else if(result == 2){
+			req.setAttribute("test", 2);
+			return "/login/loginForm";
 		}else {
 			req.setAttribute("test", 0);
 			return "/login/loginForm";

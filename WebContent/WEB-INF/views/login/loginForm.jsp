@@ -12,6 +12,9 @@
 	<c:if test="${test == -1 }">
 	alert("비밀번호가 일치하지 않습니다.");
 	</c:if>
+	<c:if test="${test == 2 }">
+	alert("판매자 승인대기상태입니다.");
+	</c:if>
  	<c:if test="${param.kakao == 0 }">
 	alert("카카오 아이디가 존재하지 않습니다. 회원가입 후 이용해 주시기 바랍니다.");
 	</c:if>
