@@ -120,7 +120,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		req.setAttribute("serv_id", serv_id);
-		MatchingDto review = reviewService.modifyReview(serv_id);
+		ReviewDto review = reviewService.modifyReview(serv_id);
 		req.setAttribute("review", review);
 		return "/review/modifyReview";
 	}

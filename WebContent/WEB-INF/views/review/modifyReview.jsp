@@ -68,27 +68,27 @@
 		<tr>
 			<th colspan="2" align="center">서비스 후기등록</th>			
 		</tr>
-		<tr>
+<!-- 		<tr>
 			<th>서비스 형태 *</th>
 				<td><input type="text" name="servRoot"
-				placeholder="개인행사, 사교모임, 리셉션,기업행사, 학교행사, 기타  ">
+				placeholder="개인행사, 사교모임, 리셉션,기업행사, 학교행사, 기타  " >
 			</td>
 		</tr>
-		<tr>
+ -->		<tr>
 			<th>이용 경로 *</th>
 				<td><input type="text" name="servRoot"
-				placeholder="ex) 인터넷 검색, 지인추천, 광고 등">
+				placeholder="ex) 인터넷 검색, 지인추천, 광고 등" value="${review.serv_root }">
 			</td>
 		</tr>
 		<tr>
 			<th>제목 *</th>
-			<td><input type="text" name="title" placeholder="제목을 입력해주세요. (100자 이내)"></td>
+			<td><input type="text" name="title" placeholder="제목을 입력해주세요. (100자 이내)" value="${review.title }"></td>
 		</tr>
 		<tr>
 			<th>후기 *</th>
 			<td>
 				<textarea style="width:290; height:100%" name="content" rows="5"
-				placeholder="2000자 이내로 작성해 주세요."></textarea>
+				placeholder="2000자 이내로 작성해 주세요.">${review.content }</textarea>
 			</td>
 		</tr>
 	</table>
@@ -101,37 +101,49 @@
 			<p id="food"> [ 음식 만족도 ]</p>	
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "1" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 0}">checked="checked" </c:if>
+		    		value = "0"/>
 		    		<span>0.0 점</span>
 				</label>
 	       	</div>	
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "1" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 1}">checked="checked" </c:if>
+		    		value = "1" />
 		    		<span>1.0 점</span>
 				</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "2" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 2}">checked="checked" </c:if>
+		    		value = "2" />
 		    		<span>2.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "3" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 3}">checked="checked" </c:if>
+		    		value = "3" />
 		    		<span>3.0 점</span>
 	  		</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "4" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 4}">checked="checked" </c:if>
+		    		value = "4" />
 		    		<span>4.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "menuScore" value = "5" />
+		    		<input type="radio" name = "menuScore" 
+		    		<c:if test="${review.menu_score == 5}">checked="checked" </c:if>
+		    		value = "5" />
 		    		<span>5.0 점</span>
 	  			</label>
 	       	</div>       	
@@ -143,38 +155,50 @@
 			<p id="price"> [ 가격 만족도 ]</p>		
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "1" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 0}">checked="checked" </c:if>
+		    		value = "0" />
 		    		<span>0.0 점</span>
 				</label>
 	       	</div>
 
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "1" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 1}">checked="checked" </c:if>
+		    		value = "1" />
 		    		<span>1.0 점</span>
 				</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "2" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 2}">checked="checked" </c:if>
+		    		value = "2" />
 		    		<span>2.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "3" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 3}">checked="checked" </c:if>
+		    		value = "3" />
 		    		<span>3.0 점</span>
 	  		</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "4" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 4}">checked="checked" </c:if>
+		    		value = "4" />
 		    		<span>4.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "priceScore" value = "5" />
+		    		<input type="radio" name = "priceScore" 
+		    		<c:if test="${review.price_score == 5}">checked="checked" </c:if>
+		    		value = "5" />
 		    		<span>5.0 점</span>
 	  			</label>
 	       	</div>       	
@@ -186,38 +210,50 @@
 			<p id="serv"> [ 서비스 만족도 ]</p>		
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "1" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 0}">checked="checked" </c:if>
+		    		value = "0" />
 		    		<span>0.0 점</span>
 				</label>
 	       	</div>
 
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "1" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 1}">checked="checked" </c:if>
+		    		value = "1" />
 		    		<span>1.0 점</span>
 				</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "2" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 2}">checked="checked" </c:if>
+		    		value = "2" />
 		    		<span>2.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "3" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 3}">checked="checked" </c:if>
+		    		value = "3" />
 		    		<span>3.0 점</span>
 	  		</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "4" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 4}">checked="checked" </c:if>
+		    		value = "4" />
 		    		<span>4.0 점</span>
 	  			</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "serviceScore" value = "5" />
+		    		<input type="radio" name = "serviceScore" 
+		    		<c:if test="${review.serv_score == 5}">checked="checked" </c:if>
+		    		value = "5" />
 		    		<span>5.0 점</span>
 	  			</label>
 	       	</div>       	
@@ -229,13 +265,17 @@
 			<p id="recommand"> Q. 지인에게 '차리다' 서비스를 추천하실 의향이 있으신가요?</p>		
 			<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "recommend" value = "1" />
+		    		<input type="radio" name = "recommend" 
+		    		<c:if test="${review.recommand == 1}">checked="checked" </c:if>
+		    		value = "1" />
 		    		<span>있다</span>
 				</label>
 	       	</div>
 	       	<div class = "col s6">
 	       		<label>
-		    		<input type="radio" name = "recommend" value = "0" />
+		    		<input type="radio" name = "recommend" 
+		    		<c:if test="${review.recommand == 0}">checked="checked" </c:if>
+		    		value = "0" />
 		    		<span>없다</span>
 	  			</label>
 	       	</div>	       	

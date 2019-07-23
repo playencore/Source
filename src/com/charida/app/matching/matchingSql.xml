@@ -36,6 +36,7 @@
 		AND S.CHOOSE_YN='N'	
 		AND A.PROGRESS_CODE IN('STU0020002','STU0020003')
 		AND A.CUSTOMER_ID = #{id}
+		ORDER BY A.SERV_DATE DESC
 	</select>
 	
 	<!-- 매칭성공 서비스 진행상태 임시코드 : 11111111-->
@@ -71,6 +72,7 @@
 		AND S.CHOOSE_YN='Y'	
 		AND A.PROGRESS_CODE='STU0060001'
 		AND A.CUSTOMER_ID = #{id}
+		ORDER BY A.SERV_DATE DESC
 	</select>
 	<!-- 판매자 -->
 	<select id="supplierMatchingSuccess" parameterType="String" resultType="com.charida.app.matching.dto.MatchingDto">
@@ -104,6 +106,7 @@
 		AND S.CHOOSE_YN='Y'	
 		AND A.PROGRESS_CODE='STU0060001'
 		AND S.MEM_ID = #{id}
+		ORDER BY A.SERV_DATE DESC
 	</select>
 	<!-- 구매자 종료서비스 검색 -->
 	<select id="customerMatchingSearch" parameterType="com.charida.app.matching.dto.MatchingDto" resultType="com.charida.app.matching.dto.MatchingDto">
@@ -139,6 +142,7 @@
 		AND A.CUSTOMER_ID = #{id}
 		AND A.END_DATE BETWEEN TO_DATE(#{startDate} || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
 		AND TO_DATE(#{endDate} || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')		
+		ORDER BY A.SERV_DATE DESC
 	</select>
 	<!-- 판매자 종료서비스 검색 -->
 	<select id="supplierMatchingSearch" parameterType="com.charida.app.matching.dto.MatchingDto" resultType="com.charida.app.matching.dto.MatchingDto">
@@ -174,6 +178,7 @@
 		AND S.MEM_ID = #{id}
 		AND A.END_DATE BETWEEN TO_DATE(#{startDate} || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
 		AND TO_DATE(#{endDate} || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY A.SERV_DATE DESC
 	</select>
 	<select id="matchingFailAnswer" parameterType="String" resultType="com.charida.app.matching.dto.MatchingDto">
 		SELECT * FROM CRD_SERV_APP WHERE SERV_ID = #{serv_id}

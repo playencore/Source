@@ -68,12 +68,12 @@
 		<tr>
 			<th colspan="2" align="center">서비스 후기등록</th>			
 		</tr>
-		<tr>
+		<!-- <tr>
 			<th>서비스 형태 *</th>
 				<td><input type="text" name="servRoot"
 				placeholder="개인행사, 사교모임, 리셉션,기업행사, 학교행사, 기타  ">
 			</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<th>이용 경로 *</th>
 				<td><input type="text" name="servRoot"

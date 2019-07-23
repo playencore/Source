@@ -93,7 +93,7 @@ public class ReviewService {
 		return reviewComponent.ableToReview(id);
 	}
 	
-	public MatchingDto modifyReview(String serv_id) {
+	public ReviewDto modifyReview(String serv_id) {
 		return reviewComponent.modifyReview(serv_id);
 	}
 	

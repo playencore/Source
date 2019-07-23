@@ -22,6 +22,7 @@
   	TITLE, 
   	CONTENT 
   	FROM CRD_SERV_REVIEW
+  	ORDER BY REVIEW_DATE DESC
   </select>
   <select id="getFiles" parameterType="String" resultType="Integer">
   	SELECT file_id FROM CRD_SERV_REVIEW_FILE WHERE SERV_ID = #{serv_id}
@@ -41,6 +42,7 @@
 	  	FROM CRD_SERV_REVIEW A INNER JOIN CRD_SERV_APP B
 	ON A.SERV_ID = B.SERV_ID
 	AND B.CUSTOMER_ID = #{id}
+	ORDER BY A.REVIEW_DATE DESC
   </select>
   
   <select id="ableToReview" parameterType="String" resultType="com.charida.app.matching.dto.MatchingDto">
@@ -74,8 +76,9 @@
 	AND A.SERV_ID = S.SERV_ID 
 	AND NOT EXISTS (SELECT 1 FROM CRD_SERV_REVIEW B WHERE A.SERV_ID = B.SERV_ID )
 	AND A.CUSTOMER_ID = #{id}
+	ORDER BY A.SERV_DATE DESC
   </select>
-  <select id="modifyReview" parameterType="java.lang.String" resultType="com.charida.app.matching.dto.MatchingDto">
+  <select id="modifyReview" parameterType="java.lang.String" resultType="com.charida.app.review.dto.ReviewDto">
   	SELECT 
 	  	SERV_ID, 
 	  	REVIEW_DATE, 

@@ -38,7 +38,7 @@ public class ReviewComponent {
 		return reviewDao.ableToReview(id);
 	}
 	
-	public MatchingDto modifyReview(String serv_id) {
+	public ReviewDto modifyReview(String serv_id) {
 		return reviewDao.modifyReview(serv_id);
 	}
 	public int deleteReview(String serv_id) {
