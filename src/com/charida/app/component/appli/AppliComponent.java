@@ -48,9 +48,11 @@ public class AppliComponent {
 		return appliDao.getSuggInfo(appliId);
 	}
 	public int setSuggState(String suggId){
+		log.debug("setSuggState >> suggId : " + suggId);
 		return appliDao.setSuggState(suggId);
 	}
 	public int setAppState(String suggId){
+		log.debug("setAppState >> suggId : " + suggId);
 		return appliDao.setAppState(suggId);
 	}
 	public int addPayRow(Map<String, Object> totalAndServId) {
