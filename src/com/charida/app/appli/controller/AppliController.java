@@ -44,7 +44,7 @@ public class AppliController extends CommonController{
 		return "/service/cus-pay-list";
 	}	
 	// 3.결제는 됐으나 배송이 되지 않은 건을 보는 페이지
-	@RequestMapping("/service/cus-deli-list.do")
+	//@RequestMapping("/service/cus-deli-list.do")
 	public String cusdeli(HttpServletRequest req,HttpServletResponse resp) {
 		
 		return "/service/cus-deli-list";
