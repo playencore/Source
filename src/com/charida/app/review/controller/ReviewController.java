@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.charida.app.common.service.TestService;
-import com.charida.app.component.review.ReviewComponent;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dao.ReviewDao;
 import com.charida.app.review.dto.ReviewDto;
@@ -29,8 +28,7 @@ public class ReviewController {
 
 	@Resource
 	ReviewService reviewService;	
-	@Resource
-	ReviewComponent reviewComponent;
+
 	@Resource
 	ReviewDao reviewDao;
 	//후기작성페이지 컨트롤러
@@ -72,8 +70,7 @@ public class ReviewController {
 		req.setAttribute("reviews", reviews);
 		
 		return "redirect:/review/ownReview.do";
-	}
-	
+	}	
 	
 	//후기보기
 	@RequestMapping("/review/review.do")
@@ -94,9 +91,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_id");
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");				
-		String id = (String)req.getSession().getAttribute("session_id");
-		
-		
+		String id = (String)req.getSession().getAttribute("session_id");		
 		List<ReviewDto> reviews = reviewService.ownReview(id);
 		req.setAttribute("reviews", reviews);
 		return "/review/ownReview";
@@ -139,7 +134,7 @@ public class ReviewController {
 		Map<String, Object> params =getParameterMap(req);
 		params.put("serv_id", serv_id);		
 		int result = reviewService.modifyReviewPro(params);
-		int delpicture = reviewDao.delpicture(serv_id);
+		int delpicture = reviewService.delpicture(serv_id);
 		
 		//사진수정 (기존사진을 지우기 덮어씀)
 		Map<String,String[]> pictureMap = req.getParameterMap();
@@ -176,7 +171,7 @@ public class ReviewController {
 		req.getSession().getAttribute("session_name");
 		req.getSession().getAttribute("session_authority");
 		
-		int result = reviewComponent.deleteReview(serv_id);
+		int result = reviewService.deleteReview(serv_id);
 		
 		if(result == 0) {	
 			//삭제실패

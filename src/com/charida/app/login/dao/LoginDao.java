@@ -15,12 +15,10 @@ public class LoginDao {
 	}
 	public int countKakaoId(String kakao_key) {
 		return sqlSession.selectOne("Login.countKakaoId",kakao_key);
-	}
-	
+	}	
 	public String checkPasswd(String id) {
 		return sqlSession.selectOne("Login.checkPasswd",id);
-	}
-	
+	}	
 	public String authority(String id) {
 		return sqlSession.selectOne("Login.authority",id);
 	}

@@ -21,14 +21,9 @@ public class LoginComponent {
 		}
 	}
 	public int countKakaoId(String kakao_key){
-		int result = loginDao.countKakaoId(kakao_key);	// count(*) = 1 		
-		if(result == 1) {
-			return 1;
-		}else {
-			return 0;
-		}
+		return loginDao.countKakaoId(kakao_key);	// count(*) = 1 		
+		
 	}
-
 	public String checkPasswd(String id) {
 		return loginDao.checkPasswd(id);	// 해당아이디의 비밀번호요청값		
 	}
@@ -37,6 +32,9 @@ public class LoginComponent {
 	}
 	public String name(String id) {
 		return loginDao.name(id);
+	}
+	public String getId(String kakao_key) {
+		return loginDao.getId(kakao_key);
 	}
 }
 

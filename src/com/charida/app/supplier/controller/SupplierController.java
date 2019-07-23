@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.common.service.TestService;
-import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.ServiceAreaDto;
@@ -32,8 +31,7 @@ public class SupplierController {
 
 	@Resource
 	SupplierService supplierService;
-	@Resource
-	SupplierDao supplierDao;
+
 
 	@RequestMapping("/supplier/setfood.do")
 	public String setFood(HttpServletRequest req, HttpServletResponse resp) {
@@ -103,7 +101,6 @@ public class SupplierController {
 		List<Map<String,Object>> servlist = supplierService.getServiceList(mem_id);
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
-		//세션 하면 이거 진행
 		req.setAttribute("mem_id", mem_id);
 		req.setAttribute("suppfoodlist", supplierService.getFoodList(mem_id));
 		req.setAttribute("suppfoodlistsize", supplierService.getFoodList(mem_id).size());
@@ -159,15 +156,13 @@ public class SupplierController {
 	public String modifyDefaultInfoPro(HttpServletRequest req, HttpServletResponse resp) {
 		
 		Map<String, String[]> supplierMap = req.getParameterMap();
-		//String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
 		String supplierInfoFile[] = new String[3] ;
 		for(int i = 1 ; i<4 ; i++) {
 			if(req.getAttribute("file_id"+i)!=null) {
 				supplierInfoFile[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
 			}
 		}		
-		supplierService.modifyinfo(supplierMap,supplierInfoFile);
-		
+		supplierService.modifyinfo(supplierMap,supplierInfoFile);		
 		
 		return "redirect:/supplier/modifyDefaultInfo.do";
 	}

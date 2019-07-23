@@ -23,6 +23,23 @@ public class LoginService {
 			return 0;	//아이디가 없을때
 		}
 	}
+	public String authority(String id) {
+		return loginComponent.authority(id);
+	}
+	public String name(String id) {
+		return loginComponent.name(id);
+	}
+	public int countKakaoId(String kakao_key){
+		int result = loginComponent.countKakaoId(kakao_key);	// count(*) = 1 		
+		if(result == 1) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	public String getId(String kakao_key) {
+		return loginComponent.getId(kakao_key);
+	}
 	
 }
 

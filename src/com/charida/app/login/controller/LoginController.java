@@ -7,55 +7,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.charida.app.component.login.LoginComponent;
-import com.charida.app.login.dao.LoginDao;
 import com.charida.app.login.service.LoginService;
 
 @Controller
 public class LoginController {
-	//private final static String returnUrl = "";
 	
 	@Resource
 	LoginService loginService;
-	@Resource
-	LoginComponent loginComponent;
-	@Resource
-	LoginDao loginDao;
-	//@Resource
-	//private SnsValue naverSns;
-
 	
 	@RequestMapping("/login/loginForm.do")
-	public String home(Model model,HttpServletRequest req,HttpServletResponse resp) {
-		
-		//네이버로그인
-//		SNSLogin  snsLogin = new SNSLogin(naverSns);
-//		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
-		
-		
-		return "/login/loginForm";
-		
+	public String home(HttpServletRequest req,HttpServletResponse resp) {
+		return "/login/loginForm";		
 	}
 	//로그인 체크
 	@RequestMapping("/login/loginCheck.do")
 	public String loginPro(HttpServletRequest req,HttpServletResponse resp) throws IOException {
-//		System.out.println(req.getParameter("id"));
-//		System.out.println((String)req.getAttribute("id"));
 		String id = req.getParameter("id") ; // Form에서 S넘어온 id 값.
 		String passwd = req.getParameter("passwd");
-		String session = loginComponent.authority(id);
-		String name = loginComponent.name(id);
+		String session = loginService.authority(id);
+		String name = loginService.name(id);
 		
-		//카카오로그인이랑 일반로그인이랑 따로 처리해야 충돌이 일어나지 않는다. 수정요망!
 		int result = loginService.checkPasswd(id, passwd);
 		
 		if(result == 1) {
-			req.getSession().setAttribute("session_authority", session);//세션등록
+			req.getSession().setAttribute("session_authority", session);
 			req.getSession().setAttribute("session_name", name);
 			req.getSession().setAttribute("session_id", id);
 			return "/main";
@@ -70,12 +49,12 @@ public class LoginController {
 	@RequestMapping("/login/kakaoLogin.do")
 	@ResponseBody
 	public String kakaoLogin(@RequestParam("kakao_key")String kakao_key, HttpServletRequest req, HttpServletResponse resp) {
-		int result = loginComponent.countKakaoId(kakao_key);	//카카오키를 카카오키와 비교하는 count문
+		int result = loginService.countKakaoId(kakao_key);	//카카오키를 카카오키와 비교하는 count문
 				
 		if(result == 1) {
-			String id = loginDao.getId(kakao_key);
-			String session = loginComponent.authority(id);
-			String name = loginComponent.name(id);
+			String id = loginService.getId(kakao_key);
+			String session = loginService.authority(id);
+			String name = loginService.name(id);
 			req.getSession().setAttribute("session_authority", session);//세션등록
 			req.getSession().setAttribute("session_name", name);
 			req.getSession().setAttribute("session_id", id);
@@ -84,9 +63,7 @@ public class LoginController {
 			req.setAttribute("kakao", 0);
 			return "/login/loginForm.do?kakao=0";
 		}
-	}
-	
-	
+	}	
 	@RequestMapping("/login/logout.do")
 	public String logoutPro(HttpServletRequest req,HttpServletResponse resp) {
 			req.getSession().removeAttribute("session_authority");//세션제거

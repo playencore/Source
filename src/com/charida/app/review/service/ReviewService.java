@@ -41,12 +41,11 @@ public class ReviewService {
 		int result = 0;
 		int seq = 0;
 		Map<String,Object> pictureListMap = new HashMap<String, Object>();
-		//List<Integer> list = new ArrayList<Integer>();
-		String checkseq = reviewComponent.getPictureMaxSeq();	//max(file_id)
+		String checkseq = reviewComponent.getPictureMaxSeq();
 		if(checkseq == null ) {
 			checkseq = "0";
 			seq = Integer.parseInt(checkseq);
-			seq = 1;	// checkseq가 String이므로 int로 변환해주어야한다.
+			seq = 1;
 		}else {
 			seq = Integer.parseInt(checkseq);
 		}
@@ -82,13 +81,9 @@ public class ReviewService {
 	public List<ReviewDto> ownReview(String id) {
 		List<ReviewDto> result = reviewComponent.ownReview(id);
 		for(int i = 0 ; i < result.size() ; i++) {
-			//리뷰전체중 한개의 Dto
 			ReviewDto review = result.get(i);
-			//한 개의 후기에 해당하는 serv_id
 			String serv_id = review.getServ_id();
-			//한 개의 serv_id에 해당하는 file_id의 집합 리스트
 			List<Integer> files = reviewComponent.getfiles(serv_id);
-			// 해당번째의 Dto에 file_id 삽입
 			review.setPicture(files);	
 		}				
 		return result;
@@ -117,6 +112,12 @@ public class ReviewService {
 		result += reviewComponent.modifyReviewPro(reviewDto);
 				
 		return result;
+	}
+	public int deleteReview(String serv_id) {
+		return reviewComponent.deleteReview(serv_id);
+	}
+	public int delpicture(String serv_id) {
+		return reviewComponent.delpicture(serv_id);
 	}
 	
 }

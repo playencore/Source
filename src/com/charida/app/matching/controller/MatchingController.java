@@ -43,7 +43,7 @@ public class MatchingController {
 	//구매자 재신청
 	@RequestMapping("/customer/application.do")
 	public String reApplication(@RequestParam("serv_id")String serv_id, HttpServletRequest req, HttpServletResponse resp) {
-		List<MatchingDto> matchingFailAnswer = matchingDao.matchingFailAnswer(serv_id);
+		List<MatchingDto> matchingFailAnswer = matchingService.matchingFailAnswer(serv_id);
 		req.setAttribute("matchingFailAnswer", matchingFailAnswer);
 		return "/service/reApplication";
 	}
@@ -70,7 +70,7 @@ public class MatchingController {
 		req.getSession().getAttribute("session_authority");
 		
 		String id = (String)req.getSession().getAttribute("session_id");
-		List<MatchingDto> matchingSuccess = matchingDao.supplierMatchingSuccess(id);
+		List<MatchingDto> matchingSuccess = matchingService.supplierMatchingSuccess(id);
 		req.setAttribute("matchingSuccess", matchingSuccess);
 
 		return "/supplier/matchingSuccess";

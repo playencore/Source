@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
-import com.charida.app.review.dto.ReviewFileDto;
 
 @Repository
 public class ReviewDao {
@@ -18,14 +17,12 @@ public class ReviewDao {
 	SqlSession sqlsession;
 	
 	public int insertReview(ReviewDto reviewDto) {
-		int result = sqlsession.insert("Review.insertReview", reviewDto);
-		
+		int result = sqlsession.insert("Review.insertReview", reviewDto);		
 		return result;
 	}
 	public int insertPicture(ReviewDto reviewDto) {
 		return sqlsession.insert("Review.insertPicture", reviewDto);
-	}
-	
+	}	
 	public List<ReviewDto> getReviews() {
 		return sqlsession.selectList("Review.getReviews");
 	}
@@ -50,7 +47,6 @@ public class ReviewDao {
 	public String getServ_id() {
 		return sqlsession.selectOne("Review.getServ_id");
 	}
-
 	public String getPictureMaxSeq() {
 		return sqlsession.selectOne("Review.getPictureMaxSeq");
 	}

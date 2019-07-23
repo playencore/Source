@@ -28,5 +28,11 @@ public class MatchingComponent {
 	public List<MatchingDto> supplierMatchingSearch(MatchingDto matchingDto){
 		return matchingDao.supplierMatchingSearch(matchingDto);
 	}
+	public List<MatchingDto> matchingFailAnswer(String serv_id){
+		return matchingDao.matchingFailAnswer(serv_id);
+	}
+	public List<MatchingDto> supplierMatchingSuccess(String id){
+		return matchingDao.supplierMatchingSuccess(id);
+	}
 
 }

@@ -38,5 +38,11 @@ public class MatchingService {
 		matchingDto.setId((String)matchingMap.get("id"));
 		return matchingComponent.supplierMatchingSearch(matchingDto);
 	}
+	public List<MatchingDto> matchingFailAnswer(String serv_id){
+		return matchingComponent.matchingFailAnswer(serv_id);
+	}
+	public List<MatchingDto> supplierMatchingSuccess(String id){
+		return matchingComponent.supplierMatchingSuccess(id);
+	}
 
 }
