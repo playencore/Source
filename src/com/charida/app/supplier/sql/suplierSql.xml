@@ -89,6 +89,7 @@
 		P.MODIFICATION_DATE modification_date
 		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
 		WHERE C.MEM_ID = M.MEM_ID 
+		AND M.AUTHORITY = '4'
 		AND C.MEM_ID=P.MEM_ID
 		AND P.PERMISSION_YN = 0 
 	</select>
@@ -102,6 +103,13 @@
 		MODIFICATION_DATE = sysdate
 		WHERE 
 		MEM_ID = #{mem_id[0]}
+	</update>
+	
+	<update id="updatePermissionSup" parameterType="String">
+		UPDATE CRD_MEM
+		SET
+		AUTHORITY = '3'
+		WHERE MEM_ID = #{mem_id}
 	</update>
 	
 	<select id="selectSerchList" parameterType="map" resultType="hashMap">
@@ -145,8 +153,8 @@
 	<update id="updateFoodSeq" parameterType="String">
 		UPDATE 
 		CRD_MENU_INFO 
-		SET MENU_ID = MENU_ID-1 
-		WHERE MENU_ID > ${menu_id}
+		SET MENU_ID = TO_CHAR(TO_NUMBER(MENU_ID)-1) 
+		WHERE TO_NUMBER(MENU_ID) > TO_NUMBER(#{menu_id})
 	</update>
 	<update id="modifyMenu" parameterType="com.charida.app.supplier.dto.FoodDto">
 		UPDATE 

@@ -82,6 +82,9 @@ public class SupplierDao {
 	public int updatePermission(Map<String,String[]> permission) {
 		return sqlSession.update("Supplier.updatePermission",permission) ;
 	}
+	public int updatePermissionSup(String mem_id) {
+		return sqlSession.update("Supplier.updatePermissionSup", mem_id) ;
+	}
 	
 	public List<Object> selectSearchList(Map<String,String> paramMap){
 		return sqlSession.selectList("Supplier.selectSerchList",paramMap);

@@ -20,9 +20,13 @@ public class AdminService {
 	}
 
 ////////////////////////////////////updatepermission 
-	public String updatePermission(Map<String, String[]> permissionMap) {
+	public String updatePermissionTx(Map<String, String[]> permissionMap) {
 		int result = supplierComponent.updatePermission(permissionMap);
-		if (result == 0) {
+		int perresult = 3 ;
+		if(permissionMap.get("permission_yn")[0].equals("1")) {
+			perresult = supplierComponent.updatePermissionSup(permissionMap.get("mem_id")[0]); 
+		}
+		if (result == 0 || perresult == 0) {
 			return "수정이 진행되지 않았습니다. 다시 확인해주세요.";
 		} else {
 			return "수정이 완료되었습니다.";

@@ -94,6 +94,10 @@ public class SupplierComponent {
 	public int setPermission(PermissionDto dto) {
 		return supplierDao.insertPermission(dto);
 	}
+	
+	public int updatePermissionSup(String mem_id) {
+		return supplierDao.updatePermissionSup(mem_id);
+	}
 
 	public int checkRegist_num(String regist_num) {
 		int result = 0;

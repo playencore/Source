@@ -40,7 +40,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/updatepermissionSupplier.do")
 	public String updatePermission(HttpServletRequest req, HttpServletResponse resp) {
-		String result = adminService.updatePermission(req.getParameterMap());
+		String result = adminService.updatePermissionTx(req.getParameterMap());
 		req.setAttribute("result", result);
 	
 		return "/admin/updateSupplierPermission";
