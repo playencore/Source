@@ -263,10 +263,11 @@ public class SupplierService {
 		SupplierDto supplierDto = new SupplierDto();
 		supplierDto.setMem_id(supplierMap.get("mem_id")[0]);
 		supplierDto.setName(supplierMap.get("companyname")[0]);
-		supplierDto.setRegist_num(Integer.parseInt(supplierMap.get("regist_num")[0]));
+//		supplierDto.setRegist_num(Integer.parseInt(supplierMap.get("regist_num")[0]));
 		supplierDto.setExplanation(supplierMap.get("explanation")[0]);
 		supplierDto.setMaximum_seating(Integer.parseInt(supplierMap.get("maximum_seating")[0]));
 		supplierDto.setMinimum_seating(Integer.parseInt(supplierMap.get("minimum_seating")[0]));
+//		supplierDto.setCert_file_id(Integer.parseInt( supplierMap.get("cert_file_id")[0] ));
 		supplierDto.setTelegram_id("telegram");
 		
 		
@@ -310,7 +311,7 @@ public class SupplierService {
 		result += supplierComponent.setServiceLocation(alistMap) ;
 		
 		//info picture -------------------------------------------------------------------------------------
-		if(supplierMap.get("supplierInfoFile").length!=0) {
+		/*if(supplierMap.get("supplierInfoFile").length!=0) {*/
 		/* int del_picture = */supplierComponent.del_picture(supplierMap.get("mem_id")[0]);
 		Map<String,Object> plistMap = new HashMap<String, Object>() ;
 		List<Integer> list = new ArrayList<Integer>() ;
@@ -331,8 +332,7 @@ public class SupplierService {
 		result += supplierComponent.setIntroFile(plistMap);
 	
 		return result;
-		}
-		return result;
+		
 	}
 }
 

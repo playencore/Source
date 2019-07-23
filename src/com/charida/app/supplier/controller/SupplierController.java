@@ -160,15 +160,15 @@ public class SupplierController {
 		String mem_id[] = {(String)req.getSession().getAttribute("session_id")};
 		Map<String, String[]> supplierMap = req.getParameterMap();
 		supplierMap.put("mem_id", mem_id);
-		String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
+		//String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
 		String supplierInfoFile[] = new String[3] ;
-		for(int i = 2 ; i<5 ; i++) {
+		for(int i = 1 ; i<4 ; i++) {
 			if(req.getAttribute("file_id"+i)!=null) {
-				supplierInfoFile[i-2] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+				supplierInfoFile[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
 			}
 		}
-		supplierMap.put("cert_file_id",cert_file_id ) ;
-		supplierMap.put("supplierInfoFile",supplierInfoFile) ;
+		//supplierMap.put("cert_file_id",cert_file_id );
+		supplierMap.put("supplierInfoFile",supplierInfoFile);
 		int result = supplierService.modifyinfo(supplierMap);
 		
 		

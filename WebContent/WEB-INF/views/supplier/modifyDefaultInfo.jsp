@@ -103,6 +103,10 @@
 			alert("서비스 가능한 지역을 하나 이상 체크해주세요.");
 			$("#sl").focus();
 			return false;
+		} else if ($("input:file[name=supplierInfoFile1]").val() == ""
+				|| $("input:file[name=supplierInfoFile1]").val() == null) {
+			alert("업체 소개 사진을 하나 이상 입력해주세요 ");
+			return false;
 		}
 		
 	}
@@ -219,20 +223,20 @@
 						<!-- <input type='button' value="소개사진 수정하기"  class="btn waves-effect waves-light" name="picture"
 						onClick="document.all.tr0.style.display='block';document.all.tr1.style.display='block';document.all.tr2.style.display='block'; picture()">
 						<br><br> -->
-						<div id="picture">
-						<div class="col s4" style="display : none" id="tr0">
+						<!-- <div id="picture"> -->
+						<div class="col s4">
 							<input name="supplierInfoFile1" type="file" class="dropify"
 								data-height="100">
 						</div>
-						<div class="col s4" style="display : none" id="tr1">
+						<div class="col s4">
 							<input name="supplierInfoFile2" type="file" class="dropify"
 								data-height="100">
 						</div>
-						<div class="col s4" style="display : none" id="tr2">
+						<div class="col s4">
 							<input name="supplierInfoFile3" type="file" class="dropify"
 								data-height="100">
 						</div>
-						</div>
+						<!-- </div> -->
 						
 						
 					</div>

@@ -217,7 +217,6 @@
 	</select>
 	<update id="modifySupplier" parameterType="com.charida.app.supplier.dto.SupplierDto">
 		UPDATE CRD_COMPANY SET
-		REGIST_NUM = #{regist_num},
 		EXPLANATION = #{explanation},
 		NAME = #{name},
 		MAXIMUM_SEATING = #{maximum_seating},
