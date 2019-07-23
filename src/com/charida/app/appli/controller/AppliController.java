@@ -49,7 +49,7 @@ public class AppliController extends CommonController{
 		log.debug("ctrler total : " + total);
 		log.debug("ctrler servId : " + servId);
 		int result = appliService.setStateAppSuggTx(suggId, total, servId);
-		
+		log.debug("result : " + result);
 		return result;
 	} 
 	

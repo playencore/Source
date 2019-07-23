@@ -93,6 +93,9 @@ public class AppliService {
 		totalAndServId.put("total", total);
 		totalAndServId.put("servId", servId);
 		int result3 = appliComponent.addPayRow(totalAndServId);
+		log.debug("result1 : " + result1);
+		log.debug("result2 : " + result2);
+		log.debug("result3 : " + result3);
 		int result = result1 * result2 * result3;
 		return result;
 	}
