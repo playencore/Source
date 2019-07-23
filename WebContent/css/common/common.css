@@ -84,6 +84,9 @@ nav ul a {
     cursor: pointer;
     
 }
+.nav-wrapper{
+	background-color: #2bbbad;
+}
 
 .hide-on-med-and-down li a{
 	line-height:64px;
