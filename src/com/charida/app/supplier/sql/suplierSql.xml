@@ -168,6 +168,7 @@
 		FROM
 		CRD_SERV_APP
 		WHERE SERV_DATE > TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI:SS'),'YYYY/MM/DD HH24:MI:SS')
+		AND PROGRESS_CODE IN ('STU0010001','STU0020001')
 		AND
 		SERV_ID NOT IN
 		(
@@ -244,5 +245,14 @@
 	<delete id="del_picture" parameterType="String">
 		DELETE FROM CRD_INTRO_FILE WHERE MEM_ID = #{mem_id}
 	</delete>
+	
+	<!-- telegram -->
+	<select id="selectAllRegistNum" parameterType="hashMap">
+		SELECT MEM_ID , REGIST_NUM FROM CRD_COMPANY
+	</select>
+	<update id="updateTelegramId" parameterType="map">
+		UPDATE CRD_MEM SET TELEGRAM_ID = #{chat_id}
+		WHERE MEM_ID = #{mem_id}
+	</update>
 	
 </mapper>

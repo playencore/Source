@@ -1,5 +1,6 @@
 package com.charida.app.supplier.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -155,6 +156,16 @@ public class SupplierDao {
 	}
 	public int del_picture(String mem_id) {
 		return sqlSession.delete("Supplier.del_picture",mem_id);
+	}
+	/////////////////////tel
+	public List<Map<String, Object>> selectAllRegist_num(){
+		return sqlSession.selectList("Supplier.selectAllRegistNum");
+	}
+	public int updateTelegram(String mem_id , String chat_id) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("mem_id", mem_id) ;
+		param.put("chat_id", chat_id) ;
+		return sqlSession.update("Supplier.updateTelegramId", param) ;
 	}
 
 }

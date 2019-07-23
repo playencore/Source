@@ -230,4 +230,21 @@ public class SupplierComponent {
 	public List<ServiceAreaDto> serviceArea(String mem_id){
 		return supplierDao.serviceArea(mem_id);
 	}
+	
+	/////////////////////////////////////////////////////////////////////tel
+	public String getAllRegist_num(String text){
+		List<Map<String, Object>> resultmap = supplierDao.selectAllRegist_num() ;
+		
+		for(Map<String, Object> reamp : resultmap) {
+			if(reamp.get("REGIST_NUM").equals(text)) {
+				return "존재하는 사업자 등록 번호입니다" ;
+			}
+		}
+		
+		return "존재 하지 않은 사업자 등록번호 입니다." ;
+	}
+	public int updateTelegram(String mem_id , long chatId) {
+		String chat_id = Long.toString(chatId) ;
+		return supplierDao.updateTelegram(mem_id,chat_id);
+	}
 }
