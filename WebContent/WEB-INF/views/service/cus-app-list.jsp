@@ -126,6 +126,20 @@
 					업체 선정
 				</h6>
 			</li>
+			<li class="collection-item dismissable" id="suggListNull" style="display: block">
+				<span class="width-100" style="font-size: 14px">아직 제안이 없습니다.</span>
+			</li>
+			<li class="collection-item dismissable" id="suggListNotNull" style="display: none">
+				<br>
+				<p class="secondary-content">
+					<table class="highlight centered">
+						<thead id="sugg_info_head">
+						</thead>
+						<tbody id="sugg_info_body">
+						</tbody>
+					</table>
+				</p>
+			</li>
 			
 		</ul>
 		
@@ -233,7 +247,7 @@
 			</li>
 			<li class="collection-item dismissable">
 				<!-- 1서비스 형식(진행형식) 택1:뷔페, 코스, 드랍오프, 도시락 -->
-				<span class="width-100" style="font-size: 14px">서비스형식</span>
+				<span class="width-100" style="font-size: 14px">진행형식</span>
 				<span class="secondary-content"><span id="serv_type_code"></span></span>
 			</li>
 			<li class="collection-item dismissable">
@@ -272,7 +286,7 @@
 				<span class="secondary-content"><span id="requested_team"></span></span>
 			</li>
 			
-			<li class="collection-item dismissable" id="li_menu" style="display: none">
+			<!-- <li class="collection-item dismissable" id="li_menu" style="display: none">
 				<span class="width-100" style="font-size: 14px">제안 메뉴</span>
 				<br>
 				<p class="secondary-content">
@@ -288,12 +302,12 @@
 						</tbody>
 					</table>
 				</p>
-			</li>
+			</li> -->
 		</ul>
 		<ul class="collection with-header" id="ul_app">
 			
 		</ul>
-	</div>
+	</div> 
 	<div class="modal-footer">
 		<!-- 닫기버튼 -->
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>

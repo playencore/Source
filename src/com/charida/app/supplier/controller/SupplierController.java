@@ -126,7 +126,7 @@ public class SupplierController {
 		JSONArray json = new JSONArray(req.getParameter("suggarr"));
 		List<Object> list = json.toList() ;
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mem_id", req.getParameter(mem_id)) ;
+		param.put("mem_id", mem_id) ;
 		param.put("per_bud", req.getParameter("per_bud"));
 		param.put("menulist", list) ;
 		int result = supplierService.setSuggestTx(param);

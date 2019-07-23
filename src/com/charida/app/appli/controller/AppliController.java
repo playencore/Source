@@ -29,24 +29,40 @@ public class AppliController extends CommonController{
 		req.setAttribute("appliList", appliService.getList(getParameterMap(req,true), req));
 		return "/service/cus-app-list";
 	}
-	// 1-2.구매자 입장에서 매칭 신청중인 건을 보는 페이지(상세 정보 페이지-js에서 호줄)
-	@RequestMapping("/appli/getApplicationInfo.do")
+	// 1-2-1.구매자가 보는 상세페이지에 보여줄 정보를 갖고옴(list1 신청 정보, list2 제안 정보)
+	@RequestMapping("/appli/getDetailInfoList.do")
 	@ResponseBody
-	public Map<String, Object> getAppliInfo(@RequestParam("appliId") String appliId) {
+	public Map<String, Object> getAppliInfoList(@RequestParam("appliId") String appliId) {
 		log.debug("ctrler appliId : " + appliId);
-		return appliService.getAppliInfo(appliId);
+		Map<String, Object>result = appliService.getAppliInfo(appliId);
+		
+		return result;
+	} 
+	// 1-2-2.구매자가 업체를 채택함
+	@RequestMapping("/appli/selectCustomer.do")
+	@ResponseBody
+	public int setStateAppSugg(@RequestParam("suggId") String suggId
+							,@RequestParam("total") String total
+							,@RequestParam("servId") String servId
+			) {
+		log.debug("ctrler suggId : " + suggId);
+		log.debug("ctrler total : " + total);
+		log.debug("ctrler servId : " + servId);
+		int result = appliService.setStateAppSuggTx(suggId, total, servId);
+		log.debug("result : " + result);
+		return result;
 	} 
 	
-	// 2.매칭은 됐으나 결제가 되지 않은 건을 보는 페이지
-	@RequestMapping("/service/cus-pay-list.do")
-	public String cuspay(HttpServletRequest req,HttpServletResponse resp) {
-		
-		return "/service/cus-pay-list";
-	}	
-	// 3.결제는 됐으나 배송이 되지 않은 건을 보는 페이지
-	//@RequestMapping("/service/cus-deli-list.do")
-	public String cusdeli(HttpServletRequest req,HttpServletResponse resp) {
-		
-		return "/service/cus-deli-list";
-	}
+//	// 2.매칭은 됐으나 결제가 되지 않은 건을 보는 페이지
+//	@RequestMapping("/service/cus-pay-list.do")
+//	public String cuspay(HttpServletRequest req,HttpServletResponse resp) {
+//		
+//		return "/service/cus-pay-list";
+//	}	
+//	// 3.결제는 됐으나 배송이 되지 않은 건을 보는 페이지
+//	@RequestMapping("/service/cus-deli-list.do")
+//	public String cusdeli(HttpServletRequest req,HttpServletResponse resp) {
+//		
+//		return "/service/cus-deli-list";
+//	}
 }
