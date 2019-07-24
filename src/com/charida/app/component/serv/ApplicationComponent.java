@@ -105,7 +105,12 @@ public class ApplicationComponent {
 		}else {
 			appEntities.put("tableware_yn","Y");
 		}
-		appEntities.put("coordinator_yn",params.get("codi_yn"));
+		if(params.get("codi_yn") == null) {
+			appEntities.put("coordinator_yn","N");
+		}else {
+			appEntities.put("coordinator_yn",params.get("codi_yn"));
+		}
+		
 		
 		String[] addtion = (String[])params.get("cb_addtion");
 		

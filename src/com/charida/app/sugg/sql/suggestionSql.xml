@@ -46,6 +46,7 @@
 		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
 		WHERE SER.SERV_ID = SUG.SERV_ID 
 		AND SUG.MEM_ID= #{memId}
+		AND SER.PROGRESS_CODE IN ('STU0030001','STU0030002','STU0030003')
 		AND CHOOSE_YN = 'Y'
 	</select>
 	<select id="getWaitList" resultType="java.util.Map" parameterType="java.util.Map">
@@ -66,6 +67,7 @@
 				WHERE SER.SERV_ID = SUG.SERV_ID 
 				AND SUG.MEM_ID=  #{memId}
 				AND CHOOSE_YN = 'Y'
+				AND SER.PROGRESS_CODE IN ('STU0030001','STU0030002','STU0030003')
 				ORDER BY SUGG_DATE DESC
 			) A
 		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}

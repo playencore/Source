@@ -48,6 +48,7 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/member/getpasswd.do"
 			,"/joinUser/checkRegist_num.do"
 			,"/joinUser/joinSupplierPro.do"
+			,"/file-down/"
 		};
 	
 	@Override
@@ -182,6 +183,9 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 
 		for(String passUri :ARR_PASS_URI ) {
 			if(passUri.indexOf(uri) != -1) {
+				return false;
+			}
+			if(uri.indexOf("/file-down/")!=-1) {
 				return false;
 			}
 		}
