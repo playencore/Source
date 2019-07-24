@@ -1,5 +1,6 @@
 package com.charida.app.appli.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -37,6 +38,12 @@ public class AppliController extends CommonController{
 		Map<String, Object>result = appliService.getAppliInfo(appliId);
 		
 		return result;
+	} 
+	@RequestMapping("/appli/get-menu-info.do")
+	@ResponseBody
+	public List<Map<String, Object>> getmenuinfo(@RequestParam("suggId") String suggId) {
+		log.debug("ctrler suggId : " + suggId);
+		return appliService.getMenuInfo(suggId);
 	} 
 	// 1-2-2.구매자가 업체를 채택함
 	@RequestMapping("/appli/selectCustomer.do")
