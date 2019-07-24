@@ -5,13 +5,14 @@
 
 <mapper namespace="ShipList">
 	<select id="getServShipListCount" resultType="int" parameterType="java.lang.String">
-		SELECT 
+		SELECT
 			COUNT(*)
-		FROM CRD_SERV_APP SER, CRD_SERV_SUGG  SUG 
-		WHERE SER.SERV_ID = SUG.SERV_ID 
-		AND SER.CUSTOMER_ID= #{mem_id}
-		AND PROGRESS_CODE IN ('STU0040001','STU0050001','STU0050002')
-		AND SUG.CHOOSE_YN = 'Y'
+		FROM CRD_SERV_APP SERV , CRD_COMPANY SUGG, CRD_SERV_SUGG SERVSUGG
+		WHERE SERV.CUSTOMER_ID = #{mem_id}
+		AND SERV.SERV_ID = SERVSUGG.SERV_ID
+		AND SERVSUGG.CHOOSE_YN = 'Y'
+		AND SERV.PROGRESS_CODE IN ('STU0040001','STU0050001','STU0050002')
+		AND SUGG.MEM_ID = SERVSUGG.MEM_ID
 	</select>
 	<select id="selectServList" resultType="map" parameterType="map">
 		
