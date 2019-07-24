@@ -32,7 +32,6 @@ public class SupplierController {
 	@Resource
 	SupplierService supplierService;
 
-
 	@RequestMapping("/supplier/setfood.do")
 	public String setFood(HttpServletRequest req, HttpServletResponse resp) {
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
@@ -165,6 +164,55 @@ public class SupplierController {
 		supplierService.modifyinfo(supplierMap,supplierInfoFile);		
 		
 		return "redirect:/supplier/modifyDefaultInfo.do";
+	}
+	
+	@RequestMapping("/joinuser/joinsupplier.do")
+	public String joinSupplier(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/joinUser/joinSupplierForm";
+	}
+	
+	@RequestMapping("/joinUser/joinMember.do")
+	public String joinMember(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/joinUser/joinMemberForm";
+	}
+	
+	@RequestMapping("/joinUser/joinSupplierPro.do")
+	public String joinSupplierPro(HttpServletRequest req, HttpServletResponse resp) {
+		Map<String, String[]> supplierMap = req.getParameterMap();
+		String cert_file_id[] = {Integer.toString((Integer)req.getAttribute("file_id1"))} ;
+		String supplierInfoFile[] = new String[3] ;
+		for(int i = 2 ; i<5 ; i++) {
+			if(req.getAttribute("file_id"+i)!=null) {
+				supplierInfoFile[i-2] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+			}
+		}
+		supplierMap.put("cert_file_id",cert_file_id ) ;
+		supplierMap.put("supplierInfoFile",supplierInfoFile) ;
+		int result = supplierService.setSupplierTx(supplierMap) ;
+		req.setAttribute("result", result);
+		return "/joinUser/joinSupplierPro";
+	}
+	
+	@RequestMapping("/joinUser/checkRegist_num.do")
+	@ResponseBody
+	public Map<String,Object> regist_numCheck(HttpServletRequest req, HttpServletResponse resp){
+		
+		String regist_num = req.getParameter("regist_num") ;
+		String result = supplierService.checkRegist_num(regist_num);
+		Map <String,Object> checkRegist_numMap = new HashMap<String, Object>();
+		String color=null ;
+		if(result.equals("가입 가능한 업체입니다.")) {
+			color = "color:green" ;
+		}else {
+			color = "color:red" ;
+		}
+		
+		checkRegist_numMap.put("result",result) ;
+		checkRegist_numMap.put("color",color);
+		
+		return checkRegist_numMap ;
 	}
 	
 	
