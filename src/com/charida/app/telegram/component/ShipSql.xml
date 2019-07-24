@@ -38,6 +38,7 @@
 		ORDER BY SERV_DATE DESC
 		 ) A 
 	)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+	ORDER BY SERV_ID DESC
 		
 	</select>
 	

@@ -127,7 +127,6 @@
 			$("input[name="+result+"]").focus().select();
 			alert("오류 : " + result + "를 확인해주세요.");
 		} else {
-			alert("유효성 모두 통과 함");
 			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
 			$("#memberForm").hide();
 			$("#supplierForm").show();
