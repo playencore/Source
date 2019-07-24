@@ -37,8 +37,25 @@
 		}else if( $("input:radio[name=recommend]:checked").length == 0 ){
 			alert("지인 추천항목을 체크해주세요..");
 			return false ;
+		}else if($("#reviewPicture").attr("enctype") != null ){
+			if( $("input:file[name=servicePicture1]").val() == ""
+				|| $("input:file[name=servicePicture1]").val() == null ) {
+				alert("후기 수정을 할 수 없습니다. 다음을 확인해주세요. \n 1.후기사진을 하나 이상 첨부해 주세요. \n 2.후기사진 첨부는 첫 번째 칸 부터 첨부해 주세요.");
+				return false;
+			}
+		} else {
+			alert("후기수정이 완료되었습니다.");
 		}
 	}
+	function showPicture(){
+		$("#tr1").show();
+		$("#tr2").show();
+		$("#tr3").show();
+		$("#tr4").show();
+		$("#tr5").show();
+		$("#tr6").show();
+		document.getElementById('reviewPicture').setAttribute("enctype","multipart/form-data");
+		}
 	//-->
 	
 </script>
@@ -46,7 +63,7 @@
 <div class="section"></div>
 <div class="section"></div>
 
-<form method="post" onsubmit="return reviewinput()" action="/review/modifyReviewPro.do?serv_id=${serv_id}" enctype="multipart/form-data">
+<form method="post" onsubmit="return reviewinput()" action="/review/modifyReviewPro.do?serv_id=${serv_id}" id="reviewPicture">
 
 <div class="container" style="background-color: white;margin-top:2px;">
 
@@ -207,7 +224,7 @@
 	<hr color="gray" class="container">
 	<div id="service_score" class="row container">
 		<div class="col s12">
-			<p id="serv"> [ 서비스 만족도 ]</p>		
+			<p id="serv"> [ 서비스 만족도 ]</p>	
 			<div class = "col s6">
 	       		<label>
 		    		<input type="radio" name = "serviceScore" 
@@ -287,25 +304,34 @@
 		 <div class = "col s12">
 	        <br>
 	        	<p> [ 서비스 사진 ] </p>
-	        	<div class = "col s4">
-	        		<input name ="servicePicture1" type="file"  class="dropify" data-height="100"> 
+				<c:forEach var="pictures" items="${pictures}">
+				<img src="/file/file-down/${pictures}" width="150">
+				</c:forEach>
+				<div class="section"></div>
+				
+				<input type='button' value="후기사진 수정을 원하시면  여기를 클릭해주세요"  class="btn waves-effect waves-light" name="picture"
+				onclick="showPicture()">
+				<br><br>
+
+	        	<div class = "col s4" id="tr1" style="display : none">
+	        		<input name ="servicePicture1" type="file"  class="dropify" data-height="100">
 	        	</div>
-	        	<div class = "col s4">
+	        	<div class = "col s4" id="tr2" style="display : none">
 	        		<input name ="servicePicture2" type="file"  class="dropify" data-height="100"> 
 	        	</div>
-	        	<div class = "col s4">
+	        	<div class = "col s4" id="tr3" style="display : none">
 	        		<input name ="servicePicture3" type="file"  class="dropify" data-height="100"> 
 	        	</div>
 	       </div><br>
 	       <div class = "col s12">
 	        <br>
-	        	<div class = "col s4">
+	        	<div class = "col s4" id="tr4" style="display : none">
 	        		<input name ="servicePicture4" type="file"  class="dropify" data-height="100"> 
 	        	</div>
-	        	<div class = "col s4">
+	        	<div class = "col s4" id="tr5" style="display : none">
 	        		<input name ="servicePicture5" type="file"  class="dropify" data-height="100"> 
 	        	</div>
-	        	<div class = "col s4">
+	        	<div class = "col s4" id="tr6" style="display : none">
 	        		<input name ="servicePicture6" type="file"  class="dropify" data-height="100"> 
 	        	</div>
 	      </div>

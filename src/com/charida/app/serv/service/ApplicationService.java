@@ -214,9 +214,9 @@ public class ApplicationService {
 	        		/*+ "&approval_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp"
 	        		+ "&cancel_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp"
 	        		+ "&fail_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp";*/
-		        + "&approval_url=http://localhost:8070/service/kakao-approve.do"
-		        + "&cancel_url=http://localhost:8070/service/kakao-approve.do"
-		        + "&fail_url=http://localhost:8070/service/kakao-approve.do";
+		        + "&approval_url=http://localhost:8080/service/kakao-approve.do"
+		        + "&cancel_url=http://localhost:8080/service/kakao-approve.do"
+		        + "&fail_url=http://localhost:8080/service/kakao-approve.do";
 	        System.out.println(initData);
 	        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 	        wr.writeBytes(initData);

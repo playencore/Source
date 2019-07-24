@@ -247,4 +247,7 @@ public class SupplierComponent {
 		String chat_id = Long.toString(chatId) ;
 		return supplierDao.updateTelegram(mem_id,chat_id);
 	}
+	public List<SupplierDto> supplier_info(String id){
+		return supplierDao.supplier_info(id);
+	}
 }

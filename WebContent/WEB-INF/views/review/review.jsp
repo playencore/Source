@@ -113,7 +113,7 @@
 				<hr color="white"><br>
 				<div class="container">
 				<c:forEach var="pictures" items="${ReviewDto.picture}">
-				<img src="/file/file-down/${pictures}" width="190">
+				<img src="/file/file-down/${pictures}" width="170">
 				</c:forEach> 
 				</div>
 				<br>

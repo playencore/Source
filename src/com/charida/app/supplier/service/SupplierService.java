@@ -18,7 +18,6 @@ import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.supplier.SupplierComponent;
 import com.charida.app.member.dto.MemberDto;
 import com.charida.app.review.dto.ReviewDto;
-import com.charida.app.supplier.dao.SupplierDao;
 import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.PermissionDto;
@@ -37,8 +36,7 @@ public class SupplierService {
 	CategoryComponent categoryComponent ;
 	@Resource
 	JoinComponent joinComponent;
-	@Resource
-	SupplierDao supplierDao;
+
 	
 	public int setSupplierTx(Map <String,String[]> supplierMap) {
 		int result = 0 ;
@@ -241,16 +239,13 @@ public class SupplierService {
 		return result ;
 	}
 	public List<SupplierDto> supplier_info(String id){
-		List<SupplierDto> result = supplierDao.supplier_info(id);
+		List<SupplierDto> result = supplierComponent.supplier_info(id);
 		for(int i = 0 ; i < result.size() ; i++) {
 			//전체중 한개의 Dto
 			SupplierDto info = result.get(i);
 			//한 개의 serv_id에 해당하는 file_id의 집합 리스트
 			List<Integer> files = supplierComponent.getfiles(id);
-			// 해당번째의 Dto에 file_id 삽입
-//			List<ServiceTypeDto> serviceType = supplierDao.serviceType(id);
-//			List<FoodStyleDto> foodStyle = supplierDao.foodStyle(id);
-//			List<ServiceAreaDto> serviceArea = supplierDao.serviceArea(id);
+
 			info.setPicture(files);	
 		}		
 

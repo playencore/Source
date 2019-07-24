@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.charida.app.common.service.TestService;
 import com.charida.app.matching.dto.MatchingDto;
-import com.charida.app.review.dao.ReviewDao;
 import com.charida.app.review.dto.ReviewDto;
 import com.charida.app.review.service.ReviewService;
 
@@ -29,8 +28,6 @@ public class ReviewController {
 	@Resource
 	ReviewService reviewService;	
 
-	@Resource
-	ReviewDao reviewDao;
 	//후기작성페이지 컨트롤러
 	@RequestMapping("/review/reviewWrite.do")
 	public String reviewWriteForm(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
@@ -121,6 +118,8 @@ public class ReviewController {
 		req.getSession().getAttribute("session_authority");
 		req.setAttribute("serv_id", serv_id);
 		ReviewDto review = reviewService.modifyReview(serv_id);
+		List<Integer> pictures = reviewService.getfiles(serv_id);
+		req.setAttribute("pictures", pictures);
 		req.setAttribute("review", review);
 		return "/review/modifyReview";
 	}
@@ -134,32 +133,31 @@ public class ReviewController {
 		Map<String, Object> params =getParameterMap(req);
 		params.put("serv_id", serv_id);		
 		int result = reviewService.modifyReviewPro(params);
-		int delpicture = reviewService.delpicture(serv_id);
+//		int delpicture = reviewService.delpicture(serv_id);
 		
 		//사진수정 (기존사진을 지우기 덮어씀)
 		Map<String,String[]> pictureMap = req.getParameterMap();
-		String servicePicture[] = new String[6] ;
+		String servicePictures[] = new String[6] ;
 		for(int i = 1 ; i<7 ; i++) {
 			if(req.getAttribute("file_id"+i)!=null) {
-				servicePicture[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
+				servicePictures[i-1] = Integer.toString((Integer)req.getAttribute("file_id"+i)) ;
 			}
 		}
-		pictureMap.put("servicePicture", servicePicture);		
-		reviewService.insertPictureTx(pictureMap);
+		reviewService.modifyPictureTx(pictureMap,servicePictures,serv_id);
 		
 		
-		if(result == 0 || delpicture == 0) {
+		if(result == 0) {
 			req.setAttribute("modify", 0);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
 			req.setAttribute("reviews", reviews);
-			return "/review/ownReview";
+			return "redirect:/review/ownReview.do";
 		}else{
 			req.setAttribute("modify", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
 			req.setAttribute("reviews", reviews);
-			return "/review/ownReview";
+			return "redirect:/review/ownReview.do";
 		}
 		
 	}
@@ -180,7 +178,7 @@ public class ReviewController {
 			List<ReviewDto> reviews = reviewService.ownReview(id);		
 			req.setAttribute("reviews", reviews);
 			
-			return "/review/ownReview";
+			return "rediret:/review/ownReview.do";
 		}else {
 			//삭제성공
 			req.setAttribute("check", 1);
@@ -188,7 +186,7 @@ public class ReviewController {
 			List<ReviewDto> reviews = reviewService.ownReview(id);		
 			req.setAttribute("reviews", reviews);
 			
-			return "/review/ownReview";
+			return "redirect:/review/ownReview.do";
 		}
 	}
 	

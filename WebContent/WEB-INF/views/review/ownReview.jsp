@@ -16,15 +16,18 @@
 	//<!--
 	<c:if test="${check == 0}">
 		alert("게시물 삭제에 실패했습니다. 잠시후 다시 시도해주세요.");
+		window.location.replace();
 	</c:if>	
 	<c:if test="${check == 1}">
-		alert("해당 게시글이 삭제되었습니다.");
+		alert("해당 게시글이 삭제되었습니다.");		
 	</c:if>
 	<c:if test="${modify == 0}">
-	alert("게시물 수정에 실패했습니다. 잠시후 다시 시도해주세요.");
+		alert("게시물 수정에 실패했습니다. 잠시후 다시 시도해주세요.");
+		window.location.replace();
 	</c:if>	
 	<c:if test="${modify == 1}">
 		alert("해당 게시글이 수정되었습니다.");
+		window.location.replace();
 	</c:if>
 	
 	//-->
@@ -131,7 +134,7 @@
 				<hr color="white"><br>
 				<div class="container">
 				<c:forEach var="pictures" items="${ReviewDto.picture}">
-				<img src="/file/file-down/${pictures}" width="190">
+				<img src="/file/file-down/${pictures}" width="170">
 				</c:forEach> 
 				</div>
 				<br>

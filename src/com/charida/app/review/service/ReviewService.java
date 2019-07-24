@@ -40,6 +40,7 @@ public class ReviewService {
 	public int insertPictureTx(Map <String,String[]> pictureMap) {
 		int result = 0;
 		int seq = 0;
+		
 		Map<String,Object> pictureListMap = new HashMap<String, Object>();
 		String checkseq = reviewComponent.getPictureMaxSeq();
 		if(checkseq == null ) {
@@ -116,8 +117,41 @@ public class ReviewService {
 	public int deleteReview(String serv_id) {
 		return reviewComponent.deleteReview(serv_id);
 	}
-	public int delpicture(String serv_id) {
-		return reviewComponent.delpicture(serv_id);
+//	public int delpicture(String serv_id) {
+//		return reviewComponent.delpicture(serv_id);
+//	}
+	public List<Integer> getfiles(String serv_id){
+		return reviewComponent.getfiles(serv_id);
+	}
+	//사진수정
+	public int modifyPictureTx(Map <String,String[]> pictureMap, String[]servicePictures, String serv_id) {
+		int result = 0;
+		int seq = 0;
+		
+		if(servicePictures[0]!=null) {			
+			reviewComponent.delpicture(serv_id);
+			Map<String,Object> pictureListMap = new HashMap<String, Object>();
+			String checkseq = reviewComponent.getPictureMaxSeq();
+			if(checkseq == null ) {
+				checkseq = "0";
+				seq = Integer.parseInt(checkseq);
+				seq = 1;
+			}else {
+				seq = Integer.parseInt(checkseq);
+			}
+			for(int i = 0 ; i < servicePictures.length ; i++ ) {	// 0~6장까지 들어온다.
+				String servicePicture = servicePictures[i];
+				if(servicePicture!=null) {
+					int picture=Integer.parseInt(servicePicture);				
+					pictureListMap.put("serv_id",pictureMap.get("serv_id")[0]);
+					pictureListMap.put("file_seq", seq);
+					pictureListMap.put("file_id",picture);
+					result += reviewComponent.setPicture(pictureListMap);
+					seq ++;
+				} 
+			}
+		}
+		return result;
 	}
 	
 }
