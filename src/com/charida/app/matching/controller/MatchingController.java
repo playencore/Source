@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.charida.app.matching.dao.MatchingDao;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.matching.service.MatchingService;
 
@@ -22,8 +21,7 @@ import com.charida.app.matching.service.MatchingService;
 public class MatchingController {
 	@Resource
 	MatchingService matchingService;
-	@Resource
-	MatchingDao matchingDao;
+
 
 	//구매자 매칭실패리스트
 	@RequestMapping("/customer/matchingFail.do")
