@@ -346,7 +346,7 @@ function movePage(pageNo){
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">세부 장소</span>
-									<span  class="secondary-content"><span class="">${shiplist.ADDRESS_DETAIL } 원</span></span>
+									<span  class="secondary-content"><span class="">${shiplist.ADDRESS_DETAIL }</span></span>
 								</li>
 								<li class="collection-item dismissable">
 									<span class="width-100" style="font-size: 14px">서비스 제공일</span>
@@ -363,7 +363,7 @@ function movePage(pageNo){
 					</c:forEach>
 				</div>
 				<div class="col m12 center">
-					<%-- <ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/> --%>
+					<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
 				</div>
 			</div>
 		</div>
