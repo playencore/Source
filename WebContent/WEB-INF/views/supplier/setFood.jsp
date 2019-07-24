@@ -32,7 +32,11 @@
 			alert("메뉴 중량을 입력해주세요.");
 			$("input[name=weight]").focus();
 			return false;
-		} else if ($("input[name=file_id]").val() == null
+		} else if($("input[name=weight]").val().length > 4){
+			alert("메뉴 중량은 최대 9.9kg 까지 입니다.")
+			$("input[name=weight]").focus();
+			return false;
+		} 	else if ($("input[name=file_id]").val() == null
 				|| $("input[name=file_id]").val() == "") {
 			alert("메뉴 사진을 입력해주세요.");
 			$("input[name=file_id]").focus();
@@ -55,6 +59,10 @@
 		} else if ($("input[name=mweight]").val() == null
 				|| $("input[name=mweight]").val() == "") {
 			alert("메뉴 중량을 입력해주세요.");
+			$("input[name=mweight]").focus();
+			return false;
+		} else if($("input[name=mweight]").val().length > 4){
+			alert("메뉴 중량은 최대 9.9kg 까지 입니다.")
 			$("input[name=mweight]").focus();
 			return false;
 		} else if ($("input[name=mfile_id]").val() == null

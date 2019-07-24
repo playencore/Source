@@ -39,7 +39,7 @@
 	activeItem('마이 페이지');
 	showExtendedMenu('#nav_mypage');
 	activeSubItem('제안 리스트',0);
-	activeSubItem('결제 대기',1);
+	activeSubItem('서비스 배송현황',1);
 	$('.modal').modal();
 });
 
@@ -308,7 +308,13 @@ function movePage(pageNo){
 			<div class="row">
 				<div class="col m12" style="border: 1px solid #eeeeee">
 					<h5 style="margin-bottom: 30px">신청 리스트</h5>
-					<%@include file="/include/service/sub_menu.jsp" %>
+					<div class="nav-content center" style="background-color: #eeeeee;margin-bottom: 20px;">
+					   <ul class="tabs tabs-transparent">
+					     <li class="tab"><a href="/service/cus-app-list.do">신청 목록</a></li>
+					     <li class="tab"><a href="/service/pay-list.do">결제 대기</a></li>
+					     <li class="tab"><a href="/service/cus-deli-list.do" class="active" >서비스 배송현황</a></li>
+					   </ul>
+					</div>
 		    		<c:forEach items="${result}" var="shiplist">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
@@ -425,3 +431,4 @@ function movePage(pageNo){
 <%@include file="/include/footer.jsp" %>
 </body>
 </html>
+

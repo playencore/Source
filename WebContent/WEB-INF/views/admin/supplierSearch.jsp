@@ -35,6 +35,9 @@
 	
 	function showlist(data){
 		var cards = "" ;	
+		if(Object.keys(data).length == 0){
+			cards = cards+ "데이터가 없습니다.";
+		}
 		for(var i = 0 ; i < Object.keys(data).length ; i++){
 			cards = cards 
 			+"<div class='card col s12'>"
@@ -171,14 +174,6 @@
 			+				"</span>"
 			+				"<span class='secondary-content'>"
 			+					data[i].MAXiMUM_SEATIN
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 텔레그램 아이디"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].TELEGRAM_ID 
 			+				"</span>"
 			+			"</li>"
 			+		"</ul>"

@@ -37,7 +37,6 @@
 	function codecompare(){
 		targetcode = $("input[name=emailcode]").val();
 		enteredcode = $("input[name=emailcheck]").val();
-		alert(targetcode + ", " + enteredcode);
 		if( targetcode == enteredcode ){
 			if( true ){
 				$("#bt_sendemail").click(function () {return false;});
@@ -108,7 +107,6 @@
 						}, 
 						dataType : "json",
 						success : function(data) {
-							alert(data.result) ;
 							if(data.flag == 1){
 								getEmail(mem_id);
 								$("#inputemail").show();

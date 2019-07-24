@@ -70,7 +70,6 @@
 					}, 
 					dataType : "json",
 					success : function(data) {
-						alert(data.result);
 						sendemail(data.flag);
 					},
 					error : function(data) {

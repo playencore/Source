@@ -8,8 +8,9 @@
 	$(document).ready(function() {
 		ckpasswd();
 		reckpasswd();
-		emailcheck()
-
+		emailcheck() ;
+		$("#option"+${meminfo.job}).attr("selected",true);
+		
 	});
 
 	function ckpasswd() {
@@ -335,12 +336,28 @@
 					<br>
 					<div id="job" class="input-field col s12"
 						style="margin-left: 10px;">
+						<c:set var = "selectdefalut" value = "${''}" />
+						<c:choose>
+						       <c:when test="${meminfo.job == 1}">
+						       	<c:set var = "selectdefalut" value = "${'학생'}" />
+						       </c:when>
+						       <c:when test="${meminfo.job == 2}">
+						       	<c:set var = "selectdefalut" value = "${'회사원'}" />
+						       	</c:when>
+						       <c:when test="${meminfo.job == 3}">
+						       	<c:set var = "selectdefalut" value = "${'주부'}" />
+						       	</c:when>
+						       <c:when test="${meminfo.job == 4}">
+						       	<c:set var = "selectdefalut" value = "${'기타'}" />
+						       	</c:when>
+						       <c:otherwise>값을 선택하세요.</c:otherwise>
+						   </c:choose>
 						<select name="job">
-							<option value="0" disabled selected>직업을 선택해주세요</option>
-							<option value="1">학생</option>
-							<option value="2">회사원</option>
-							<option value="3">주부</option>
-							<option value="4">기타</option>
+							<option id = "option0" value="0" disabled selected ><c:out value="${selectdefalut}" /></option>
+							<option id = "option1" value="1" >학생</option>
+							<option id = "option2" value="2" >회사원</option>
+							<option id = "option3" value="3" >주부</option>
+							<option id = "option4" value="4" >기타</option>
 						</select> <label>직업을 선택해주세요</label>
 					</div>
 					<div class="col s6">
@@ -376,3 +393,11 @@
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+

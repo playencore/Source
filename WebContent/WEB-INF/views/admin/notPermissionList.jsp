@@ -126,14 +126,6 @@
 								 </li>
 								 <li class="collection-item dismissable">
 									 <span class="width-100" style="font-size: 14px">
-									 	텔레그램 아이디
-									 </span>
-									 <span class="secondary-content">
-										${notPermissionSupplier.TELEGRAM_ID }
-									 </span>
-								 </li>
-								 <li class="collection-item dismissable">
-									 <span class="width-100" style="font-size: 14px">
 									 	승인 상태
 									 </span>
 									 <span class="secondary-content">

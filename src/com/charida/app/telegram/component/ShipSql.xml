@@ -43,7 +43,7 @@
 	</select>
 	
 	<update id="updateStatusComplete" parameterType="String">
-		UPDATE CRD_SERV_APP SET PROGRESS_CODE='STU0060001' WHERE SERV_ID = #{serv_id}
+		UPDATE CRD_SERV_APP SET PROGRESS_CODE='STU0060001', END_DATE = SYSDATE WHERE SERV_ID = #{serv_id}
 	</update>
 	
 </mapper>

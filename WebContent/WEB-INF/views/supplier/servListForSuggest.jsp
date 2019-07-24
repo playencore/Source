@@ -13,11 +13,7 @@ $(document).ready(function(){
 	for(var i = 0 ; i< ${servlistsize} ; i++){
 		menucountarr[i] = new Array();
 	}
-	var mpct = 0 ;
-	<c:forEach var="serv" items="${servlist}" >
-		viewMap("${serv.ADDRESS}",mpct);
-		mpct = mpct + 1 ;
-	</c:forEach>
+	
 	
 	setDatePicker() ;
 	setModal();
@@ -366,9 +362,6 @@ function showServeList(result){
 		slist=slist
 		+							"</span>"
 		+						"</li>" ;
-		
-		slist=slist + createMap(result.data[i].ADDRESS,result.data[i].ADDRESS_DETAIL,result.data[i].ZIPCODE,i);
-
 		+					"</ul>" ;
 		
 								
@@ -428,9 +421,7 @@ function showServeList(result){
 		maplist[i] = result.data[i].ADDRESS ;
 	}
 	$("#servlist").html(slist);
-	for(var j = 0 ; j< maplist.length ; j++){
-		viewMap(maplist[j],j) ;
-	}
+	
 	$('select').formSelect();
 	
 }
@@ -533,6 +524,9 @@ function menusubmitvalidataion(ct){
 		if( $("input[name=suggweight"+i+"]").val() == null || $("input[name=suggweight"+i+"]").val() ==""){
 			M.toast({html: "메뉴의 중량을 모두 입력해주세요."});
 			return 1;
+		}else if($("input[name=suggweight"+i+"]").val().length > 4){
+			M.toast({html: "메뉴의 중량은 최대 9.9KG까지 입니다"});
+			return 1 ;
 		}
 	}
 	
@@ -804,29 +798,6 @@ function menusubmit(ct){
 										${serv.REQUESTED_TERM} 
 									 </span>
 								 </li>
-								 <li class="collection-item dismissable">
-									<span class="width-100" style="font-size: 14px">서비스 제공위치</span>
-										<p class="secondary-content">
-											<table class="highlight centered">
-												<thead>
-													<tr>
-													<th>주소</th>
-													<th>상세주소</th>
-													<th>우편번호</th>
-												</tr>
-												</thead>
-												<tbody>
-												<tr>
-													<td>${serv.ZIPCODE}</td>
-													<td>${serv.ADDRESS}</td>
-													<td>${serv.ADDRESS_DETAIL}</td>
-												</tr>
-												</tbody>
-											</table>
-											<br>
-										<div id="map${count}" style="height:400px; width: 700px;"></div>
-									</p>
-								</li>
 							</ul>
 						</div>
 						<div class="modal-footer">
