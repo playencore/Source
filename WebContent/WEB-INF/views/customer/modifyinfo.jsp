@@ -106,7 +106,6 @@
 		if( $("input[name=emailkeycheck]").val() != 1 ) {
 			var email = $("input[name=email]").val();
 			var code = makeRandom(1000, 9999);
-			alert("생성된 인증번호 : " + code );
 			$("input[name=emailcode]").val(code);	
 			var content = insertcode(code);
 
@@ -130,20 +129,17 @@
 		}
 	}
 	function codecompare(){
-		alert("인증번호 일치여부를 진행합니다.");
 		targetcode = $("input[name=emailcode]").val();
 		enteredcode = $("input[name=emailcheck]").val();
-		alert(targetcode + ", " + enteredcode);
 		if( targetcode == enteredcode ){
 //		if( true ){
-			alert("일치");
 			$("#bt_sendemail").click(function () {return false;});
 			$("#emailcheck_comment").html("<span style='color:blue'>" + "인증되었습니다." + "</span>");
 			$("input[name=emailkeycheck]").val("1");
 			$("#email_comment").text("이메일 인증이 완료되었습니다.").css("color", "green");
 			
 		} else {
-			alert("불일치");
+			alert("인증번호가 다릅니다. 다시 시도해주세요");
 			$("#emailcheck_comment").html( "<span style='color:red'>" + "인증에 실패하였습니다." + "</span>");
 		}
 	}

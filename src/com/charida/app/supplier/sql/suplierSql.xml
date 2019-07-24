@@ -65,9 +65,12 @@
 	
 	<select id = "selectSuppliers" resultType="com.charida.app.supplier.dto.SupplierDto">
 		SELECT * FROM CRD_COMPANY
+		ORDER BY MEM_ID DESC
+		
 	</select>
 	<select id="selectSupplier" resultType="com.charida.app.supplier.dto.SupplierDto" parameterType="String">
 		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{mem_id}
+		ORDER BY MEM_ID DESC
 	</select>
 	
 	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
@@ -92,6 +95,7 @@
 		AND M.AUTHORITY = '4'
 		AND C.MEM_ID=P.MEM_ID
 		AND P.PERMISSION_YN = 0 
+		ORDER BY C.MEM_ID DESC
 	</select>
 	
 	<update id="updatePermission" parameterType="map">
@@ -133,6 +137,7 @@
 		WHERE M.MEM_ID = C.MEM_ID
 		AND
 		${table}.${searchCategory} LIKE '%'||#{searchContent}||'%' 
+		ORDER BY C.MEM_ID DESC
 		
 	</select>
 	
@@ -146,6 +151,7 @@
 	</insert>
 	<select id="selectFoodList" parameterType="String" resultType="com.charida.app.supplier.dto.FoodDto">
 		SELECT * FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
+		ORDER BY MEM_ID DESC
 	</select>
 	<delete id="deleteFood" parameterType="String">
 		DELETE FROM CRD_MENU_INFO WHERE  MENU_ID = #{menu_id}
@@ -176,6 +182,7 @@
 			FROM CRD_SERV_SUGG
 			WHERE MEM_ID = #{mem_id}
 		)
+		ORDER BY SERV_ID DESC
 		
 	</select>
 	<select id="selectSearchServList" parameterType="hashMap" resultType="map">
@@ -194,6 +201,7 @@
 			FROM CRD_SERV_SUGG
 			WHERE MEM_ID = #{mem_id}
 		)
+		ORDER BY SERV_ID DESC
 	</select>
 	
 	<insert id="insertSuggest" parameterType="map">
@@ -211,18 +219,23 @@
 	</insert>
 	<select id="supplier_info" parameterType="String" resultType="com.charida.app.supplier.dto.SupplierDto">
 		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{session_id}
+		ORDER BY MEM_ID DESC
 	</select>
 	<select id="getFiles" parameterType="String" resultType="Integer">
   		SELECT file_id FROM CRD_INTRO_FILE WHERE MEM_ID = #{id}
+  		ORDER BY FILE_ID DESC
 	</select>
 	<select id="serviceType" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceTypeDto">
 		SELECT TYPE_CODE FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{id}
+		ORDER BY TYPE_CODE DESC
 	</select>
 	<select id="foodStyle" parameterType="String" resultType="com.charida.app.supplier.dto.FoodStyleDto">
 		SELECT FOOD_STYLE_CODE FROM CRD_FOOD_STYLE WHERE MEM_ID = #{id}
+		ORDER BY FOOD_STYLE_CODE DESC
 	</select>
 	<select id="serviceArea" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceAreaDto">
 		SELECT SERVICE_AREA_CODE FROM CRD_SERVICE_AREA WHERE MEM_ID = #{id}
+		ORDER BY SERVICE_AREA_CODE DESC
 	</select>
 	<update id="modifySupplier" parameterType="com.charida.app.supplier.dto.SupplierDto">
 		UPDATE CRD_COMPANY SET

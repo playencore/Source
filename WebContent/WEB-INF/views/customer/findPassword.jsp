@@ -14,9 +14,7 @@
 	}
 
 	function sendemail(email){
-			alert(email) ;
 			var code = makeRandom(1000, 9999);
-			alert("생성된 인증번호 : " + code );
 			$("input[name=emailcode]").val(code);	
 			var content = insertcode(code);
 			$.ajax({
@@ -37,13 +35,11 @@
 	}
 	
 	function codecompare(){
-		alert("인증번호 일치여부를 진행합니다.");
 		targetcode = $("input[name=emailcode]").val();
 		enteredcode = $("input[name=emailcheck]").val();
 		alert(targetcode + ", " + enteredcode);
 		if( targetcode == enteredcode ){
 			if( true ){
-				alert("일치");
 				$("#bt_sendemail").click(function () {return false;});
 				$("#emailcheck_comment").html("<span style='color:green'>" + "인증되었습니다." + "</span>");
 				$("input[name=emailkeycheck]").val("1");
