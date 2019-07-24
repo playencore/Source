@@ -308,13 +308,7 @@ function movePage(pageNo){
 			<div class="row">
 				<div class="col m12" style="border: 1px solid #eeeeee">
 					<h5 style="margin-bottom: 30px">신청 리스트</h5>
-					<div class="nav-content center" style="background-color: #eeeeee;margin-bottom: 20px;">
-				      <ul class="tabs tabs-transparent">
-				        <li class="tab"><a href="/service/cus-app-list.do">신청한 서비스</a></li>
-				        <li class="tab"><a href="/service/cus-pay-list.do">결제 현황</a></li>
-				        <li class="tab"><a href="/service/cus-deli-list.do" class="active">배송 현황</a></li>
-				      </ul>
-		    		</div>
+					<%@include file="/include/service/sub_menu.jsp" %>
 		    		<c:forEach items="${result}" var="shiplist">
 		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">

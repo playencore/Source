@@ -35,10 +35,9 @@ public class MailComponent {
 				});
 		
 		MimeMessage msg = new MimeMessage(mailSession);
-		
 		try {
 			msg.setSentDate(new Date());
-			msg.setFrom(new InternetAddress("hompage1234@gmail.com","WebMaster"));
+			msg.setFrom(new InternetAddress("hompage1234@gmail.com","단 하나의 서비스 - 차리다", "UTF-8"));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			msg.setSubject("회원 가입 인증 메일 입니다.", "UTF-8");
 			msg.setText(content, "UTF-8");
