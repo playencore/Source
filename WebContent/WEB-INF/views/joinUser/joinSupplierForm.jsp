@@ -143,10 +143,14 @@
 			alert("업체명을 입력해주세요.");
 			$("input[name=companyname]").focus();
 			return false;
-		} else if ($("#supplierlicensNumval").css("color") != "rgb(0, 128, 0)") {
+		} else if ($("#supplierlicensNumval").css("color") != "rgb(0, 128, 0)" ) {
 			alert("사업자 번호를 확인해주세요.");
 			$("input[name=regist_num]").focus();
 			return false;
+		}else if($("#regist_num").val().length > 20){
+			alert("사업자 등록증에 번호만 입력해주세요");
+			$("input[name=regist_num]").focus();
+			return false ;
 		} else if ($("input:file[name=cert_file_id]").val() == ""
 				|| $("input:file[name=cert_file_id]").val() == null) {
 			alert("사업자 등록증을 입력해주세요");
