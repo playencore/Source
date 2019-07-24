@@ -4,6 +4,9 @@
 <script type="text/javascript">
 //<!--
   $(document).ready(function(){
+	  activeItem('마이 페이지');
+		showExtendedMenu('#nav_mypage');
+		activeSubItem('판매자 승인/반려',0);	
     for( var i = 0 ; i < ${listsize} ; i++){
     	$('#infomodal'+i).modal();
     	$('#permissionmodal'+i).modal() ;

@@ -4,6 +4,9 @@
 <script type="text/javascript">
 //<!--
 	$(document).ready(function(){
+		activeItem('마이 페이지');
+		showExtendedMenu('#nav_mypage');
+		activeSubItem('판매자 조회',0);	
 	    $("#searchCategory").formSelect();
 	    $("#searchstart").on(
 				"click",

@@ -5,23 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="/js/jquery.js"></script>
+<script src="/js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //<!--
 	var params = "param1=aa&param2=bb";
 	$.ajax({
 	    
 	    type : "post",
-	    url : "/test/testApi.do",
+	    url : "/test/testApi2.do",
 	    data:params,
-	    dataType : "json",
+	    dataType : "text",
 	    error : function(data){
 	        alert('결제 실패 : '+data.msg);
 	        console.log(data);
 	    },
 	    success : function(data){
-	     	//alert(data);
-	    	alert(data.test + data.test2);
+	     	alert(data);
+	    	//alert(data.test + data.test2);
 	    }     
 	});
 //-->

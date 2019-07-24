@@ -12,6 +12,9 @@
 	$(document)
 			.ready(
 					function() {
+						 activeItem('마이 페이지');
+							showExtendedMenu('#nav_mypage');
+							activeSubItem('판매 정보 수정',0);	
 						$("input[name=regist_num]")
 								.on(
 										"keyup",

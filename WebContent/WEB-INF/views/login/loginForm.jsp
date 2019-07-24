@@ -78,28 +78,29 @@
 		</div>
 		<div class="col s12">
 			<div class="col s4"></div>
-			<div class="col s3">
-			<a href="/member/findid.do"> 아이디 찾기</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/member/findmemberpassowrd.do">비밀번호 찾기</a><br>
-			<a href="/joinuser/joinmember.do">구매자 회원가입</a>
-			<br>
-			<a href="/joinuser/joinsupplier.do">판매자 회원가입</a>
-			</div>
-			<div class="container">
+			<div class="col s4 center">
+				<a href="/member/findid.do" class="btn waves-effect waves-light"> 아이디 찾기</a>
+				<a href="/member/findmemberpassowrd.do" class="btn waves-effect waves-light">비밀번호 찾기</a>
 				<button class="btn waves-effect waves-light" type="submit"  >
-			    <i class="material-icons left"></i>로그인
+			    	로그인
 			  	</button>
 			</div>			
 		</div>	
-		
+		<div class="col s12" style="height: 10px;"></div>
+		<div class="col s12">
+			<div class="col s4"></div>
+			<div class="col s4 center">
+				<a href="/joinuser/joinmember.do" class="btn waves-effect waves-light">구매자 회원가입</a>
+				<a href="/joinuser/joinsupplier.do" class="btn waves-effect waves-light">판매자 회원가입</a>
+			</div>
+		</div>
 		<%-- <div class="col s12">
 			<div class="col s4"></div>
 			<a href="${naver_url}">네이버 로그인</a>
 		</div> --%>
 		
 		<!-- 카카오 로그인 -->
-		<div class="col s12">
+		<!-- <div class="col s12">
 			<div class="col s4"></div>
 			<a href="#" onclick="kakaoLogin()">
 			<img alt="카카오로그인" src="/images/kakaologo.png">
@@ -147,7 +148,7 @@
 	    	  }
 	      //]]>
 		    </script>
-		</div>
+		</div> -->
 	</div>	
 	<div class="section"></div>
 	

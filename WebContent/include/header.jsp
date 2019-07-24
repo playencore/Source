@@ -63,7 +63,6 @@
      <ul class="tabs tabs-transparent" style="border-top: 0.5px solid #00000042;">
        <li class="tab"><a href="/admin/supplierSearch.do">판매자 조회</a></li>
        <li class="tab"><a href="/admin/notPermissionList.do">판매자 승인/반려</a></li>
-       <li class="tab"><a href="/sales/sales-management.do">매출 관리</a></li>
      </ul>
    </div>
   </c:if>
@@ -71,11 +70,10 @@
   <c:if test="${sessionScope.session_authority ne null && sessionScope.session_authority eq '2'}">
    <div class="nav-content" id="nav_mypage" style="display:none; border-bottom: 1px solid #999;">
      <ul class="tabs tabs-transparent" style="border-top: 0.5px solid #00000042;">
-	   <li class="tab"><a href="/customer/matchingSuccess.do">서비스완료 목록</a></li>
-  	   <li class="tab"><a href="/customer/matchingFail.do">매칭실패 목록</a></li>
-       <li class="tab"><a href="/review/ownReview.do">작성한 후기</a></li>
-       <li class="tab"><a href="/review/ableToReview.do">작성가능한 후기</a></li>
        <li class="tab"><a href="/service/cus-app-list.do">신청 리스트</a></li>
+       <li class="tab"><a href="/review/ableToReview.do">작성가능한 후기</a></li>
+       <li class="tab"><a href="/review/ownReview.do">작성한 후기</a></li>
+	   <li class="tab"><a href="/customer/matchingSuccess.do">서비스완료 목록</a></li>
      </ul>
    </div>
   </c:if>

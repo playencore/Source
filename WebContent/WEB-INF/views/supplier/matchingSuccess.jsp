@@ -5,6 +5,9 @@
 	<script type="text/javascript">
 	  //<!--
 	   $(document).ready(function(){
+		   activeItem('마이 페이지');
+			showExtendedMenu('#nav_mypage');
+			activeSubItem('완료 리스트',0);
 	    $('.modal').modal();
 	    setDatePicker();
 	  });

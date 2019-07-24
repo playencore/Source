@@ -29,7 +29,11 @@
 		alert("해당 게시글이 수정되었습니다.");
 		window.location.replace();
 	</c:if>
-	
+	 $(document).ready(function(){
+			activeItem('마이 페이지');
+			showExtendedMenu('#nav_mypage');
+			activeSubItem('작성한 후기',0);
+	  });
 	//-->
 	</script>
 <div class="section"></div>

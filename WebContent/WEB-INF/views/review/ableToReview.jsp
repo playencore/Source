@@ -4,7 +4,10 @@
 	<script type="text/javascript">
 	  //<!--
 	   $(document).ready(function(){
-	    $('.modal').modal();
+			activeItem('마이 페이지');
+			showExtendedMenu('#nav_mypage');
+			activeSubItem('작성가능한 후기',0);
+	 		$('.modal').modal();
 	  });         
 	  //-->
 	  </script>

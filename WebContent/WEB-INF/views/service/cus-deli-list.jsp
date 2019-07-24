@@ -35,10 +35,10 @@
 
 <script type= "text/javascript">
 	//<!--
-	$(function(){
+$(function(){
 	activeItem('마이 페이지');
 	showExtendedMenu('#nav_mypage');
-	activeSubItem('제안 리스트',0);
+	activeSubItem('신청 리스트',0);
 	activeSubItem('서비스 배송현황',1);
 	$('.modal').modal();
 });

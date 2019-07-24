@@ -4,6 +4,9 @@
 <script src="/js/dropify.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		 activeItem('마이 페이지');
+			showExtendedMenu('#nav_mypage');
+			activeSubItem('판매메뉴 추가/수정',0);	
 		$('#addFood').modal();
 		$('.dropify').dropify(); //파일 업로드
 		$('#name, #explanation').characterCounter();
