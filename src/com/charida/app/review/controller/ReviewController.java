@@ -151,13 +151,13 @@ public class ReviewController {
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
 			req.setAttribute("reviews", reviews);
-			return "redirect:/review/ownReview.do";
+			return "/review/ownReview";
 		}else{
 			req.setAttribute("modify", 1);
 			String id = (String)req.getSession().getAttribute("session_id");
 			List<ReviewDto> reviews = reviewService.ownReview(id);
 			req.setAttribute("reviews", reviews);
-			return "redirect:/review/ownReview.do";
+			return "/review/ownReview";
 		}
 		
 	}
