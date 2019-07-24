@@ -84,7 +84,7 @@ public class AppliService {
 		return appliComponent.getSuggInfo(appliId);
 	}
 	public int setStateAppSuggTx(String suggId, String total, String servId) {
-		suggId = suggId.trim();
+		
 		// 제안테이블 상태 변경(crd_serv_sugg)
 		int result1 = appliComponent.setSuggState(suggId);
 		// 신청테이블 상태 변경(crd_serv_app)
