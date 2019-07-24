@@ -30,6 +30,10 @@ public class AppliDao extends CommonDao{
 		log.debug("setSuggState >> suggId : " + suggId);
 		return sqlSession.update("Appli.setSuggState", suggId);
 	}
+	public int setSuggFail(Map<String, Object> params) {
+		return sqlSession.update("Appli.setSuggFail", params);
+	}
+	
 	public int setAppState(String suggId){
 		log.debug("setAppState >> suggId : " + suggId);
 		return sqlSession.update("Appli.setAppState", suggId);
@@ -37,4 +41,9 @@ public class AppliDao extends CommonDao{
 	public int addPayRow(Map<String, Object> totalAndServId) {
 		return sqlSession.insert("Appli.addPayRow", totalAndServId);
 	}
+	
+	public List<Map<String, Object>> getMenuInfo(String suggId) {
+		return sqlSession.selectList("Appli.getMenuInfo", suggId);
+	}
+	
 }

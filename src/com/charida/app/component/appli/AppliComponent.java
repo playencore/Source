@@ -1,6 +1,7 @@
 package com.charida.app.component.appli;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,12 @@ public class AppliComponent {
 		log.debug("setSuggState >> suggId : " + suggId);
 		return appliDao.setSuggState(suggId);
 	}
+	public int setSuggFail(String servId, String suggId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("servId", servId);
+		params.put("suggId", suggId);
+		return appliDao.setSuggFail(params);
+	}
 	public int setAppState(String suggId){
 		log.debug("setAppState >> suggId : " + suggId);
 		return appliDao.setAppState(suggId);
@@ -61,5 +68,8 @@ public class AppliComponent {
 	
 	public String formatByComma(String str) {
 		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+	}
+	public List<Map<String, Object>> getMenuInfo(String suggId) {
+		return appliDao.getMenuInfo(suggId);
 	}
 }

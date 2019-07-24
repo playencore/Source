@@ -331,7 +331,7 @@ $(function() {
 		attr3 = name_address_detail;
 		attrval3 = getval(attr3);
 		// 검사
-		if (!cknull(attrval3)) { // null과 공백 검사
+		if (!cknull(attrval3)) { // null 검사, 공백 가능
 
 		} else if (!cklength(attrval3, 2, 150)) { // 글자 수 검사
 
@@ -375,41 +375,13 @@ $(function() {
 		// 출력
 		birthdateable = outresult(attr, check, result);
 	});
-	// job 란에 click 이벤트 감지
-//	$('#'+name_job).on('change', function() {
-//		check = false;
-//		attr = name_job;
-//		attrval = $('select[name=' + attr + ']').val();
-//		// 검사
-//		if ( attrval == null ) { // null과 공백 검사
-//			result = "직업을 선택하지 않았습니다.";
-//		} else {
-//			result = "";
-//			check = true;
-//		}
-//		// 출력
-//		jobable = outresult(attr, check, result);
-//	});
+
 
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
 	$("#bt_memberjoin").click(function() {
 		
 
-		if (false){
-			/* 회원가입시 입력정보 자동 입력값  */
-			$("input[name="+name_passwd+"]").val("111111");
-			$("input[name="+name_repasswd+"]").val("111111");
-			$("input[name="+name_name+"]").val("홍길동동");
-			$("input[name="+name_email+"]").val("fullcontrolg@gmail.com");
-			$("input[name="+name_emailcheck+"]").val("");
-			$("input[name="+name_zipcode+"]").val("07805");
-			$("input[name="+name_address+"]").val("서울 강서구 마곡동로");
-			$("input[name="+name_address_detail+"]").val("222");
-			$("input[name="+name_tel+"]").val("0100000000000");
-			$("input[name="+name_birth_date+"]").val("19991213");
-			$("input[name="+name_gender+"]").val("1");
-			$("input[name="+name_job+"]").val("2");
-		} else if (memidable == false) {
+		if (memidable == false) {
 			result = name_mem_id;
 			$("input[name="+result+"]").focus().select();
 			

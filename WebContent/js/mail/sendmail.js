@@ -17,7 +17,7 @@ function sendemail() {
 		
 		$("input[name=emailcode]").val(code);	
 		var codeval = $("input[name=code]").val();
-		alert("input[name=emailcode].val(); : " + codeval );
+		
 		
 		var content = insertcode(code);
 
@@ -30,10 +30,10 @@ function sendemail() {
 				mail : email
 			}, // HTTP 요청과 함께 서버로 보낼 데이터(URL뒤에 붙이는 내용)
 			error : function(result) {
-				alert("error: " + result);
+				alert("이메일 발송 실패했습니다.");
 			},
 			success : function(result) {
-				alert("success : " + result );
+				alert("이메일 발송 하였습니다.");
 			}
 		});
 		

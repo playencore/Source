@@ -29,6 +29,51 @@
 	.pagination li.active {
     background-color: #26a69a;
 }
+	.modal2 {
+	    display: none;
+	    position: fixed;
+	    left: 0;
+	    right: 0;
+	    background-color: #fafafa;
+	    padding: 0;
+	    max-height: 60%;
+	    width: 50%;
+	    margin: auto;
+	    overflow-y: auto;
+	    border-radius: 2px;
+	    will-change: top, opacity;
+	}
+	.z-depth-5, .modal2 {
+	   -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	   box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	}
+	.modal2.modal-fixed-footer {
+	    padding: 0;
+	    height: 60%;
+	}
+	.modal2.modal-fixed-footer .modal-content {
+	    position: absolute;
+	    height: calc(100% - 56px);
+	    max-height: 100%;
+	    width: 100%;
+	    overflow-y: auto;
+	}
+	.modal2 .modal-content {
+	    padding: 24px;
+	}
+	.modal2.modal-fixed-footer .modal-footer {
+	    border-top: 1px solid rgba(0, 0, 0, 0.1);
+	    position: absolute;
+	    bottom: 0;
+	}
+	.modal2 .modal-footer {
+	    border-radius: 0 0 2px 2px;
+	    background-color: #fafafa;
+	    padding: 4px 6px;
+	    height: 56px;
+	    width: 100%;
+	    text-align: right;
+	}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
 <script type="text/javascript" src="/js/appli/application-list.js"></script>
@@ -280,23 +325,7 @@
 				<span class="secondary-content"><span id="requested_team"></span></span>
 			</li>
 			
-			<!-- <li class="collection-item dismissable" id="li_menu" style="display: none">
-				<span class="width-100" style="font-size: 14px">제안 메뉴</span>
-				<br>
-				<p class="secondary-content">
-					<table class="highlight centered">
-						<thead>
-						<tr>
-							<th>메뉴명</th>
-							<th>1 인분당 중량(g)</th>
-							<th>메뉴 사진</th>
-						</tr>
-						</thead>
-						<tbody id="menu_info">
-						</tbody>
-					</table>
-				</p>
-			</li> -->
+			
 		</ul>
 		<ul class="collection with-header" id="ul_app">
 			
@@ -305,6 +334,22 @@
 	<div class="modal-footer">
 		<!-- 닫기버튼 -->
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+	</div>
+</div>
+<div id="modal2" class="modal2 modal-fixed-footer">
+	<div class="modal-content">
+		<ul class="collection with-header" id="ul_payment">
+			
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<!-- 모달 2 버튼 [채택], [닫기] -->
+		<ul>
+			<li>
+				<a id="btn_modal2" class="waves-effect waves-light btn-small" style="border-radius: 25px;">채택</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+			</li>
+		</ul>
 	</div>
 </div>
 <form name="dForm">

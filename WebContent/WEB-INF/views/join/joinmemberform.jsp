@@ -20,7 +20,6 @@
 <link rel = "stylesheet" type = "text/css" href ="/css/dropify.css" />
 <!-- icon -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<title>차리다</title>
 </head>
 
 <body class = "grey lighten-2">

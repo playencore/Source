@@ -2,11 +2,13 @@
  * application-list.js
  */
 $(function(){
-		activeItem('마이 페이지');
-		showExtendedMenu('#nav_mypage');
-		activeSubItem('제안 리스트');
-		$('.modal').modal();
-		
+	activeItem('마이 페이지');
+	showExtendedMenu('#nav_mypage');
+	activeSubItem('신청 리스트',0);
+	activeSubItem('신청 목록',1);
+	$('.modal').modal();
+	$('.modal2').modal();
+
 });
 // 상세보기 버튼 클릭시 동작(모달)
 function showDetail(SERV_ID){
@@ -27,10 +29,6 @@ function showDetail(SERV_ID){
 	    	$('.modal').modal('open');
 	    }     
 	});
-	
-	
-	
-	
 }
 
 function updateUi(data,appliId){
@@ -94,116 +92,97 @@ function updateUi(data,appliId){
 		$('#suggListNotNull').css('display','block');
 			suggListHead += "<tr>";
 			suggListHead += "<th>제안일</th>";
-			suggListHead += "<th>메뉴명</th>";
-			suggListHead += "<th>인당금액</th>";
-			suggListHead += "<th>음식중량</th>";
-			suggListHead += "<th>음식설명</th>";
-			suggListHead += "<th>총비용</th>";
-			suggListHead += "<th>채택</th>";
+			suggListHead += "<th>업체명</th>";
+			suggListHead += "<th>메뉴상세</th>";
 			suggListHead += "</tr>";
 		sugglist.forEach((function(suggMap,i){
 			var suggTotal = suggMap.PER_BUD * data.PARTICIPANT;
 			suggListBody += "<tr>";
 			suggListBody += "<td>" +suggMap.SUGG_DATE+ "</td>";
-			suggListBody += "<td>" +suggMap.M_NAME+ "</td>";
-			suggListBody += "<td>" +suggMap.PER_BUD+ "</td>";
-			suggListBody += "<td>" +numbeComma(suggMap.WEIGHT)+ "</td>";
-			suggListBody += "<td>" +suggMap.M_EXPLAN+ "</td>";
-			suggListBody += "<td>" +suggTotal+ "</td>";
-			suggListBody += "<td>" +"<input type='button' value='채택' id='suggNum"+ i +"' ";
-			suggListBody += "onclick=\"selectCustomer('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\"></td>";
+			suggListBody += "<td>" +suggMap.NAME+ "</td>";
+			suggListBody += "<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"";
+			suggListBody += " onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">메뉴상세</a></td>";
+			
+//			suggListBody += "<td>" +"<input type='button' value='채택' id='suggNum"+ i +"' ";
+//			suggListBody += "onclick=\"selectCustomer('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\"></td>";
 			suggListBody += "</tr>"
 		}))
 		$('#sugg_info_head').html(suggListHead);
 		$('#sugg_info_body').html(suggListBody);
+		
 	} else {
 		$('#suggListNull').css('display','block');
 		$('#suggListNotNull').css('display','none');
 	}
 
-//	
-//	var menuBody = "";
-//	if(data.menuInfo != null){
-//		$('#li_menu').css('display','block');
-//		data.menuInfo.forEach((function(e,i){
-//			menuBody += "<tr>";
-//			menuBody += "<td>" +e.NAME+ "</td>";
-//			menuBody += "<td>" +numbeComma(e.WEIGHT)+ "</td>";
-//			menuBody += "<td>" 
-//				+ "<img alt='' src='/file/file-down/" 
-//				+ e.FILE_ID
-//				+ "' width='75px' height='75px'>"
-//				+ "</td>";
-//			
-//			
-//			menuBody += "</tr>";
-//		}));
-//		$('#menu_info').html(menuBody);
-//	}else{
-//		$('#li_menu').css('display','none');
-//	}
-//	
+
 	var li ="";
-//	li += createHeader('신청 내용');
-//	li += createBody('행사형식',data.SERV_TYPE_NAME);
-//	li += createBody('진행형식',data.EVENT_TYPE_NAME);
-//	li += createBody('서비스 제공일',data.SERV_DATE);
-//	li += createBody('참가자 수',numbeComma(data.PARTICIPANT) + " 명");
-//	li += createBody('참여 연령(남녀 비율)',data.AGE_MIN +" ~ " +data.AGE_MAX 
-//			+"( " +data.PER_MEN + " : " +(10-data.PER_MEN) + " )");
-//	
-//	
-//	li += createBody('선호 메뉴',data.prefList.toString());
-//	
-//	if(data.DESSERT_YN == 'Y'){
-//		var title;
-//		var content ="";
-//		
-//		data.drtList.forEach(function(e,i){
-//			if(i==0){
-//				title = e;
-//			}else{
-//				content += e + ",";
-//			}
-//		});
-//		content = content.substring(0,content.lastIndexOf(','));
-//		li +=createBody(title,content);
-//	}
-//	
-//	if(data.TABLEWARE_YN == 'Y'){
-//		var title;
-//		var content ="";
-//		
-//		data.tbwList.forEach(function(e,i){
-//			if(i==0){
-//				title = e;
-//			}else{
-//				content += e+ ",";
-//			}
-//		});
-//		content = content.substring(0,content.lastIndexOf(','));
-//		li +=createBody(title,content);
-//	}
-//	
-//	if(data.OTHER_ORDER_YN == 'Y'){
-//		var title;
-//		var content ="";
-//		
-//		data.rtlList.forEach(function(e,i){
-//			if(i==0){
-//				title = e;
-//			}else{
-//				content += e+ ",";
-//			}
-//		});
-//		content = content.substring(0,content.lastIndexOf(','));
-//		li +=createBody(title,content);
-//	}
-	
+
 	li += createMap(data.ADDRESS,data.ADDRESS_DETAIL,data.ZIPCODE);
 	$('#ul_app').html(li);
 }
-
+function createtable(){
+	return '<li class="collection-item dismissable" id="li_menu" align="center">'
+	+'<span class="width-100" style="font-size: 20px">제안 메뉴</span>'
+	+'</li>'
+	+'<li class="collection-item dismissable" id="li_menu">'
+	+'<br>'
+	+'<p class="secondary-content">'
+	+'<table class="highlight centered">'
+	+'<thead>'
+	+'<tr>'
+	+'<th>메뉴명</th>'
+	+'<th>1 인분당 중량(g)</th>'
+	+'<th>메뉴 사진</th>'
+	+'<th>메뉴 설명</th>'
+	+'</tr>'
+	+'</thead>'
+	+'<tbody id="menu_info">'
+	+'</tbody>'
+	+'</table>'
+	+'</p>'
+	+'</li>';
+}
+function openmenu(SUGG_ID, TOTAL, SERV_ID){
+	$.ajax({
+	    
+	    type : "post",
+	    url : "/appli/get-menu-info.do",
+	    data:{
+	    	suggId:SUGG_ID,
+	    },
+	    dataType : "json",
+	    error : function(data){
+	        alert('채택에 실패했습니다.');
+	    },
+	    success : function(data){
+	    	var li = "";
+	    	li += createtable();
+	    	$('#ul_payment').html(li);
+	    	var menuBody = "";
+	    	data.forEach((function(e,i){
+				menuBody += "<tr>";
+				menuBody += "<td>" +e.NAME+ "</td>";
+				menuBody += "<td>" +numbeComma(e.WEIGHT)+ "</td>";
+				menuBody += "<td>" 
+					+ "<img alt='' src='/file/file-down/" 
+					+ e.FILE_ID
+					+ "' width='75px' height='75px'>"
+					+ "</td>";
+				menuBody += "<td>" +e.EXPLANATION+ "</td>";
+				
+				menuBody += "</tr>";
+			}));
+			$('#menu_info').html(menuBody);
+			$('#btn_modal2').on({
+				click:function(){
+					selectCustomer(SUGG_ID,TOTAL,SERV_ID);
+				}
+			});
+			$('.modal2').modal('open');
+	    }     
+	});
+}
 //상세리스트에서 업체를 채택 함
 function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
 	

@@ -82,22 +82,32 @@ public class AppliService {
 	// 주문번호(appliId)를 통하여 신청테이블(CRD_SERV_SUGG)의 모든 정보를 갖고옴
 	public List<Map<String, Object>> getSuggInfo(String appliId){
 		return appliComponent.getSuggInfo(appliId);
-	}
+	} 
 	public int setStateAppSuggTx(String suggId, String total, String servId) {
 		
-		// 제안테이블 상태 변경(crd_serv_sugg)
+		// 제안테이블 성공건 상태 변경(crd_serv_sugg)
 		int result1 = appliComponent.setSuggState(suggId);
-		// 신청테이블 상태 변경(crd_serv_app)
-		int result2 = appliComponent.setAppState(suggId);
+		
+		// 제안테이블 실패건 상태 변경
+		int result2 = appliComponent.setSuggFail(servId, suggId);
+		
+		// 신청테이블 채택성공으로 상태 변경(crd_serv_app)
+		int result3 = appliComponent.setAppState(suggId);
+		
 		Map<String, Object> totalAndServId = new HashMap<String, Object>();
 		totalAndServId.put("total", total);
 		totalAndServId.put("servId", servId);
-		int result3 = appliComponent.addPayRow(totalAndServId);
+		
+		// 결제테이블 등록
+		int result4 = appliComponent.addPayRow(totalAndServId);
 		log.debug("result1 : " + result1);
-		log.debug("result2 : " + result2);
 		log.debug("result3 : " + result3);
-		int result = result1 * result2 * result3;
+		log.debug("result4 : " + result4);
+		int result = result1 * result2 * result3 * result4;
 		return result;
+	}
+	public List<Map<String, Object>> getMenuInfo(String suggId) {
+		return appliComponent.getMenuInfo(suggId);
 	}
 	//결제대기 리스트
 //	public List<Map<String, Object>> getWaitList(Map<String, Object> params, HttpServletRequset req) {

@@ -35,11 +35,12 @@
 								, 'STU0010003'
 								, 'STU0010004'
 							)
+						ORDER BY APP_DATE DESC
 				) C
 		) D
 		WHERE 
 			NUM BETWEEN #{startNum} AND #{endNum}
-			
+		
 	</select>
 	
 	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 상세정보 -->
@@ -56,17 +57,25 @@
 		AND SERV_ID = #{appliId}
 	</select>
 	
+	
+	<select id="getMenuInfo" parameterType="String" resultType="java.util.Map">
+		select SUGG_ID, MENU_SEQ, NAME, WEIGHT, EXPLANATION, FILE_ID
+		from crd_serv_sugg_menu 
+		where sugg_id = #{suggId}
+	</select>
+	
+	
+	
+	
 	<!-- 매 신청건마다 제안이 들어온 판매자별 모든정보 -->
 	<select id="getSuggInfo" parameterType="java.lang.String" resultType="java.util.Map">
 		select distinct 
 			s.sugg_id, s.serv_id, s.per_bud, TO_CHAR(s.sugg_date,'YYYY-MM-DD HH24:MI:SS') as sugg_date
-			, m.name m_name, m.weight, m.explanation m_explan, m.file_id
-			, c.explanation c_explan, c.maximum_seating
+			, c.explanation c_explan, c.maximum_seating, c.name
 		from 
-			crd_serv_sugg s, crd_serv_sugg_menu m, crd_company c
+			crd_serv_sugg s, crd_company c
 		where 
-			s.sugg_id = m.sugg_id
-			and s.mem_id = c.mem_id
+			s.mem_id = c.mem_id
 			and s.serv_id = #{appliId}
 	</select>
 	<!-- 1.구매자가 제안을 수락한 건의 처리(crd_serv_sugg, crd_serv_app 상태값 변경) -->
@@ -74,6 +83,12 @@
 		update crd_serv_sugg set choose_yn = 'Y'
 		, choose_date = sysdate
 		where sugg_id = #{suggId}
+	</update>
+	<update id="setSuggFail" parameterType="java.util.Map">
+		update crd_serv_sugg set choose_yn = 'N'
+		, choose_date = sysdate
+		 where SERV_ID = #{servId}
+		and sugg_id != #{suggId}
 	</update>
 	<update id="setAppState" parameterType="java.lang.String">
 		update crd_serv_app aa set progress_code = 'STU0030001'
