@@ -143,6 +143,14 @@ nav .brand-logo {
     font-weight: 700;
 }
 </style>
+<script type="text/javascript">
+//<!--  
+$(document).ready(function(){
+	$('.parallax').parallax();
+});
+
+//-->
+</script>
 <div style="clear: both">
 	<div class="parallax-container">
 		<div class="parallax"><img src="/images/main/main6.jpg"></div>
@@ -152,10 +160,10 @@ nav .brand-logo {
 </div>
 <div class="iconContainer">
 	<div class="iconHeader">
-		식사고민 모음
+		음식 고민
 	</div>
 	<div class="iconSection">
-		<div class="iconDatas" dir="ltr">
+		<div class="iconDatas" >
 			<div class="slick-list" style="margin-left: 35px;">
 				<div class="slick-track" style="width: 5700px; opacity: 1;">
 					<div style="width: 1112px;">
@@ -239,15 +247,6 @@ nav .brand-logo {
 		</p>
 	</div>
 </div>
-<script type="text/javascript">
-//<!--  
-//document.addEventListener("load", );
-$(document).ready(function(){
-	$('.parallax').parallax();
-});
-
-//-->
-</script>
 <%@include file="/include/footer.jsp" %>
 </body>
 </html>
