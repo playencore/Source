@@ -10,11 +10,11 @@ function insertcode(authNum){
 }
 
 function sendemail() {
-	alert("[인증번호 발송] 버튼이 클릭이 감지되었습니다.");
+	
 	if( emailable == true ) {
 		var email = $("input[name=email]").val();
 		var code = makeRandom(1000, 9999);
-		alert("생성된 인증번호 : " + code );
+		
 		$("input[name=emailcode]").val(code);	
 		var codeval = $("input[name=code]").val();
 		alert("input[name=emailcode].val(); : " + codeval );
@@ -36,22 +36,22 @@ function sendemail() {
 				alert("success : " + result );
 			}
 		});
-		alert( "sendmail 호출이 완료되었습니다." );
+		
 	}
 }
 function codecompare(){
-	alert("인증번호 일치여부를 진행합니다.");
+	
 	targetcode = $("input[name=emailcode]").val();
 	enteredcode = $("input[name=emailcheck]").val();
-	alert(targetcode + ", " + enteredcode);
+	
 	if( targetcode == enteredcode ){
 //	if( true ){
-		alert("일치");
+		
 		$("#bt_sendemail").click(function () {return false;});
 		$("#emailcheck_comment").html(
 				"<span style='color:blue'>" + "인증되었습니다." + "</span>");
 	} else {
-		alert("불일치");
+		
 		$("#emailcheck_comment").html(
 				"<span style='color:red'>" + "인증에 실패하였습니다." + "</span>");
 	}

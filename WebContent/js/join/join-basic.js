@@ -46,6 +46,14 @@ function ckempty(attrval) {
 		return true;
 	}
 }
+function cknull(attrval) {
+	if (attrval == "") { // 아이디 입력여부 검사
+		result = "값이 입력되지 않았습니다.";
+		return false;
+	} else {
+		return true;
+	}
+}
 function cklength(attrval, min, max) {
 	if (attrval.length < min || attrval.length > max) { // 아이디 길이 체크
 		result = "글자수는 " + min + "~" + max + "자 사이어야 합니다.";
@@ -323,7 +331,7 @@ $(function() {
 		attr3 = name_address_detail;
 		attrval3 = getval(attr3);
 		// 검사
-		if (!ckempty(attrval3)) { // null과 공백 검사
+		if (!cknull(attrval3)) { // null과 공백 검사
 
 		} else if (!cklength(attrval3, 2, 150)) { // 글자 수 검사
 
@@ -385,7 +393,7 @@ $(function() {
 
 	// 최종 확인버튼을 클릭했을 경우 실행 되는 부분
 	$("#bt_memberjoin").click(function() {
-		alert("[구매자회원가입]버튼 클릭을 감지해서 가입진행 여부를 검사합니다.");
+		
 
 		if (false){
 			/* 회원가입시 입력정보 자동 입력값  */
@@ -404,49 +412,49 @@ $(function() {
 		} else if (memidable == false) {
 			result = name_mem_id;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (passwdable == false) {
 			result = name_passwd;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (repasswdable == false) {
 			result = name_repasswd;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (nameable == false) {
 			result = name_name;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (emailable == false) {
 			result = name_email;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (zipcodeable == false) {
 			result = name_address;
 			$("input[name="+result+"]").focus().select();
-			alert("zip오류 : " + result + "를 확인해주세요.");
+			
 		} else if (addressable == false) {
 			result = name_address;
 			$("input[name="+result+"]").focus().select();
-			alert("add오류 : " + result + "를 확인해주세요.");
+			
 		} else if (addressdetailable == false) {
 			result = name_address;
 			$("input[name="+result+"]").focus().select();
-			alert("detail오류 : " + result + "를 확인해주세요.");
+			
 		} else if (telable == false) {
 			result = name_tel;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if (birthdateable == false) {
 			result = name_birth_date;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else if ( $('select[name=job]').val() ==  null ) {
 			result = name_job;
 			$("input[name="+result+"]").focus().select();
-			alert("오류 : " + result + "를 확인해주세요.");
+			
 		} else {
-			alert("유효성 모두 통과 함");
+			
 			// 모든 유효성 검사를 통과한 경우에만 회원가입을 진행한다.
 			$('form[name='+name_form+']').attr('target','');
 			$('form[name='+name_form+']').submit();

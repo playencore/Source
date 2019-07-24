@@ -206,7 +206,7 @@ function updateUi(data,appliId){
 
 //상세리스트에서 업체를 채택 함
 function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
-	alert( "SUGG_ID" + SUGG_ID );
+	
 	$.ajax({
 		    
 		    type : "post",
