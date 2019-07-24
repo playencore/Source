@@ -9,6 +9,19 @@
 	    setDatePicker();
 	  });
 	  
+		function dateInputCheck(){
+			if ($("input[name=serv_date1]").val() == null
+				|| $("input[name=serv_date1]").val() == "") {
+				alert("시작날짜를 선택해주세요.");
+				return false;
+			}else if($("input[name=serv_date2]").val() == null
+				|| $("input[name=serv_date2]").val() == ""){
+				alert("종료날짜를 선택해주세요.")
+				return false;
+			}
+		}
+
+	  
 	  
 	  function setDatePicker(){
 		var deoption = {
@@ -130,7 +143,7 @@
 			</div>
 			<div class="container">
 				<center>
-					<button class="btn waves-effect waves-light container" type="submit"  >
+					<button class="btn waves-effect waves-light container" type="submit" onclick="return dateInputCheck()" >
 				    <i class="material-icons left"></i>조회하기
 				  	</button>
 				</center>

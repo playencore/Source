@@ -37,7 +37,7 @@ public class LoginController {
 			req.getSession().setAttribute("session_authority", session);
 			req.getSession().setAttribute("session_name", name);
 			req.getSession().setAttribute("session_id", id);
-			return "/main";
+			return "redirect:/main.do";
 		}else if(result == -1) {
 			req.setAttribute("test", -1);
 			return "/login/loginForm";
