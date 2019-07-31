@@ -9,5 +9,8 @@
 							<tbody id="sugg_info_body">
 							</tbody>
 						</table>
+						<div id="sugg_info_compare">
+							
+						</div>
 					</form>
 				</p>

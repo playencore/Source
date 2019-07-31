@@ -89,6 +89,7 @@ function updateUi(data,appliId){
 	
 	var suggListHead = "";
 	var suggListBody = "";
+	var suggListCompare = "";
 	if(sugglist.length != 0){
 		$('#suggListNull').css('display','none');
 		$('#suggListNotNull').css('display','block');
@@ -115,8 +116,16 @@ function updateUi(data,appliId){
 						"</td>" +
 					"</tr>";
 		}))
+		suggListCompare += "<tr>" +
+					"<td>" +
+						"test1" +
+						"test2" +
+					"</td>" +
+				"</tr>" +
+		
 		$('#sugg_info_head').html(suggListHead);
 		$('#sugg_info_body').html(suggListBody);
+		$('#sugg_info_compare').html(suggListCompare);
 		
 	} else {
 		$('#suggListNull').css('display','block');
