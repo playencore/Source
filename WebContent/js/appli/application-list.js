@@ -1,6 +1,8 @@
 /**
  * application-list.js
  */
+
+
 $(function(){
 	activeItem('마이 페이지');
 	showExtendedMenu('#nav_mypage');
@@ -94,18 +96,24 @@ function updateUi(data,appliId){
 			suggListHead += "<th>제안일</th>";
 			suggListHead += "<th>업체명</th>";
 			suggListHead += "<th>메뉴상세</th>";
+			suggListHead += "<th>제안비교</th>";
 			suggListHead += "</tr>";
 		sugglist.forEach((function(suggMap,i){
 			var suggTotal = suggMap.PER_BUD * data.PARTICIPANT;
-			suggListBody += "<tr>";
-			suggListBody += "<td>" +suggMap.SUGG_DATE+ "</td>";
-			suggListBody += "<td>" +suggMap.NAME+ "</td>";
-			suggListBody += "<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"";
-			suggListBody += " onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">메뉴상세</a></td>";
-			
-//			suggListBody += "<td>" +"<input type='button' value='채택' id='suggNum"+ i +"' ";
-//			suggListBody += "onclick=\"selectCustomer('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\"></td>";
-			suggListBody += "</tr>"
+			suggListBody += "<tr>" +
+						"<td>" +suggMap.SUGG_DATE+ "</td>" +
+						"<td>" +suggMap.NAME+ "</td>" +
+						"<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"" +
+						" onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">메뉴상세</a></td>" +
+						"<td>"+
+							"<p>"+
+								"<label>"+
+									"<input type='checkbox' name='checksuggid' class='filled-in' value='" + suggMap.SUGG_ID + "'/>" +
+									"<span></span>" +
+								"</label>" +
+							"</p>" +
+						"</td>" +
+					"</tr>";
 		}))
 		$('#sugg_info_head').html(suggListHead);
 		$('#sugg_info_body').html(suggListBody);

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <!--  -->
 <script src = "/js/jquery-3.4.1.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src = "http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src = "/js/nouislider.js"></script>
 <script src = "/js/materialize.js"></script>
 <script src = "/js/dropify.js"></script>
