@@ -10,7 +10,6 @@ $(function(){
 	activeSubItem('신청 목록',1);
 	$('.modal').modal();
 	$('.modal2').modal();
-
 });
 // 상세보기 버튼 클릭시 동작(모달)
 function showDetail(SERV_ID){
@@ -28,8 +27,10 @@ function showDetail(SERV_ID){
 	    success : function(data){
 	    	updateUi(data,SERV_ID);
 	    	viewMap(data.ADDRESS);
+	    	var lists = [];
 	    	$('.modal').modal('open');
-	    }     
+	    	suggCompareListPro(lists);
+	    }
 	});
 }
 
@@ -116,16 +117,17 @@ function updateUi(data,appliId){
 						"</td>" +
 					"</tr>";
 		}))
+		
 		suggListCompare += "<tr>" +
 					"<td>" +
 						"test1" +
 						"test2" +
 					"</td>" +
-				"</tr>" +
+				"</tr>";
+		$('#sugg_info_compare').html(suggListCompare);
 		
 		$('#sugg_info_head').html(suggListHead);
 		$('#sugg_info_body').html(suggListBody);
-		$('#sugg_info_compare').html(suggListCompare);
 		
 	} else {
 		$('#suggListNull').css('display','block');
@@ -223,6 +225,26 @@ function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
 		});
 }
 
+// 제안비교 기능(체크박스 감지)
+function suggCompareListPro(lists){
+	$("input[name='checksuggid']").change(function(){
+		alert("체크박스 감지됨");
+		alert("조회 : " + lists.indexOf($(this).val()));
+		if(lists.indexOf($(this).val()) == -1){
+//        if($("input[name='checksuggid']").is(":checked")){
+            alert("주문번호 [ " +$(this).val()+ " ] 를 등록합니다!");
+            //	$("input[name='checksuggid']:checked").each(function(i){   //jQuery로 for문 돌면서 check 된값 배열에 담는다
+    		lists.push($(this).val());
+            //	});
+        }else{
+        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
+      //      lists = lists.splice(lists.indexOf($(this).val()));
+        	      lists = lists.splice(0,1);
+        }
+        alert("List 목록 : " + lists + " - ");
+    });
+	
+}	
 function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'
 		+'<li class="collection-header" style="background-color: #eee">'
