@@ -91,7 +91,6 @@
 					}, 
 					dataType : "json",
 					success : function(data) {
-						alert(data.result) ;
 						$("#resultId").show();
 						$("#memid").html("아이디는 : " + data.mem_id ) ;
 
