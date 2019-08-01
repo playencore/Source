@@ -33,7 +33,22 @@ function showDetail(SERV_ID){
 	    }
 	});
 }
-
+//제안비교 기능(체크박스 감지)
+function suggCompareListPro(lists){
+	$("input[name='checksuggid']").change(function(){
+//		alert("lists에서 조회 : [ " + lists.indexOf($(this).val()) + "]번째 요소                        (-1은 없음)");
+		if(lists.indexOf($(this).val()) == -1){
+//            alert("주문번호 [ " +$(this).val()+ " ] 를 등록합니다!");
+    		lists.push($(this).val());
+            //	});
+        }else{
+//        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
+            lists.splice(lists.indexOf($(this).val()), 1);
+        }
+        alert("List 목록 결과 : " + lists + " - ");
+    });
+	
+}	
 function updateUi(data,appliId){
 	$('#app_title').text("신청번호 " + appliId);
 	$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50
@@ -121,7 +136,12 @@ function updateUi(data,appliId){
 		suggListCompare += "<tr>" +
 					"<td>" +
 						"test1" +
+					"</td>" +
+					"<td>" +
 						"test2" +
+					"</td>" +
+					"<td>" +
+						"test3" +
 					"</td>" +
 				"</tr>";
 		$('#sugg_info_compare').html(suggListCompare);
@@ -225,26 +245,7 @@ function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
 		});
 }
 
-// 제안비교 기능(체크박스 감지)
-function suggCompareListPro(lists){
-	$("input[name='checksuggid']").change(function(){
-		alert("체크박스 감지됨");
-		alert("조회 : " + lists.indexOf($(this).val()));
-		if(lists.indexOf($(this).val()) == -1){
-//        if($("input[name='checksuggid']").is(":checked")){
-            alert("주문번호 [ " +$(this).val()+ " ] 를 등록합니다!");
-            //	$("input[name='checksuggid']:checked").each(function(i){   //jQuery로 for문 돌면서 check 된값 배열에 담는다
-    		lists.push($(this).val());
-            //	});
-        }else{
-        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
-      //      lists = lists.splice(lists.indexOf($(this).val()));
-        	      lists = lists.splice(0,1);
-        }
-        alert("List 목록 : " + lists + " - ");
-    });
-	
-}	
+
 function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'
 		+'<li class="collection-header" style="background-color: #eee">'

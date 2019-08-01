@@ -9,8 +9,14 @@
 							<tbody id="sugg_info_body">
 							</tbody>
 						</table>
-						<div id="sugg_info_compare">
-							
+						<div>
+							<table>
+								<tr>
+									<div><td>비교할 제안 목록</td></div>
+									<div><td>비교하기 버튼</td></div>
+									<div id="sugg_info_compare">
+								</tr>
+							</table>
 						</div>
 					</form>
 				</p>
