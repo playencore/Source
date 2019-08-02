@@ -47,7 +47,6 @@ function suggCompareListPro(lists){
         }
         alert("List 목록 결과 : " + lists + " - ");
     });
-	
 }	
 function updateUi(data,appliId){
 	$('#app_title').text("신청번호 " + appliId);
@@ -133,7 +132,7 @@ function updateUi(data,appliId){
 					"</tr>";
 		}))
 		
-		suggListCompare += "<tr>" +
+		suggListCompare += "<tr>" ;
 					
 		$('#sugg_info_compare').html(suggListCompare);
 		
