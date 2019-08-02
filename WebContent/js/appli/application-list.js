@@ -134,16 +134,7 @@ function updateUi(data,appliId){
 		}))
 		
 		suggListCompare += "<tr>" +
-					"<td>" +
-						"test1" +
-					"</td>" +
-					"<td>" +
-						"test2" +
-					"</td>" +
-					"<td>" +
-						"test3" +
-					"</td>" +
-				"</tr>";
+					
 		$('#sugg_info_compare').html(suggListCompare);
 		
 		$('#sugg_info_head').html(suggListHead);
