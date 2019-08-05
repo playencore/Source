@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
+<%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
+
 <script type="text/javascript">
 //<!--
   $(document).ready(function(){
@@ -12,6 +14,11 @@
     	$('#permissionmodal'+i).modal() ;
     }
   });
+  
+  function movePage(pageNo){
+		document.dForm.pageNo.value = pageNo;
+		document.dForm.submit();
+	}
 
 //-->
 </script>
@@ -211,6 +218,13 @@
 				</div>
 			</div>
 		</div>
+		<form name="dForm" method="post">
+			<input type="hidden" name ="servId">
+			<input type="hidden" name ="pageNo"value="${pageNo}">
+		</form>
+	</div>
+	<div class="col m12 center">
+		<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
 	</div>
 	
 <br><br><br><br><br><br><br><br><br><br>	

@@ -73,29 +73,48 @@
 		ORDER BY MEM_ID DESC
 	</select>
 	
-	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
+	<select id = "selectNotPermissionSuppliersCount" resultType = "int">
 		SELECT 
-		C.MEM_ID mem_id,
-		C.REGIST_NUM regist_num,
-		C.EXPLANATION explanation,
-		C.NAME companyname,
-		C.MAXIMUM_SEATING maximum_seating,
-		C.MINIMUM_SEATING minimum_seating,
-		C.CERT_FILE_ID cert_file_id,
-		C.TELEGRAM_ID telegram_id,
-		M.NAME name,
-		M.TEL tel,
-		M.EMAIL email,
-		M.JOIN_DATE join_date,
-		P.PERMISSION_SEQ permission_seq,
-		P.DISALLOWANCE_REASON disallowance_reason,
-		P.MODIFICATION_DATE modification_date
+		COUNT(*)
 		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
 		WHERE C.MEM_ID = M.MEM_ID 
 		AND M.AUTHORITY = '4'
 		AND C.MEM_ID=P.MEM_ID
 		AND P.PERMISSION_YN = 0 
 		ORDER BY C.MEM_ID DESC
+	</select>
+	
+	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
+		SELECT 
+		mem_id,regist_num,explanation,companyname,maximum_seating,minimum_seating,cert_file_id,telegram_id,
+		name,tel,email,join_date,permission_seq,disallowance_reason,modification_date
+		FROM(
+			SELECT A.*, ROWNUM AS NUM
+			FROM
+				(SELECT 
+				C.MEM_ID mem_id,
+				C.REGIST_NUM regist_num,
+				C.EXPLANATION explanation,
+				C.NAME companyname,
+				C.MAXIMUM_SEATING maximum_seating,
+				C.MINIMUM_SEATING minimum_seating,
+				C.CERT_FILE_ID cert_file_id,
+				C.TELEGRAM_ID telegram_id,
+				M.NAME name,
+				M.TEL tel,
+				M.EMAIL email,
+				M.JOIN_DATE join_date,
+				P.PERMISSION_SEQ permission_seq,
+				P.DISALLOWANCE_REASON disallowance_reason,
+				P.MODIFICATION_DATE modification_date
+				FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
+				WHERE C.MEM_ID = M.MEM_ID 
+				AND M.AUTHORITY = '4'
+				AND C.MEM_ID=P.MEM_ID
+				AND P.PERMISSION_YN = 0
+				ORDER BY C.MEM_ID DESC) A 
+		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+		ORDER BY join_date	
 	</select>
 	
 	<update id="updatePermission" parameterType="map">

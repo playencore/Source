@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.charida.app.admin.service.AdminService;
+import com.charida.app.common.controller.CommonController;
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.service.SupplierService;
 
 @Controller
-public class AdminController {
+public class AdminController extends CommonController {
 	
 	protected Log log = LogFactory.getLog(TestService.class);
 	
@@ -32,7 +33,7 @@ public class AdminController {
 	@RequestMapping("/admin/notPermissionList.do")
 	public String manageSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
-		List<Map<String, String>> notPermissionSuppliers = adminService.getNotPerMissionSuppliers() ;
+		List<Map<String, String>> notPermissionSuppliers = adminService.getNotPerMissionSuppliers(getParameterMap(req,true),req) ;
 		req.setAttribute("notPermissionSuppliers", notPermissionSuppliers);
 		req.setAttribute("listsize", notPermissionSuppliers.size());
 		return "/admin/notPermissionList";

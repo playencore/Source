@@ -146,10 +146,14 @@ public class SupplierComponent {
 	public SupplierDto getSupplier(String mem_id) {
 		return supplierDao.selectSupplier(mem_id);
 	}
-
-	public List<Map<String, String>> getNotPermissionSuppliers() {
-		return supplierDao.selectNotPermissionSuppliers();
+	// count 
+	public int getNotPermissionSuppliersCount() {
+		return supplierDao.selectNotPermissionSuppliersCount() ;
 	}
+	public List<Map<String, String>> getNotPermissionSuppliers(Map<String, Object> listParam) {
+		return supplierDao.selectNotPermissionSuppliers(listParam);
+	}
+	
 
 	public int updatePermission(Map<String, String[]> permission) {
 		return supplierDao.updatePermission(permission);

@@ -76,8 +76,12 @@ public class SupplierDao {
 	public SupplierDto selectSupplier(String mem_id) {
 		return sqlSession.selectOne("Supplier.selectSupplier", mem_id) ;
 	}
-	public List<Map<String, String>> selectNotPermissionSuppliers(){
-		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers") ;
+	// 갯수
+	public int selectNotPermissionSuppliersCount() {
+		return sqlSession.selectOne("Supplier.selectNotPermissionSuppliersCount");
+	}
+	public List<Map<String, String>> selectNotPermissionSuppliers(Map<String, Object> listParam){
+		return sqlSession.selectList("Supplier.selectNotPermissionSuppliers",listParam) ;
 	} 
 	/////////////////////////////updatePermission
 	public int updatePermission(Map<String,String[]> permission) {

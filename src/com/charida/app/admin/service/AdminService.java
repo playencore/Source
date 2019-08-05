@@ -1,22 +1,40 @@
 package com.charida.app.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.charida.app.component.pagination.PaginationInfo;
 import com.charida.app.component.supplier.SupplierComponent;
 
 @Service
-public class AdminService {
+public class AdminService  {
 	@Resource
 	SupplierComponent supplierComponent;
 
 ////////////////////////////////adminpage
-	public List<Map<String, String>> getNotPerMissionSuppliers() {
-		return supplierComponent.getNotPermissionSuppliers();
+	public List<Map<String, String>> getNotPerMissionSuppliers(Map<String, Object> params ,HttpServletRequest req) {
+		int pageNo = 1;
+		if(params.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)params.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		// 전체 사이즈 
+		paging.setTotalRecordCount(supplierComponent.getNotPermissionSuppliersCount());
+		req.setAttribute("paging", paging);
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		listParam.put("startNum", paging.getFirstRecordIndex());
+		listParam.put("endNum", paging.getLastRecordIndex());
+		
+		// 전체 알아보기 
+		return supplierComponent.getNotPermissionSuppliers(listParam);
 	}
 
 ////////////////////////////////////updatepermission 
