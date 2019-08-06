@@ -90,8 +90,12 @@ public class SupplierDao {
 	public int updatePermissionSup(String mem_id) {
 		return sqlSession.update("Supplier.updatePermissionSup", mem_id) ;
 	}
+	//count
+	public int selectSearchListCount(Map<String, Object> params) {
+		return sqlSession.selectOne("Supplier.selectSearchListCount", params) ;
+	}
 	
-	public List<Object> selectSearchList(Map<String,String> paramMap){
+	public List<Object> selectSearchList(Map<String,Object> paramMap){
 		return sqlSession.selectList("Supplier.selectSerchList",paramMap);
 	}
 	////////////////////////////////////////set menu

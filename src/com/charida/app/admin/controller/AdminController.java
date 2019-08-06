@@ -48,7 +48,6 @@ public class AdminController extends CommonController {
 	}
 	@RequestMapping("/admin/supplierSearch.do")
 	public String supplierSerch(HttpServletRequest req, HttpServletResponse resp) {
-	
 		return "/admin/supplierSearch";
 	}
 	
@@ -58,7 +57,7 @@ public class AdminController extends CommonController {
 		Map<String, String> paramMap = new HashMap<String, String>() ;
 		paramMap.put("searchCategory", req.getParameter("searchCategory"));
 		paramMap.put("searchContent", req.getParameter("searchContent"));
-		return  adminService.getSerhchResult(paramMap);
+		return  adminService.getSerhchResult(getParameterMap(req,true), req);
 	}
 	
 	

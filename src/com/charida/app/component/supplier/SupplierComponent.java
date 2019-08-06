@@ -158,8 +158,12 @@ public class SupplierComponent {
 	public int updatePermission(Map<String, String[]> permission) {
 		return supplierDao.updatePermission(permission);
 	}
+	//count 
+	public int getSerchListCount(Map<String, Object> params) {
+		return supplierDao.selectSearchListCount(params) ;
+	}
 
-	public List<Object> getSerchList(Map<String, String> paramMap) {
+	public List<Object> getSerchList(Map<String, Object> paramMap) {
 		return supplierDao.selectSearchList(paramMap);
 	}
 ///////////////////////////////메뉴 넣기 

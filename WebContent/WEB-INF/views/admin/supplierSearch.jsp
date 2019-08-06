@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
+<%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
+
 <script type="text/javascript">
 //<!--
 	$(document).ready(function(){
@@ -43,7 +45,7 @@
 		}
 		for(var i = 0 ; i < Object.keys(data).length ; i++){
 			cards = cards 
-			+"<div class='card col s12'>"
+			+"<div class='card col s6'>"
 			+ "<div class='card-content black-text'>"
 			+	"<span class='card-title'>"
 			+    data[i].COMPANYNAME
@@ -196,6 +198,10 @@
 		}
 	}
 	
+	 function movePage(pageNo){
+			document.dForm.pageNo.value = pageNo;
+			document.dForm.submit();
+		}
 	
 //-->
 </script>
@@ -214,7 +220,6 @@
 	<div class = "row" >
 		<div class = "col s12" >
 			<div class = "col s2"></div>
-			
 			<div class = "col s8">
 			<p style = "padding-left:10px">판매자 조회</p>
 				<div class = "col s3" style = "padding-top:15px">
@@ -237,13 +242,21 @@
 					<a id="searchstart" class="waves-effect waves-light btn">검색</a>
 				</div>
 			</div>
+		</div>
+		<div class = "col s12">
 			<div class = "col s2"></div>
-			<div class = "col s3"></div>
-			<div class = "col s7" id = "showcard">
+			<div class = "col s8" id = "showcard">
 			
 			</div>
 		</div>
+		<div class="col m12 center">
+			<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
+		</div>
 	</div>
+	<form name="dForm" method="post">
+		<input type="hidden" name ="servId">
+		<input type="hidden" name ="pageNo"value="${pageNo}">
+	</form>
 <br><br><br><br><br><br><br><br><br><br>	
 <%@include file="/include/footer.jsp" %>
 </body>

@@ -50,16 +50,27 @@ public class AdminService  {
 			return "수정이 완료되었습니다.";
 		}
 	}
-	public List<Object> getSerhchResult(Map<String, String> paramMap){
-		
-		if(paramMap.get("searchCategory").equals("NAME") || paramMap.get("searchCategory").equals("TEL")) {
-			paramMap.put("table","M");
+	public List<Object> getSerhchResult(Map<String, Object> params, HttpServletRequest req){
+		if(params.get("searchCategory").equals("NAME") || params.get("searchCategory").equals("TEL")) {
+			params.put("table","M");
 		}else {
-			paramMap.put("table","C");
-			if(paramMap.get("searchCategory").equals("COMPANYNAME")){
-				paramMap.put("searchCategory","NAME") ;
+			params.put("table","C");
+			if(params.get("searchCategory").equals("COMPANYNAME")){
+				params.put("searchCategory","NAME") ;
 			}
 		}
-		return supplierComponent.getSerchList(paramMap) ;
+		int pageNo = 1;
+		if(params.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)params.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		paging.setTotalRecordCount(supplierComponent.getSerchListCount(params));
+		req.setAttribute("paging", paging);
+		params.put("startNum", paging.getFirstRecordIndex());
+		params.put("endNum", paging.getLastRecordIndex());
+		
+		return supplierComponent.getSerchList(params) ;
 	}
 }
