@@ -102,4 +102,23 @@
 			#{servId}, 'N', #{total}, 10, 0, null, null, 5
 		)
 	</insert>
+	<!--  판매자의 서비스평점을 일단위 기간으로 조회 -->
+	<select id="getReviewAvgScore" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT avg(menu_score) menu, avg(price_score) price, avg(serv_score) serv
+		FROM crd_serv_review re
+		JOIN (
+			SELECT app.serv_id id, app.progress_code code, sug.mem_id ppp, app.customer_id ggg
+			FROM crd_serv_app app
+			JOIN crd_serv_sugg sug
+			ON app.serv_id = sug.serv_id
+			WHERE sug.mem_id=(
+				SELECT sug.mem_id
+				FROM crd_serv_sugg sug
+				WHERE sug.sugg_id=#{suggid}'
+				)
+			AND app.progress_code ='STU0060001'
+		) endlist
+		ON re.serv_id = endlist.id
+		WHERE review_date > sysdate - #{daterange}
+	</select>
 </mapper>

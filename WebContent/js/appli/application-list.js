@@ -45,9 +45,10 @@ function suggCompareListPro(lists){
 //        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
             lists.splice(lists.indexOf($(this).val()), 1);
         }
-        alert("List 목록 결과 : " + lists + " - ");
+        alert("List 목록 결과 : " + lists + "EOF");
     });
-}	
+}
+
 function updateUi(data,appliId){
 	$('#app_title').text("신청번호 " + appliId);
 	$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50

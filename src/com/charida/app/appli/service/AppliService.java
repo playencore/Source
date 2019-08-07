@@ -1,6 +1,7 @@
 package com.charida.app.appli.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,8 +110,36 @@ public class AppliService {
 	public List<Map<String, Object>> getMenuInfo(String suggId) {
 		return appliComponent.getMenuInfo(suggId);
 	}
-	//결제대기 리스트
-//	public List<Map<String, Object>> getWaitList(Map<String, Object> params, HttpServletRequset req) {
-//		
-//	}
+	
+	public List<Map<String, Object>> getReviewAvgScore(String suggIdList, HttpServletRequest req){
+		final String MONTH = "30";
+		
+		//S190730-0001/1010,S190730-0001/333333,S190730-0001/111EOF
+		//EOF
+		String[] suggIdarray = suggIdList.split(",");
+		Map<String, Object> listParam = new HashMap<String, Object>();
+		List<Map<String, Object>> avgScoreList = new ArrayList<Map<String, Object>>();
+		for(int i=0; i<suggIdarray.length; i++) {
+			if(suggIdarray[i].equals("EOF")) {
+				break;
+			}
+			listParam.put("daterange", MONTH);
+			listParam.put("params", suggIdarray[i]);
+			avgScoreList = appliComponent.getReviewAvgScore(listParam);
+			//	MENU	PRICE	SERV
+			//	2.5		4			1.5
+		}
+		
+		if(avgScoreList != null) {
+			for(Map<String, Object> appli : avgScoreList) {
+				if(appli.get("PER_BUD") != null) {
+					String per_bud = ((BigDecimal)appli.get("PER_BUD")).toString();
+					per_bud = appliComponent.formatByComma(per_bud);
+					appli.remove("PER_BUD");
+					appli.put("PER_BUD", per_bud);
+				}
+			}
+		}
+		return avgScoreList;
+	}
 }
