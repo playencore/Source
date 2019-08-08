@@ -173,8 +173,15 @@ public class SupplierComponent {
 	public int setFood(FoodDto dto) {
 		return supplierDao.insertFood(dto) ;
 	}
-	public List<FoodDto> getFoodList(String mem_id){
-		return supplierDao.selectFoodList(mem_id) ;
+	//count 
+	public int getFoodListCount(String mem_id) {
+		return supplierDao.selectFoodListCount(mem_id) ;
+	}
+	public List<FoodDto> getFoodList(Map<String, Object> params){
+		return supplierDao.selectFoodList(params) ;
+	}
+	public List<FoodDto> getFoodListAll(String mem_id){
+		return supplierDao.selectFoodListAll(mem_id) ;
 	}
 	public int deleteFood(String menu_id) {
 		return supplierDao.deleteFood(menu_id);

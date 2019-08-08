@@ -106,8 +106,15 @@ public class SupplierDao {
 	public int insertFood(FoodDto dto) {
 		return sqlSession.insert("Supplier.insertFood", dto) ;
 	}
-	public List<FoodDto> selectFoodList(String mem_id){
-		return sqlSession.selectList("Supplier.selectFoodList", mem_id) ;
+	//count
+	public int selectFoodListCount(String mem_id) {
+		return sqlSession.selectOne("Supplier.selectFoodListCount", mem_id) ;
+	}
+	public List<FoodDto> selectFoodList(Map<String, Object> params){
+		return sqlSession.selectList("Supplier.selectFoodList", params) ;
+	}
+	public List<FoodDto> selectFoodListAll(String mem_id){
+		return sqlSession.selectList("Supplier.selectFoodListAll", mem_id) ;
 	}
 	public int deleteFood(String menu_id) {
 		return sqlSession.delete("Supplier.deleteFood", menu_id) ;

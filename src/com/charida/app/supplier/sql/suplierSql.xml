@@ -185,9 +185,29 @@
 		INTO CRD_MENU_INFO 
 		VALUES(#{menu_id},#{mem_id},#{name},#{explanation},#{weight},#{file_id})
 	</insert>
-	<select id="selectFoodList" parameterType="String" resultType="com.charida.app.supplier.dto.FoodDto">
-		SELECT * FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
+	<select id="selectFoodListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
 		ORDER BY MEM_ID DESC
+	</select>
+	<select id="selectFoodList" parameterType="map" resultType="com.charida.app.supplier.dto.FoodDto">
+		SELECT * 
+		FROM (
+			SELECT A.*,ROWNUM AS NUM
+			FROM (
+				SELECT *
+				FROM CRD_MENU_INFO
+				WHERE MEM_ID = #{sessionId}
+				ORDER BY MENU_ID
+			) A
+		)
+		WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+		ORDER BY MENU_ID
+	</select>
+	<select id ="selectFoodListAll" parameterType="String" resultType="com.charida.app.supplier.dto.FoodDto">
+				SELECT *
+				FROM CRD_MENU_INFO
+				WHERE MEM_ID = #{mem_id}
+				ORDER BY MENU_ID
 	</select>
 	<delete id="deleteFood" parameterType="String">
 		DELETE FROM CRD_MENU_INFO WHERE  MENU_ID = #{menu_id}
@@ -254,7 +274,7 @@
 		VALUES(#{sugg_id},${menu_seq},#{name},#{weight},#{explanation},#{file_id})
 	</insert>
 	<select id="supplier_info" parameterType="String" resultType="com.charida.app.supplier.dto.SupplierDto">
-		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{session_id}
+		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{sessionId}
 		ORDER BY MEM_ID DESC
 	</select>
 	<select id="getFiles" parameterType="String" resultType="Integer">

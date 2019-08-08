@@ -60,7 +60,7 @@ public class AdminService  {
 			}
 		}
 		int pageNo = 1;
-		if(params.get("pageNo")!= null) {
+		if(params.get("pageNo")!= null && ! params.get("pageNo").equals("")) {
 			pageNo = Integer.parseInt(((String)params.get("pageNo")));
 		}
 		req.setAttribute("pageNo", pageNo);

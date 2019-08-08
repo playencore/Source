@@ -1,6 +1,5 @@
 package com.charida.app.admin.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +53,6 @@ public class AdminController extends CommonController {
 	@RequestMapping("/admin/serchsupplierajax.do")
 	@ResponseBody
 	public List<Object> searchSupplierAjax(HttpServletRequest req, HttpServletResponse resp){
-		Map<String, String> paramMap = new HashMap<String, String>() ;
-		paramMap.put("searchCategory", req.getParameter("searchCategory"));
-		paramMap.put("searchContent", req.getParameter("searchContent"));
 		return  adminService.getSerhchResult(getParameterMap(req,true), req);
 	}
 	

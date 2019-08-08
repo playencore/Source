@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -14,10 +15,10 @@ import org.springframework.stereotype.Service;
 import com.charida.app.common.service.TestService;
 import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.join.JoinComponent;
+import com.charida.app.component.pagination.PaginationInfo;
 import com.charida.app.component.serv.ApplicationComponent;
 import com.charida.app.component.supplier.SupplierComponent;
 import com.charida.app.member.dto.MemberDto;
-import com.charida.app.review.dto.ReviewDto;
 import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
 import com.charida.app.supplier.dto.PermissionDto;
@@ -151,8 +152,25 @@ public class SupplierService {
 	public int setFoodTx(FoodDto dto) {
 		return supplierComponent.setFood(dto);
 	}
-	public List<FoodDto> getFoodList(String mem_id){
-		return supplierComponent.getFoodList(mem_id) ;
+	public List<FoodDto> getFoodList(Map<String, Object> params ,HttpServletRequest req){
+		
+		int pageNo = 1;
+		if(params.get("pageNo")!= null) {
+			pageNo = Integer.parseInt(((String)params.get("pageNo")));
+		}
+		req.setAttribute("pageNo", pageNo);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setCurrentPageNo(pageNo);
+		// 전체 사이즈 
+		paging.setTotalRecordCount(supplierComponent.getFoodListCount((String)params.get("sessionId")));
+		req.setAttribute("paging", paging);
+		params.put("startNum", paging.getFirstRecordIndex()) ;
+		params.put("endNum", paging.getLastRecordIndex()) ;
+		return supplierComponent.getFoodList(params) ;
+	}
+	
+	public List<FoodDto> getFoodListAll(String mem_id){
+		return supplierComponent.getFoodListAll(mem_id) ;
 	}
 	
 	public int deleteFoodTx(String menu_id) {

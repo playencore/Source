@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp"%>
+<%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <script src="/js/dropify.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -17,6 +19,11 @@
 		}
 		
 	});
+	
+	function movePage(pageNo){
+		document.dForm.pageNo.value = pageNo;
+		document.dForm.submit();
+	}
 
 	function foodsubmit() {
 
@@ -173,12 +180,17 @@
 				</c:forEach>
 			</div>
 			<div class="col s6">
-				<div data-target="addFood"
+				<c:if test="${fn:length(foodList) != 6 }">
+					<div data-target="addFood"
 					class="modal-trigger card text-align: center bar grey lighten-2 "
 					 style="border: 1px solid black; height: 300px; width:auto"
 					 >
 					<i class="medium material-icons" style="margin-top:120px" >add</i>
 				</div>
+				</c:if>
+			</div>
+			<div class="col m12 center">
+				<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
 			</div>
 		</div>
 	</div>
@@ -232,6 +244,9 @@
 	<div class="modal-footer">
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
 	</div>
+	<form name="dForm" method="post">
+		<input type="hidden" name ="pageNo"value="${pageNo}">
+	</form>
 </div>
 <br>
 <br>

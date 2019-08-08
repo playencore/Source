@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.charida.app.common.controller.CommonController;
 import com.charida.app.common.service.TestService;
 import com.charida.app.supplier.dto.FoodDto;
 import com.charida.app.supplier.dto.FoodStyleDto;
@@ -25,7 +26,7 @@ import com.charida.app.supplier.dto.SupplierDto;
 import com.charida.app.supplier.service.SupplierService;
 
 @Controller
-public class SupplierController {
+public class SupplierController extends CommonController {
 	
 	protected Log log = LogFactory.getLog(TestService.class);
 
@@ -35,7 +36,7 @@ public class SupplierController {
 	@RequestMapping("/supplier/setfood.do")
 	public String setFood(HttpServletRequest req, HttpServletResponse resp) {
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
-		List<FoodDto> foodList = supplierService.getFoodList(mem_id) ;
+		List<FoodDto> foodList = supplierService.getFoodList(getParameterMap(req,true),req) ;
 		req.setAttribute("foodList", foodList);
 		req.setAttribute("listsize", foodList.size());
 		return "/supplier/setFood";
@@ -101,8 +102,8 @@ public class SupplierController {
 		req.setAttribute("servlist", servlist);
 		req.setAttribute("servlistsize", servlist.size());
 		req.setAttribute("mem_id", mem_id);
-		req.setAttribute("suppfoodlist", supplierService.getFoodList(mem_id));
-		req.setAttribute("suppfoodlistsize", supplierService.getFoodList(mem_id).size());
+		req.setAttribute("suppfoodlist", supplierService.getFoodListAll(mem_id));
+		req.setAttribute("suppfoodlistsize", supplierService.getFoodListAll(mem_id).size());
 		return "/supplier/servListForSuggest" ;
 	}
 	@RequestMapping("/supplier/servlistserch.do")
@@ -115,7 +116,7 @@ public class SupplierController {
 		param.put("mem_id", mem_id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("data",  supplierService.getSearchServList(param)) ;
-		result.put("menulist",supplierService.getFoodList(mem_id) ) ;
+		result.put("menulist",supplierService.getFoodListAll(mem_id) ) ;
 		return result ;
 	}
 	@RequestMapping("/supplier/suggmenu.do")

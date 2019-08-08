@@ -12,31 +12,36 @@
 	    $("#searchCategory").formSelect();
 	    $("#searchstart").on(
 				"click",
-				function( event ){
-					var searchCategory = $("#searchCategory").val() ;
-					var searchContent = $("#searchcontent").val() ;
-					$.ajax(
-						{
-							type : "POST",
-							url: "/admin/serchsupplierajax.do",
-							data : 
-							{
-								"searchCategory":searchCategory, 
-								"searchContent":searchContent	
-							},
-							dataType:"json",
-							success:function(data){
-								showlist(data);
-								setModal(data);
-							},
-							error: function(data){
-								alert("검색에 실패 했습니다. 다시 시도해주세요") ;
-							}
-						}		
-					);
-				}
-			); // 업체넘버 중복 방지 ajax
+				function(event){
+					searchSerplier();
+				}); //
 	});
+	
+	function searchSerplier(){
+		var searchCategory = $("#searchCategory").val() ;
+		var searchContent = $("#searchcontent").val() ;
+		var pageNo = $("input[name=pageNo]").val() ;
+		$.ajax(
+			{
+				type : "POST",
+				url: "/admin/serchsupplierajax.do",
+				data : 
+				{
+					"searchCategory":searchCategory, 
+					"searchContent":searchContent,
+					"pageNo":pageNo
+				},
+				dataType:"json",
+				success:function(data){
+					showlist(data);
+					setModal(data);
+				},
+				error: function(data){
+					alert("검색에 실패 했습니다. 다시 시도해주세요") ;
+				}
+			}		
+		);
+	}
 	
 	function showlist(data){
 		var cards = "" ;	
@@ -199,8 +204,8 @@
 	}
 	
 	 function movePage(pageNo){
-			document.dForm.pageNo.value = pageNo;
-			document.dForm.submit();
+			$("input[name=pageNo]").val(pageNo) ;
+			searchSerplier()
 		}
 	
 //-->
@@ -241,6 +246,7 @@
 				<div class = "col s3" style = "padding-top:15px" >
 					<a id="searchstart" class="waves-effect waves-light btn">검색</a>
 				</div>
+				<input type="hidden" name ="pageNo"value="${pageNo}">
 			</div>
 		</div>
 		<div class = "col s12">
@@ -253,10 +259,6 @@
 			<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
 		</div>
 	</div>
-	<form name="dForm" method="post">
-		<input type="hidden" name ="servId">
-		<input type="hidden" name ="pageNo"value="${pageNo}">
-	</form>
 <br><br><br><br><br><br><br><br><br><br>	
 <%@include file="/include/footer.jsp" %>
 </body>
