@@ -60,16 +60,13 @@ public class AppliController extends CommonController{
 		return result;
 	} 
 	
-//	// 2.매칭은 됐으나 결제가 되지 않은 건을 보는 페이지
-//	@RequestMapping("/service/cus-pay-list.do")
-//	public String cuspay(HttpServletRequest req,HttpServletResponse resp) {
-//		
-//		return "/service/cus-pay-list";
-//	}	
-//	// 3.결제는 됐으나 배송이 되지 않은 건을 보는 페이지
-//	@RequestMapping("/service/cus-deli-list.do")
-//	public String cusdeli(HttpServletRequest req,HttpServletResponse resp) {
-//		
-//		return "/service/cus-deli-list";
-//	}
+	// 모달창에서 비교하기 버튼을 누름
+		@RequestMapping("/appli/getReviewAvgScore.do")
+		@ResponseBody
+		public List<Map<String, Object>> getReviewAvgScore(@RequestParam("suggIdList") String suggIdList) {
+			log.debug("ctrler appliId : " + suggIdList);
+			List<Map<String, Object>> result = appliService.getReviewAvgScore(suggIdList);
+			
+			return result;
+		} 
 }

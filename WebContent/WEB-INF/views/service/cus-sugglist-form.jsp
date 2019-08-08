@@ -14,7 +14,7 @@
 								<tr>
 									<div><td>비교할 제안 목록</td></div>
 									<input type="hidden" id="sugglists">
-									<div><td><a class="waves-effect waves-light btn" onclick="doCompare()">비교하기 버튼</a></td></div>
+									<div><td><a class="waves-effect waves-light btn" onclick="doCompareButton()">비교하기 버튼</a></td></div>
 									<div id="sugg_info_compare">
 									<tr>
 										<c:forEach items="${lists}" var="appli">

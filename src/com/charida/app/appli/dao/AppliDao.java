@@ -46,8 +46,8 @@ public class AppliDao extends CommonDao{
 		return sqlSession.selectList("Appli.getMenuInfo", suggId);
 	}
 	
-	public List<Map<String, Object>> getReviewAvgScore(Map<String, Object> param){
+	public List<Map<String, Object>> getReviewAvgScoreList(Map<String, Object> param){
 		log.debug("param : " + param);
-		return sqlSession.selectList("Appli.getReviewAvgScore", param);
+		return sqlSession.selectList("Appli.getReviewAvgScoreList", param);
 	}
 }

@@ -30,6 +30,7 @@ function showDetail(SERV_ID){
 	    	var lists = [];
 	    	$('.modal').modal('open');
 	    	suggCompareListPro(lists);
+	    	doCompareButton(lists);
 	    }
 	});
 }
@@ -37,18 +38,35 @@ function showDetail(SERV_ID){
 function suggCompareListPro(lists){
 	$("input[name='checksuggid']").change(function(){
 //		alert("lists에서 조회 : [ " + lists.indexOf($(this).val()) + "]번째 요소                        (-1은 없음)");
-		if(lists.indexOf($(this).val()) == -1){
+		if(lists.indexOf("'"+$(this).val()+"'") == -1){
 //            alert("주문번호 [ " +$(this).val()+ " ] 를 등록합니다!");
-    		lists.push($(this).val());
+    		lists.push("'"+$(this).val()+"'");
             //	});
         }else{
 //        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
-            lists.splice(lists.indexOf($(this).val()), 1);
+            lists.splice(lists.indexOf("'"+$(this).val()+"'"), 1);
         }
-        alert("List 목록 결과 : " + lists + "EOF");
+        alert("List 목록 결과 : " + lists);
     });
 }
-
+function doCompareButton(lists){
+	$.ajax({
+	    type : "post",
+	    url : "/appli/getReviewAvgScore.do",
+	    data:{
+	    	suggIdList:lists
+	    },
+	    dataType : "json",
+	    error : function(data){
+	        alert('제안 비교를 실패하셨습니다.');
+	    },
+	    success : function(data){
+	    	alert('제안 비교를 성공하셨습니다.');
+	    	updateUi(data,SERV_ID);
+	    	
+	    }
+	});
+}
 function updateUi(data,appliId){
 	$('#app_title').text("신청번호 " + appliId);
 	$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50

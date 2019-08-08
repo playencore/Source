@@ -1,7 +1,6 @@
 package com.charida.app.appli.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,35 +110,27 @@ public class AppliService {
 		return appliComponent.getMenuInfo(suggId);
 	}
 	
-	public List<Map<String, Object>> getReviewAvgScore(String suggIdList, HttpServletRequest req){
+	public List<Map<String, Object>> getReviewAvgScore(String suggIdList){
+		log.debug("비교하기버튼 시작 >>");
 		final String MONTH = "30";
-		
-		//S190730-0001/1010,S190730-0001/333333,S190730-0001/111EOF
-		//EOF
-		String[] suggIdarray = suggIdList.split(",");
 		Map<String, Object> listParam = new HashMap<String, Object>();
-		List<Map<String, Object>> avgScoreList = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<suggIdarray.length; i++) {
-			if(suggIdarray[i].equals("EOF")) {
-				break;
-			}
-			listParam.put("daterange", MONTH);
-			listParam.put("params", suggIdarray[i]);
-			avgScoreList = appliComponent.getReviewAvgScore(listParam);
-			//	MENU	PRICE	SERV
-			//	2.5		4			1.5
-		}
+		
+		listParam.put("daterange", MONTH);			//조회기간 MONTH=30
+		listParam.put("suggidlist", suggIdList);		//제안번호리스트 ex) 'S190730-0001/333333','S190730-0001/1010','S190730-0001/111'
+		List<Map<String, Object>> avgScoreList = appliComponent.getReviewAvgScoreList(listParam);
 		
 		if(avgScoreList != null) {
-			for(Map<String, Object> appli : avgScoreList) {
-				if(appli.get("PER_BUD") != null) {
-					String per_bud = ((BigDecimal)appli.get("PER_BUD")).toString();
+			// 최근 MONTH일 동안 후기가 없음
+			for(Map<String, Object> avgSocore : avgScoreList) {
+				if(avgSocore.get("PER_BUD") != null) {
+					String per_bud = ((BigDecimal)avgSocore.get("PER_BUD")).toString();
 					per_bud = appliComponent.formatByComma(per_bud);
-					appli.remove("PER_BUD");
-					appli.put("PER_BUD", per_bud);
+					avgSocore.remove("PER_BUD");
+					avgSocore.put("PER_BUD", per_bud);
 				}
 			}
 		}
+		log.debug("비교하기버튼 종료 <<");
 		return avgScoreList;
 	}
 }

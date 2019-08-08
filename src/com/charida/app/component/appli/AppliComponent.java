@@ -72,7 +72,7 @@ public class AppliComponent {
 	public List<Map<String, Object>> getMenuInfo(String suggId) {
 		return appliDao.getMenuInfo(suggId);
 	}
-	public List<Map<String, Object>> getReviewAvgScore(Map<String, Object> param) {
-		return appliDao.getReviewAvgScore(param);
+	public List<Map<String, Object>> getReviewAvgScoreList(Map<String, Object> param) {
+		return appliDao.getReviewAvgScoreList(param);
 	}
 }

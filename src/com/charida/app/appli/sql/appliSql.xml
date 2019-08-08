@@ -5,7 +5,7 @@
 
 <mapper namespace="Appli">
 	<!-- 한명의 구매자가 서비스를 신청한 건수 -->
-	<select id="getAppliListCount" resultType="int" parameterType="java.lang.String">
+	<select id="getAppliListCount" parameterType="java.lang.String" resultType="int">
 		SELECT COUNT(*)
 		FROM CRD_SERV_APP
 		WHERE CUSTOMER_ID = #{customerid}
@@ -17,7 +17,7 @@
 	</select>
 	
 	<!-- 한명의 구매자가 서비스를 조회하면 보여줄 기본정보 -->
-	<select id="getAppliList" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="getAppliList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			D.ADDRESS, D.APP_DATE, SUGG_CNT, D.SERV_ID, D.PER_BUD, D.SERV_DATE, PROGRESS_CODE
 		FROM (
@@ -103,22 +103,23 @@
 		)
 	</insert>
 	<!--  판매자의 서비스평점을 일단위 기간으로 조회 -->
-	<select id="getReviewAvgScore" resultType="java.util.Map" parameterType="java.util.Map">
-		SELECT avg(menu_score) menu, avg(price_score) price, avg(serv_score) serv
+	<select id="getReviewAvgScoreList" parameterType="java.util.Map" resultType="java.util.Map" >
+		SELECT ppp, avg(menu_score) menu, avg(price_score) price, avg(serv_score) serv, count(sugg_id) sugcount
 		FROM crd_serv_review re
 		JOIN (
-			SELECT app.serv_id id, app.progress_code code, sug.mem_id ppp, app.customer_id ggg
+			SELECT app.serv_id id, app.progress_code code, sug.mem_id ppp, sug.sugg_id
 			FROM crd_serv_app app
 			JOIN crd_serv_sugg sug
 			ON app.serv_id = sug.serv_id
-			WHERE sug.mem_id=(
+			WHERE sug.mem_id IN (
 				SELECT sug.mem_id
 				FROM crd_serv_sugg sug
-				WHERE sug.sugg_id=#{suggid}'
-				)
+				WHERE sug.sugg_id IN (#{suggidlist})
+			)
 			AND app.progress_code ='STU0060001'
 		) endlist
 		ON re.serv_id = endlist.id
 		WHERE review_date > sysdate - #{daterange}
+		GROUP BY ppp
 	</select>
 </mapper>
