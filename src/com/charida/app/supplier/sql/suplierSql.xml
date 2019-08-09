@@ -250,6 +250,8 @@
          TO_DATE(#{stdate} || ' 00:00:00' ,'YYYY/MM/DD HH24:MI:SS') 
          AND
          TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
+         AND 
+         PROGRESS_CODE IN ('STU0010001','STU0020001')
          AND
 		SERV_ID NOT IN
 		(
