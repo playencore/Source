@@ -15,6 +15,14 @@ public class ReviewDto {
 	private String file_yn;
 	private String blind_yn;
 	private String review_date;
+	private String best_food_cg;
+	private String best_food_option;
+	private String worst_food_cg;
+	private String worst_food_option;
+	
+	
+	
+	
 	private List<Integer> picture;
 	
 	private int file_seq;
@@ -27,6 +35,30 @@ public class ReviewDto {
 	private int servicePicture6;
 	
 	
+	public String getBest_food_cg() {
+		return best_food_cg;
+	}
+	public void setBest_food_cg(String best_food_cg) {
+		this.best_food_cg = best_food_cg;
+	}
+	public String getBest_food_option() {
+		return best_food_option;
+	}
+	public void setBest_food_option(String best_food_option) {
+		this.best_food_option = best_food_option;
+	}
+	public String getWorst_food_cg() {
+		return worst_food_cg;
+	}
+	public void setWorst_food_cg(String worst_food_cg) {
+		this.worst_food_cg = worst_food_cg;
+	}
+	public String getWorst_food_option() {
+		return worst_food_option;
+	}
+	public void setWorst_food_option(String worst_food_option) {
+		this.worst_food_option = worst_food_option;
+	}
 	public int getFile_seq() {
 		return file_seq;
 	}

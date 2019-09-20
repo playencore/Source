@@ -180,4 +180,18 @@
 		FROM CRD_SERV_SUGG_MENU 
 		WHERE SUGG_ID = #{suggId}
 	</select>
+	<select id="getMenuInfoByServId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+			FOOD_CG
+			,NAME
+			,FILE_ID
+		FROM CRD_SERV_SUGG_MENU
+		WHERE SUGG_ID =(
+			SELECT SUGG_ID 
+			FROM CRD_SERV_SUGG 
+			WHERE SERV_ID=#{servId}
+			AND CHOOSE_YN = 'Y'
+		)
+	</select>
+
 </mapper>

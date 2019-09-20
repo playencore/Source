@@ -7,7 +7,9 @@
 	$(document).ready(
 		function(){
  			$('.dropify').dropify(); //파일 업로드
-			
+ 			$(document).ready(function(){
+			    $('select').formSelect();
+			});
 			
 		}// ready function
 	);//ready
@@ -62,7 +64,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="section"></div>
 	<table border="1" class="container">
 		<tr>
@@ -221,6 +222,88 @@
 		    		<span>5.0 점</span>
 	  			</label>
 	       	</div>       	
+       	</div>
+	</div>
+	<hr color="gray" class="container">
+	<div class="row container">
+		<div class="col s12 ">
+			<p id="recommand"> Q. 가장 만족했던 음식은?</p>		
+			<div class=" col s12 input-field" style="margin-top: 0px;">
+				<select class="icons" name="best_food">
+					<option value="" disabled selected>선택해주세요.</option>
+					<c:forEach var="menu" items="${menuList}">
+						<option value="${menu.FOOD_CG }" data-icon="/file/file-down/${menu.FILE_ID }">${menu.NAME }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col s12 " style="margin-bottom: 10px;">
+				Q.위 문항 평가에 가장 영향을 미친 요소를 선택해주세요.
+			</div>
+			<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "best_food_option" value = "1" />
+		    		<span>맛</span>
+				</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "best_food_option" value = "2" />
+		    		<span>생김새</span>
+	  			</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "best_food_option" value = "3" />
+		    		<span>가격</span>
+	  			</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "best_food_option" value = "4" />
+		    		<span>양</span>
+	  			</label>
+	       	</div>
+       	</div>
+	</div>
+	<hr color="gray" class="container">
+	<div class="row container">
+		<div class="col s12 ">
+			<p id="recommand"> Q. 가장 만족하지 못한 음식은?</p>		
+			<div class=" col s12 input-field" style="margin-top: 0px;">
+				<select class="icons" name="worst_food">
+					<option value="" disabled selected>선택해주세요.</option>
+					<c:forEach var="menu" items="${menuList}">
+						<option value="${menu.FOOD_CG }" data-icon="/file/file-down/${menu.FILE_ID }">${menu.NAME }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col s12 " style="margin-bottom: 10px;">
+				Q.위 문항 평가에 가장 영향을 미친 요소를 선택해주세요.
+			</div>
+			<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "worst_food_option" value = "1" />
+		    		<span>맛</span>
+				</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "worst_food_option" value = "2" />
+		    		<span>생김새</span>
+	  			</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "worst_food_option" value = "3" />
+		    		<span>가격</span>
+	  			</label>
+	       	</div>
+	       	<div class = "col s2">
+	       		<label>
+		    		<input type="radio" name = "worst_food_option" value = "4" />
+		    		<span>양</span>
+	  			</label>
+	       	</div>
        	</div>
 	</div>
 	<hr color="gray" class="container">
