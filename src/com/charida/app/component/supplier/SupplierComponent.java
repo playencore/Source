@@ -265,4 +265,5 @@ public class SupplierComponent {
 	public List<SupplierDto> supplier_info(String id){
 		return supplierDao.supplier_info(id);
 	}
+	
 }

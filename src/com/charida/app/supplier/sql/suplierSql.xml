@@ -183,7 +183,7 @@
 	<insert id="insertFood" parameterType="com.charida.app.supplier.dto.FoodDto">
 		INSERT 
 		INTO CRD_MENU_INFO 
-		VALUES(#{menu_id},#{mem_id},#{name},#{explanation},#{weight},#{file_id})
+		VALUES(#{menu_id},#{mem_id},#{name},#{explanation},#{weight},#{file_id},#{count},#{food_cg})
 	</insert>
 	<select id="selectFoodListCount" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
@@ -221,7 +221,7 @@
 	<update id="modifyMenu" parameterType="com.charida.app.supplier.dto.FoodDto">
 		UPDATE 
 		CRD_MENU_INFO
-		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}
+		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}, COUNT={count}
 		WHERE MENU_ID = #{menu_id}
 	</update>
 	<select id="selectServiceList" resultType="map" parameterType="String">
