@@ -90,7 +90,7 @@ public class SupplierController extends CommonController {
 		dto.setFile_id((Integer)req.getAttribute("file_id1"));
 		dto.setWeight(Integer.parseInt(req.getParameter("mweight")));
 		dto.setCount( Integer.parseInt(req.getParameter("mcount")));
-		
+		dto.setFood_cg(req.getParameter("mlargesection")+req.getParameter("mmiddlesection")+req.getParameter("msmallsection"));
 		int result = supplierService.modifyMenu(dto);
 		req.setAttribute("result", result);
 		

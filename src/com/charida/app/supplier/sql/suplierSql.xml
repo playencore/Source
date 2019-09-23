@@ -221,7 +221,7 @@
 	<update id="modifyMenu" parameterType="com.charida.app.supplier.dto.FoodDto">
 		UPDATE 
 		CRD_MENU_INFO
-		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}, COUNT={count}
+		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}, COUNT=#{count}, FOOD_CG=#{food_cg}
 		WHERE MENU_ID = #{menu_id}
 	</update>
 	<select id="selectServiceList" resultType="map" parameterType="String">

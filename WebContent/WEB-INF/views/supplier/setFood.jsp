@@ -3,6 +3,7 @@
 <%@include file="/include/header.jsp"%>
 <%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="/js/dropify.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -195,40 +196,40 @@
 													<span> 음식의 카테고리를 넣어주세요. </span>
 													<br><br>
 													<div class = "row">
-													<c:set value = "${list.food_cg}" val = "section">
+													<c:set var = "section" value = "${list.food_cg}" />
+													<c:set var = "ls" value = "${fn:substring(section,0,3) }"/>
+													<c:set var = "ms" value = "${fn:substring(section,3,6) }"/>
+													<c:set var = "ss" value = "${fn:substring(section,6,9) }"/>
 														<div class= " input-field col s4">
 															<select id = "mlargesection" name = "mlargesection">
-																<option value="" disabled selected>선택해주세요</option>
-																<option value="L01">한식</option>
-																<option value="L02">일식</option>
-																<option value="L03">중식</option>
-																<option value="L04">웨스턴</option>
-																<option value="L05">퓨전</option>
+																<option <c:if test= "${ls == 'L01'}">selected</c:if> value="L01">한식</option>
+																<option <c:if test= "${ls == 'L02'}">selected</c:if> value="L02">일식</option>
+																<option <c:if test= "${ls == 'L03'}">selected</c:if> value="L03">중식</option>
+																<option <c:if test= "${ls == 'L04'}">selected</c:if> value="L04">웨스턴</option>
+																<option <c:if test= "${ls == 'L05'}">selected</c:if> value="L05">퓨전</option>
 															</select>
 															<label>대분류</label>
 														</div>
 														<div class= " input-field col s4">
 															<select id = "mmiddlesection" name= "mmiddlesection"  >
-																<option value="" disabled selected>선택해주세요</option>
-																<option value="M01">육류</option>
-																<option value="M02">해산물</option>
-																<option value="M03">밥류</option>
-																<option value="M04">면류</option>
-																<option value="M05">채소</option>
-																<option value="M06">두류</option>
-																<option value="M07">빵류</option>
+																<option <c:if test= "${ms == 'M01'}">selected</c:if> value="M01">육류</option>
+																<option <c:if test= "${ms == 'M02'}">selected</c:if> value="M02">해산물</option>
+																<option <c:if test= "${ms == 'M03'}">selected</c:if> value="M03">밥류</option>
+																<option <c:if test= "${ms == 'M04'}">selected</c:if> value="M04">면류</option>
+																<option <c:if test= "${ms == 'M05'}">selected</c:if> value="M05">채소</option>
+																<option <c:if test= "${ms == 'M06'}">selected</c:if> value="M06">두류</option>
+																<option <c:if test= "${ms == 'M07'}">selected</c:if> value="M07">빵류</option>
 															</select>
 															<label>중분류</label>
 														</div>
 														<div class= " input-field col s4">
 															<select id = "msmallsection" name = "msmallsection" >
-																<option value="" disabled selected>선택해주세요</option>
-																<option value="S01">국류</option>
-																<option value="S02">볶음</option>
-																<option value="S03">찜</option>
-																<option value="S04">구이</option>
-																<option value="S05">튀김</option>
-																<option value="S06">날것(샌드위치,잡채..)</option>
+																<option <c:if test= "${ss == 'S01'}">selected</c:if> value="S01">국류</option>
+																<option <c:if test= "${ss == 'S02'}">selected</c:if> value="S02">볶음</option>
+																<option <c:if test= "${ss == 'S03'}">selected</c:if> value="S03">찜</option>
+																<option <c:if test= "${ss == 'S04'}">selected</c:if> value="S04">구이</option>
+																<option <c:if test= "${ss == 'S05'}">selected</c:if> value="S05">튀김</option>
+																<option <c:if test= "${ss == 'S06'}">selected</c:if> value="S06">날것(샌드위치,잡채..)</option>
 															</select>
 															<label>소분류</label>
 														</div>
