@@ -581,13 +581,20 @@ function menusubmit(ct){
 <div class = "row ">
 	<div class = "col s3">
 		<br><br><br><br><br>
-		행사 날짜 검색
+		검색 필터링: <br>
+		
+		<!-- CRD_SERV_APP 중에 SERV_DATE 시작 날짜와 마감날짜 사이인 제안들 필터링 -->
 		 <div class="card">
 		 	<div class = "card-content">
 				<p>검색 시작 날짜를 입력해주세요.</p>
 				<input id = "startdate" name = "startdate" type="text" class="datepicker"  readonly>
 				<p>검색 종료 날짜를 입력해주세요.</p>
 				<input id = "enddate" name = "enddate" type="text" class="datepicker" readonly>
+				<!-- 판매자 선호 메뉴, 1인당 금액, 참가인원(범위), 행사형식, 진행형식, 후식 및 음료 여부
+				실내여부, 취사여부, 쓰레기 배출 여부, 엘리베이터 여부, 추가 식기 여부, 코디네이터 여부  
+				"서비스 단에서 널 잡아주기"-->
+				
+				
 				<button id = "serchservlist" class="btn waves-effect waves-light">
 						<i class="material-icons right">search</i> 검색
 				</button>

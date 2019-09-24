@@ -209,7 +209,7 @@ public class SupplierService {
 		}
 		return servlist; 
 	}
-	
+	// 서비스 제안 검색 필터링
 	public List<Map<String, Object>> getSearchServList(Map<String, String> param){
 		List<Map<String,Object>> serchServList = new ArrayList<Map<String,Object>>();
 		

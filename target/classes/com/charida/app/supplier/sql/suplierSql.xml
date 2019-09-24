@@ -65,29 +65,56 @@
 	
 	<select id = "selectSuppliers" resultType="com.charida.app.supplier.dto.SupplierDto">
 		SELECT * FROM CRD_COMPANY
+		ORDER BY MEM_ID DESC
+		
+	</select>
+	<select id="selectSupplier" resultType="com.charida.app.supplier.dto.SupplierDto" parameterType="String">
+		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{mem_id}
+		ORDER BY MEM_ID DESC
+	</select>
+	
+	<select id = "selectNotPermissionSuppliersCount" resultType = "int">
+		SELECT 
+		COUNT(*)
+		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
+		WHERE C.MEM_ID = M.MEM_ID 
+		AND M.AUTHORITY = '4'
+		AND C.MEM_ID=P.MEM_ID
+		AND P.PERMISSION_YN = 0 
+		ORDER BY C.MEM_ID DESC
 	</select>
 	
 	<select id = "selectNotPermissionSuppliers" resultType = "hashMap">
 		SELECT 
-		C.MEM_ID mem_id,
-		C.REGIST_NUM regist_num,
-		C.EXPLANATION explanation,
-		C.NAME companyname,
-		C.MAXIMUM_SEATING maximum_seating,
-		C.MINIMUM_SEATING minimum_seating,
-		C.CERT_FILE_ID cert_file_id,
-		C.TELEGRAM_ID telegram_id,
-		M.NAME name,
-		M.TEL tel,
-		M.EMAIL email,
-		M.JOIN_DATE join_date,
-		P.PERMISSION_SEQ permission_seq,
-		P.DISALLOWANCE_REASON disallowance_reason,
-		P.MODIFICATION_DATE modification_date
-		FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
-		WHERE C.MEM_ID = M.MEM_ID 
-		AND C.MEM_ID=P.MEM_ID
-		AND P.PERMISSION_YN = 0 
+		mem_id,regist_num,explanation,companyname,maximum_seating,minimum_seating,cert_file_id,telegram_id,
+		name,tel,email,join_date,permission_seq,disallowance_reason,modification_date
+		FROM(
+			SELECT A.*, ROWNUM AS NUM
+			FROM
+				(SELECT 
+				C.MEM_ID mem_id,
+				C.REGIST_NUM regist_num,
+				C.EXPLANATION explanation,
+				C.NAME companyname,
+				C.MAXIMUM_SEATING maximum_seating,
+				C.MINIMUM_SEATING minimum_seating,
+				C.CERT_FILE_ID cert_file_id,
+				C.TELEGRAM_ID telegram_id,
+				M.NAME name,
+				M.TEL tel,
+				M.EMAIL email,
+				M.JOIN_DATE join_date,
+				P.PERMISSION_SEQ permission_seq,
+				P.DISALLOWANCE_REASON disallowance_reason,
+				P.MODIFICATION_DATE modification_date
+				FROM CRD_COMPANY C , CRD_MEM M , CRD_MEM_PERMISSION P
+				WHERE C.MEM_ID = M.MEM_ID 
+				AND M.AUTHORITY = '4'
+				AND C.MEM_ID=P.MEM_ID
+				AND P.PERMISSION_YN = 0
+				ORDER BY C.MEM_ID DESC) A 
+		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+		ORDER BY join_date	
 	</select>
 	
 	<update id="updatePermission" parameterType="map">
@@ -99,6 +126,204 @@
 		MODIFICATION_DATE = sysdate
 		WHERE 
 		MEM_ID = #{mem_id[0]}
+	</update>
+	
+	<update id="updatePermissionSup" parameterType="String">
+		UPDATE CRD_MEM
+		SET
+		AUTHORITY = '3'
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<select id = "selectSearchListCount" parameterType="map" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM CRD_MEM M , CRD_COMPANY C
+		WHERE M.MEM_ID = C.MEM_ID
+		AND
+		${table}.${searchCategory} LIKE '%'||#{searchContent}||'%' 
+		ORDER BY C.MEM_ID DESC
+	</select>
+	
+	<select id="selectSerchList" parameterType="map" resultType="hashMap">
+		SELECT MEM_ID,NAME,EMAIL,ADRESS,ADDRESS_DETAIL,JOIN_DATE,BIRTH_DATE,GENDER,TEL,REGIST_NUM,
+			COMPANYNAME,EXPLANATION,MINUMUM_SEATING,MAXiMUM_SEATIN,TELEGRAM_ID
+		FROM 
+			(SELECT A.*,ROWNUM AS NUM 
+			FROM(
+					SELECT
+						M.MEM_ID MEM_ID,
+						M.NAME NAME,
+						M.EMAIL EMAIL,
+						M.ADDRESS ADRESS,
+						M.ADDRESS_DETAIL ADDRESS_DETAIL,
+						TO_CHAR(M.JOIN_DATE,'YYYY/MM/DD HH24:MI:SS') JOIN_DATE,
+						M.BIRTH_DATE BIRTH_DATE,
+						M.GENDER GENDER,
+						M.TEL TEL,
+						C.REGIST_NUM REGIST_NUM,
+						C.NAME COMPANYNAME,
+						C.EXPLANATION EXPLANATION,
+						C.MINIMUM_SEATING MINUMUM_SEATING,
+						C.MAXiMUM_SEATING MAXiMUM_SEATIN,
+						C.TELEGRAM_ID  TELEGRAM_ID 
+					FROM CRD_MEM M , CRD_COMPANY C
+					WHERE M.MEM_ID = C.MEM_ID
+					AND
+					${table}.${searchCategory} LIKE '%'||#{searchContent}||'%' 
+					ORDER BY C.MEM_ID DESC ) A
+				)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+			ORDER BY JOIN_DATE 
+		
+	</select>
+	
+	<select id="selectFoodMaxSeq" resultType="String">
+		SELECT MAX(MENU_ID) FROM CRD_MENU_INFO
+	</select>
+	<insert id="insertFood" parameterType="com.charida.app.supplier.dto.FoodDto">
+		INSERT 
+		INTO CRD_MENU_INFO 
+		VALUES(#{menu_id},#{mem_id},#{name},#{explanation},#{weight},#{file_id})
+	</insert>
+	<select id="selectFoodListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CRD_MENU_INFO WHERE MEM_ID = #{mem_id}
+		ORDER BY MEM_ID DESC
+	</select>
+	<select id="selectFoodList" parameterType="map" resultType="com.charida.app.supplier.dto.FoodDto">
+		SELECT * 
+		FROM (
+			SELECT A.*,ROWNUM AS NUM
+			FROM (
+				SELECT *
+				FROM CRD_MENU_INFO
+				WHERE MEM_ID = #{sessionId}
+				ORDER BY MENU_ID
+			) A
+		)
+		WHERE NUM  BETWEEN #{startNum} AND #{endNum}
+		ORDER BY MENU_ID
+	</select>
+	<select id ="selectFoodListAll" parameterType="String" resultType="com.charida.app.supplier.dto.FoodDto">
+				SELECT *
+				FROM CRD_MENU_INFO
+				WHERE MEM_ID = #{mem_id}
+				ORDER BY MENU_ID
+	</select>
+	<delete id="deleteFood" parameterType="String">
+		DELETE FROM CRD_MENU_INFO WHERE  MENU_ID = #{menu_id}
+	</delete>
+	<update id="updateFoodSeq" parameterType="String">
+		UPDATE 
+		CRD_MENU_INFO 
+		SET MENU_ID = TO_CHAR(TO_NUMBER(MENU_ID)-1) 
+		WHERE TO_NUMBER(MENU_ID) > TO_NUMBER(#{menu_id})
+	</update>
+	<update id="modifyMenu" parameterType="com.charida.app.supplier.dto.FoodDto">
+		UPDATE 
+		CRD_MENU_INFO
+		SET NAME = #{name} , EXPLANATION = #{explanation}, WEIGHT=#{weight}, FILE_ID = #{file_id}
+		WHERE MENU_ID = #{menu_id}
+	</update>
+	<select id="selectServiceList" resultType="map" parameterType="String">
+		SELECT 
+		*
+		FROM
+		CRD_SERV_APP
+		WHERE SERV_DATE > TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI:SS'),'YYYY/MM/DD HH24:MI:SS')
+		AND PROGRESS_CODE IN ('STU0010001','STU0020001')
+		AND
+		SERV_ID NOT IN
+		(
+			SELECT SERV_ID
+			FROM CRD_SERV_SUGG
+			WHERE MEM_ID = #{mem_id}
+		)
+		ORDER BY SERV_ID DESC
+		
+	</select>
+	<select id="selectSearchServList" parameterType="hashMap" resultType="map">
+		SELECT 
+		*
+		FROM
+		CRD_SERV_APP
+ 		 WHERE SERV_DATE BETWEEN 
+         TO_DATE(#{stdate} || ' 00:00:00' ,'YYYY/MM/DD HH24:MI:SS') 
+         AND
+         TO_DATE(#{eddate} || ' 23:59:59' ,'YYYY/MM/DD HH24:MI:SS')
+         AND 
+         PROGRESS_CODE IN ('STU0010001','STU0020001')
+         AND
+		SERV_ID NOT IN
+		(
+			SELECT SERV_ID
+			FROM CRD_SERV_SUGG
+			WHERE MEM_ID = #{mem_id}
+		)
+		ORDER BY SERV_ID DESC
+	</select>
+	
+	<insert id="insertSuggest" parameterType="map">
+		INSERT 
+		INTO CRD_SERV_SUGG (SUGG_ID,MEM_ID,SERV_ID,PER_BUD,SUGG_DATE)
+		VALUES(#{sugg_id},#{mem_id},#{serv_id},#{per_bud},SYSDATE)
+	</insert>
+	<select id="selectSerSuggMaxSeq" parameterType="String" resultType="String">
+		SELECT MAX(MENU_SEQ) FROM CRD_SERV_SUGG_MENU WHERE SUGG_ID = #{sugg_id}
+	</select>
+	<insert id="insertServSuggMenu" parameterType="map">
+		INSERT
+		INTO CRD_SERV_SUGG_MENU
+		VALUES(#{sugg_id},${menu_seq},#{name},#{weight},#{explanation},#{file_id})
+	</insert>
+	<select id="supplier_info" parameterType="String" resultType="com.charida.app.supplier.dto.SupplierDto">
+		SELECT * FROM CRD_COMPANY WHERE MEM_ID = #{sessionId}
+		ORDER BY MEM_ID DESC
+	</select>
+	<select id="getFiles" parameterType="String" resultType="Integer">
+  		SELECT file_id FROM CRD_INTRO_FILE WHERE MEM_ID = #{id}
+  		ORDER BY FILE_ID DESC
+	</select>
+	<select id="serviceType" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceTypeDto">
+		SELECT TYPE_CODE FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{id}
+		ORDER BY TYPE_CODE DESC
+	</select>
+	<select id="foodStyle" parameterType="String" resultType="com.charida.app.supplier.dto.FoodStyleDto">
+		SELECT FOOD_STYLE_CODE FROM CRD_FOOD_STYLE WHERE MEM_ID = #{id}
+		ORDER BY FOOD_STYLE_CODE DESC
+	</select>
+	<select id="serviceArea" parameterType="String" resultType="com.charida.app.supplier.dto.ServiceAreaDto">
+		SELECT SERVICE_AREA_CODE FROM CRD_SERVICE_AREA WHERE MEM_ID = #{id}
+		ORDER BY SERVICE_AREA_CODE DESC
+	</select>
+	<update id="modifySupplier" parameterType="com.charida.app.supplier.dto.SupplierDto">
+		UPDATE CRD_COMPANY SET
+		EXPLANATION = #{explanation},
+		NAME = #{name},
+		MAXIMUM_SEATING = #{maximum_seating},
+		MINIMUM_SEATING = #{minimum_seating},
+		TELEGRAM_ID = #{telegram_id}
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	<delete id="del_service_type" parameterType="String">
+		DELETE FROM CRD_SERVICE_TYPE WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_food_style" parameterType="String">
+		DELETE FROM CRD_FOOD_STYLE WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_service_area" parameterType="String">
+		DELETE FROM CRD_SERVICE_AREA WHERE MEM_ID = #{mem_id}
+	</delete>
+	<delete id="del_picture" parameterType="String">
+		DELETE FROM CRD_INTRO_FILE WHERE MEM_ID = #{mem_id}
+	</delete>
+	
+	<!-- telegram -->
+	<select id="selectAllRegistNum" parameterType="hashMap">
+		SELECT MEM_ID , REGIST_NUM FROM CRD_COMPANY
+	</select>
+	<update id="updateTelegramId" parameterType="map">
+		UPDATE CRD_MEM SET TELEGRAM_ID = #{chat_id}
+		WHERE MEM_ID = #{mem_id}
 	</update>
 	
 </mapper>

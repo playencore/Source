@@ -109,19 +109,31 @@ public class SupplierController extends CommonController {
 		req.setAttribute("suppfoodlistsize", supplierService.getFoodListAll(mem_id).size());
 		return "/supplier/servListForSuggest" ;
 	}
+	
+	// 서비스 제안 검색 필터링
 	@RequestMapping("/supplier/servlistserch.do")
 	@ResponseBody
 	public Map<String,Object> searchServList(HttpServletRequest req, HttpServletResponse resp){
+		// 날짜 검색
 		Map<String,String> param = new HashMap<String, String>();
 		param.put("stdate",req.getParameter("stdate") );
-		param.put("eddate", req.getParameter("eddate")) ;
+		param.put("eddate", req.getParameter("eddate"));
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		param.put("mem_id", mem_id);
+		
+		
+		
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("data",  supplierService.getSearchServList(param)) ;
-		result.put("menulist",supplierService.getFoodListAll(mem_id) ) ;
+		result.put("data",  supplierService.getSearchServList(param));
+		result.put("menulist",supplierService.getFoodListAll(mem_id) );
+		
+		
+		
+		
 		return result ;
 	}
+	
 	@RequestMapping("/supplier/suggmenu.do")
 	@ResponseBody
 	public Map<String,String> setSuggest(HttpServletRequest req, HttpServletResponse resp){
