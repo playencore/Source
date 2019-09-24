@@ -6,9 +6,11 @@
 <mapper namespace="Review">
   <insert id="insertReview" parameterType="com.charida.app.review.dto.ReviewDto">
   	INSERT INTO CRD_SERV_REVIEW (SERV_ID, REVIEW_DATE, SERV_ROOT, MENU_SCORE, PRICE_SCORE, 
-  								SERV_SCORE, RECOMMAND, TITLE, CONTENT, FILE_YN, BLIND_YN)
+  								SERV_SCORE, RECOMMAND, TITLE, CONTENT, FILE_YN, BLIND_YN,
+  								BEST_FOOD_CG, WORST_FOOD_CG, BEST_FOOD_OPTION, WORST_FOOD_OPTION)
   	VALUES(#{serv_id}, SYSDATE, #{serv_root}, #{menu_score}, #{price_score}, 
-  			#{serv_score}, #{recommand}, #{title}, #{content}, NULL, 'N')
+  			#{serv_score}, #{recommand}, #{title}, #{content}, NULL, 'N',
+  			#{best_food_cg},#{worst_food_cg} ,#{best_food_option} ,#{worst_food_option} )
   </insert>
   <select id="getReviews" resultType="com.charida.app.review.dto.ReviewDto">
   	SELECT 

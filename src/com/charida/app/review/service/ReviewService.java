@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.charida.app.component.review.ReviewComponent;
+import com.charida.app.component.sugg.SuggestionComponent;
 import com.charida.app.matching.dto.MatchingDto;
 import com.charida.app.review.dto.ReviewDto;
 
@@ -16,8 +17,12 @@ import com.charida.app.review.dto.ReviewDto;
 public class ReviewService {
 	@Resource
 	ReviewComponent reviewComponent;
+	@Resource
+	SuggestionComponent suggestionComponent;
 
-
+	public List<Map<String, Object>> getMenuInfo(String servId){
+		return suggestionComponent.getMenuInfoByServId(servId);
+	}
 	public int insertReviewTx(Map<String, Object> reviewMap) {
 		int result = 0;
 		
@@ -31,6 +36,10 @@ public class ReviewService {
 		reviewDto.setRecommand((String)reviewMap.get("recommend"));
 		reviewDto.setTitle((String)reviewMap.get("title"));
 		reviewDto.setContent((String)reviewMap.get("content"));
+		reviewDto.setBest_food_cg((String)reviewMap.get("best_food"));
+		reviewDto.setBest_food_option((String)reviewMap.get("best_food_option"));
+		reviewDto.setWorst_food_cg((String)reviewMap.get("worst_food"));
+		reviewDto.setWorst_food_option((String)reviewMap.get("worst_food_option"));
 		
 		result += reviewComponent.insertReview(reviewDto);
 				

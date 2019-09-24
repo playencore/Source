@@ -6,7 +6,9 @@ public class FoodDto {
 	private String name ;
 	private String explanation ;
 	private int weight ;
+	private int count ;
 	private int file_id ;
+	private String food_cg ;
 	public int getMenu_id() {
 		return menu_id;
 	}
@@ -37,12 +39,25 @@ public class FoodDto {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getFile_id() {
 		return file_id;
 	}
 	public void setFile_id(int file_id) {
 		this.file_id = file_id;
 	}
+	public String getFood_cg() {
+		return food_cg;
+	}
+	public void setFood_cg(String food_cg) {
+		this.food_cg = food_cg;
+	}
+	
 	
 	
 }

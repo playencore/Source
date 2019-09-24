@@ -33,7 +33,7 @@ public class ReviewController {
 	public String reviewWriteForm(@RequestParam("serv_id")String serv_id,HttpServletRequest req,HttpServletResponse resp) {
 		System.out.println(req.getParameter("aa"));
 		req.setAttribute("serv_id", serv_id);
-		
+		req.setAttribute("menuList", reviewService.getMenuInfo(serv_id));
 		return "/review/reviewWriteForm";
 	}
 	

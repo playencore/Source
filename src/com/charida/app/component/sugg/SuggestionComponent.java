@@ -67,6 +67,10 @@ public class SuggestionComponent {
 	public int getShippingListCount(String memId){
 		return suggestionDao.getShippingListCount(memId);
 	}
+	public List<Map<String, Object>> getMenuInfoByServId(String servId){
+		return suggestionDao.getMenuInfoByServId(servId);
+	}
+	
 	public String formatByComma(String str) {
 		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 	}
