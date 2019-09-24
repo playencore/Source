@@ -220,9 +220,11 @@ public class SupplierComponent {
 			menu.put("sugg_id", param.get("sugg_id"));
 			menu.put("menu_seq", maxseq);
 			menu.put("name", menuinfo.get(0));
-			menu.put("weight", menuinfo.get(1));
-			menu.put("explanation", menuinfo.get(2));
-			menu.put("file_id",menuinfo.get(3));
+			menu.put("food_cg", menuinfo.get(1)) ;
+			menu.put("weight", menuinfo.get(2));
+			menu.put("count",menuinfo.get(3));
+			menu.put("explanation", menuinfo.get(4));
+			menu.put("file_id",menuinfo.get(5));
 			menuresult += supplierDao.insertServSuggMenu(menu);
 			maxseq++;
 		}
