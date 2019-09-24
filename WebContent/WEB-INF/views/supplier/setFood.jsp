@@ -240,7 +240,7 @@
 											<div class="row">
 												<div class="input-field col s12">
 													<p>*메뉴의 사진을 넣어주세요</p>
-													<input data-default-file="/file/file-down/${list.file_id}" name="mfile_id" type="file" class="cp dropify validate"
+													<input  data-default-file="/file/file-down/${list.file_id}" name="mfile_id" type="file" class="cp dropify validate"
 														data-height="100">
 												</div>
 											</div>
