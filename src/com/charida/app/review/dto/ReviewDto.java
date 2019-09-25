@@ -21,8 +21,6 @@ public class ReviewDto {
 	private String worst_food_option;
 	
 	
-	
-	
 	private List<Integer> picture;
 	
 	private int file_seq;
