@@ -399,9 +399,26 @@ function valid_step2(){
 	return true;
 }
 function valid_step3(){
-	if($('input[name=cb_menu_type]:checked').next().text()==""){
-		showToast('선호 메뉴를 하나 이상 선택해주세요.');
-		$("input[name=cb_menu_type]")[0].focus();
+	
+//	if($('input[name=cb_menu_type]:checked').next().text()==""){
+//		showToast('선호 메뉴를 선택해주세요.');
+//		$("input[name=cb_menu_type]")[0].focus();
+//		return false;
+//	}
+	
+	if($('input[name=cb_menu_typeL]:checked').next().text()==""){
+		showToast('선호 메뉴 중 대분류를 선택해주세요.');
+		$("input[name=cb_menu_typeL]")[0].focus();
+		return false;
+	}
+	if($('input[name=cb_menu_typeM]:checked').next().text()==""){
+		showToast('선호 메뉴 중 중분류를 선택해주세요.');
+		$("input[name=cb_menu_typeM]")[0].focus();
+		return false;
+	}
+	if($('input[name=cb_menu_typeS]:checked').next().text()==""){
+		showToast('선호 메뉴 중 소분류를 선택해주세요.');
+		$("input[name=cb_menu_typeS]")[0].focus();
 		return false;
 	}
 	if($("#per_bud").val()==""){

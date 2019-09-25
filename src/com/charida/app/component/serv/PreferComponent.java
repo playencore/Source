@@ -15,7 +15,7 @@ public class PreferComponent {
 	private PreferDao preferDao;
 	
 	public int insertPreferMenu(String servId,String preferCode,int seq) {
-		return preferDao.insertRow(getEntity(servId,preferCode,seq));
+		return preferDao.insertRow(getEntity(servId, preferCode, seq));
 	}
 	
 	public Map<String,Object>getEntity(String servId,String preferCode,int seq){

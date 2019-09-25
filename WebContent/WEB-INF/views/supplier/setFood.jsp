@@ -229,7 +229,7 @@
 																<option <c:if test= "${ss == 'S03'}">selected</c:if> value="S03">찜</option>
 																<option <c:if test= "${ss == 'S04'}">selected</c:if> value="S04">구이</option>
 																<option <c:if test= "${ss == 'S05'}">selected</c:if> value="S05">튀김</option>
-																<option <c:if test= "${ss == 'S06'}">selected</c:if> value="S06">날것(샌드위치,잡채..)</option>
+																<option <c:if test= "${ss == 'S06'}">selected</c:if> value="S06">날것(샌드위치)</option>
 															</select>
 															<label>소분류</label>
 														</div>
@@ -353,7 +353,7 @@
 									<option value="S03">찜</option>
 									<option value="S04">구이</option>
 									<option value="S05">튀김</option>
-									<option value="S06">날것(샌드위치,잡채..)</option>
+									<option value="S06">날것(샌드위치)</option>
 								</select>
 								<label>소분류</label>
 							</div>

@@ -236,54 +236,120 @@
 						<div class="col m10">
 							<div class="row" style="margin-bottom: 0px;">
 								<div class="col m11" style="padding-right: 0px">
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000010"/>
-									        <span>한정식</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000020"/>
-									        <span>핑거푸드</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000030"/>
-									        <span>웨스턴</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000040"/>
-									        <span>일식</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000050"/>
-									        <span>아시아 퓨전</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000060"/>
-									        <span>바베큐</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000070"/>
-									        <span>피자</span>
-									    </label>
-									</div>
-									<div class="chip">
-										<label>
-									        <input type="checkbox" onchange="changeColor(this)" name="cb_menu_type" value="MMU0000090"/>
-									        <span>기타</span>
-									    </label>
-									</div>
+									<span>대분류</span><br>
+										<div class="chip">
+											<label>
+									        	<input type="radio" onchange="changeColorByRadio('cb_menu_typeL')" name="cb_menu_typeL" value="L01"/>
+									        	<span>한식</span>
+									    	</label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeL')" name="cb_menu_typeL" value="L02"/>
+										        <span>일식</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeL')" name="cb_menu_typeL" value="L03"/>
+										        <span>중식</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeL')" name="cb_menu_typeL" value="L04"/>
+										        <span>웨스턴</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeL')" name="cb_menu_typeL" value="L05"/>
+										        <span>퓨전</span>
+										    </label>
+										</div>
+									<br><br>
+									<span>중분류</span><br>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M01"/>
+										        <span>육류</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M02"/>
+										        <span>해산물</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M03"/>
+										        <span>밥류</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M04"/>
+										        <span>면류</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M05"/>
+										        <span>채소</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M06"/>
+										        <span>두류</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeM')" name="cb_menu_typeM" value="M07"/>
+										        <span>빵류</span>
+										    </label>
+										</div>
+									<br><br>
+									<span>소분류</span><br>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S01"/>
+										        <span>국류</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S02"/>
+										        <span>볶음</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S03"/>
+										        <span>찜</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S04"/>
+										        <span>구이</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S05"/>
+										        <span>튀김</span>
+										    </label>
+										</div>
+										<div class="chip">
+											<label>
+										        <input type="radio" onchange="changeColorByRadio('cb_menu_typeS')" name="cb_menu_typeS" value="S06"/>
+										        <span>날것(샌드위치)</span>
+										    </label>
+										</div>
+									<br>
 								</div>
 							</div>
 						</div>

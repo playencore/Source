@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,13 +66,23 @@ public class ApplicationService {
 		int seq = 1;
 		
 		
-		String[] menus = (String[])params.get("cb_menu_type"); 
-		for(String menu:menus) { 
-			log.debug(menu);
-			preferComponent.insertPreferMenu(appId, menu, seq++);
-		}
+		// 선호 메뉴
+//		String[] menus = (String[])params.get("cb_menu_type"); 
+//		for(String menu:menus) { 
+//			log.debug(menu);
+//			preferComponent.insertPreferMenu(appId, menu, seq++);
+//		}
+		String[] menuL = (String[]) params.get("cb_menu_typeL");
+		String[] menuM = (String[]) params.get("cb_menu_typeM");
+		String[] menuS = (String[]) params.get("cb_menu_typeS");
+		
+		String menus = Arrays.toString(menuL) + Arrays.toString(menuM) + Arrays.toString(menuS);
+		
+		log.debug(menus);
+		preferComponent.insertPreferMenu(appId, menus, seq);
 		
 		seq = 1;
+		
 		
 		//디저트 추가주문
 		if("Y".equals(appEntity.get("dessert_yn"))) {
