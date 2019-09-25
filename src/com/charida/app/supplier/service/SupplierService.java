@@ -245,7 +245,7 @@ public class SupplierService {
 	public int setSuggestTx(Map<String , Object> param) {
 		List<Object> menulist = (ArrayList<Object>)param.get("menulist") ;
 		List<String> menu = (List<String>)menulist.get(0) ;
-		String serv_id = menu.get(4);
+		String serv_id = menu.get(6);
 		param.put("serv_id", serv_id) ;
 		String sugg_id = serv_id +"/"+ supplierComponent.getSupplier((String)param.get("mem_id")).getRegist_num() ;
 		param.put("sugg_id", sugg_id) ;

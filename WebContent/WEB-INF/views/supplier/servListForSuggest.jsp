@@ -13,13 +13,10 @@ $(document).ready(function(){
 	for(var i = 0 ; i< ${servlistsize} ; i++){
 		menucountarr[i] = new Array();
 	}
-	
-	
 	setDatePicker() ;
 	setModal();
 	 $('select').formSelect();
-	 
-	
+
 	$("#serchservlist").on(
 		"click",
 		function(){
@@ -397,6 +394,7 @@ function showServeList(result){
 		+							"<tr>"
 		+								"<th>메뉴 이름</th>"
 		+								"<th>메뉴 중량</th>"
+		+								"<th>메뉴 갯수(인분)</th>"
 		+								"<th width='40%'>메뉴 설명</th>"
 		+								"<th>메뉴 사진</th>"
 		+							"</tr>"
@@ -500,15 +498,19 @@ function setmenuaddlist(count){
 	+"<tr>"
 	+	"<td>"
 	+		"<input type = 'text' name = 'suggmenuname"+foodct+"' value = '"+menuinfo[0]+"' readonly>"
+	+		"<input type = 'hidden' name='suggmenufood_cg"+foodct+"' value = '"+menuinfo[1]+"'  >"
 	+	"</td>"
 	+	"<td>"
-	+		"<input type = 'text' name = 'suggweight"+foodct+"' value = '"+menuinfo[1]+"'>"
+	+		"<input type = 'text' name = 'suggweight"+foodct+"' value = '"+menuinfo[2]+"'>"
 	+	"</td>"
 	+	"<td>"
-	+		"<textarea style = 'margin-top:2%' name='suggmenuexplanation"+foodct+"' class='materialize-textarea'>"+menuinfo[2]+"</textarea>"
+	+		"<input type = 'text' name = 'suggcount"+foodct+"' value = '"+menuinfo[3]+"'>"
 	+	"</td>"
 	+	"<td>"
-	+		"<img name = 'suggfile_id' class='materialboxed' height='50' width='50' src='/file/file-down/"+menuinfo[3]+"'>"
+	+		"<textarea style = 'margin-top:2%' name='suggmenuexplanation"+foodct+"' class='materialize-textarea'>"+menuinfo[4]+"</textarea>"
+	+	"</td>"
+	+	"<td>"
+	+		"<img name = 'suggfile_id' class='materialboxed' height='50' width='50' src='/file/file-down/"+menuinfo[5]+"'>"
 	+	"</td>"
 	+"</tr>" ;
 	$("#addrow"+count).append(tableadd);
@@ -526,6 +528,12 @@ function menusubmitvalidataion(ct){
 			return 1;
 		}else if($("input[name=suggweight"+i+"]").val().length > 4){
 			M.toast({html: "메뉴의 중량은 최대 9.9KG까지 입니다"});
+			return 1 ;
+		}else if($("input[name=suggcount"+i+"]").val() == null || $("input[name=suggcount"+i+"]").val()==''){
+			M.toast({html:"메뉴의 갯수(인분)을 모두 입력하세요."}) ;
+			return 1 ;
+		}else if($("input[name=suggcount"+i+"]").val().length > 3){
+			M.toast({html:"메뉴의 갯수(인분)는 최대 99갯수(인분)입니다."}) ;
 			return 1 ;
 		}
 	}
@@ -546,6 +554,7 @@ function menusubmitvalidataion(ct){
 
 function menusubmit(ct){
 	if( menusubmitvalidataion(ct) == 1 ){
+		alert("제안실패")
 		return
 	}else{
 	var jsonn = JSON.stringify(menucountarr[ct]) ;
@@ -823,7 +832,7 @@ function menusubmit(ct){
 									<select name = "foodselect${count}" class="icons">
 										<option value="" disabled selected>메뉴를 선택해주세요.</option>
 										<c:forEach var = "foodlist" items="${suppfoodlist}">
-											<option  value="${foodlist.name}/${foodlist.weight}/${foodlist.explanation}/${foodlist.file_id}/${serv.SERV_ID}" id = "${foodlist.menu_id}" data-icon="/file/file-down/${foodlist.file_id}"> ${foodlist.name}</option>
+											<option  value="${foodlist.name}/${foodlist.food_cg}/${foodlist.weight}/${foodlist.count}/${foodlist.explanation}/${foodlist.file_id}/${serv.SERV_ID}" id = "${foodlist.menu_id}" data-icon="/file/file-down/${foodlist.file_id}"> ${foodlist.name}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -837,6 +846,7 @@ function menusubmit(ct){
 										<tr>
 											<th>메뉴 이름</th>
 											<th>메뉴 중량</th>
+											<th>메뉴 갯수(인분)</th>
 											<th width="40%">메뉴 설명</th>
 											<th>메뉴 사진</th>
 										</tr>
