@@ -83,7 +83,13 @@ public class ApplicationService {
 		
 		seq = 1;
 		
-		
+		//연령별 인원수
+		for(int i=0;i<11;++i) {
+			Object ageRange = params.get("age_range_"+i);
+			if(ageRange != null) {
+				applicationComponent.insertAgeRange(appId, i, (String)ageRange);
+			}
+		}
 		//디저트 추가주문
 		if("Y".equals(appEntity.get("dessert_yn"))) {
 			String[] desserts = (String[])params.get("cb_dessert_type");

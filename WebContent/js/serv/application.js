@@ -161,12 +161,42 @@ $(document).ready(function(){
 	  age.noUiSlider.on('change',function(){
 			$('input[name=age_min]').val(age.noUiSlider.get()[0]);
 			$('input[name=age_max]').val(age.noUiSlider.get()[1]);
+			drawAgeRange()
 	  });
 	  $('input[name=age_min]').val(age.noUiSlider.get()[0]);
 	  $('input[name=age_max]').val(age.noUiSlider.get()[1]);
-	  
+	  drawAgeRange()
 	  $('textarea#req_term,input#addr2').characterCounter();
 });
+function drawAgeRange(){
+	start = Math.floor(age.noUiSlider.get()[0]/10);
+	repeat =  Math.floor(age.noUiSlider.get()[1]/10) - Math.floor(age.noUiSlider.get()[0]/10) +1;
+	$('#age_range').empty()
+	jRepeat = 4;
+	iRepeat = Math.floor(repeat/jRepeat);
+	idx=0;
+	for(i=0;i<iRepeat+1;++i){
+		if(i==iRepeat) jRepeat=repeat%jRepeat;
+		tag = '<div class="row"  style="margin-bottom: 0px;">'
+			+ '<div class="col m1" style="padding-right: 0px"></div>' ;
+		for(j=0; j<jRepeat;++j){
+			title = (start+idx++)*10;
+			tag_name = Math.floor(title/10);
+			
+			if(title ==0) title='유아';
+			else title+='대';
+			
+			tag +='<div class="col m2" style="padding-right: 0px">'
+				+'<div class="input-field" style="margin-top:30px;margin-right:20px;">'
+				+'<input id="participant" type="number" class="validate" name="age_range_'+tag_name+'">'
+				+'<label for="participant">'+ title +' 인원수</label>'
+				+'</div>'
+				+'</div>';
+		}
+		tag+='</div>';
+		$('#age_range').append(tag);
+	}
+}
 function prev(){
 	var cStep = $('input:hidden[name=step]').val();
 	if(cStep =="2"){
