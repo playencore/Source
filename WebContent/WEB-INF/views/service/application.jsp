@@ -134,6 +134,9 @@
 							</div>
 						</div>
 					</div>
+					<div class="row"  style="margin-bottom: 0px;" id="age_range">
+						
+					</div>
 				</div>
 			</div>
 			<div class="row" id="step2_2" style="display:none">

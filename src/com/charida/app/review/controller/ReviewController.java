@@ -81,6 +81,18 @@ public class ReviewController {
 		
 		return "/review/review";
 	}
+	// 후기 검색
+	@RequestMapping("/review/serchreview.do")
+	public String getSearchReviews(HttpServletRequest req, HttpServletResponse resp) {
+		HashMap<String, String> searchparam = new HashMap<String, String>() ;
+		System.out.println(req.getParameter("searchCategory") + ":" + req.getParameter("searchContent") );
+		searchparam.put("searchCategory", req.getParameter("searchCategory")) ;
+		searchparam.put("searchContent", req.getParameter("searchContent")) ;
+		List<ReviewDto> reviews = reviewService.getReviews();
+		req.setAttribute("reviews", reviews);
+		
+		return "/review/review";
+	}
 	
 	//특정구매자 후기 보기(id값 비교)
 	@RequestMapping("/review/ownReview.do")

@@ -85,4 +85,10 @@
 			) A
 		)WHERE NUM  BETWEEN #{startNum} AND #{endNum}
 	</select>
+	<insert id="insertAgeRange" parameterType="java.util.Map">
+		INSERT INTO CRD_AGE_RANGE 
+			(SERV_ID, RANGE, PERCENT) 
+		VALUES 
+			( #{serv_id} , #{range} , #{percent} )
+	</insert>
 </mapper>

@@ -37,4 +37,7 @@ public class ApplicationDao {
 	public int getPayListCount(String memId){
 		return sqlSession.selectOne("App.getPayListCount", memId);
 	}
+	public int insertAgeRange(Map<String,Object> row) {
+		return sqlSession.insert("App.insertAgeRange",row);
+	}
 }

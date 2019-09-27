@@ -180,6 +180,20 @@ public class ApplicationComponent {
 	public int getPayListCount(String memId){
 		return applicationDao.getPayListCount(memId);
 	}
+	public int insertAgeRange(String servId,int ageRange,String participant) {
+		Map<String, Object> row = new HashMap<String, Object>();
+		row.put("serv_id",servId);
+		row.put("range",ageRange);
+		if("".equals(participant)) {
+			participant="0";
+		}
+		try {
+			row.put("percent",Integer.parseInt(participant));
+		}catch(NumberFormatException e) {
+			row.put("percent",0);
+		}
+		return applicationDao.insertAgeRange(row);
+	}
 	public String formatByComma(String str) {
 		return str.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 	}

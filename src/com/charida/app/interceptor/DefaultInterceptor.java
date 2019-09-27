@@ -49,6 +49,7 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/joinUser/checkRegist_num.do"
 			,"/joinUser/joinSupplierPro.do"
 			,"/file-down/"
+			,"/review/serchreview.do"
 		};
 	
 	@Override
