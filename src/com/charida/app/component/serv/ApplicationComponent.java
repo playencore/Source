@@ -146,7 +146,7 @@ public class ApplicationComponent {
 		
 	}
 	
-	public List<String> getPrefList(String servId,boolean transForm){
+	public List<String> getPrefList(String servId, boolean transForm){
 		List<String> prefList = applicationDao.selectPrefList(servId);
 
 		if(prefList == null ) {

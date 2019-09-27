@@ -209,13 +209,16 @@ function showServeList(result){
 		+							"</span>"
 		+							"<span class='secondary-content'>";
 										if(result.data[i].PREFLIST !=null){
-											for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
-												if(result.data[i].PREFLIST[j] != null){
-													slist=slist+result.data[i].PREFLIST[j]
-												}
-											}
+											//for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
+												//if(result.data[i].PREFLIST[j] != null){
+													//slist=slist+result.data[i].PREFLIST[j]
+												//}
+											//}
+										//}
+										slist = slist + result.data[i].PREFLIST
 										}
-		slist=slist								
+		slist=slist						
+		
 		+							"</span>"
 		+						"</li>"
 		+						"<li class='collection-item dismissable'>"
