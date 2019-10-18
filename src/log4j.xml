@@ -11,7 +11,7 @@
 	</appender>
 	
 	<appender name= "rolling2" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="c:/logs/charida.log" />
+		<param name="File" value="/home/encore/weblog" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -26,10 +26,20 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<appender name="kafkaAppender" class="org.apache.kafka.log4jappender.KafkaLog4jAppender">
+        <param name="Topic" value="test-topic" />
+        <param name="BrokerList" value="10.0.2.151:9092" />
+        <param name="syncSend" value="false" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L %% - %m%n" />
+        </layout>
+    </appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.charida.app">
 		<level value="debug" />
 		<appender-ref ref="rolling2" />
+		<appender-ref ref="kafkaAppender" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
