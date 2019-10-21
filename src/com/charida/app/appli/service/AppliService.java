@@ -115,7 +115,9 @@ public class AppliService {
 			BigDecimal suggPrice = (BigDecimal)(info.get("SUGGPRICE"));
 			BigDecimal price = suggPrice.divide(appPrice, 2, RoundingMode.HALF_UP);
 
-			kafkaLog.createLog("{\"appId\":"+ info.get("serv_id") + ",\"suggPrice\":"+ suggPrice + ",\"appPrice\":" + appPrice +"}" + ",\"priceRespon\":" + price +"}");
+			kafkaLog.createLog("{\"appId\":\""+ info.get("serv_id") 
+				+ "\",\"suggPrice\":"+ suggPrice + ",\"appPrice\":" + appPrice 
+				+ ",\"priceRespon\":" + price +"}");
 		}
 		
 		return result;
