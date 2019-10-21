@@ -125,9 +125,9 @@
 	
 	<!-- KafkaLog에서 채택가 선택을 위함 -->
 	<select id="getPriceandLabel" parameterType="String" resultType="java.util.Map">
-		select s.SUGG_ID sugg_id, a.SERV_ID serv_id, 
-		s.PER_BUD price, s.CHOOSE_YN label from CRD_SERV_SUGG s, CRD_SERV_APP a
-		where s.serv_id = a.serv_id and a.serv_id='#{serv_id}';
+		select s.SUGG_ID sugg_id, a.SERV_ID serv_id, a.PER_BUD appPrice,
+		s.PER_BUD suggPrice, s.CHOOSE_YN label from CRD_SERV_SUGG s, CRD_SERV_APP a
+		where s.serv_id = a.serv_id and a.serv_id=#{servId}
 	</select>
 	
 </mapper>

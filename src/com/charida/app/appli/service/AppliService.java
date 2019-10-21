@@ -1,6 +1,7 @@
 package com.charida.app.appli.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,9 +111,13 @@ public class AppliService {
 		List<Map<String, Object>> priceAndLabel = appliComponent.getPriceandLabel(servId);
 		for(Map<String, Object> info : priceAndLabel) {
 			info.put("serv_id", servId);
-			kafkaLog.createLog("{\"suggPrice\":"+ info.get("per_bud") +",\"priceRespon\":"+info.get("appPrice")/info.get("suggPrice")+"}");
-//			kafkaLog.createLog("{\"suggPrice\":"+ info.get("per_bud") +",\"priceRespon\":"+info.get("appPrice")/info.get("suggPrice")+"}");
+			BigDecimal appPrice = (BigDecimal)(info.get("APPPRICE"));
+			BigDecimal suggPrice = (BigDecimal)(info.get("SUGGPRICE"));
+			BigDecimal price = suggPrice.divide(appPrice, 2, RoundingMode.HALF_UP);
+
+			kafkaLog.createLog("{\"appId\":"+ info.get("serv_id") + ",\"suggPrice\":"+ suggPrice + ",\"appPrice\":" + appPrice +"}" + ",\"priceRespon\":" + price +"}");
 		}
+		
 		return result;
 	}
 	public List<Map<String, Object>> getMenuInfo(String suggId) {
