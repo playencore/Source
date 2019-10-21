@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	
+	<select id="allServList" resultType="map" >
+		SELECT * FROM CRD_SERV_APP WHERE END_DATE IS NOT NULL
+	</select>
+	
+	<select id = "allservToSugg" resultType="map" parameterType="String">
+		SELECT * FROM CRD_SERV_SUGG WHERE SERV_ID = #{serv_id}
+	</select>
+	
+	<select id="choosesuggmenu" resultType = "map" parameterType="String">
+		SELECT * FROM CRD_SERV_SUGG_MENU WHERE SUGG_ID = #{sugg_id}
+	</select>
+	
+</mapper>

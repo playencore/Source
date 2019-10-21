@@ -1,5 +1,6 @@
 package com.charida.app.admin.service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.charida.app.component.admin.AdminComponent;
 import com.charida.app.component.pagination.PaginationInfo;
 import com.charida.app.component.supplier.SupplierComponent;
 
@@ -16,6 +18,8 @@ import com.charida.app.component.supplier.SupplierComponent;
 public class AdminService  {
 	@Resource
 	SupplierComponent supplierComponent;
+	@Resource
+	AdminComponent adminComponent ;
 
 ////////////////////////////////adminpage
 	public List<Map<String, String>> getNotPerMissionSuppliers(Map<String, Object> params ,HttpServletRequest req) {
@@ -72,5 +76,51 @@ public class AdminService  {
 		params.put("endNum", paging.getLastRecordIndex());
 		
 		return supplierComponent.getSerchList(params) ;
+	}
+	
+	public List<Map<String,Object>> getInfoAll(){
+		List<Map<String,Object>> allservlist = adminComponent.getAllServList();	// 종료된 모든 신청 가져오기 
+		
+		for(Map<String,Object> serv : allservlist) {		// 가져온 신청 하나 뽑아 인포 만들기
+			String serv_id = (String)serv.get("SERV_ID") ;	
+			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ; // 제안들 가져오기 
+			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange( serv_id ); // 추천 가격대 가져오기
+			int minprice = 0 ;
+			int maxprice = 0 ;
+			for(Map<String,Object> price : priceRange) {
+				int classification = ((BigDecimal)price.get("CLASSIFICATION")).intValue() ;
+				if(classification == 0) {
+					minprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ; 		// 추천 작은 가격
+				}else {
+					maxprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ;		// 추천 높은 가격
+				}
+			}
+			serv.put("MINPRICE", minprice) ;													// **추천 작은 가격 넣기
+			serv.put("MAXPRICE",maxprice) ;													// **추천 높은 가격 넣기 
+			String choosesugg = "" ;		// 채택한 제안 아이디 
+			int sumreperbud = 0 ;
+			for(Map<String,Object> sugg : sugglist) {
+				if( ((String)sugg.get("CHOOSE_YN")).equals("Y") ){
+					choosesugg = (String)sugg.get("SUGG_ID") ;	// 채택된 제안 아이디 
+					serv.put("CHOOSEMENU", adminComponent.getChooseSuggMenu(choosesugg) ) ;	// **채택된 제안의 메뉴들 넣기 
+					int perbud = ((BigDecimal)sugg.get("PER_BUD")).intValue() ;
+					if(perbud >= minprice && perbud<= maxprice) {
+						serv.put("PRICEFLAG","TRUE") ;										// ** 채택된 제안의 가격이 추천 가격대 안에 있으면 TRUE
+						sumreperbud++ ;
+					}else {
+						serv.put("PRICEFLAG","FALSE") ;										// ** 채택된 제안의 가격이 추천 가격대 안에 없으면 FALSE
+					}
+				}else {
+					int perbud = ((BigDecimal)sugg.get("PER_BUD")).intValue() ;
+					if(perbud >= minprice && perbud<= maxprice) {
+						sumreperbud++ ;
+					}
+				}
+			}
+			serv.put("RECOMMENDRATE",sumreperbud/sugglist.size()) ;							// ** 전체 신청중 추천 가격대에 가격 입력 비율 
+			serv.put("SUGGCOUNT",sugglist.size()) ;											// ** 전체 신청 수 
+		}
+		
+		return allservlist ;
 	}
 }

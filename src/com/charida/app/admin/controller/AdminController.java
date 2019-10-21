@@ -58,7 +58,7 @@ public class AdminController extends CommonController {
 	// feedback - ana
 	@RequestMapping("/admin/appAnalysis.do")
 	public String AppAnalsysis(HttpServletRequest req, HttpServletResponse resp) {
-		
+		req.setAttribute("ALLSERVINFO", adminService.getInfoAll());
 		return "/admin/appAnalysis" ;
 	}
 	
