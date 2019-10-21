@@ -14,7 +14,6 @@ $(function(){
 // 상세보기 버튼 클릭시 동작(모달)
 function showDetail(SERV_ID){
 	$.ajax({
-	    
 	    type : "post",
 	    url : "/appli/getDetailInfoList.do",
 	    data:{
@@ -56,7 +55,6 @@ function doCompare(){
 function doCompareButton(lists){
 	alert("lists : " + lists );
 	if( lists ){
-		alert( "비교 버튼 눌림" );
 		$.ajax({
 		    type : "post",
 		    url : "/appli/getReviewAvgScore.do",

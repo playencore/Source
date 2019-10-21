@@ -38,7 +38,6 @@ function searchReview(){
 			);
 	}	
 }
-
 function contentvalidataion(category, content){
 	if(category == 'MENU_SCORE' || category == 'PRICE_SCORE' || category == 'SERV_SCORE' ){
 		if( isNaN(content) == true ){
@@ -80,6 +79,7 @@ function contentvalidataion(category, content){
 		</div>
 	</div>
 	<%-- 여기서 부터 입력 searchreview에 append --%>
+	<!--
 	<div class = "row">
 		<div class = "col m12" >
 			<div class = "col m2"></div>
@@ -108,7 +108,8 @@ function contentvalidataion(category, content){
 			</div>
 			<div class = "col m2"></div>
 		</div>
-	</div>	
+	</div>
+	-->
 	<%-- defalut 여기에 --%>
 	<div class = "row">
 		<div class= "col m12" id = "searchreview" >

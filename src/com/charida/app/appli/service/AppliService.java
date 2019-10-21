@@ -110,6 +110,7 @@ public class AppliService {
 		List<Map<String, Object>> priceAndLabel = appliComponent.getPriceandLabel(servId);
 		for(Map<String, Object> info : priceAndLabel) {
 			info.put("serv_id", servId);
+			kafkaLog.createLog("{\"suggPrice\":"+ info.get("per_bud") +",\"priceRespon\":"+info.get("appPrice")/info.get("suggPrice")+"}");
 //			kafkaLog.createLog("{\"suggPrice\":"+ info.get("per_bud") +",\"priceRespon\":"+info.get("appPrice")/info.get("suggPrice")+"}");
 		}
 		return result;

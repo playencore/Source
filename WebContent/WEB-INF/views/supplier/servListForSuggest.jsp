@@ -156,6 +156,7 @@ function showServeList(result){
 		+						"서비스 장소 :"+result.data[i].ADDRESS+"<br>"
 		+						"서비스 상세 장소"+result.data[i].ADDRESS_DETAIL+"<br>"
 		+						"1인당 금액 :"+result.data[i].PER_BUD+"<br>"
+		+						"측정 채택 가격대:"+result.data[i].PRICE_RANGE+"<br>"
 		+						"서비스 제공 일시 :"+result.data[i].APP_DATE+"<br>"
 		+					"</p>"
 		+				"</div>"
@@ -231,6 +232,14 @@ function showServeList(result){
 		+							"</span>"
 		+							"<span class='secondary-content'>"
 		+								result.data[i].PER_BUD
+		+							"</span>"
+		+						"</li>"
+		+						"<li class='collection-item dismissable'>"
+		+							"<span class='width-100' style='font-size: 14px'>"
+		+								"측정 1인당 예산 가격대"
+		+							"</span>"
+		+							"<span class='secondary-content'>"
+		+								result.data[i].PRICE_RANGE
 		+							"</span>"
 		+						"</li>"
 		+						"<li class='collection-item dismissable'>"
@@ -385,7 +394,7 @@ function showServeList(result){
 		+						"<select id='selectfood' name = 'foodselect"+i+"' class='icons'>"
 		+							"<option value='' disabled selected>메뉴를 선택해주세요.</option>";
 									for(var j=0 ; j < menuss.length; j++ ){
-										slist=slist+"<option value='"+menuss[j].name+"/"+menuss[j].weight+"/"+menuss[j].explanation+"/"+menuss[j].file_id+"/"+result.data[i].SERV_ID+"' id ='"+menuss[j].menu_id+"' data-icon='/file/file-down/"+menuss[j].file_id+"'>"+menuss[j].name+"</option>";
+										slist=slist+"<option value='"+menuss[j].name+"/"+menuss[j].food_cg+"/"+menuss[j].weight+"/"+menuss[j].count+"/"+menuss[j].explanation+"/"+menuss[j].file_id+"/"+result.data[i].SERV_ID+"' id ='"+menuss[j].menu_id+"' data-icon='/file/file-down/"+menuss[j].file_id+"'>"+menuss[j].name+"</option>";
 									}
 		slist=slist
 		+						"</select>"
@@ -409,6 +418,7 @@ function showServeList(result){
 		+							"</tbody>"
 		+							"<tr>"
 		+								"<th colspan='4'>"
+		+									" *예상 채택 가격대 : "+ result.data[i].PRICE_RANGE +"<br>"
 		+									"인당 금액 : <input type = 'text' name = 'perbud"+i+"' placeholder='인당 가격을 넣어주세요'>"
 		+								"</th>"
 		+							"</tr>"
@@ -634,6 +644,7 @@ function menusubmit(ct){
 								서비스 장소 : ${serv.ADDRESS} <br>
 								서비스 상세 장소 : ${serv.ADDRESS_DETAIL} <br>
 								1인당 금액 : ${serv.PER_BUD} <br>
+								예상된 1인당 채택 금액 : ${serv.PRICE_RANGE} <br>
 								서비스 제공 일시 : ${serv.APP_DATE}
 							</p>
 						</div>
@@ -726,6 +737,14 @@ function menusubmit(ct){
 									 </span>
 									 <span class="secondary-content">
 										${serv.PER_BUD}
+									 </span>
+								 </li>
+								 <li class="collection-item dismissable">
+									 <span class="width-100" style="font-size: 14px">
+									 	예상된 1인당 채택 금액 
+									 </span>
+									 <span class="secondary-content">
+										${serv.PRICE_RANGE}
 									 </span>
 								 </li>
 								 <li class="collection-item dismissable">
@@ -885,6 +904,7 @@ function menusubmit(ct){
 										</tbody>
 										<tr>
 											<th colspan="4">
+												*예상 채택 가격대 : ${serv.PRICE_RANGE} <br>
 												인당 금액 : <input type = "text" name = "perbud${count}" placeholder="인당 가격을 넣어주세요">
 											</th>
 										</tr>
