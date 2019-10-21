@@ -45,6 +45,7 @@ public class AppliComponent {
 		return appliInfo;
 	}
 	// 주문번호(appliId)를 통하여 신청테이블(CRD_SERV_SUGG)의 모든 정보를 갖고옴
+	// ADMIN 페이지에서 신청정보 가져올 때 사용
 	public List<Map<String, Object>> getSuggInfo(String appliId){
 		return appliDao.getSuggInfo(appliId);
 	}

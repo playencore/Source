@@ -14,7 +14,7 @@
 				"click",
 				function(event){
 					searchSerplier();
-				}); //
+				});
 	});
 	
 	function searchSerplier(){
@@ -251,9 +251,7 @@
 		</div>
 		<div class = "col s12">
 			<div class = "col s2"></div>
-			<div class = "col s8" id = "showcard">
-			
-			</div>
+			<div class = "col s8" id = "showcard"></div>
 		</div>
 		<div class="col m12 center">
 			<ui:pagination paginationInfo = "${paging }" jsFunction="movePage"/>
