@@ -117,7 +117,7 @@ public class ApplicationService {
 		
 		//3. 끝
 		//분석데이터 전송
-		kafkaLog.createLog("{\"percount\":"+ params.get("participant") +",\"appPrice\":"+params.get("per_bud")+",\"appId\":\""+appId+"\",\"eventType\":\""+ params.get("event_type")+"\",\"menuType\":\""+params.get("serv_type")+"\"}");
+		kafkaLog.createLog("{\"percount\":"+ params.get("participant") +",\"appPrice\":"+params.get("per_bud")+",\"appId\":\""+appId+"\",\"eventType\":\""+ params.get("event_type")+"\",\"menuType\":\""+params.get("serv_type")+"\",\"cn\":0}");
 		//예측 데이터 전송
 		sendToModel(appId,(String)params.get("event_type"),(String)params.get("serv_type"),(String)params.get("participant"),(String)params.get("per_bud"));
 		return appId;

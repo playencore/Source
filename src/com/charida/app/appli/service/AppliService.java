@@ -117,7 +117,8 @@ public class AppliService {
 
 			kafkaLog.createLog("{\"appId\":\""+ info.get("serv_id") 
 				+ "\",\"suggPrice\":"+ suggPrice + ",\"appPrice\":" + appPrice 
-				+ ",\"priceRespon\":" + price +"}");
+				+ ",\"priceRespon\":" + price +",\"cn\":1}");
+			
 		}
 		
 		return result;
