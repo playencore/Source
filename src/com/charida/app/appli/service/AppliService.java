@@ -107,7 +107,11 @@ public class AppliService {
 		log.debug("result4 : " + result4);
 		int result = result1 * result2 * result3 * result4;
 		
-		kafkaLog.createLog("{\"suggPrice\":"+ params.get("per_bud") +",\"priceRespon\":"+params.get("appPrice")/params.get("suggPrice")+"}");
+		List<Map<String, Object>> priceAndLabel = appliComponent.getPriceandLabel(servId);
+		for(Map<String, Object> info : priceAndLabel) {
+			info.put("serv_id", servId);
+			kafkaLog.createLog("{\"suggPrice\":"+ info.get("per_bud") +",\"priceRespon\":"+info.get("appPrice")/info.get("suggPrice")+"}");
+		}
 		return result;
 	}
 	public List<Map<String, Object>> getMenuInfo(String suggId) {
