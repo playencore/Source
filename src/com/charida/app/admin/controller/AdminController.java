@@ -28,7 +28,6 @@ public class AdminController extends CommonController {
 	@Resource
 	AdminService adminService;
 	
-	
 	@RequestMapping("/admin/notPermissionList.do")
 	public String manageSupplier(HttpServletRequest req, HttpServletResponse resp) {
 		
@@ -54,6 +53,13 @@ public class AdminController extends CommonController {
 	@ResponseBody
 	public List<Object> searchSupplierAjax(HttpServletRequest req, HttpServletResponse resp){
 		return  adminService.getSerhchResult(getParameterMap(req,true), req);
+	}
+	
+	// feedback - ana
+	@RequestMapping("/admin/appAnalysis.do")
+	public String AppAnalsysis(HttpServletRequest req, HttpServletResponse resp) {
+		
+		return "/admin/appAnalysis" ;
 	}
 	
 	

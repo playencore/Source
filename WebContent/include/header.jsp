@@ -63,6 +63,7 @@
      <ul class="tabs tabs-transparent" style="border-top: 0.5px solid #00000042;">
        <li class="tab"><a href="/admin/supplierSearch.do">판매자 조회</a></li>
        <li class="tab"><a href="/admin/notPermissionList.do">판매자 승인/반려</a></li>
+       <li class="tab"><a href="/admin/appAnalysis.do">빅데이터 분석</a></li>
      </ul>
    </div>
   </c:if>
