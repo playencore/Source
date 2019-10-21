@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page trimDirectiveWhitespaces="true" %>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8fe287458eb09dec8e2437a48ab863&libraries=services"></script>
@@ -207,16 +210,17 @@ function showServeList(result){
 		+							"<span class='width-100' style='font-size: 14px'>"
 		+								"판매자 선호 메뉴"
 		+							"</span>"
-		+							"<span class='secondary-content'>";
-										if(result.data[i].PREFLIST !=null){
-											//for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
-												//if(result.data[i].PREFLIST[j] != null){
-													//slist=slist+result.data[i].PREFLIST[j]
-												//}
-											//}
-										//}
-										slist = slist + result.data[i].PREFLIST
+		+							"<span class='secondary-content'>" + result.data[i].PREFLIST ;
+
+										/* if(result.data[i].PREFLIST !=null){
+											for(var j  = 0 ; j < Object.keys(result.data[i].PREFLIST).length ; j++){
+												if(result.data[i].PREFLIST[j] != null){
+													slist=slist+result.data[i].PREFLIST[j]
+												}
+											}
 										}
+										slist = slist + result.data[i].PREFLIST
+										} */
 		slist=slist						
 		
 		+							"</span>"
@@ -688,9 +692,32 @@ function menusubmit(ct){
 									 	판매자 선호 메뉴 
 									 </span>
 									 <span class="secondary-content">
-										<c:forEach var = "PREFLIST" items="${serv.PREFLIST}">
-											${PREFLIST} 
-										</c:forEach>
+									 <c:set var ="section" value = "${serv.PREFLIST }" />
+									 <c:set var = "ls" value = "${fn:substring(section,0,3) }" />
+									 <c:set var = "ms" value = "${fn:substring(section,3,6) }" />
+									 <c:set var = "ss" value = "${fn:substring(section,6,9) }" />
+									 
+									 <c:if test= "${ls == 'L01'}"> 한식, </c:if>
+									 <c:if test= "${ls == 'L02'}"> 일식, </c:if>
+									 <c:if test= "${ls == 'L03'}"> 중식, </c:if>
+									 <c:if test= "${ls == 'L04'}"> 웨스턴, </c:if>
+									 <c:if test= "${ls == 'L05'}"> 퓨전, </c:if>
+									 
+									 <c:if test= "${ms == 'M01'}"> 육류, </c:if>
+									 <c:if test= "${ms == 'M02'}"> 해산물, </c:if>
+									 <c:if test= "${ms == 'M03'}"> 밥류, </c:if>
+									 <c:if test= "${ms == 'M04'}"> 면류, </c:if>
+									 <c:if test= "${ms == 'M05'}"> 채소, </c:if>
+									 <c:if test= "${ms == 'M06'}"> 두류, </c:if>
+									 <c:if test= "${ms == 'M07'}"> 빵류, </c:if>
+									 
+									 <c:if test= "${ss == 'S01'}"> 국류 </c:if>
+									 <c:if test= "${ss == 'S02'}"> 볶음 </c:if>
+									 <c:if test= "${ss == 'S03'}"> 찜 </c:if>
+									 <c:if test= "${ss == 'S04'}"> 구이 </c:if>
+									 <c:if test= "${ss == 'S05'}"> 튀김 </c:if>
+									 <c:if test= "${ss == 'S06'}"> 날것(샌드위치) </c:if>
+									 
 									 </span>
 								 </li>
 								 <li class="collection-item dismissable">

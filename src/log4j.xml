@@ -39,7 +39,6 @@
 	<logger name="com.charida.app">
 		<level value="debug" />
 		<appender-ref ref="rolling2" />
-		<appender-ref ref="kafkaAppender" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -71,6 +70,13 @@
         <level value="debug"/>  
         <appender-ref ref="console_sql"/>  
     </logger>  
+    
+    <!-- Kafka Logger -->
+    <logger name="com.charida.app.common.kafkalog">
+   	 	<level value="debug"/>
+   	 	<appender-ref ref="rolling2" />
+		<!--<appender-ref ref="kafkaAppender"/>-->
+	</logger>    
 
 	<!-- Root Logger -->
 	<root>

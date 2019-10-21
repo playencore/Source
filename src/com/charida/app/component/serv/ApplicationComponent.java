@@ -153,7 +153,7 @@ public class ApplicationComponent {
 			return null;
 		}
 		
-		if(!transForm) {
+		if(transForm) {
 			return prefList;
 		}
 		

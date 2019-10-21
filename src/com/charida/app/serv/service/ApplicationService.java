@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
+import com.charida.app.common.kafkalog.KafkaLog;
 import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.pagination.PaginationInfo;
 import com.charida.app.component.payment.PaymentComponent;
@@ -34,6 +35,8 @@ import com.charida.app.component.sugg.SuggestionComponent;
 
 @Service
 public class ApplicationService {
+	@Resource
+	private KafkaLog kafkaLog;
 	@Resource
 	private ApplicationComponent applicationComponent;
 	@Resource
@@ -49,7 +52,7 @@ public class ApplicationService {
 	@Resource
 	private DataSourceTransactionManager transactionManager;
 	private static final Log log = LogFactory.getLog(ApplicationService.class);
-	
+
 	public String applicationTx(Map<String,Object>params) {
 		//신청번호 발번
 		String appId = applicationComponent.makeAppId();
@@ -64,7 +67,7 @@ public class ApplicationService {
 		//CRD_SERV_APP INSERT
 		applicationComponent.insertDatas(appEntity);
 		int seq = 1;
-		
+	
 		
 		// 선호 메뉴
 //		String[] menus = (String[])params.get("cb_menu_type"); 
@@ -72,12 +75,12 @@ public class ApplicationService {
 //			log.debug(menu);
 //			preferComponent.insertPreferMenu(appId, menu, seq++);
 //		}
-		String[] menuL = (String[]) params.get("cb_menu_typeL");
-		String[] menuM = (String[]) params.get("cb_menu_typeM");
-		String[] menuS = (String[]) params.get("cb_menu_typeS");
+		String[] menuL = (String[])params.get("cb_menu_typeL");
+		String[] menuM = (String[])params.get("cb_menu_typeM");
+		String[] menuS = (String[])params.get("cb_menu_typeS");
 		
-		String menus = Arrays.toString(menuL) + Arrays.toString(menuM) + Arrays.toString(menuS);
-		
+		String menus = menuL[0] + menuM[0] + menuS[0];
+
 		log.debug(menus);
 		preferComponent.insertPreferMenu(appId, menus, seq);
 		
@@ -113,6 +116,7 @@ public class ApplicationService {
 		}
 		
 		//3. 끝
+		kafkaLog.createLog("{\"percount\":"+ params.get("participant") +",\"appPrice\":"+params.get("per_bud")+",\"appId\":"+appId+",\"eventType\":"+ params.get("event_type")+",\"menuType\":"+params.get("serv_type")+"}");
 		return appId;
 	}
 	public List<Map<String,Object>> getPayList(Map<String, Object> parmas,HttpServletRequest req){

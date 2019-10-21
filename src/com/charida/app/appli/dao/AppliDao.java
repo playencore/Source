@@ -50,4 +50,7 @@ public class AppliDao extends CommonDao{
 		log.debug("param : " + param);
 		return sqlSession.selectList("Appli.getReviewAvgScoreList", param);
 	}
+	public List<Map<String, Object>> getPriceandLabel(String servID) {
+		return sqlSession.selectList("Appli.getPriceandLabel", servID);
+	}
 }

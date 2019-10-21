@@ -16,7 +16,7 @@ import com.charida.app.common.service.TestService;
 
 @Component
 public class AppliComponent {
-	protected Log log = LogFactory.getLog(TestService.class);
+	protected Log log = LogFactory.getLog(AppliComponent.class);
 	@Resource
 	private AppliDao appliDao;
 	
@@ -74,5 +74,8 @@ public class AppliComponent {
 	}
 	public List<Map<String, Object>> getReviewAvgScoreList(Map<String, Object> param) {
 		return appliDao.getReviewAvgScoreList(param);
+	}
+	public List<Map<String, Object>> getPriceandLabel(String servId) {
+		return appliDao.getPriceandLabel(servId);
 	}
 }

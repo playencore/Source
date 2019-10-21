@@ -12,18 +12,20 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
-import com.charida.app.common.service.TestService;
+import com.charida.app.common.kafkalog.KafkaLog;
 import com.charida.app.component.appli.AppliComponent;
 import com.charida.app.component.category.CategoryComponent;
 import com.charida.app.component.pagination.PaginationInfo;
 
 @Service
 public class AppliService {
-	protected Log log = LogFactory.getLog(TestService.class);
+	protected Log log = LogFactory.getLog(AppliService.class);
 	@Resource
 	private AppliComponent appliComponent;
 	@Resource
 	private CategoryComponent categoryComponent;
+	@Resource
+	private KafkaLog kafkaLog;
 	
 //	private final String errMsg = "데이터 갱신에 실패했습니다.";
 	
@@ -104,6 +106,8 @@ public class AppliService {
 		log.debug("result3 : " + result3);
 		log.debug("result4 : " + result4);
 		int result = result1 * result2 * result3 * result4;
+		
+		kafkaLog.createLog("{\"suggPrice\":"+ params.get("per_bud") +",\"priceRespon\":"+params.get("appPrice")/params.get("suggPrice")+"}");
 		return result;
 	}
 	public List<Map<String, Object>> getMenuInfo(String suggId) {
