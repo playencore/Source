@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="/js/moment.min.js"></script>
 	<script type="text/javascript" src="/js/nouislider.js"></script>
 	<script type="text/javascript" src="/js/common/common.js"></script>
+	
 </head>
 <body style="background-color: #dfdfdd6b">
 <ul id='dropdown1' class='dropdown-content'>
