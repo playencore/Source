@@ -1,274 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@include file="/include/header.jsp"%>
-<%@ taglib prefix="ui" uri="http://charida.com/paging/ui"%>
+
 <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-<script type="text/javascript">
-//<!--
-	$(document).ready(function(){
-		  activeItem('마이 페이지');
-			showExtendedMenu('#nav_mypage');
-			activeSubItem('빅테이터 분석',0);	
-	    for( var i = 0 ; i < 0 ; i++){
-	    	$('#infomodal'+i).modal();
-	    	$('#permissionmodal'+i).modal() ;
-	    }
-	  });
-	  
-	 function movePage(pageNo){
-		document.dForm.pageNo.value = pageNo;
-		document.dForm.submit();
-	}
-	 
-		(function(window, document, undefined) {
-
-			  var factory = function($, DataTable) {
-
-			    "use strict";
-
-
-			    $('.search-toggle').click(function() {
-			      if ($('.hiddensearch').css('display') == 'none')
-			        $('.hiddensearch').slideDown();
-			      else
-			        $('.hiddensearch').slideUp();
-			    });
-
-			    /* Set the defaults for DataTables initialisation */
-			    $.extend(true, DataTable.defaults, {
-			      dom: "<'hiddensearch'f'>" +
-			        "tr"+
-			        "<'table-footer'Blip'>",
-			      renderer: 'material'
-			    });
-			    /* Default class modification */
-			    $.extend(DataTable.ext.classes, {
-			      sWrapper: "dataTables_wrapper",
-			      sFilterInput: "form-control input-sm",
-			      sLengthSelect: "form-control input-sm"
-			    });
-
-			    /* Bootstrap paging button renderer */
-			    DataTable.ext.renderer.pageButton.material = function(settings, host, idx, buttons, page, pages) {
-			      var api = new DataTable.Api(settings);
-			      var classes = settings.oClasses;
-			      var lang = settings.oLanguage.oPaginate;
-			      var btnDisplay, btnClass, counter = 0;
-
-			      var attach = function(container, buttons) {
-			        var i, ien, node, button;
-			        var clickHandler = function(e) {
-			          e.preventDefault();
-			          if (!$(e.currentTarget).hasClass('disabled')) {
-			            api.page(e.data.action).draw(false);
-			          }
-			        };
-
-			        for (i = 0, ien = buttons.length; i < ien; i++) {
-			          button = buttons[i];
-
-			          if ($.isArray(button)) {
-			            attach(container, button);
-			          } else {
-			            btnDisplay = '';
-			            btnClass = '';
-
-			            switch (button) {
-
-			              case 'first':
-			                btnDisplay = lang.sFirst;
-			                btnClass = button + (page > 0 ?
-			                  '' : ' disabled');
-			                break;
-
-			              case 'previous':
-			                btnDisplay = '<i class="material-icons">chevron_left</i>';
-			                btnClass = button + (page > 0 ?
-			                  '' : ' disabled');
-			                break;
-
-			              case 'next':
-			                btnDisplay = '<i class="material-icons">chevron_right</i>';
-			                btnClass = button + (page < pages - 1 ?
-			                  '' : ' disabled');
-			                break;
-
-			              case 'last':
-			                btnDisplay = lang.sLast;
-			                btnClass = button + (page < pages - 1 ?
-			                  '' : ' disabled');
-			                break;
-
-			            }
-
-			            if (btnDisplay) {
-			              node = $('<li>', {
-			                  'class': classes.sPageButton + ' ' + btnClass,
-			                  'id': idx === 0 && typeof button === 'string' ?
-			                    settings.sTableId + '_' + button : null
-			                })
-			                .append($('<a>', {
-			                    'href': '#',
-			                    'aria-controls': settings.sTableId,
-			                    'data-dt-idx': counter,
-			                    'tabindex': settings.iTabIndex
-			                  })
-			                  .html(btnDisplay)
-			                )
-			                .appendTo(container);
-
-			              settings.oApi._fnBindAction(
-			                node, {
-			                  action: button
-			                }, clickHandler
-			              );
-
-			              counter++;
-			            }
-			          }
-			        }
-			      };
-
-			      // IE9 throws an 'unknown error' if document.activeElement is used
-			      // inside an iframe or frame.
-			      var activeEl;
-
-			      try {
-			        // Because this approach is destroying and recreating the paging
-			        // elements, focus is lost on the select button which is bad for
-			        // accessibility. So we want to restore focus once the draw has
-			        // completed
-			        activeEl = $(document.activeElement).data('dt-idx');
-			      } catch (e) {}
-
-			      attach(
-			        $(host).empty().html('<ul class="material-pagination"/>').children('ul'),
-			        buttons
-			      );
-
-			      if (activeEl) {
-			        $(host).find('[data-dt-idx=' + activeEl + ']').focus();
-			      }
-			    };
-
-			    /*
-			     * TableTools Bootstrap compatibility
-			     * Required TableTools 2.1+
-			     */
-			    if (DataTable.TableTools) {
-			      // Set the classes that TableTools uses to something suitable for Bootstrap
-			      $.extend(true, DataTable.TableTools.classes, {
-			        "container": "DTTT btn-group",
-			        "buttons": {
-			          "normal": "btn btn-default",
-			          "disabled": "disabled"
-			        },
-			        "collection": {
-			          "container": "DTTT_dropdown dropdown-menu",
-			          "buttons": {
-			            "normal": "",
-			            "disabled": "disabled"
-			          }
-			        },
-			        "print": {
-			          "info": "DTTT_print_info"
-			        },
-			        "select": {
-			          "row": "active"
-			        }
-			      });
-
-			      // Have the collection use a material compatible drop down
-			      $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
-			        "collection": {
-			          "container": "ul",
-			          "button": "li",
-			          "liner": "a"
-			        }
-			      });
-			    }
-
-			  }; // /factory
-
-			  // Define as an AMD module if possible
-				  if (typeof define === 'function' && define.amd) {
-				    define(['jquery', 'datatables'], factory);
-				  } else if (typeof exports === 'object') {
-				    // Node/CommonJS
-				    factory(require('jquery'), require('datatables'));
-				  } else if (jQuery) {
-				    // Otherwise simply initialise as normal, stopping multiple evaluation
-				    factory(jQuery, jQuery.fn.dataTable);
-				  }
-
-			})(window, document);
-
-
-
-			$(document).ready(function() {
-			  $('#datatable').dataTable({
-			    "oLanguage": {
-			      "sSearch": "",
-			      "sSearchPlaceholder": "검색",
-			      "sInfo": "_START_ -_END_ of _TOTAL_",
-			      "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-			        '<option value="10">10</option>' +
-			        '<option value="20">20</option>' +
-			        '<option value="30">30</option>' +
-			        '<option value="40">40</option>' +
-			        '<option value="50">50</option>' +
-			        '<option value="-1">All</option>' +
-			        '</select></div>'
-			    },
-			    bAutoWidth: false,
-
-					buttons: [
-						 {
-							 	 text: '<span style="color:#4d4d4d; margin-right:15px">Print<span>',
-								 extend: 'print',
-								 className: '',
-								 title: '',
-								//  autoPrint: false,
-								 customize: function ( win ) {
-										 $(win.document.body)
-												 .css( 'font-size', '10pt' )
-												 .prepend(
-														 '<h4>Title Test</h4>',
-                           //  Background table picture in print version is here
-														 '<img src="http://i.imgur.com/w931ov4.png" style="position: fixed;  top: 50%;  left: 50%;  transform: translate(-50%, -50%);" />'	
-												 );
-
-										 $(win.document.body).find( 'table' )
-												 .addClass( 'compact' )
-												 .css( 'font-size', 'inherit');
-								 }
-						 },
-						 {
-							 text: '<span style="color:#4d4d4d; margin-right:15px">Excel<span>',
-							 extend: 'excelHtml5',
-						 },
-						 {
-							 text: '<span style="color:#4d4d4d; margin-right:15px">Csv<span>',
-							 extend: 'csvHtml5',
-						 },
-						 {
-
-							 text: '<span style="color:#4d4d4d; margin-right:15px">Copy<span>',
-							 extend: 'copyHtml5',
-
-						 },
-				 ]
-				});
-			});
-//-->
-</script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
 
 <style type="text/css">
 /* Data Table */
@@ -551,67 +291,288 @@ div.dt-button-info {
 		       </div>
 		     </div>
 		     <div id="datatable_wrapper" class="dataTables_wrapper no-footer">
-		     	<div class="hiddensearch" style="display: block;">
-		     		<div id="datatable_filter" class="dataTabls_filter">
-		     			<label>
-		     				<input type="search" class="form-control input-sm" placeholder="검색" aria-controls="datatable">
-		     			</label>
-		     		</div>
-		     	</div>
-		     </div>
 		     <table id="datatable" class="dataTable no-footer" role="grid" aria-describedby="datatable_info">
 		       <thead>
 		         <tr role="row">
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Position</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">Office</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">Age</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">Start date</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">Salary</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">신청아이디</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">주소</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">상세주소</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">참가자 수 </th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">나이대</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">남여비율</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">1인당 신청 금액</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">1인당 채택 금액</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">추천 금액대</th>
 		         </tr>
 		       </thead>
 		       <tbody>
-		         <tr role="row" class="odd">
-		           <td class>Tiger Nixon</td>
-		           <td>System Architect</td>
-		           <td>Edinburgh</td>
-		           <td class="sorting_1">61</td>
-		           <td>2011/04/25</td>
-		           <td class>$320,800</td>
-		         </tr>
-		         <tr role="row" class="even">
-		           <td class>Garrett Winters</td>
-		           <td>Accountant</td>
-		           <td>Tokyo</td>
-		           <td class="sorting_1">63</td>
-		           <td>2011/07/25</td>
-		           <td class>$170,750</td>
-		         </tr>
-		         <tr role="row" class="odd">
-		         	<td>Cedric Kelly</td>
-		            <td>Senior Javascript Developer</td>
-		            <td>Edinburgh</td>
-		            <td class="sorting_1">22</td>
-		            <td>2012/03/29</td>
-		            <td class>$433,060</td>
-		          </tr>
-		          <tr role="row" class="even">
-		            <td>Airi Satou</td>
-		            <td>Accountant</td>
-		            <td>Tokyo</td>
-		            <td class="sorting_1">33</td>
-		            <td>2008/11/28</td>
-		            <td class>$162,700</td>
-		          </tr>
+		       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
+					<tr role="row" class="odd">
+						<td>${servinfo.SERV_ID}</td>
+						<td>${servinfo.ADDRESS}</td>
+						<td>${servinfo.ADDRESS_DETAIL}</td>
+						<td>${servinfo.PARTICIPANT}</td>
+						<td>${servinfo.AGE_MIN} ~ ${servinfo.AGE_MAX}</td>
+						<td>${servinfo.PER_MEN*10}%</td>
+						<td>${servinfo.PER_BUD}</td>
+						<td>${servinfo.CHOOSESUGG.PER_BUD}</td>
+						<td>${servinfo.MINPRICE} ~ ${servinfo.MAXPRICE}</td>
+					</tr>
+		       </c:forEach>
 		       </tbody>
 		     </table>
+		     </div>
 		   </div>
 		 </div>
 	</div>
 	<div class="col m12 center">
-		<ui:pagination paginationInfo = "${paging}" jsFunction="movePage"/>
 	</div>
-<br><br><br><br><br><br><br><br><br><br>	
+<br><br><br><br><br><br><br><br><br><br>
+<script id = "rendered-js">
+//<!--
+function movePage(pageNo){
+	document.dForm.pageNo.value = pageNo;
+	document.dForm.submit();
+} 
+		(function(window, document, undefined) {
+
+			  var factory = function($, DataTable) {
+			    "use strict";
+			    $('.search-toggle').click(function() {
+			      if ($('.hiddensearch').css('display') == 'none')
+			        $('.hiddensearch').slideDown();
+			      else
+			        $('.hiddensearch').slideUp();
+			    });
+
+			    /* Set the defaults for DataTables initialisation */
+			    $.extend(true, DataTable.defaults, {
+			      dom: "<'hiddensearch'f'>" +
+			        "tr"+
+			        "<'table-footer'Blip'>",
+			      renderer: 'material'
+			    });
+			    /* Default class modification */
+			    $.extend(DataTable.ext.classes, {
+			      sWrapper: "dataTables_wrapper",
+			      sFilterInput: "form-control input-sm",
+			      sLengthSelect: "form-control input-sm"
+			    });
+
+			    /* Bootstrap paging button renderer */
+			    DataTable.ext.renderer.pageButton.material = function(settings, host, idx, buttons, page, pages) {
+			      var api = new DataTable.Api(settings);
+			      var classes = settings.oClasses;
+			      var lang = settings.oLanguage.oPaginate;
+			      var btnDisplay, btnClass, counter = 0;
+
+			      var attach = function(container, buttons) {
+			        var i, ien, node, button;
+			        var clickHandler = function(e) {
+			          e.preventDefault();
+			          if (!$(e.currentTarget).hasClass('disabled')) {
+			            api.page(e.data.action).draw(false);
+			          }
+			        };
+
+			        for (i = 0, ien = buttons.length; i < ien; i++) {
+			          button = buttons[i];
+
+			          if ($.isArray(button)) {
+			            attach(container, button);
+			          } else {
+			            btnDisplay = '';
+			            btnClass = '';
+
+			            switch (button) {
+
+			              case 'first':
+			                btnDisplay = lang.sFirst;
+			                btnClass = button + (page > 0 ?
+			                  '' : ' disabled');
+			                break;
+
+			              case 'previous':
+			                btnDisplay = '<i class="material-icons">chevron_left</i>';
+			                btnClass = button + (page > 0 ?
+			                  '' : ' disabled');
+			                break;
+
+			              case 'next':
+			                btnDisplay = '<i class="material-icons">chevron_right</i>';
+			                btnClass = button + (page < pages - 1 ?
+			                  '' : ' disabled');
+			                break;
+
+			              case 'last':
+			                btnDisplay = lang.sLast;
+			                btnClass = button + (page < pages - 1 ?
+			                  '' : ' disabled');
+			                break;
+
+			            }
+
+			            if (btnDisplay) {
+			              node = $('<li>', {
+			                  'class': classes.sPageButton + ' ' + btnClass,
+			                  'id': idx === 0 && typeof button === 'string' ?
+			                    settings.sTableId + '_' + button : null
+			                })
+			                .append($('<a>', {
+			                    'href': '#',
+			                    'aria-controls': settings.sTableId,
+			                    'data-dt-idx': counter,
+			                    'tabindex': settings.iTabIndex
+			                  })
+			                  .html(btnDisplay)
+			                )
+			                .appendTo(container);
+
+			              settings.oApi._fnBindAction(
+			                node, {
+			                  action: button
+			                }, clickHandler
+			              );
+
+			              counter++;
+			            }
+			          }
+			        }
+			      };
+
+			      // IE9 throws an 'unknown error' if document.activeElement is used
+			      // inside an iframe or frame.
+			      var activeEl;
+
+			      try {
+			        // Because this approach is destroying and recreating the paging
+			        // elements, focus is lost on the select button which is bad for
+			        // accessibility. So we want to restore focus once the draw has
+			        // completed
+			        activeEl = $(document.activeElement).data('dt-idx');
+			      } catch (e) {}
+
+			      attach(
+			        $(host).empty().html('<ul class="material-pagination"/>').children('ul'),
+			        buttons
+			      );
+
+			      if (activeEl) {
+			        $(host).find('[data-dt-idx=' + activeEl + ']').focus();
+			      }
+			    };
+
+			    /*
+			     * TableTools Bootstrap compatibility
+			     * Required TableTools 2.1+
+			     */
+			    if (DataTable.TableTools) {
+			      // Set the classes that TableTools uses to something suitable for Bootstrap
+			      $.extend(true, DataTable.TableTools.classes, {
+			        "container": "DTTT btn-group",
+			        "buttons": {
+			          "normal": "btn btn-default",
+			          "disabled": "disabled"
+			        },
+			        "collection": {
+			          "container": "DTTT_dropdown dropdown-menu",
+			          "buttons": {
+			            "normal": "",
+			            "disabled": "disabled"
+			          }
+			        },
+			        "print": {
+			          "info": "DTTT_print_info"
+			        },
+			        "select": {
+			          "row": "active"
+			        }
+			      });
+
+			      // Have the collection use a material compatible drop down
+			      $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
+			        "collection": {
+			          "container": "ul",
+			          "button": "li",
+			          "liner": "a"
+			        }
+			      });
+			    }
+
+			  }; // /factory
+
+			  // Define as an AMD module if possible
+				  if (typeof define === 'function' && define.amd) {
+				    define(['jquery', 'datatables'], factory);
+				  } else if (typeof exports === 'object') {
+				    // Node/CommonJS
+				    factory(require('jquery'), require('datatables'));
+				  } else if (jQuery) {
+				    // Otherwise simply initialise as normal, stopping multiple evaluation
+				    factory(jQuery, jQuery.fn.dataTable);
+				  }
+
+			})(window, document);
+
+
+
+			$(document).ready(function() {
+			  $('#datatable').dataTable({
+			    "oLanguage": {
+			      "sSearch": "",
+			      "sSearchPlaceholder": "검색",
+			      "sInfo": "_START_ -_END_ of _TOTAL_",
+			      "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+			        '<option value="10">10</option>' +
+			        '<option value="20">20</option>' +
+			        '<option value="30">30</option>' +
+			        '<option value="40">40</option>' +
+			        '<option value="50">50</option>' +
+			        '<option value="-1">All</option>' +
+			        '</select></div>'
+			    },
+			    bAutoWidth: false,
+
+					buttons: [
+						 {
+							 	 text: '<span style="color:#4d4d4d; margin-right:15px">Print<span>',
+								 extend: 'print',
+								 className: '',
+								 title: '',
+								//  autoPrint: false,
+								 customize: function ( win ) {
+										 $(win.document.body)
+												 .css( 'font-size', '10pt' )
+												 .prepend(
+														 '<h4>Title Test</h4>',
+                           //  Background table picture in print version is here
+														 '<img src="http://i.imgur.com/w931ov4.png" style="position: fixed;  top: 50%;  left: 50%;  transform: translate(-50%, -50%);" />'	
+												 );
+
+										 $(win.document.body).find( 'table' )
+												 .addClass( 'compact' )
+												 .css( 'font-size', 'inherit');
+								 }
+						 },
+						 {
+							 text: '<span style="color:#4d4d4d; margin-right:15px">Excel<span>',
+							 extend: 'excelHtml5',
+						 },
+						 {
+							 text: '<span style="color:#4d4d4d; margin-right:15px">Csv<span>',
+							 extend: 'csvHtml5',
+						 },
+						 {
+
+							 text: '<span style="color:#4d4d4d; margin-right:15px">Copy<span>',
+							 extend: 'copyHtml5',
+
+						 },
+				 ]
+				});
+			});
+//-->
+</script>
 <%@include file="/include/footer.jsp" %>
 </body>
 </html>

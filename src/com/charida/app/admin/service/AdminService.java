@@ -103,6 +103,7 @@ public class AdminService  {
 				if( ((String)sugg.get("CHOOSE_YN")).equals("Y") ){
 					choosesugg = (String)sugg.get("SUGG_ID") ;	// 채택된 제안 아이디 
 					serv.put("CHOOSEMENU", adminComponent.getChooseSuggMenu(choosesugg) ) ;	// **채택된 제안의 메뉴들 넣기 
+					serv.put("CHOOSESUGG",(Map<String,Object>)sugg) ;
 					int perbud = ((BigDecimal)sugg.get("PER_BUD")).intValue() ;
 					if(perbud >= minprice && perbud<= maxprice) {
 						serv.put("PRICEFLAG","TRUE") ;										// ** 채택된 제안의 가격이 추천 가격대 안에 있으면 TRUE
