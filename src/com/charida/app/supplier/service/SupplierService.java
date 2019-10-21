@@ -213,9 +213,9 @@ public class SupplierService {
 			if( priceRange.size() != 0) {
 				for( Map<String, Object>price : priceRange) {
 					if( (Integer)price.get("CLASSIFICATION") == 0) {
-						min_price = (String)price.get("PREDICTIVE_PRICE") ;
+						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
 					}else {
-						max_price = (String)price.get("PREDICTIVE_PRICE") ;
+						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
 					}
 				}
 				String price_range = min_price+"~"+max_price ;
@@ -261,9 +261,9 @@ public class SupplierService {
 			if( priceRange.size() != 0) {
 				for( Map<String, Object>price : priceRange) {
 					if( (Integer)price.get("CLASSIFICATION") == 0) {
-						min_price = (String)price.get("PREDICTIVE_PRICE") ;
+						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
 					}else {
-						max_price = (String)price.get("PREDICTIVE_PRICE") ;
+						max_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
 					}
 				}
 				String price_range = min_price+"~"+max_price ;
