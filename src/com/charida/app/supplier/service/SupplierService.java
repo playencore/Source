@@ -1,5 +1,6 @@
 package com.charida.app.supplier.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -212,10 +213,10 @@ public class SupplierService {
 			String max_price = "" ;
 			if( priceRange.size() != 0) {
 				for( Map<String, Object>price : priceRange) {
-					if( (Integer)price.get("CLASSIFICATION") == 0) {
-						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
-					}else {
-						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
+					if( ((BigDecimal)price.get("CLASSIFICATION")).intValue() == 1) {
+						min_price = Integer.toString((((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue()/1000)*1000) ;
+					}else if(((BigDecimal)price.get("CLASSIFICATION")).intValue() == 2){
+						max_price = Integer.toString((((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue()/1000)*1000) ;
 					}
 				}
 				String price_range = min_price+"~"+max_price ;
@@ -260,10 +261,10 @@ public class SupplierService {
 			String max_price = "" ;
 			if( priceRange.size() != 0) {
 				for( Map<String, Object>price : priceRange) {
-					if( (Integer)price.get("CLASSIFICATION") == 0) {
-						min_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
-					}else {
-						max_price = Integer.toString(((Integer)price.get("PREDICTIVE_PRICE")/1000)*1000) ;
+					if( ((BigDecimal)price.get("CLASSIFICATION")).intValue() == 1) {
+						min_price = Integer.toString((((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue()/1000)*1000) ;
+					}else if(((BigDecimal)price.get("CLASSIFICATION")).intValue() == 2){
+						max_price = Integer.toString((((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue()/1000)*1000) ;
 					}
 				}
 				String price_range = min_price+"~"+max_price ;

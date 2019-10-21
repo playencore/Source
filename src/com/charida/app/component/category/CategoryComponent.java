@@ -18,6 +18,8 @@ public class CategoryComponent {
 	public final String TABLEWARE = "TBW";
 	public final String OTHER = "RTL";
 	public final String LOCATION = "SLT" ;
+	public final String[] menuType = {"SER0000010","SER0000020","SER0000030","SER0000040"};
+	public final String[] eventType = {"EVT0000010","EVT0000020","EVT0000040","EVT0000030"};
 	
 	@Resource
 	private CategoryDao categoryDao;
@@ -58,7 +60,26 @@ public class CategoryComponent {
 		
 		System.out.println(codeMap);
 	}
-	
+	public int getIndexToMenuList(String menuCode) {
+		int idx = -1;
+		for(int i=0;i<menuType.length;++i) {
+			if(menuType[i].equals(menuCode)) {
+				idx = i;
+			}
+		}
+		
+		return idx;
+	}
+	public int getIndexToEventList(String eventCode) {
+		int idx = -1;
+		for(int i=0;i<eventType.length;++i) {
+			if(eventType[i].equals(eventCode)) {
+				idx = i;
+			}
+		}
+		
+		return idx;
+	}
 	public Map<String, String> getParentMap(String parentCode){
 		return codeMap.get(parentCode);
 	}

@@ -117,7 +117,43 @@ public class ApplicationService {
 		
 		//3. 끝
 		kafkaLog.createLog("{\"percount\":"+ params.get("participant") +",\"appPrice\":"+params.get("per_bud")+",\"appId\":"+appId+",\"eventType\":"+ params.get("event_type")+",\"menuType\":"+params.get("serv_type")+"}");
+		sendToModel(appId,(String)params.get("event_type"),(String)params.get("serv_type"),(String)params.get("participant"),(String)params.get("per_bud"));
 		return appId;
+	}
+	private void sendToModel(String appId,String eventType,String menuType,String perCount,String appPrice ) {
+		
+		int eventIndex = categoryComponent.getIndexToEventList(eventType);
+		int menuIndex = categoryComponent.getIndexToMenuList(menuType);
+		System.out.println(eventIndex+","+menuIndex);
+		if(eventIndex == -1 || menuIndex == -1 ) {
+			log.debug("데이터 타입 에러");
+			return;
+		}
+		
+		String msg = "message={\"appId\":\""+appId+"\",\"eventType\":"+eventIndex
+					+",\"menuType\":"+menuIndex+",\"percount\":"+perCount
+					+",\"appPrice\":"+appPrice+"}";
+		
+		System.out.println(msg);
+		URL url;
+		HttpURLConnection conn;
+		try {
+			//url = new URL("http://192.168.56.105:9999/kafka/predict");
+			url = new URL("http://10.0.2.151:9999/kafka/predict");
+			conn = (HttpURLConnection)url.openConnection();
+			conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+	        conn.setDoOutput(true);
+	        conn.setConnectTimeout(1000);
+	        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+	        wr.writeBytes(msg);
+	        wr.flush();
+	        wr.close();
+	        System.out.println(conn.getResponseCode());
+		} catch (IOException e) {
+			log.debug("커넥션 에러");
+		}
+
 	}
 	public List<Map<String,Object>> getPayList(Map<String, Object> parmas,HttpServletRequest req){
 		String memId = (String)parmas.get("sessionId");

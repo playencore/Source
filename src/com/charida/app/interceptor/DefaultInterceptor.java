@@ -141,11 +141,15 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 		StringBuffer path= new StringBuffer();
 		GregorianCalendar calendar = new GregorianCalendar();
 		
-		path.append("C:\\ExpertJava");
-		path.append("\\"+(calendar.get(GregorianCalendar.YEAR)));
-		path.append("\\"+(calendar.get(GregorianCalendar.MONTH)+1));
-		path.append("\\"+calendar.get(GregorianCalendar.DAY_OF_MONTH));
+//		path.append("C:\\ExpertJava");
+//		path.append("\\"+(calendar.get(GregorianCalendar.YEAR)));
+//		path.append("\\"+(calendar.get(GregorianCalendar.MONTH)+1));
+//		path.append("\\"+calendar.get(GregorianCalendar.DAY_OF_MONTH));
 		
+		path.append("/file");
+		path.append("/"+(calendar.get(GregorianCalendar.YEAR)));
+		path.append("/"+(calendar.get(GregorianCalendar.MONTH)+1));
+		path.append("/"+calendar.get(GregorianCalendar.DAY_OF_MONTH));
 		File file = new File(path.toString());
 		System.out.println(file.isDirectory());
 		if(!file.isDirectory()) {
