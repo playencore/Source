@@ -129,6 +129,9 @@ public class SupplierDao {
 	public List<Map<String,Object>> selectServiceList(String mem_id){
 		return sqlSession.selectList("Supplier.selectServiceList",mem_id) ;
 	}
+	public List<Map<String,Object>> selectPriceRange(String serv_id){
+		return sqlSession.selectList("Supplier.selectPriceRange",serv_id);
+	}
 	public List<Map<String, Object>> selectSearchServList(Map<String, String> param){
 		return sqlSession.selectList("Supplier.selectSearchServList", param) ;
 	}

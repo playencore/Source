@@ -186,6 +186,7 @@ public class SupplierService {
 		List<Map<String,Object>> servlist = new ArrayList<Map<String,Object>>();
 		servlist = supplierComponent.getServiceList(mem_id) ;
 		for(Map<String, Object> serv : servlist ) {
+			
 			String prefList =applicationComponent.getPrefList((String)serv.get("SERV_ID"),true).get(0);
 			serv.put("PREFLIST", prefList);
 			if("Y".equals(serv.get("DESSERT_YN")) || "Y".equals(serv.get("TABLEWARE_YN"))
@@ -206,6 +207,22 @@ public class SupplierService {
 			serv.put("SERV_TYPE", serv_type) ;
 			String event_type = categoryComponent.getCodeName((String)serv.get("EVENT_TYPE_CODE"));
 			serv.put("EVENT_TYPE",event_type) ;
+			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange((String)serv.get("SERV_ID"));
+			String min_price = "" ;
+			String max_price = "" ;
+			if( priceRange.size() != 0) {
+				for( Map<String, Object>price : priceRange) {
+					if( (Integer)price.get("CLASSIFICATION") == 0) {
+						min_price = (String)price.get("PREDICTIVE_PRICE") ;
+					}else {
+						max_price = (String)price.get("PREDICTIVE_PRICE") ;
+					}
+				}
+				String price_range = min_price+"~"+max_price ;
+				serv.put("PRICE_RANGE",price_range) ;
+			}else {
+				serv.put("PRICE_RANGE","현재 측정중입니다.") ;
+			}
 		}
 		return servlist; 
 	}
@@ -238,6 +255,22 @@ public class SupplierService {
 			serv.put("SERV_TYPE", serv_type) ;
 			String event_type = categoryComponent.getCodeName((String)serv.get("EVENT_TYPE_CODE"));
 			serv.put("EVENT_TYPE",event_type) ;
+			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange((String)serv.get("SERV_ID"));
+			String min_price = "" ;
+			String max_price = "" ;
+			if( priceRange.size() != 0) {
+				for( Map<String, Object>price : priceRange) {
+					if( (Integer)price.get("CLASSIFICATION") == 0) {
+						min_price = (String)price.get("PREDICTIVE_PRICE") ;
+					}else {
+						max_price = (String)price.get("PREDICTIVE_PRICE") ;
+					}
+				}
+				String price_range = min_price+"~"+max_price ;
+				serv.put("PRICE_RANGE",price_range) ;
+			}else {
+				serv.put("PRICE_RANGE","현재 측정중입니다.") ;
+			}
 	}
 		return serchServList ;
 	}

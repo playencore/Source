@@ -239,8 +239,15 @@
 			WHERE MEM_ID = #{mem_id}
 		)
 		ORDER BY SERV_ID DESC
-		
 	</select>
+	<select id="selectPriceRange" resultType="map" parameterType="String">
+		SELECT
+		*
+		FROM 
+		CRD_PREDICTIVE_SUGG_PRICE
+		WHERE APP_ID = #{serv_id}
+	</select> 
+	
 	<select id="selectSearchServList" parameterType="hashMap" resultType="map">
 		SELECT 
 		*

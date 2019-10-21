@@ -121,16 +121,9 @@ public class SupplierController extends CommonController {
 		String mem_id =  (String) req.getSession().getAttribute("session_id");
 		param.put("mem_id", mem_id);
 		
-		
-		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("data",  supplierService.getSearchServList(param));
 		result.put("menulist",supplierService.getFoodListAll(mem_id) );
-		
-		
-		
-		
 		return result ;
 	}
 	
