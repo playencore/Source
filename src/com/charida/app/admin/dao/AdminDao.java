@@ -30,6 +30,11 @@ public class AdminDao {
 	public Map<String, Object> selectSupplierReviewAvgScore(String mem_id){
 		return sqlSession.selectOne("Admin.supplierReviewAvgScore",mem_id) ;
 	}
-	
+	public Map<String, Object> selectEventCodeName(String serv_id) {
+		return sqlSession.selectOne("Admin.eventTypeName", serv_id);
+	}
+	public Map<String, Object> selectServCodeName(String serv_id) {
+		return sqlSession.selectOne("Admin.servTypeName", serv_id);
+	}
 	
 }

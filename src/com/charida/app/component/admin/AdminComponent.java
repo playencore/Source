@@ -35,6 +35,11 @@ public class AdminComponent {
 	public Map<String, Object> getSupplierReviewAvgScore(String mem_id){
 		return adminDao.selectSupplierReviewAvgScore(mem_id) ;
 	}
-	
+	public Map<String, Object> getEventName(String serv_id) {
+		return adminDao.selectEventCodeName(serv_id);
+	}
+	public Map<String, Object> getServName(String serv_id) {
+		return adminDao.selectServCodeName(serv_id);
+	}
 	
 }

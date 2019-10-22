@@ -295,13 +295,13 @@ div.dt-button-info {
 		       <thead>
 		         <tr role="row">
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">신청아이디</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">주소</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">상세주소</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">이벤트 종류</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">서빙 종류</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">참가자 수 </th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">나이대</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">남여비율</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">1인당 신청 금액</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">1인당 채택 금액</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">신청 금액(1인)</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">채택 금액(1인)</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">추천 금액대</th>
 		         </tr>
 		       </thead>
@@ -309,8 +309,8 @@ div.dt-button-info {
 		       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
 					<tr role="row" class="odd">
 						<td>${servinfo.SERV_ID}</td>
-						<td>${servinfo.ADDRESS}</td>
-						<td>${servinfo.ADDRESS_DETAIL}</td>
+						<td>${servinfo.ETYPENAME.CODE_NAME}</td>
+						<td>${servinfo.STYPENAME.CODE_NAME}</td>
 						<td>${servinfo.PARTICIPANT}</td>
 						<td>${servinfo.AGE_MIN} ~ ${servinfo.AGE_MAX}</td>
 						<td>${servinfo.PER_MEN*10}%</td>

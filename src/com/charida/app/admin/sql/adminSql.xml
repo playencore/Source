@@ -30,14 +30,14 @@
 	</select>
 	
 	<!-- 한샘씨 코드 -->
-	<select id="eventTypeName" resultType = "String" parameterType="String">
+	<select id="eventTypeName" resultType = "map" parameterType="String">
         SELECT n.CODE_NAME, s.EVENT_TYPE_CODE from CRD_CODE_CG n, CRD_SERV_APP s
-        where s.EVENT_TYPE_CODE = n.CODE and s.EVENT_TYPE_CODE = #{EVENT_TYPE_CODE};
+        where s.EVENT_TYPE_CODE = n.CODE and s.SERV_ID = #{serv_id}
     </select>
     
-    <select id = "servTypeName" resultType= "String" parameterType="String">
+    <select id = "servTypeName" resultType= "map" parameterType="String">
         select n.CODE_NAME, s.SERV_TYPE_CODE from CRD_CODE_CG n, CRD_SERV_APP s
-        where s.SERV_TYPE_CODE = n.CODE and s.SERV_TYPE_CODE = #{SERV_TYPE_CODE};
+        where s.SERV_TYPE_CODE = n.CODE and s.SERV_ID = #{serv_id}
     </select>
 	
 	

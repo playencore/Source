@@ -83,6 +83,11 @@ public class AdminService  {
 		
 		for(Map<String,Object> serv : allservlist) {		// 가져온 신청 하나 뽑아 인포 만들기
 			String serv_id = (String)serv.get("SERV_ID") ;	
+			Map<String, Object> ename = adminComponent.getEventName(serv_id);		// 이벤트 타입 코드를 이름으로 가져오기
+			Map<String, Object> sname = adminComponent.getServName(serv_id);		// 서비스 타입 코드를 이름으로 가져오기
+			serv.put("ETYPENAME", ename);
+			serv.put("STYPENAME", sname);
+			
 			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ; // 제안들 가져오기
 			serv.put("REVIEW", (Map<String,Object>)(adminComponent.getServReview(serv_id)) ) ;
 			
