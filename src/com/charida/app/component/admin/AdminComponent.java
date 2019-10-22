@@ -29,6 +29,12 @@ public class AdminComponent {
 	public List< Map<String, Object> > getChooseSuggMenu(String sugg_id){
 		return adminDao.selectChooseSuggMenu(sugg_id)  ;
 	}
+	public Map<String, Object> getServReview(String serv_id){
+		return adminDao.selectServReview(serv_id) ;
+	}
+	public Map<String, Object> getSupplierReviewAvgScore(String mem_id){
+		return adminDao.selectSupplierReviewAvgScore(mem_id) ;
+	}
 	
 	
 }

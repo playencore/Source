@@ -83,7 +83,9 @@ public class AdminService  {
 		
 		for(Map<String,Object> serv : allservlist) {		// 가져온 신청 하나 뽑아 인포 만들기
 			String serv_id = (String)serv.get("SERV_ID") ;	
-			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ; // 제안들 가져오기 
+			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ; // 제안들 가져오기
+			serv.put("REVIEW", (Map<String,Object>)(adminComponent.getServReview(serv_id)) ) ;
+			
 			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange( serv_id ); // 추천 가격대 가져오기
 			int minprice = 0 ;
 			int maxprice = 0 ;
@@ -102,7 +104,9 @@ public class AdminService  {
 			for(Map<String,Object> sugg : sugglist) {
 				if( ((String)sugg.get("CHOOSE_YN")).equals("Y") ){
 					choosesugg = (String)sugg.get("SUGG_ID") ;	// 채택된 제안 아이디 
-					serv.put("CHOOSEMENU", adminComponent.getChooseSuggMenu(choosesugg) ) ;	// **채택된 제안의 메뉴들 넣기 
+					serv.put("CHOOSEMENU", adminComponent.getChooseSuggMenu(choosesugg) ) ;	// **채택된 제안의 메뉴들 넣기
+					// 채택 제안의 판매자의 review score 
+					serv.put("REVIEWAVGSCORE", (Map<String,Object>)(adminComponent.getSupplierReviewAvgScore( (String)sugg.get("MEM_ID") )) ) ;
 					serv.put("CHOOSESUGG",(Map<String,Object>)sugg) ;
 					int perbud = ((BigDecimal)sugg.get("PER_BUD")).intValue() ;
 					if(perbud >= minprice && perbud<= maxprice) {

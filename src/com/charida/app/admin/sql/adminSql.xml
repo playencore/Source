@@ -17,4 +17,28 @@
 		SELECT * FROM CRD_SERV_SUGG_MENU WHERE SUGG_ID = #{sugg_id}
 	</select>
 	
+	<select id="servReview" resultType = "map" parameterType="String">
+		SELECT * FROM CRD_SERV_REVIEW WHERE SERV_ID = #{serv_id}
+	</select>
+	
+	<select id="supplierReviewAvgScore" resultType="map" parameterType="String">
+		SELECT AVG(MENU_SCORE) AS MENU_AVG, AVG(PRICE_SCORE) AS PRICE_AVG, AVG(SERV_SCORE) AS SERV_AVG, AVG(RECOMMAND) AS RECOMMAND_AVG 
+		FROM CRD_SERV_REVIEW 
+		WHERE SERV_ID IN (
+			SELECT SERV_ID FROM CRD_SERV_SUGG WEHRE WHERE CHOOSE_YN='Y' AND MEM_ID = #{mem_id}
+		)
+	</select>
+	
+	<!-- 한샘씨 코드 -->
+	<select id="eventTypeName" resultType = "String" parameterType="String">
+        SELECT n.CODE_NAME, s.EVENT_TYPE_CODE from CRD_CODE_CG n, CRD_SERV_APP s
+        where s.EVENT_TYPE_CODE = n.CODE and s.EVENT_TYPE_CODE = #{EVENT_TYPE_CODE};
+    </select>
+    
+    <select id = "servTypeName" resultType= "String" parameterType="String">
+        select n.CODE_NAME, s.SERV_TYPE_CODE from CRD_CODE_CG n, CRD_SERV_APP s
+        where s.SERV_TYPE_CODE = n.CODE and s.SERV_TYPE_CODE = #{SERV_TYPE_CODE};
+    </select>
+	
+	
 </mapper>

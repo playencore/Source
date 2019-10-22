@@ -24,5 +24,12 @@ public class AdminDao {
 	public List< Map<String, Object> > selectChooseSuggMenu(String sugg_id){
 		return sqlSession.selectList("Admin.choosesuggmenu",sugg_id); 
 	}
+	public Map<String, Object> selectServReview(String serv_id){
+		return sqlSession.selectOne("Admin.servReview",serv_id) ;
+	}
+	public Map<String, Object> selectSupplierReviewAvgScore(String mem_id){
+		return sqlSession.selectOne("Admin.supplierReviewAvgScore",mem_id) ;
+	}
+	
 	
 }
