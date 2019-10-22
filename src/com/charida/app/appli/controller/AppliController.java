@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.charida.app.appli.service.AppliService;
 import com.charida.app.common.controller.CommonController;
@@ -51,11 +52,12 @@ public class AppliController extends CommonController{
 	public int setStateAppSugg(@RequestParam("suggId") String suggId
 							,@RequestParam("total") String total
 							,@RequestParam("servId") String servId
+							,@SessionAttribute("session_id") String memId
 			) {
 		log.debug("ctrler suggId : " + suggId);
 		log.debug("ctrler total : " + total);
 		log.debug("ctrler servId : " + servId);
-		int result = appliService.setStateAppSuggTx(suggId, total, servId);
+		int result = appliService.setStateAppSuggTx(suggId, total, servId,memId);
 		log.debug("result : " + result);
 		return result;
 	} 

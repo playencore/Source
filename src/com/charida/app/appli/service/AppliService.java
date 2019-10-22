@@ -2,6 +2,8 @@ package com.charida.app.appli.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class AppliService {
 	private CategoryComponent categoryComponent;
 	@Resource
 	private KafkaLog kafkaLog;
-	
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 //	private final String errMsg = "데이터 갱신에 실패했습니다.";
 	
 	// 신청 기본정보에 필요한 정보를 조회해 옴
@@ -86,7 +88,7 @@ public class AppliService {
 	public List<Map<String, Object>> getSuggInfo(String appliId){
 		return appliComponent.getSuggInfo(appliId);
 	} 
-	public int setStateAppSuggTx(String suggId, String total, String servId) {
+	public int setStateAppSuggTx(String suggId, String total, String servId,String memId) {
 		
 		// 제안테이블 성공건 상태 변경(crd_serv_sugg)
 		int result1 = appliComponent.setSuggState(suggId);
@@ -110,14 +112,18 @@ public class AppliService {
 		
 		List<Map<String, Object>> priceAndLabel = appliComponent.getPriceandLabel(servId);
 		for(Map<String, Object> info : priceAndLabel) {
-			info.put("serv_id", servId);
-			BigDecimal appPrice = (BigDecimal)(info.get("APPPRICE"));
-			BigDecimal suggPrice = (BigDecimal)(info.get("SUGGPRICE"));
-			BigDecimal price = suggPrice.divide(appPrice, 2, RoundingMode.HALF_UP);
-
-			kafkaLog.createLog("{\"appId\":\""+ info.get("serv_id") 
-				+ "\",\"suggPrice\":"+ suggPrice + ",\"appPrice\":" + appPrice 
-				+ ",\"priceRespon\":" + price +",\"cn\":1}");
+			int appPrice = ((BigDecimal)info.get("APPPRICE")).intValue();
+			int suggPrice = ((BigDecimal)info.get("SUGGPRICE")).intValue();
+			double price = suggPrice / (appPrice *1.0);
+			String label = (String)info.get("label");
+			String msg ="{\"createdAt\":\""+dateFormat.format(Calendar.getInstance().getTime())
+						+"\",\"userId\":\""+memId
+						+"\",\"data\":{\"type\":\"sugg\",\"appId\":\""+servId
+						+"\",\"suggPrice\":\""+suggPrice+"\""
+						+"\",\"label\":\""+label
+						+"\",\"priceRespon\":"+price+"}}";
+			
+			kafkaLog.createLog(msg);
 			
 		}
 		

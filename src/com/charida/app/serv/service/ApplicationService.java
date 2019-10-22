@@ -9,7 +9,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +54,7 @@ public class ApplicationService {
 	@Resource
 	private DataSourceTransactionManager transactionManager;
 	private static final Log log = LogFactory.getLog(ApplicationService.class);
-
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 	public String applicationTx(Map<String,Object>params) {
 		//신청번호 발번
 		String appId = applicationComponent.makeAppId();
@@ -117,7 +119,14 @@ public class ApplicationService {
 		
 		//3. 끝
 		//분석데이터 전송
-		kafkaLog.createLog("{\"percount\":"+ params.get("participant") +",\"appPrice\":"+params.get("per_bud")+",\"appId\":\""+appId+"\",\"eventType\":\""+ params.get("event_type")+"\",\"menuType\":\""+params.get("serv_type")+"\",\"cn\":0}");
+		String msg ="{\"createdAt\":\""+dateFormat.format(Calendar.getInstance().getTime())
+					+"\",\"userId\":\""+params.get("sessionId")
+					+"\",\"data\":{\"type\":\"app\",\"appId\":\""+appId
+					+"\",\"eventType\":\""+params.get("event_type")
+					+"\",\"menuType\":\""+params.get("serv_type")
+					+"\",\"percount\":"+params.get("participant")
+					+",\"appPrice\":"+params.get("per_bud")+"}}";
+		kafkaLog.createLog(msg);
 		//예측 데이터 전송
 		sendToModel(appId,(String)params.get("event_type"),(String)params.get("serv_type"),(String)params.get("participant"),(String)params.get("per_bud"));
 		return appId;
