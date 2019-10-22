@@ -242,7 +242,7 @@
 	</select>
 	<select id="selectPriceRange" resultType="map" parameterType="String">
 		SELECT
-		*
+		APP_ID, CLASSIFICATION, PREDICTIVE_PRICE
 		FROM 
 		CRD_PREDICTIVE_SUGG_PRICE
 		WHERE APP_ID = #{serv_id}

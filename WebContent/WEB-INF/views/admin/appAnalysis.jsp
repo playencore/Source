@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@include file="/include/header.jsp"%>
+<%@ taglib prefix="ui" uri="http://charida.com/paging/ui" %>
 
 <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
@@ -268,6 +269,72 @@ div.dt-button-info {
   }
 }
 
+/* Modal */
+
+.modal.modal-fixed-footer {
+    padding: 0;
+    height: 80%;
+}
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #fafafa;
+    padding: 0;
+    max-height: 80%;
+    width: 55%;
+    margin: auto;
+    overflow-y: auto;
+    border-radius: 2px;
+    will-change: top, opacity;
+}
+.modal2 {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #fafafa;
+    padding: 0;
+    max-height: 45%;
+    width: 30%;
+    margin: auto;
+    overflow-y: auto;
+    border-radius: 2px;
+    will-change: top, opacity;
+}
+.z-depth-5, .modal2 {
+   -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+   box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+.modal2.modal-fixed-footer {
+    padding: 0;
+    height: 45%;
+}
+.modal2.modal-fixed-footer .modal-content {
+    position: absolute;
+    height: calc(100% - 56px);
+    max-height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+.modal2 .modal-content {
+    padding: 24px;
+}
+.modal2.modal-fixed-footer .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 0;
+}
+.modal2 .modal-footer {
+    border-radius: 0 0 2px 2px;
+    background-color: #fafafa;
+    padding: 4px 6px;
+    height: 56px;
+    width: 100%;
+    text-align: right;
+}
+
 </style>
 
 	<br><br>
@@ -294,12 +361,12 @@ div.dt-button-info {
 		     <table id="datatable" class="dataTable no-footer" role="grid" aria-describedby="datatable_info">
 		       <thead>
 		         <tr role="row">
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">신청아이디</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">이벤트 종류</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">서빙 종류</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">참가자 수 </th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">나이대</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">남여비율</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">신청 아이디</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">신청자 아이디</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">후기 평점</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">이벤트 종류 </th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">서비스 종류</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">참가자 수</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">신청 금액(1인)</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">채택 금액(1인)</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">추천 금액대</th>
@@ -308,12 +375,23 @@ div.dt-button-info {
 		       <tbody>
 		       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
 					<tr role="row" class="odd">
-						<td>${servinfo.SERV_ID}</td>
+						<td onclick="showDetail('${servinfo.SERV_ID}')">${servinfo.SERV_ID}</td>
+						<c:if test="${empty ALLSERVINFO}">
+						<div class="col m12" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
+							<ul class="collection with-header">
+								<li class="collection-header">
+									<h5 class="task-card-title mb-3" style="text-align: center;">
+										조회된 내용이 없습니다.
+									</h5>
+								</li>
+							</ul>
+						</div>
+						</c:if>
+						<td><a id="viewstart" class='modal-close waves-effect waves-green btn-flat'>${servinfo.CUSTOMER_ID}</a></td>
+						<td>${((servinfo.REVIEW.MENU_SCORE)+(servinfo.REVIEW.PRICE_SCORE)+(servinfo.REVIEW.SERV_SCORE)+(servinfo.REVIEW.RECOMMAND))/4}</td>
 						<td>${servinfo.ETYPENAME.CODE_NAME}</td>
 						<td>${servinfo.STYPENAME.CODE_NAME}</td>
 						<td>${servinfo.PARTICIPANT}</td>
-						<td>${servinfo.AGE_MIN} ~ ${servinfo.AGE_MAX}</td>
-						<td>${servinfo.PER_MEN*10}%</td>
 						<td>${servinfo.PER_BUD}</td>
 						<td>${servinfo.CHOOSESUGG.PER_BUD}</td>
 						<td>${servinfo.MINPRICE} ~ ${servinfo.MAXPRICE}</td>
@@ -325,8 +403,64 @@ div.dt-button-info {
 		   </div>
 		 </div>
 	</div>
-	<div class="col m12 center">
+<!-- List2 -->
+
+<div class="col m12 center"></div>
+<div id="modal1" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<ul class="collection with-header">
+			<li class="collection-header">
+				<h5 class="task-card-title mb-3" style="text-align: right;" id="sugg_title">
+				</h5>
+				<p class="task-card-date" style="text-align: right;" id="sugg_date"></p>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">제안한 회사</span>
+				<span class="secondary-content"><span id="sup_name"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">상태</span>
+				<span class="secondary-content"><span class="" id="choose_yn"></span></span>
+			</li>
+		</ul>
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					채택한 제안 내용
+				</h6>
+			</li>
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
+				<span  class="secondary-content"><span id="per_bud"></span></span>
+			</li>
+			<li class="collection-item dismissable" id="li_menu" style="display: none">
+				<span class="width-100" style="font-size: 14px">제안 메뉴</span>
+				<br>
+				<p class="secondary-content">
+					<table class="highlight centered">
+						<thead>
+						<tr>
+							<th>메뉴명</th>
+							<th>1 인분당 중량(g)</th>
+							<th>메뉴 사진</th>
+						</tr>
+						</thead>
+						<tbody id="menu_info">
+						</tbody>
+					</table>
+				</p>
+			</li>
+		</ul>
 	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+	</div>
+</div>
+<div id="modal2" class="modal2 modal-fixed-footer">
+	<div class="modal-footer">
+		<a href="#!" class="waves-effect waves-green btn-flat" onclick="window.location.reload()">확인</a>
+	</div>
+</div>
 <br><br><br><br><br><br><br><br><br><br>
 <script id = "rendered-js">
 //<!--
@@ -571,6 +705,284 @@ function movePage(pageNo){
 				 ]
 				});
 			});
+			
+
+/* modal */
+$(document).ready(function(){
+		activeItem('마이 페이지');
+		showExtendedMenu('#nav_mypage');
+		activeSubItem('판매자 조회', 0);
+		activeSubItem('판매자 승인/반려',0);
+		activeSubItem('빅데이터 분석',1);
+	    $("#viewstart").on(
+				"click",
+				function(event){
+					suggInfo();
+				});
+	    //$('.modal').modal();
+		//$('.modal2').modal();
+	    setModal(data);
+	});
+	
+	//상세보기 버튼 클릭시 동작(모달)
+	// 신청 정보 
+	function suggInfo(SERV_ID){
+		$.ajax({
+		    type : "post",
+		    url : "/appli/getDetailInfoList.do",
+		    data:{
+		    	appliId:SERV_ID
+		    },
+		    dataType : "json",
+		    error : function(data){
+		        alert('상세정보 조회를 실패하셨습니다.');
+		    },
+		    success : function(data){
+		    	updateUi(data,SERV_ID);
+		    	showcompany(data);
+				
+		    	//$('.modal').modal('open');
+		    }
+		});
+	}
+	
+	function updateUi(data,appliId){
+		$('#app_title').text("신청번호 " + appliId);
+		$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50
+		$('#app_name').text(data.NAME);
+		$('#modified_date').text(data.MODIFIED_DATE);	// MODIFIED_DATE: 2019-07-17 17:59:50
+		
+		// 일정정보
+		$('#serv_date').text(data.SERV_DATE);	// 서비스 제공일 SERV_DATE: 2019-07-25 20:30:00
+		
+		// 현장정보
+		$('#address').text(data.ADDRESS);	// 주소 ADDRESS: "서울 서초구 서초대로46길 3"
+		$('#address_detail').text(data.ADDRESS_DETAIL);	// ADDRESS_DETAIL: "앤코앙23호"
+		$('#interior_yn').text(data.INTERIOR_YN);	// INTERIOR_YN: "Y"
+		$('#parking_yn').text(data.PARKING_YN);	// PARKING_YN: "Y"
+		$('#elevator_yn').text(data.ELEVATOR_YN);	// ELEVATOR_YN: "Y"
+		$('#discharge_yn').text(data.DISCHARGE_YN);	// DISCHARGE_YN: "Y"
+		$('#cooking_yn').text(data.COOKING_YN);	// COOKING_YN: "Y"
+		
+		//참석자정보
+		$('#participant').text(data.PARTICIPANT+" 명");	// 참가인원 PARTICIPANT: 100
+		$('#per_bud').text(data.PER_BUD+" 원");	// 1인당 금액 PER_BUD: "30,000"
+		var str_per_bud = data.PER_BUD;
+		var int_per_bud = str_per_bud.replace(",","");
+		var total = data.PARTICIPANT * int_per_bud;
+		total = numbeComma(total);
+		$('#per_totalbud').text(total+" 원");
+		
+		$('#age_max').text(data.AGE_MAX);	// AGE_MAX: 60
+		$('#age_min').text(data.AGE_MIN);	// AGE_MIN: 26
+		$('#age_minmax').text(data.AGE_MIN+" ~ "+data.AGE_MAX+" 세");
+		var men = data.PER_MEN * 10
+		$('#per_men').text(men+" %");	// 남자성비 PER_MEN: 3
+		var women = (10 - data.PER_MEN) * 10;
+		$('#per_women').text(women+" %");	// 남자성비 PER_MEN: 3
+		
+		//행사정보
+		$('#serv_type_code').text(data.SERV_TYPE_NAME);	//진행(서비스)형식 타입코드 SERV_TYPE_CODE: "SER0000010"
+		$('#event_type_code').text(data.EVENT_TYPE_NAME);	// 행사형식코드 EVENT_TYPE_CODE: "EVT0000010"
+		$('#coordinator_yn').text(data.COORDINATOR_YN);	// 코디네이터 COORDINATOR_YN: "Y"
+		$('#tableware_yn').text(data.TABLEWARE_YN);	// 추가식기 TABLEWARE_YN: "Y"
+		$('#dessert_yn').text(data.DESSERT_YN);	// 후식 DESSERT_YN: "Y"
+	
+		// 추가요청사항
+		$('#requested_team').text(data.REQUESTED_TERM);	// REQUESTED_TERM: "추가 요청사항은 없습니다."
+		
+		$('#customer_id').text(data.CUSTOMER_ID);	// CUSTOMER_ID: "gggggg"
+		$('#serv_id').text(data.SERV_ID);	// SERV_ID: "S190717-0001"
+		
+	}
+
+	// 채택된 판매자 정보
+	function showcompany(data){
+		var cards = "" ;	
+		if(Object.keys(data).length == 0){
+			cards = cards+ "데이터가 없습니다.";
+		}
+		for(var i = 0 ; i < Object.keys(data).length ; i++){
+			cards = cards 
+			+"<div class='card col s6'>"
+			+ "<div class='card-content black-text'>"
+			+	"<span class='card-title'>"
+			+    data[i].COMPANYNAME
+			+     "</span>"
+			+	"<p>"
+			+		"판매자 이름 : "+data[i].NAME+" <br>"
+			+		"판매자 아이디 : "+data[i].MEM_ID+" <br>"
+			+		"판매자 사업자 등록번호 : "+data[i].REGIST_NUM+" <br>"
+			+	"</p>"
+			+"</div>"
+			+"<div class='card-action'>"
+			+	"<a class = 'waves-effect waves-light modal-trigger' href='#resultModal"+i+"' >상세보기</a>"
+			+"</div>"
+			+"</div>"
+			+"<div class = 'modallist'>"
+			+"<div id='resultModal"+i+"' class='modal'>"
+			+	"<div class='modal-content'>"
+			+		"<ul class = 'collection with-header'>"
+			+			"<li class='collection-header' style='background-color: #eee'>"
+			+				"<h6 class='task-card-title mb-3' style='text-align: center'>"
+			+					"-업체 상세보기-"
+			+				"</h6>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 이름"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].NAME
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 아이디"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].MEM_ID
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 전화번호"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].TEL
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 이메일"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].EMAIL
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 주소"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].ADRESS
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 상세주소"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].ADDRESS_DETAIL
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"가입날짜"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].JOIN_DATE
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 생년월일"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].BIRTH_DATE
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 성별"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].GENDER
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 사업자 등록 번호"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].REGIST_NUM
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 회사 이름"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].COMPANYNAME
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 회사 소개"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].EXPLANATION
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 회사 최소 수용인원"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].MINUMUM_SEATING
+			+				"</span>"
+			+			"</li>"
+			+			"<li class='collection-item dismissable'>"
+			+				"<span class='width-100' style='font-size: 14px'>"
+			+					"판매자 회사 최대 수용인원"
+			+				"</span>"
+			+				"<span class='secondary-content'>"
+			+					data[i].MAXiMUM_SEATIN
+			+				"</span>"
+			+			"</li>"
+			+		"</ul>"
+			+	"</div>"
+			+	"<div class='modal-footer'>"
+			+		"<a href='#!' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
+			+	"</div>"
+			+"</div>"
+			+"</div>" ;
+		}
+		$("#showcard").html(cards);
+	}
+	
+	function setModal(data){
+		for(var i = 0 ; i<Object.keys(data).length ; i++){
+			$('#resultModal'+i).modal();
+		}
+	}
+
+	function createtable(){
+		return '<li class="collection-item dismissable" id="li_menu" align="center">'
+		+'<span class="width-100" style="font-size: 20px">제안 메뉴</span>'
+		+'</li>'
+		+'<li class="collection-item dismissable" id="li_menu">'
+		+'<br>'
+		+'<p class="secondary-content">'
+		+'<table class="highlight centered">'
+		+'<thead>'
+		+'<tr>'
+		+'<th>메뉴명</th>'
+		+'<th>1 인분당 중량(g)</th>'
+		+'<th>메뉴 사진</th>'
+		+'<th>메뉴 설명</th>'
+		+'</tr>'
+		+'</thead>'
+		+'<tbody id="menu_info">'
+		+'</tbody>'
+		+'</table>'
+		+'</p>'
+		+'</li>';
+	}
+	
+	function numbeComma(number) {
+	    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 //-->
 </script>
 <%@include file="/include/footer.jsp" %>
