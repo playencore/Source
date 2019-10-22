@@ -1,7 +1,6 @@
 package com.charida.app.appli.service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -111,11 +110,30 @@ public class AppliService {
 		int result = result1 * result2 * result3 * result4;
 		
 		List<Map<String, Object>> priceAndLabel = appliComponent.getPriceandLabel(servId);
+		//채택가 찾기
+		int pickPrice = 0;
+		for(Map<String, Object> row : priceAndLabel) {
+			String label = (String)row.get("label");
+			if("Y".equals(label)) {
+				pickPrice = ((BigDecimal)row.get("SUGGPRICE")).intValue();
+				break;
+			}
+		}
+		
+		//로그데이터 생성
 		for(Map<String, Object> info : priceAndLabel) {
 			int appPrice = ((BigDecimal)info.get("APPPRICE")).intValue();
 			int suggPrice = ((BigDecimal)info.get("SUGGPRICE")).intValue();
 			double price = suggPrice / (appPrice *1.0);
-			String label = (String)info.get("label");
+			// 0 == 채택가 미만, 1 == 채택가, 2 == 채택가 초과, -1 이상값
+			int label = -1;
+			if(suggPrice>pickPrice) {
+				label = 2;
+			}else if(suggPrice<pickPrice) {
+				label = 0;
+			}else {
+				label = 1;
+			}
 			String msg ="{\"createdAt\":\""+dateFormat.format(Calendar.getInstance().getTime())
 						+"\",\"userId\":\""+memId
 						+"\",\"data\":{\"type\":\"sugg\",\"appId\":\""+servId
