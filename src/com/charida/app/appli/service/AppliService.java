@@ -113,7 +113,7 @@ public class AppliService {
 		//채택가 찾기
 		int pickPrice = 0;
 		for(Map<String, Object> row : priceAndLabel) {
-			String label = (String)row.get("label");
+			String label = (String)row.get("LABEL");
 			if("Y".equals(label)) {
 				pickPrice = ((BigDecimal)row.get("SUGGPRICE")).intValue();
 				break;
@@ -137,7 +137,7 @@ public class AppliService {
 			String msg ="{\"createdAt\":\""+dateFormat.format(Calendar.getInstance().getTime())
 						+"\",\"userId\":\""+memId
 						+"\",\"data\":{\"type\":\"sugg\",\"appId\":\""+servId
-						+"\",\"suggPrice\":\""+suggPrice+"\""
+						+"\",\"suggPrice\":\""+suggPrice
 						+"\",\"label\":\""+label
 						+"\",\"priceRespon\":"+price+"}}";
 			
