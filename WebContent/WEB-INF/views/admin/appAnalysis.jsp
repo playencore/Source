@@ -825,7 +825,7 @@ function showToast(msg){
 </div>
 	
 <!--Modal -->
-<div id="modal" class="modal modal-fixed-footer">
+<div id="modal1" class="modal modal-fixed-footer">
 	<div class="modal-content">
 		<ul class="collection with-header">
 			<li class="collection-header">
@@ -1022,7 +1022,7 @@ function showToast(msg){
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
 	</div>
 </div>
-<div id="modal2" class="modal2 modal-fixed-footer">
+<div id="modal2" class="modal modal-fixed-footer">
 	<div class="modal-content">
 		<ul class="collection with-header" id="ul_payment">
 			
@@ -1297,8 +1297,8 @@ $(document).ready(function(){
 				function(event){
 					showDetail();
 				}); */
-	    $('.modal').modal();
-		$('.modal2').modal();
+	    $('#modal1').modal();
+		$('#modal2').modal();
 	});
 	
 	//상세보기 버튼 클릭시 동작(모달)
@@ -1316,7 +1316,7 @@ $(document).ready(function(){
 		    },
 		    success : function(data){
 		    	detailInfo(data,SERV_ID);
-		    	$('.modal').modal('open');
+		    	$('#modal1').modal('open');
 		    }
 		});
 	}
@@ -1467,7 +1467,7 @@ $(document).ready(function(){
 					menuBody += "</tr>";
 				}));
 				$('#menu_info').html(menuBody);
-				$('.modal2').modal('open');
+				$('#modal2').modal('open');
 		    }     
 		});
 	}
