@@ -531,12 +531,7 @@ div.dt-button-info {
 				<span class="width-100" style="font-size: 14px">성비 : 여</span>
 				<span class="secondary-content"><span id="per_women"></span></span>
 			</li>
-			<li>
-			<li class="collection-item dismissable">
-				<!-- 선호 음식 -->
-				<span class="width-100" style="font-size: 14px">선호메뉴</span>
-				<span class="secondary-content"><span id="prepmenu"></span></span>
-			</li>
+
 		</ul>
 		<!-- 행사정보 -->
 		<ul class="collection with-header">
@@ -916,7 +911,6 @@ $(document).ready(function(){
 		
 		//참석자정보
 		$('#participant').text(data.PARTICIPANT+" 명");	// 참가인원 PARTICIPANT: 100
-		$('#prepmenu').text(data.PREPMENU); //선호 음식
 		$('#per_bud').text(data.PER_BUD+" 원");	// 1인당 금액 PER_BUD: "30,000"
 		var str_per_bud = data.PER_BUD;
 		var int_per_bud = str_per_bud.replace(",","");
