@@ -82,7 +82,7 @@ public class SuggController extends CommonController{
 		return "/sugg/shipping-list";
 	}
 	
-	
+
 	/*
 	 * @RequestMapping(value="/sugg/startShipping.do") public String
 	 * startShipping(HttpServletRequest req) { String msg =

@@ -71,7 +71,11 @@
 	<select id="getSuggInfo" parameterType="java.lang.String" resultType="java.util.Map">
 		select distinct 
 			s.sugg_id, s.serv_id, s.per_bud, TO_CHAR(s.sugg_date,'YYYY-MM-DD HH24:MI:SS') as sugg_date
-			, c.explanation c_explan, c.maximum_seating, c.name
+			, c.explanation c_explan, c.maximum_seating, c.name, choose_YN, c.mem_id, (SELECT ((AVG(MENU_SCORE)+ AVG(PRICE_SCORE)+ AVG(SERV_SCORE) ) /3)   
+        FROM CRD_SERV_REVIEW
+        WHERE SERV_ID IN (
+            SELECT SERV_ID FROM CRD_SERV_SUGG WEHRE WHERE CHOOSE_YN='Y' AND MEM_ID = c.mem_id
+        )) as avgscore
 		from 
 			crd_serv_sugg s, crd_company c
 		where 

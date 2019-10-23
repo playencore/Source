@@ -361,7 +361,7 @@ div.dt-button-info {
 		     <table id="datatable" class="dataTable no-footer" role="grid" aria-describedby="datatable_info">
 		       <thead>
 		         <tr role="row">
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">신청 아이디</th>
+		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">접수 아이디</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">신청자 아이디</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">후기 평점</th>
 		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">이벤트 종류 </th>
@@ -375,20 +375,9 @@ div.dt-button-info {
 		       <tbody>
 		       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
 					<tr role="row" class="odd">
-						<td onclick="showDetail('${servinfo.SERV_ID}')">${servinfo.SERV_ID}</td>
-						<c:if test="${empty ALLSERVINFO}">
-						<div class="col m12" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
-							<ul class="collection with-header">
-								<li class="collection-header">
-									<h5 class="task-card-title mb-3" style="text-align: center;">
-										조회된 내용이 없습니다.
-									</h5>
-								</li>
-							</ul>
-						</div>
-						</c:if>
-						<td><a id="viewstart" class='modal-close waves-effect waves-green btn-flat'>${servinfo.CUSTOMER_ID}</a></td>
-						<td>${((servinfo.REVIEW.MENU_SCORE)+(servinfo.REVIEW.PRICE_SCORE)+(servinfo.REVIEW.SERV_SCORE)+(servinfo.REVIEW.RECOMMAND))/4}</td>
+						<td><a onclick="showDetail('${servinfo.SERV_ID}')" class='modal-close waves-effect waves-green btn-flat'>${servinfo.SERV_ID}</a></td>
+						<td>${servinfo.CUSTOMER_ID}</td>
+						<td>${((servinfo.REVIEW.MENU_SCORE)+(servinfo.REVIEW.PRICE_SCORE)+(servinfo.REVIEW.SERV_SCORE))/3}</td>
 						<td>${servinfo.ETYPENAME.CODE_NAME}</td>
 						<td>${servinfo.STYPENAME.CODE_NAME}</td>
 						<td>${servinfo.PARTICIPANT}</td>
@@ -403,62 +392,223 @@ div.dt-button-info {
 		   </div>
 		 </div>
 	</div>
-<!-- List2 -->
-
-<div class="col m12 center"></div>
-<div id="modal1" class="modal modal-fixed-footer">
+	
+<!--Modal -->
+<div id="modal" class="modal modal-fixed-footer">
 	<div class="modal-content">
 		<ul class="collection with-header">
 			<li class="collection-header">
-				<h5 class="task-card-title mb-3" style="text-align: right;" id="sugg_title">
+				<!-- 신청번호 -->
+				<h5 class="task-card-title mb-3" style="text-align: right;" id="app_title">
 				</h5>
-				<p class="task-card-date" style="text-align: right;" id="sugg_date"></p>
+				<!-- 작성일 -->
+				<p class="task-card-date" style="text-align: right;" id="app_date"></p>
 			</li>
 			<li class="collection-item dismissable">
-				<span class="width-100" style="font-size: 14px">제안한 회사</span>
-				<span class="secondary-content"><span id="sup_name"></span></span>
+				<!-- 신청자 -->
+				<span class="width-100" style="font-size: 14px">신청자 이름</span>
+				<span class="secondary-content"><span id="app_name"></span></span>
 			</li>
 			<li class="collection-item dismissable">
-				<span class="width-100" style="font-size: 14px">상태</span>
-				<span class="secondary-content"><span class="" id="choose_yn"></span></span>
+				<!-- 최종수정일 -->
+				<span class="width-100" style="font-size: 14px">최종 수정일</span>
+				<span class="secondary-content"><span id="modified_date"></span></span>
 			</li>
 		</ul>
+		
+		<!-- 업체정보 -->
 		<ul class="collection with-header">
 			<li class="collection-header" style="background-color: #eee">
 				<h6 class="task-card-title mb-3" style="text-align: center;">
-					채택한 제안 내용
+					업체 정보
+				</h6>
+			</li>
+			<li class="collection-item dismissable" id="suggListNull" style="display: block">
+				<span class="width-100" style="font-size: 14px">아직 제안이 없습니다.</span>
+			</li>
+			<li class="collection-item dismissable" id="suggListNotNull" style="display: none">
+				<table class="highlight centered">
+					<thead id="sugg_info_head">
+					</thead>
+					<tbody id="sugg_info_body">
+					</tbody>
+				</table>
+			</li>
+
+		</ul>
+		
+		<!-- 일정정보 -->
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					일정 정보
 				</h6>
 			</li>
 			<li class="collection-item dismissable">
-				<span class="width-100" style="font-size: 14px">1인당 제안 금액</span>
-				<span  class="secondary-content"><span id="per_bud"></span></span>
-			</li>
-			<li class="collection-item dismissable" id="li_menu" style="display: none">
-				<span class="width-100" style="font-size: 14px">제안 메뉴</span>
-				<br>
-				<p class="secondary-content">
-					<table class="highlight centered">
-						<thead>
-						<tr>
-							<th>메뉴명</th>
-							<th>1 인분당 중량(g)</th>
-							<th>메뉴 사진</th>
-						</tr>
-						</thead>
-						<tbody id="menu_info">
-						</tbody>
-					</table>
-				</p>
+				<!-- 서비스 제공일 -->
+				<span class="width-100" style="font-size: 14px">서비스 제공일</span>
+				<span class="secondary-content"><span id="serv_date"></span></span>
 			</li>
 		</ul>
-	</div>
+		<!-- 현장정보 -->
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					현장 정보
+				</h6>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1주소 : 서울 도봉구 xx동 산23-2 -->
+				<span class="width-100" style="font-size: 14px">주소</span>
+				<span class="secondary-content"><span id="address"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1상세주소 : oo빌라 3층  -->
+				<span class="width-100" style="font-size: 14px">상세주소</span>
+				<span class="secondary-content"><span id="address_detail"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2공간 : 실내/실외  -->
+				<span class="width-100" style="font-size: 14px">공간</span>
+				<span class="secondary-content"><span id="interior_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2주차장 : 유/무  -->
+				<span class="width-100" style="font-size: 14px">주차장 유무</span>
+				<span class="secondary-content"><span id="parking_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2엘리베이터 : 유/무 -->
+				<span class="width-100" style="font-size: 14px">엘리베이터 유무</span>
+				<span class="secondary-content"><span id="elevator_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2쓰레기배출 : 가능/불가능 -->
+				<span class="width-100" style="font-size: 14px">쓰레기배출 여부</span>
+				<span class="secondary-content"><span id="discharge_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2취사 : 가능/불가능 -->
+				<span class="width-100" style="font-size: 14px">취사 여부</span>
+				<span class="secondary-content"><span id="cooking_yn"></span></span>
+			</li>
+			
+		</ul>
+		<!-- 참석자정보 -->
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					참석자 정보
+				</h6>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1인원 : 100명 -->
+				<span class="width-100" style="font-size: 14px">인원수</span>
+				<span class="secondary-content"><span id="participant"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2 1인당 20,000원 -->
+				<span class="width-100" style="font-size: 14px">1인당 금액</span>
+				<span class="secondary-content"><span id="per_bud"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2총 2,000,000원 -->
+				<span class="width-100" style="font-size: 14px">총 금액</span>
+				<span class="secondary-content"><span id="per_totalbud"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1연령 : 30대~40대 -->
+				<span class="width-100" style="font-size: 14px">연령대</span>
+				<span class="secondary-content"><span id="age_minmax"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1성비 : 남 100% / 여 0% -->
+				<span class="width-100" style="font-size: 14px">성비 : 남</span>
+				<span class="secondary-content"><span id="per_men"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2성비 : 남 100% / 여 0% -->
+				<span class="width-100" style="font-size: 14px">성비 : 여</span>
+				<span class="secondary-content"><span id="per_women"></span></span>
+			</li>
+			<li>
+			<li class="collection-item dismissable">
+				<!-- 선호 음식 -->
+				<span class="width-100" style="font-size: 14px">선호메뉴</span>
+				<span class="secondary-content"><span id="prepmenu"></span></span>
+			</li>
+		</ul>
+		<!-- 행사정보 -->
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					행사 정보
+				</h6>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1서비스 형식(진행형식) 택1:뷔페, 코스, 드랍오프, 도시락 -->
+				<span class="width-100" style="font-size: 14px">진행형식</span>
+				<span class="secondary-content"><span id="serv_type_code"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 1행사 형식 택1 : 개인/사교/리셉션/기업/학교/기타 -->
+				<span class="width-100" style="font-size: 14px">행사형식</span>
+				<span class="secondary-content"><span id="event_type_code"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2코디네이터 신청 : 유/무 -->
+				<span class="width-100" style="font-size: 14px">코디네이터 신청유무</span>
+				<span class="secondary-content"><span id="coordinator_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2추가식기 신청 : 0~ -->
+				<span class="width-100" style="font-size: 14px">추가식기 신청</span>
+				<span class="secondary-content"><span id="tableware_yn"></span></span>
+			</li>
+			<li class="collection-item dismissable">
+				<!-- 2후식선택 : 0~ -->
+				<span class="width-100" style="font-size: 14px">후식 신청</span>
+				<span class="secondary-content"><span id="dessert_yn"></span></span>
+			</li>
+		</ul>
+		<!-- 요청사항 -->
+		<ul class="collection with-header">
+			<li class="collection-header" style="background-color: #eee">
+				<h6 class="task-card-title mb-3" style="text-align: center;">
+					요청사항
+				</h6>
+			</li>
+			
+			<!-- 1내용 -->
+			
+			<li class="collection-item dismissable">
+				<span class="width-100" style="font-size: 14px">추가요청사항</span>
+				<span class="secondary-content"><span id="requested_team"></span></span>
+			</li>
+		</ul>
+		<ul class="collection with-header" id="ul_app">
+			
+		</ul>
+
+	</div> 
 	<div class="modal-footer">
+		<!-- 닫기버튼 -->
 		<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
 	</div>
 </div>
 <div id="modal2" class="modal2 modal-fixed-footer">
+	<div class="modal-content">
+		<ul class="collection with-header" id="ul_payment">
+			
+		</ul>
+	</div>
 	<div class="modal-footer">
-		<a href="#!" class="waves-effect waves-green btn-flat" onclick="window.location.reload()">확인</a>
+		<!-- 모달 2 [닫기] -->
+		<ul>
+			<li>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+			</li>
+		</ul>
 	</div>
 </div>
 <br><br><br><br><br><br><br><br><br><br>
@@ -705,8 +855,11 @@ function movePage(pageNo){
 				 ]
 				});
 			});
-			
+//-->	
+</script>
 
+<script type="text/javascript">
+//<!--
 /* modal */
 $(document).ready(function(){
 		activeItem('마이 페이지');
@@ -714,39 +867,36 @@ $(document).ready(function(){
 		activeSubItem('판매자 조회', 0);
 		activeSubItem('판매자 승인/반려',0);
 		activeSubItem('빅데이터 분석',1);
-	    $("#viewstart").on(
+	    /* $("#viewstart").on(
 				"click",
 				function(event){
-					suggInfo();
-				});
-	    //$('.modal').modal();
-		//$('.modal2').modal();
-	    setModal(data);
+					showDetail();
+				}); */
+	    $('.modal').modal();
+		$('.modal2').modal();
 	});
 	
 	//상세보기 버튼 클릭시 동작(모달)
 	// 신청 정보 
-	function suggInfo(SERV_ID){
+	function showDetail(SERV_ID){
 		$.ajax({
 		    type : "post",
 		    url : "/appli/getDetailInfoList.do",
 		    data:{
 		    	appliId:SERV_ID
 		    },
-		    dataType : "json",
+		    //dataType : "json",
 		    error : function(data){
 		        alert('상세정보 조회를 실패하셨습니다.');
 		    },
 		    success : function(data){
-		    	updateUi(data,SERV_ID);
-		    	showcompany(data);
-				
-		    	//$('.modal').modal('open');
+		    	detailInfo(data,SERV_ID);
+		    	$('.modal').modal('open');
 		    }
 		});
 	}
 	
-	function updateUi(data,appliId){
+	function detailInfo(data,appliId){
 		$('#app_title').text("신청번호 " + appliId);
 		$('#app_date').text(data.APP_DATE);	// APP_DATE: 2019-07-17 17:59:50
 		$('#app_name').text(data.NAME);
@@ -766,6 +916,7 @@ $(document).ready(function(){
 		
 		//참석자정보
 		$('#participant').text(data.PARTICIPANT+" 명");	// 참가인원 PARTICIPANT: 100
+		$('#prepmenu').text(data.PREPMENU); //선호 음식
 		$('#per_bud').text(data.PER_BUD+" 원");	// 1인당 금액 PER_BUD: "30,000"
 		var str_per_bud = data.PER_BUD;
 		var int_per_bud = str_per_bud.replace(",","");
@@ -794,169 +945,50 @@ $(document).ready(function(){
 		$('#customer_id').text(data.CUSTOMER_ID);	// CUSTOMER_ID: "gggggg"
 		$('#serv_id').text(data.SERV_ID);	// SERV_ID: "S190717-0001"
 		
-	}
-
-	// 채택된 판매자 정보
-	function showcompany(data){
-		var cards = "" ;	
-		if(Object.keys(data).length == 0){
-			cards = cards+ "데이터가 없습니다.";
+		// 업체정보
+		var sugglist = data.suggInfo;
+		
+		var suggListHead = "";
+		var suggListBody = "";
+		if(sugglist.length != 0){
+			$('#suggListNull').css('display','none');
+			$('#suggListNotNull').css('display','block');
+				suggListHead += "<tr>";
+				suggListHead += "<th>제안일</th>";
+				suggListHead += "<th>업체명</th>";
+				suggListHead += "<th>업체평점</th>";
+				suggListHead += "<th>제안금액</th>";
+				suggListHead += "<th>채택여부</th>";
+				suggListHead += "<th>메뉴상세</th>";
+				suggListHead += "</tr>";
+				sugglist.forEach((function(suggMap,i){
+				var suggTotal = suggMap.PER_BUD * data.PARTICIPANT;
+				suggListBody += "<tr>" +
+							"<td>" +suggMap.SUGG_DATE+ "</td>"+
+							"<td>" +suggMap.NAME+"</td>";
+							if (suggMap.AVGSCORE != undefined) {
+				suggListBody +=	"<td>" +suggMap.AVGSCORE+"</td>";
+							} else {
+				suggListBody +=	"<td>평점 없음</td>";
+							}
+				suggListBody += "<td>" +suggMap.PER_BUD+" 원"+"</td>"+
+								"<td>" +suggMap.CHOOSE_YN+ "</td>" +
+								"<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"" +
+								" onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">보기</a></td>" +
+							
+								"</tr>";
+			}))
+			
+			$('#sugg_info_head').html(suggListHead);
+			$('#sugg_info_body').html(suggListBody);
+			
+		} else {
+			$('#suggListNull').css('display','block');
+			$('#suggListNotNull').css('display','none');
 		}
-		for(var i = 0 ; i < Object.keys(data).length ; i++){
-			cards = cards 
-			+"<div class='card col s6'>"
-			+ "<div class='card-content black-text'>"
-			+	"<span class='card-title'>"
-			+    data[i].COMPANYNAME
-			+     "</span>"
-			+	"<p>"
-			+		"판매자 이름 : "+data[i].NAME+" <br>"
-			+		"판매자 아이디 : "+data[i].MEM_ID+" <br>"
-			+		"판매자 사업자 등록번호 : "+data[i].REGIST_NUM+" <br>"
-			+	"</p>"
-			+"</div>"
-			+"<div class='card-action'>"
-			+	"<a class = 'waves-effect waves-light modal-trigger' href='#resultModal"+i+"' >상세보기</a>"
-			+"</div>"
-			+"</div>"
-			+"<div class = 'modallist'>"
-			+"<div id='resultModal"+i+"' class='modal'>"
-			+	"<div class='modal-content'>"
-			+		"<ul class = 'collection with-header'>"
-			+			"<li class='collection-header' style='background-color: #eee'>"
-			+				"<h6 class='task-card-title mb-3' style='text-align: center'>"
-			+					"-업체 상세보기-"
-			+				"</h6>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 이름"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].NAME
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 아이디"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].MEM_ID
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 전화번호"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].TEL
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 이메일"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].EMAIL
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 주소"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].ADRESS
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 상세주소"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].ADDRESS_DETAIL
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"가입날짜"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].JOIN_DATE
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 생년월일"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].BIRTH_DATE
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 성별"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].GENDER
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 사업자 등록 번호"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].REGIST_NUM
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 회사 이름"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].COMPANYNAME
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 회사 소개"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].EXPLANATION
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 회사 최소 수용인원"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].MINUMUM_SEATING
-			+				"</span>"
-			+			"</li>"
-			+			"<li class='collection-item dismissable'>"
-			+				"<span class='width-100' style='font-size: 14px'>"
-			+					"판매자 회사 최대 수용인원"
-			+				"</span>"
-			+				"<span class='secondary-content'>"
-			+					data[i].MAXiMUM_SEATIN
-			+				"</span>"
-			+			"</li>"
-			+		"</ul>"
-			+	"</div>"
-			+	"<div class='modal-footer'>"
-			+		"<a href='#!' class='modal-close waves-effect waves-green btn-flat'>창닫기</a>"
-			+	"</div>"
-			+"</div>"
-			+"</div>" ;
-		}
-		$("#showcard").html(cards);
+		
 	}
-	
-	function setModal(data){
-		for(var i = 0 ; i<Object.keys(data).length ; i++){
-			$('#resultModal'+i).modal();
-		}
-	}
-
+		
 	function createtable(){
 		return '<li class="collection-item dismissable" id="li_menu" align="center">'
 		+'<span class="width-100" style="font-size: 20px">제안 메뉴</span>'
@@ -980,6 +1012,63 @@ $(document).ready(function(){
 		+'</li>';
 	}
 	
+	function openmenu(SUGG_ID, TOTAL, SERV_ID){
+		$.ajax({
+		    
+		    type : "post",
+		    url : "/appli/get-menu-info.do",
+		    data:{
+		    	suggId:SUGG_ID,
+		    },
+		    dataType : "json",
+		    error : function(data){
+		        alert('업로드에 실패했습니다.');
+		    },
+		    success : function(data){
+		    	var li = "";
+		    	li += createtable();
+		    	$('#ul_payment').html(li);
+		    	var menuBody = "";
+		    	data.forEach((function(e,i){
+					menuBody += "<tr>";
+					menuBody += "<td>" +e.NAME+ "</td>";
+					menuBody += "<td>" +numbeComma(e.WEIGHT)+ "</td>";
+					menuBody += "<td>" 
+						+ "<img alt='' src='/file/file-down/" 
+						+ e.FILE_ID
+						+ "' width='75px' height='75px'>"
+						+ "</td>";
+					menuBody += "<td>" +e.EXPLANATION+ "</td>";
+					
+					menuBody += "</tr>";
+				}));
+				$('#menu_info').html(menuBody);
+				$('.modal2').modal('open');
+		    }     
+		});
+	}
+	
+	
+	
+	function createHeader(data){
+		return '<li class="collection-header" style="background-color: #eee">'
+			 + '<h6 class="task-card-title mb-3" style="text-align: center;">'
+			 + data
+			 +'</h6>'
+			 +'</li>';
+	}
+
+	function createBody(title,content){
+		return '<li class="collection-item dismissable">'
+			 + '<span class="width-100" style="font-size: 14px">'
+			 + title
+			 +'</span>'
+			 + '<span class="secondary-content">'
+			 + content
+			 +'</span>'
+			 + '</li>';
+	}
+	
 	function numbeComma(number) {
 	    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -987,4 +1076,4 @@ $(document).ready(function(){
 </script>
 <%@include file="/include/footer.jsp" %>
 </body>
-</html>
+</html> 
