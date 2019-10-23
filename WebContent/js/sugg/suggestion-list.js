@@ -35,6 +35,7 @@ function showDetail(num){
 	
 }
 
+
 function updateUi(data,suggId){
 	
 	$('#sugg_title').text(suggId + "상세 내역");
@@ -81,7 +82,7 @@ function updateUi(data,suggId){
 			+"( " +data.PER_MEN + " : " +(10-data.PER_MEN) + " )");
 	
 	
-	li += createBody('선호 메뉴',data.prefList.toString());
+	li += createBody('선호 메뉴',premenuToName( data.prefList.toString() ) );
 	
 	if(data.DESSERT_YN == 'Y'){
 		var title;
@@ -137,6 +138,81 @@ function updateUi(data,suggId){
 	li += createMap(data.ADDRESS,data.ADDRESS_DETAIL,data.ZIPCODE);
 	$('#ul_app').html(li);
 }
+
+function premenuToName(premenu){
+	var bmenu =  premenu.substring(0,3)
+	var mmenu = premenu.substring(3,6)
+	var smenu = premenu.substring(6,9)
+	var menuname = "" ;
+	
+	switch (bmenu){
+	    case 'L01' :
+	    	menuname+="한식"
+	        break;
+	    case 'L02' :
+	    	menuname+="일식"
+	        break;
+	    case 'L03' :
+	    	menuname+="중식"
+	        break;
+	    case 'L04' :
+	    	menuname+="웨스턴"
+	        break;
+	    case 'L05' :
+	    	menuname+="퓨전"
+	        break;
+	    default :
+	}
+	switch (mmenu){
+	    case 'M01' :
+	    	menuname+=",육류"
+	        break;
+	    case 'M02' :
+	    	menuname+=",해산물"
+	        break;
+	    case 'M03' :
+	    	menuname+=",밥류"
+	        break;
+	    case 'M04' :
+	    	menuname+=",면류"
+	        break;
+	    case 'M05' :
+	    	menuname+=",채소"
+	        break;
+	    case 'M06' :
+	    	menuname+=",두류"
+	        break;
+	    case 'M07' :
+	    	menuname+=",빵류"
+	        break;
+	    default :
+	}
+	switch (smenu){
+		case 'S01' :
+			menuname+=",국류"
+		    break;
+		case 'S02' :
+			menuname+=",볶음"
+		    break;
+		case 'S03' :
+			menuname+=",찜"
+		    break;
+		case 'S04' :
+			menuname+=",구이"
+		    break;
+		case 'S05' :
+			menuname+=",튀김"
+		    break;
+		case 'S06' :
+			menuname+=",날것(샌드위치)"
+		        break;
+		   
+		    default :
+	}
+	
+	return menuname ;
+}
+
 function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'
 		+'<span class="width-100" style="font-size: 14px">서비스 제공위치</span>'
