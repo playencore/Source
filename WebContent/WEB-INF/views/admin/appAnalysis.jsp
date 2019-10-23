@@ -859,9 +859,7 @@ function movePage(pageNo){
 $(document).ready(function(){
 		activeItem('마이 페이지');
 		showExtendedMenu('#nav_mypage');
-		activeSubItem('판매자 조회', 0);
-		activeSubItem('판매자 승인/반려',0);
-		activeSubItem('빅데이터 분석',1);
+		activeSubItem('빅데이터 분석',0);
 	    /* $("#viewstart").on(
 				"click",
 				function(event){
