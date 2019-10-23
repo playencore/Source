@@ -39,6 +39,15 @@
         select n.CODE_NAME, s.SERV_TYPE_CODE from CRD_CODE_CG n, CRD_SERV_APP s
         where s.SERV_TYPE_CODE = n.CODE and s.SERV_ID = #{serv_id}
     </select>
+    
+    <!-- ajax -->
+    <select id="dateServList" resultType="map" parameterType="map">
+    	SELECT SERV_ID , PER_BUD 
+    	FROM CRD_SERV_APP 
+    	WHERE END_DATE BETWEEN TO_DATE(#{startDate} ||' 00:00:00','YYYY-MM-DD HH24:MI:SS') 
+			AND TO_DATE(#{endDate} ||' 23:59:59','YYYY-MM-DD HH24:MI:SS') 
+    	ORDER BY SERV_ID DESC
+    </select>
 	
 	
 </mapper>

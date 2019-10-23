@@ -57,9 +57,16 @@ public class AdminController extends CommonController {
 	
 	// feedback - ana
 	@RequestMapping("/admin/appAnalysis.do")
-	public String AppAnalsysis(HttpServletRequest req, HttpServletResponse resp) {
+	public String appAnalsysis(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute("ALLSERVINFO", adminService.getInfoAll());
 		return "/admin/appAnalysis" ;
+	}
+	
+	// ajax처리 
+	@RequestMapping("/admin/analysis/graph.do")
+	@ResponseBody
+	public List<Map<String, Object>> analysisGraph(HttpServletRequest req, HttpServletResponse resp){
+		return adminService.getAnalysisGraph(getParameterMap(req,true)) ;
 	}
 	
 	

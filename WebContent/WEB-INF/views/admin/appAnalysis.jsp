@@ -269,129 +269,496 @@ div.dt-button-info {
   }
 }
 
-/* Modal */
-
-.modal.modal-fixed-footer {
-    padding: 0;
-    height: 80%;
-}
-.modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: #fafafa;
-    padding: 0;
-    max-height: 80%;
-    width: 55%;
-    margin: auto;
-    overflow-y: auto;
-    border-radius: 2px;
-    will-change: top, opacity;
-}
-.modal2 {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: #fafafa;
-    padding: 0;
-    max-height: 45%;
-    width: 30%;
-    margin: auto;
-    overflow-y: auto;
-    border-radius: 2px;
-    will-change: top, opacity;
-}
-.z-depth-5, .modal2 {
-   -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
-   box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
-}
-.modal2.modal-fixed-footer {
-    padding: 0;
-    height: 45%;
-}
-.modal2.modal-fixed-footer .modal-content {
-    position: absolute;
-    height: calc(100% - 56px);
-    max-height: 100%;
-    width: 100%;
-    overflow-y: auto;
-}
-.modal2 .modal-content {
-    padding: 24px;
-}
-.modal2.modal-fixed-footer .modal-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 0;
-}
-.modal2 .modal-footer {
-    border-radius: 0 0 2px 2px;
-    background-color: #fafafa;
-    padding: 4px 6px;
-    height: 56px;
-    width: 100%;
-    text-align: right;
-}
-
 </style>
+<script src="/js/chart/chart.js"></script>
+<script type="text/javascript">
 
-	<br><br>
-	<div class = "row  card" >
-		<div class = "col s12 " style="margin:1%">
-			<div class = "col s1"></div>
-			<div class = "col s2">
-				<h5>
-					빅데이터 분석
-				</h5>
-			</div>
+var elems = null;
+var instances = null;
+var lineChart;
+
+$(function(){
+	elems = document.querySelectorAll('.datepicker');
+	instances = M.Datepicker.init(elems, {
+	  format:'yyyy-mm-dd'
+	  ,i18n:{
+  		  cancel:'닫기',
+  		  clear:'초기화',
+  		  done:"확인",
+  		  months:[
+  			  '1 월',
+  			  '2 월',
+  			  '3 월',
+  			  '4 월',
+  			  '5 월',
+  			  '6 월',
+  			  '7 월',
+  			  '8 월',
+  			  '9 월',
+  			  '10 월',
+  			  '11 월',
+  			  '12 월'
+  		  ],
+  		  monthsShort:[
+  			  '1 월',
+  			  '2 월',
+  			  '3 월',
+  			  '4 월',
+  			  '5 월',
+  			  '6 월',
+  			  '7 월',
+  			  '8 월',
+  			  '9 월',
+  			  '10 월',
+  			  '11 월',
+  			  '12 월'
+  		  ],
+  		  weekdaysShort:[
+  			  '일요일',
+  			  '월요일',
+  			  '화요일',
+  			  '수요일',
+  			  '목요일',
+  			  '금요일',
+  			  '토요일'
+  		  ],
+  		  weekdaysAbbrev:['일','월','화','수','목','금','토']
+  	  }
+    });
+	$('.datepicker2').datepicker({
+		  format:'yyyy-mm-dd'
+			  ,i18n:{
+		  		  cancel:'닫기',
+		  		  clear:'초기화',
+		  		  done:"확인",
+		  		  months:[
+		  			  '1 월',
+		  			  '2 월',
+		  			  '3 월',
+		  			  '4 월',
+		  			  '5 월',
+		  			  '6 월',
+		  			  '7 월',
+		  			  '8 월',
+		  			  '9 월',
+		  			  '10 월',
+		  			  '11 월',
+		  			  '12 월'
+		  		  ],
+		  		  monthsShort:[
+		  			  '1 월',
+		  			  '2 월',
+		  			  '3 월',
+		  			  '4 월',
+		  			  '5 월',
+		  			  '6 월',
+		  			  '7 월',
+		  			  '8 월',
+		  			  '9 월',
+		  			  '10 월',
+		  			  '11 월',
+		  			  '12 월'
+		  		  ],
+		  		  weekdaysShort:[
+		  			  '일요일',
+		  			  '월요일',
+		  			  '화요일',
+		  			  '수요일',
+		  			  '목요일',
+		  			  '금요일',
+		  			  '토요일'
+		  		  ],
+		  		  weekdaysAbbrev:['일','월','화','수','목','금','토']
+		  	  }
+		    });
+	$('.datepicker').on({change:function(){
+		$('.datepicker2')[0].M_Datepicker.options.minDate = $('.datepicker')[0].M_Datepicker.date
+	}});
+	$('.datepicker2').on({change:function(){
+		$('.datepicker')[0].M_Datepicker.options.maxDate = $('.datepicker2')[0].M_Datepicker.date
+	}});
+	$(document).ready(function(){
+	    $('select').formSelect();
+	  });
+});	
+
+function isNull(value){
+	if(value == null || value == ""){
+		return true;
+	}
+	return false;
+}
+
+function getAnalysis(){
+	if(isNull($("#start_date").val())){
+		showToast("시작일을 선택해주세요.");
+		return ;
+	}
+	if(isNull($("#end_date").val())){
+		showToast("종료일을 선택해주세요.");
+		return ;
+	}
+   var ctx = $("#revenue-line-chart");
+   var chartDatas;
+   var chartOptions = {
+      responsive: false,
+      legend: {
+         display: false
+      },
+      hover: {
+         mode: "label"
+      },
+      scales: {
+         xAxes: [
+            {
+               display: true,
+               gridLines: {
+                  display: false
+               },
+               ticks: {
+                  fontColor: "#fff"
+               }
+            }
+         ],
+         yAxes: [
+            {
+               display: true,
+               fontColor: "#fff",
+               gridLines: {
+                  display: true,
+                  color: "rgba(255,255,255,0.3)"
+               },
+               ticks: {
+                  beginAtZero: false,
+                  fontColor: "#fff",
+                  callback: function(value, index, values) {
+                      return  numbeComma(value) + '%' ;
+                  }
+               }
+            }
+         ],
+         tooltips: {
+        	callbacks: {
+        		label: function(t, e) {
+        			 var i = e.datasets[t.datasetIndex].label || "";
+        			 if (i) {
+                         i += ': ';
+                         i +=t.yLabel + '%';
+                     }
+        			 return i;
+        		}
+        	}
+         }
+      }
+   };
+	$.ajax({
+	    type : "post",
+	    url : "/admin/analysis/graph.do",
+	    data:{
+	    	startDate:$("#start_date").val()
+	    	,endDate:$("#end_date").val()
+	    },
+	    dataType : "json",
+	    error : function(data){
+	        alert('상세정보 조회를 실패하셨습니다.');
+	    },
+	    success : function(data){
+	    	if(data.length == 0){
+	    		$('#sec_none').css('display','block');
+	    		$('#sec_data').css('display','none');
+	    		return;
+	    	}
+	    	var labelTxt = "[";
+	    	var serieTxt = "[";
+	    	var total = 0;
+	    	var info ;
+	    	data.forEach(function(e,i){
+	    		if(i !== data.length-1){
+	    		labelTxt += "'"+e.SERV_ID+"',";
+	    		serieTxt += "'"+e.RECOMMENDRATE+"',";
+	    		}else{
+	    			info = e
+	    			var ctx1 = document.getElementById("myChart").getContext('2d');
+	    			mychart(ctx1,e,1,data.length);
+	    			var ctx2 = document.getElementById("myChart2").getContext('2d');
+	    			mychart(ctx2,e,2,data.length);
+	    			/*
+	    			- Chart를 생성하면서, 
+	    			- ctx를 첫번째 argument로 넘겨주고, 
+	    			- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+	    			*/
+	    			
+	    		}
+	    		//total += e.SUM_PAY;
+	    	});
+	    	//if(total == 0 ){
+	    	//	$('#sec_none').css('display','block');
+	    	//	$('#sec_data').css('display','none');
+	    	//	return;
+	    	//}
+	    	labelTxt += "]";
+	    	serieTxt += "]";
+	    	
+	    	chartDatas = {
+    		      labels: eval(labelTxt),
+    		      datasets: [
+    		         {
+    		            label: "신청 아이디",
+    		            data: eval(serieTxt),
+    		            backgroundColor: "rgba(128, 222, 234, 0.5)",
+    		            borderColor: "#d1faff",
+    		            pointBorderColor: "#d1faff",
+    		            pointBackgroundColor: "#00bcd4",
+    		            pointHighlightFill: "#d1faff",
+    		            pointHoverBackgroundColor: "#d1faff",
+    		            borderWidth: 2,
+    		            pointBorderWidth: 2,
+    		            pointHoverBorderWidth: 4,
+    		            pointRadius: 4
+    		         }
+    		      ]
+    		   };
+	    	var chartConfig = {
+   		      type: "line",
+   		      options: chartOptions,
+   		      data: chartDatas
+   		   };
+   		   lineChart = new Chart(ctx, chartConfig);
+   		   //getTable();
+   		   $('#sec_none').css('display','none');
+		   $('#sec_data').css('display','block');
+		   getTable(data)
+		   
+	    }     
+	});
+}
+function mychart(ctx,e,choose,length){
+	if(choose == 1){
+		var x1 = (e.CHOOSECOUNT / (length-1) )*100
+		var x2 = 100 - x1
+		var labeltemp = "채택 중 추천 비율"
+		var label1 = "추천 중 채택"
+		var label2 = "비 추천 채택"
+	}else{
+		var x1 = e.CHOOSEPRICESCOREAVG
+		var x2 = e.NOTCHOOSEPRICESCOREAVG
+		var labeltemp = "추천/비추천 가격 소비자 후기 만족도 평균"
+		var label1 = "추천 가격 소비자 가격 후기 만족도 평균"
+		var label2 = "비추천 가격 소비자 가격 후기 만족도 평균"
+	}
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: [label1, label2],
+	        datasets: [{
+	            label: labeltemp,
+	            data: [x1 , x2  ],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+}
+
+function getTable(data) {
+	var table="";
+	var infotabel = "" ;
+	data.forEach(function(e,i){
+		if( i != data.length-1 ){
+			table +="<tr>";
+			table +="<td>" +e.SERV_ID+"</td>";
+			table +="<td>￦ " +numbeComma(e.PER_BUD)+"</td>";
+			table +="<td>￦ " +numbeComma(e.SUGG_PER_BUD)+"</td>";
+			table +="<td>￦ " +numbeComma(e.MINPRICE) +"~ ￦"+numbeComma(e.MAXPRICE)+"</td>";
+			if(Number( e.SUGG_PER_BUD ) >= Number( e.MINPRICE ) && Number(e.SUGG_PER_BUD) <= Number( e.MAXPRICE ) ){
+				table +="<td>"+"추천 제안"+"</td>";
+			}else{
+				table +="<td>"+"비 추천 제안"+"</td>";
+			}
+			table +="<td> " +e.REVIEW_PRICE_SCORE+"</td>";
+			table +="</tr>";
+		}else{
+			info = e ;
+			infotabel +="<tr>";
+			infotabel +="<td>" +(data.length-1)+"</td>";
+			infotabel +="<td> " +(info.CHOOSECOUNT / (data.length-1) )*100+"</td>";
+			infotabel +="<td> " +info.CHOOSEPRICESCOREAVG+"</td>";
+			infotabel +="<td> " +info.NOTCHOOSEPRICESCOREAVG+"</td>";
+			infotabel +="</tr>";
+		}
+	$('#tby_result').html(table);
+	$('#tby_result1').html(infotabel);
+	});
+}
+
+function numbeComma(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function showToast(msg){
+	 M.toast({html: msg, classes: 'rounded',displayLength:3000});
+	 $('#toast-container').css({left:(window.outerWidth - $('#toast-container').width())/2});
+}
+
+</script>
+<br><br>
+<div class = "row  card" >
+	<div class = "col s12 " style="margin:1%">
+		<div class = "col s1"></div>
+		<div class = "col s2">
+			<h5>
+				빅데이터 분석
+			</h5>
 		</div>
 	</div>
-	<div class="row">
-		 <div id="admin" class="col s12">
-		   <div class="card material-table">
-		     <div class="table-header">
-		       <span class="table-title">검색</span>
-		       <div class="actions">
-		         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-		       </div>
-		     </div>
-		     <div id="datatable_wrapper" class="dataTables_wrapper no-footer">
-		     <table id="datatable" class="dataTable no-footer" role="grid" aria-describedby="datatable_info">
-		       <thead>
-		         <tr role="row">
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">접수 아이디</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">신청자 아이디</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">후기 평점</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">이벤트 종류 </th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">서비스 종류</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">참가자 수</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">신청 금액(1인)</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">채택 금액(1인)</th>
-		           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">추천 금액대</th>
-		         </tr>
-		       </thead>
-		       <tbody>
-		       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
-					<tr role="row" class="odd">
-						<td><a onclick="showDetail('${servinfo.SERV_ID}')" class='modal-close waves-effect waves-green btn-flat'>${servinfo.SERV_ID}</a></td>
-						<td>${servinfo.CUSTOMER_ID}</td>
-						<td>${((servinfo.REVIEW.MENU_SCORE)+(servinfo.REVIEW.PRICE_SCORE)+(servinfo.REVIEW.SERV_SCORE))/3}</td>
-						<td>${servinfo.ETYPENAME.CODE_NAME}</td>
-						<td>${servinfo.STYPENAME.CODE_NAME}</td>
-						<td>${servinfo.PARTICIPANT}</td>
-						<td>${servinfo.PER_BUD}</td>
-						<td>${servinfo.CHOOSESUGG.PER_BUD}</td>
-						<td>${servinfo.MINPRICE} ~ ${servinfo.MAXPRICE}</td>
-					</tr>
-		       </c:forEach>
-		       </tbody>
-		     </table>
-		     </div>
-		   </div>
-		 </div>
+</div>
+<!--  고재량 작업 영역 -->                                          
+<div class = "row"  >
+	<div class = "col s12">
+		<h4>기간분석</h4>
 	</div>
+	<div class = "col s12">
+		<div class = "col s12">
+			검색 기간  : 
+			<div class="input-field" style="display: inline-block;width: 8%;">
+				<input id="start_date" name="start_date" type="text" class="datepicker" readonly="readonly">
+         	</div>
+         	~ 
+         	<div class="input-field" style="display: inline-block;width: 8%;">
+				<input id="end_date" name="end_date" type="text" class="datepicker2" readonly="readonly">
+         	</div>
+         	<div class="input-field" style="display: inline-block;width: 8%;">
+         		<a class="waves-effect waves-light btn" onclick='getAnalysis()'>검색</a>
+         	</div>
+		</div>
+	</div>
+</div>
+<div class = "row">
+	<div class = "col s12">
+		<div class="col m12" style="padding: 8px; display: none" id="sec_data">
+	         <div class="card animate fadeUp" style="overflow: hidden;">
+	            <div class="card-move-up waves-effect waves-block waves-light col s4 ">
+	               <div class="move-up cyan darken-1">
+	                  <div>
+	                     <span class="chart-title white-text">예측률 그래프<br><br></span>
+	                  </div>
+	                  <div class="trending-line-chart-wrapper" >
+	                  	<canvas id="revenue-line-chart" height="380px" width="500px" class="chartjs-render-monitor" style="display: block; height: 350px; width: 500px;">
+	                  	</canvas>
+	                  </div>
+	               </div>
+	            </div>
+	            <div  class = "col s4">
+   					<canvas id="myChart" height="380px" width="500px" ></canvas>
+				</div>
+				<div  class = "col s4">
+   					<canvas id="myChart2" height="380px" width="500px" ></canvas>
+				</div>
+	            <div class="card-content" style="height: 90px">
+	               <a class="btn-floating btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+	                  <i class="material-icons activator">filter_list</i>
+	               </a>
+	            </div>
+	            <div class="card-reveal" style="display: none; transform: translateY(0%);">
+	               <span class="card-title grey-text text-darken-4">기간내 데이터 정보<i class="material-icons right">close</i>
+	               </span>
+	               <table class="responsive-table">
+	                  <thead>
+	                     <tr>
+	                        <th data-field="serv-id">서브 아이디</th>
+	                        <th data-field="app-price">신청 가격</th>
+	                        <th data-field="sugg-price">제안 가격</th>
+	                        <th data-field="reco-price">추천가격</th>
+	                        <th data-field="reco-choose">추천 가격대 채택 여부</th>
+	                        <th data-field="review-score">리뷰 가격 만족도 </th>
+	                     </tr>
+	                  </thead>
+	                  <tbody id = "tby_result">
+	                     
+	                  </tbody>
+	               </table>
+	               <br><br>
+	               <table class="responsive-table">
+	                  <thead>
+	                     <tr>
+	                        <th data-field="serv count">기간내 서비스 수</th>
+	                        <th data-field="app-price">채택 중 추천 비율</th>
+	                        <th data-field="sugg-price">가격추천대 리뷰 가격 만족도</th>
+	                        <th data-field="reco-price">가격 비추천대 리뷰 가격 만족도</th>
+	                     </tr>
+	                  </thead>
+	                  <tbody id = "tby_result1">
+	                     
+	                  </tbody>
+	               </table>
+	            </div>
+	         </div>
+	      </div>
+	</div>
+</div>
+<!--  고재량 작업 영역 -->
+	
+<div class="row">
+	 <div id="admin" class="col s12">
+	   <div class="card material-table">
+	     <div class="table-header">
+	       <span class="table-title">검색</span>
+	       <div class="actions">
+	         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+	       </div>
+	     </div>
+	     <div id="datatable_wrapper" class="dataTables_wrapper no-footer">
+	     <table id="datatable" class="dataTable no-footer" role="grid" aria-describedby="datatable_info">
+	       <thead>
+	         <tr role="row">
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">접수 아이디</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">신청자 아이디</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">후기 평점</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">이벤트 종류 </th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start dae: activate to sort column ascending">서비스 종류</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">참가자 수</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">신청 금액(1인)</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">채택 금액(1인)</th>
+	           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">추천 금액대</th>
+	         </tr>
+	       </thead>
+	       <tbody>
+	       <c:forEach var="servinfo" items="${ALLSERVINFO}" >
+			<tr role="row" class="odd">
+				<td><a onclick="showDetail('${servinfo.SERV_ID}')" class='modal-close waves-effect waves-green btn-flat'>${servinfo.SERV_ID}</a></td>
+				<td>${servinfo.CUSTOMER_ID}</td>
+				<td>${((servinfo.REVIEW.MENU_SCORE)+(servinfo.REVIEW.PRICE_SCORE)+(servinfo.REVIEW.SERV_SCORE))/3}</td>
+				<td>${servinfo.ETYPENAME.CODE_NAME}</td>
+				<td>${servinfo.STYPENAME.CODE_NAME}</td>
+				<td>${servinfo.PARTICIPANT}</td>
+				<td>${servinfo.PER_BUD}</td>
+				<td>${servinfo.CHOOSESUGG.PER_BUD}</td>
+				<td>${servinfo.MINPRICE} ~ ${servinfo.MAXPRICE}</td>
+			</tr>
+       </c:forEach>
+	       </tbody>
+	     </table>
+	     </div>
+	   </div>
+	 </div>
+</div>
 	
 <!--Modal -->
 <div id="modal" class="modal modal-fixed-footer">
@@ -606,7 +973,8 @@ div.dt-button-info {
 		</ul>
 	</div>
 </div>
-<br><br><br><br><br><br><br><br><br><br>
+
+<br><br><br>
 <script id = "rendered-js">
 //<!--
 function movePage(pageNo){

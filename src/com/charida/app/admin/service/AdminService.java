@@ -1,6 +1,7 @@
 package com.charida.app.admin.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +81,6 @@ public class AdminService  {
 	
 	public List<Map<String,Object>> getInfoAll(){
 		List<Map<String,Object>> allservlist = adminComponent.getAllServList();	// 종료된 모든 신청 가져오기 
-		
 		for(Map<String,Object> serv : allservlist) {		// 가져온 신청 하나 뽑아 인포 만들기
 			String serv_id = (String)serv.get("SERV_ID") ;	
 			Map<String, Object> ename = adminComponent.getEventName(serv_id);		// 이벤트 타입 코드를 이름으로 가져오기
@@ -89,7 +89,7 @@ public class AdminService  {
 			serv.put("STYPENAME", sname);
 			
 			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ; // 제안들 가져오기
-			serv.put("REVIEW", (Map<String,Object>)(adminComponent.getServReview(serv_id)) ) ;
+			serv.put("REVIEW", adminComponent.getServReview(serv_id) ) ;
 			
 			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange( serv_id ); // 추천 가격대 가져오기
 			int minprice = 0 ;
@@ -133,4 +133,72 @@ public class AdminService  {
 		
 		return allservlist ;
 	}
+	
+	public List<Map<String, Object>> getAnalysisGraph(Map<String, Object> params){
+		List<Map<String,Object>> dateServList = adminComponent.getDateServList(params);	// 종료된 모든 신청 중 기한 내에 있는 것들
+		Map<String,Object> value = new HashMap<String, Object>();
+		int choosecount = 0 ;
+		int choosePriceScoreSum = 0 ;
+		int notchoosePriceScoreSum = 0 ;
+		int reviewCount = 0 ;
+		
+		for(Map<String, Object> serv : dateServList) {
+			String serv_id = (String)serv.get("SERV_ID") ;
+			List<Map<String,Object>> sugglist = adminComponent.getAllServToSugg( serv_id ) ;  // 제안 가져오기 
+			List<Map<String,Object>> priceRange = supplierComponent.getPriceRange( serv_id ); // 추천 가격대 가져오기
+			System.out.println("serv_id " + serv_id+"priceSize" + priceRange.size());
+			int minprice = 0 ;
+			int maxprice = 0 ;
+			for(Map<String,Object> price : priceRange) {
+				int classification = ((BigDecimal)price.get("CLASSIFICATION")).intValue() ;
+				if(classification == 0) {
+					minprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ; 		// 추천 작은 가격
+				}else {
+					maxprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ;		// 추천 높은 가격
+				}
+			}
+			serv.put("MINPRICE",minprice );
+			serv.put("MAXPRICE", maxprice) ;
+			int truecount = 0 ;
+			Map<String,Object> reivew = adminComponent.getServReview(serv_id) ;
+			
+			for(Map<String, Object> sugg : sugglist ) {
+				System.out.println("perbud :" + ((BigDecimal)sugg.get("PER_BUD")).intValue() + "min : " +minprice +"max :" + maxprice );
+				if( ((BigDecimal)sugg.get("PER_BUD")).intValue() >= minprice && ((BigDecimal)sugg.get("PER_BUD")).intValue() <= maxprice) {
+					truecount++ ;
+					if( ((String)sugg.get("CHOOSE_YN")).equals("Y") ){
+						choosecount++ ;
+						if( ! reivew.isEmpty() ) {
+							choosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
+							serv.put("SUGG_PER_BUD", ((BigDecimal)sugg.get("PER_BUD")).intValue() );
+							serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
+							reviewCount++ ;
+						}else {
+							serv.put("SUGG_PER_BUD","등록된 후기가 없습니다.");
+							serv.put("REVIEW_PRICE_SCORE","등록된 후기가 없습니다.") ;
+						}
+					}
+				}else {
+					if( ! reivew.isEmpty() ) {
+						notchoosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
+						serv.put("SUGG_PER_BUD",((BigDecimal)reivew.get("PRICE_SCORE")).intValue());
+						serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
+						reviewCount++ ;
+					}else {
+						serv.put("SUGG_PER_BUD","등록된 후기가 없습니다.");
+						serv.put("REVIEW_PRICE_SCORE","등록된 후기가 없습니다.") ;
+					}
+				}
+			}
+			serv.put("RECOMMENDRATE",(truecount/(double)sugglist.size())*100);
+			System.out.println("truecount : "+truecount + "sugglistsize :" + (double)sugglist.size());
+			
+		}
+		value.put("CHOOSECOUNT", choosecount) ;
+		value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/reviewCount) ;
+		value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/reviewCount) ;
+		dateServList.add(value) ;
+		return dateServList ;
+	}
+	
 }

@@ -50,6 +50,9 @@ public class DefaultInterceptor extends HandlerInterceptorAdapter {
 			,"/joinUser/joinSupplierPro.do"
 			,"/file-down/"
 			,"/review/serchreview.do"
+			,"/sales/sales-management/table.do"
+			,"/admin/analysis/graph.do"
+			,"/appli/getDetailInfoList.do"
 		};
 	
 	@Override

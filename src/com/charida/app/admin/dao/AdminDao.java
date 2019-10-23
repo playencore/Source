@@ -37,4 +37,8 @@ public class AdminDao {
 		return sqlSession.selectOne("Admin.servTypeName", serv_id);
 	}
 	
+	public List<Map<String, Object>> selectDateServList(Map<String,Object> param){
+		return sqlSession.selectList("Admin.dateServList",param) ;
+	}
+	
 }

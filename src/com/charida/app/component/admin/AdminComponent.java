@@ -41,5 +41,7 @@ public class AdminComponent {
 	public Map<String, Object> getServName(String serv_id) {
 		return adminDao.selectServCodeName(serv_id);
 	}
-	
+	public List<Map<String, Object>>getDateServList(Map<String,Object> param){
+		return adminDao.selectDateServList(param) ;
+	}
 }
