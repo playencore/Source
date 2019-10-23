@@ -135,7 +135,7 @@ public class ApplicationComponent {
 		int hour = Integer.parseInt(time.substring(time.indexOf(" ")+1,time.indexOf(":")));
         int minute = Integer.parseInt(time.substring(time.indexOf(":")+1,time.length()));
         
-        if("오후".equals(timePerfix)){
+        if("오후".equals(timePerfix)&&!(hour==12)){
             hour = hour+12;
         }
         

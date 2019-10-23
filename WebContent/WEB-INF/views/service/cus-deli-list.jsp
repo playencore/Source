@@ -355,7 +355,7 @@ function movePage(pageNo){
 								<li class="collection-item dismissable center">
 									<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="showDetail('${shiplist.SUGG_ID}','${shiplist.PROGRESS_CODE}')">상세보기</a>
 									<c:if test="${shiplist.PROGRESS_CODE eq 'STU0050002' }">
-										<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="shipcomplete('${shiplist.SERV_ID}')">배송완료</a>
+										<a class="waves-effect waves-light btn-small" style="border-radius: 25px;" onclick="shipcomplete('${shiplist.SERV_ID}')">수령 완료</a>
 									</c:if>
 								</li>
 							</ul>

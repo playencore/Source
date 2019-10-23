@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="/include/header.jsp" %>
 
-<<script type="text/javascript">
+<script type="text/javascript">
 //<!--
 $(document).ready(function(){
 	    $("#searchCategory").formSelect();

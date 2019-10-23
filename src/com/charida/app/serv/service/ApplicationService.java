@@ -279,12 +279,12 @@ public class ApplicationService {
 	        		+ "&quantity=1"
 	        		+ "&total_amount="+(String)params.get("amount")
 	        		+ "&tax_free_amount=0"
-	        		/*+ "&approval_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp"
-	        		+ "&cancel_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp"
-	        		+ "&fail_url=http://192.168.103.65:8070/kakaoAPI/pop.jsp";*/
-		        + "&approval_url=http://localhost:8080/service/kakao-approve.do"
+	        		+ "&approval_url=http://192.168.56.107:8080/service/kakao-approve.do"
+	        		+ "&cancel_url=http://192.168.56.107:8080/service/kakao-approve.do"
+	        		+ "&fail_url=http://192.168.56.107:8080/service/kakao-approve.do";
+		        /*+ "&approval_url=http://localhost:8080/service/kakao-approve.do"
 		        + "&cancel_url=http://localhost:8080/service/kakao-approve.do"
-		        + "&fail_url=http://localhost:8080/service/kakao-approve.do";
+		        + "&fail_url=http://localhost:8080/service/kakao-approve.do";*/
 	        System.out.println(initData);
 	        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 	        wr.writeBytes(initData);

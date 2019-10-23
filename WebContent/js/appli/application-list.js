@@ -199,7 +199,7 @@ function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
 		    },
 		    dataType : "json",
 		    error : function(data){
-		        alert('채택에 실패했습니다.');
+		        //alert('채택에 실패했습니다.');
 		    },
 		    success : function(data){
 		    	alert('채택에 성공했습니다.');
