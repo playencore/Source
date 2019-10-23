@@ -172,7 +172,7 @@
 									        <span>기업 행사</span>
 									    </label>
 									</div>
-									<div class="chip">
+									<!-- <div class="chip">
 										<label>
 									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000050"/>
 									        <span>학교 행사</span>
@@ -183,7 +183,7 @@
 									        <input type="radio" onchange="changeColorByRadio('serv_type')" name="serv_type" value="SER0000090"/>
 									        <span>기타</span>
 									    </label>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
