@@ -1,8 +1,6 @@
 /**
  * application-list.js
  */
-
-
 $(function(){
 	activeItem('마이 페이지');
 	showExtendedMenu('#nav_mypage');
@@ -10,10 +8,12 @@ $(function(){
 	activeSubItem('신청 목록',1);
 	$('.modal').modal();
 	$('.modal2').modal();
+
 });
 // 상세보기 버튼 클릭시 동작(모달)
 function showDetail(SERV_ID){
 	$.ajax({
+	    
 	    type : "post",
 	    url : "/appli/getDetailInfoList.do",
 	    data:{
@@ -27,51 +27,8 @@ function showDetail(SERV_ID){
 	    	updateUi(data,SERV_ID);
 	    	viewMap(data.ADDRESS);
 	    	$('.modal').modal('open');
-	    	doCompare();
-	    }
+	    }     
 	});
-}
-//제안비교 기능(체크박스 감지)
-function suggCompareListPro(lists){
-	$("input[name='checksuggid']").change(function(){
-//		alert("lists에서 조회 : [ " + lists.indexOf($(this).val()) + "]번째 요소                        (-1은 없음)");
-		if(lists.indexOf("'"+$(this).val()+"'") == -1){
-//            alert("주문번호 [ " +$(this).val()+ " ] 를 등록합니다!");
-    		lists.push("'"+$(this).val()+"'");
-            //	});
-        }else{
-//        	alert(" [ " +lists.indexOf($(this).val())+ " ] 번째 요소인 주문번호 [ " +$(this).val()+ " ] 를 삭제합니다!");
-            lists.splice(lists.indexOf("'"+$(this).val()+"'"), 1);
-        }
-        alert("List 목록 결과 : " + lists);
-    });
-}
-function doCompare(){
-	var lists = [];
-	suggCompareListPro(lists);
-	doCompareButton(lists);
-}
-
-function doCompareButton(lists){
-	alert("lists : " + lists );
-	if( lists ){
-		$.ajax({
-		    type : "post",
-		    url : "/appli/getReviewAvgScore.do",
-		    data:{
-		    	suggIdList:lists
-		    },
-		    dataType : "json",
-		    error : function(data){
-		        alert('제안 비교를 실패하셨습니다.');
-		    },
-		    success : function(data){
-		    	alert('제안 비교를 성공하셨습니다.');
-		    	updateUi(data,SERV_ID);
-		    	
-		    }
-		});
-	}
 }
 
 function updateUi(data,appliId){
@@ -130,38 +87,28 @@ function updateUi(data,appliId){
 	
 	var suggListHead = "";
 	var suggListBody = "";
-	var suggListCompare = "";
 	if(sugglist.length != 0){
 		$('#suggListNull').css('display','none');
 		$('#suggListNotNull').css('display','block');
 			suggListHead += "<tr>";
 			suggListHead += "<th>제안일</th>";
 			suggListHead += "<th>업체명</th>";
+			suggListHead += "<th>1인당 제안금액</th>";
 			suggListHead += "<th>메뉴상세</th>";
-			suggListHead += "<th>제안비교</th>";
 			suggListHead += "</tr>";
 		sugglist.forEach((function(suggMap,i){
 			var suggTotal = suggMap.PER_BUD * data.PARTICIPANT;
-			suggListBody += "<tr>" +
-						"<td>" +suggMap.SUGG_DATE+ "</td>" +
-						"<td>" +suggMap.NAME+ "</td>" +
-						"<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"" +
-						" onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">메뉴상세</a></td>" +
-						"<td>"+
-							"<p>"+
-								"<label>"+
-									"<input type='checkbox' name='checksuggid' class='filled-in' value='" + suggMap.SUGG_ID + "'/>" +
-									"<span></span>" +
-								"</label>" +
-							"</p>" +
-						"</td>" +
-					"</tr>";
+			suggListBody += "<tr>";
+			suggListBody += "<td>" +suggMap.SUGG_DATE+ "</td>";
+			suggListBody += "<td>" +suggMap.NAME+ "</td>";
+			suggListBody += "<td>" +numbeComma(suggMap.PER_BUD)+ " 원</td>";
+			suggListBody += "<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"";
+			suggListBody += " onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">메뉴상세</a></td>";
+			
+//			suggListBody += "<td>" +"<input type='button' value='채택' id='suggNum"+ i +"' ";
+//			suggListBody += "onclick=\"selectCustomer('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\"></td>";
+			suggListBody += "</tr>"
 		}))
-		
-		suggListCompare += "<tr>" ;
-					
-		$('#sugg_info_compare').html(suggListCompare);
-		
 		$('#sugg_info_head').html(suggListHead);
 		$('#sugg_info_body').html(suggListBody);
 		
@@ -260,7 +207,6 @@ function selectCustomer(SUGG_ID, TOTAL, SERV_ID){
 		    }     
 		});
 }
-
 
 function createMap(adr1,adr2,zipcode){
 	var ui ='<li class="collection-item dismissable">'

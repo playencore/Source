@@ -92,6 +92,7 @@
 					<h5 style="margin-bottom: 30px">신청 리스트</h5>
 		    		<%@include file="/include/service/sub_menu.jsp" %>
 		    		<c:forEach items="${appliList }" var="appli">
+		    			
 			    		<div class="col m6" style="border: 1px solid #eeeeee; margin-bottom: 20px;">
 							<ul class="collection with-header">
 								<li class="collection-header">
@@ -168,8 +169,17 @@
 				<span class="width-100" style="font-size: 14px">아직 제안이 없습니다.</span>
 			</li>
 			<li class="collection-item dismissable" id="suggListNotNull" style="display: none">
-				<%@include file="/WEB-INF/views/service/cus-sugglist-form.jsp" %>
+				<br>
+				<p class="secondary-content">
+					<table class="highlight centered">
+						<thead id="sugg_info_head">
+						</thead>
+						<tbody id="sugg_info_body">
+						</tbody>
+					</table>
+				</p>
 			</li>
+			
 		</ul>
 		
 		<!-- 일정정보 -->
@@ -314,6 +324,8 @@
 				<span class="width-100" style="font-size: 14px">추가요청사항</span>
 				<span class="secondary-content"><span id="requested_team"></span></span>
 			</li>
+			
+			
 		</ul>
 		<ul class="collection with-header" id="ul_app">
 			
