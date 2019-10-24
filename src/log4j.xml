@@ -75,7 +75,7 @@
     <logger name="com.charida.app.common.kafkalog">
    	 	<level value="debug"/>
    	 	<appender-ref ref="rolling2" />
-		<!--<appender-ref ref="kafkaAppender"/>-->
+		<appender-ref ref="kafkaAppender"/>
 	</logger>    
 
 	<!-- Root Logger -->
