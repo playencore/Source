@@ -645,7 +645,7 @@ function menusubmit(ct){
 								서비스 상세 장소 : ${serv.ADDRESS_DETAIL} <br>
 								1인당 금액 : ${serv.PER_BUD} <br>
 								예상된 1인당 채택 금액 : ${serv.PRICE_RANGE} <br>
-								서비스 제공 일시 : ${serv.APP_DATE}
+								서비스 제공 일시 : ${serv.SERV_DATE}
 							</p>
 						</div>
 						<div class="card-action">
@@ -802,7 +802,7 @@ function menusubmit(ct){
 									 	서비스 제공일시
 									 </span>
 									 <span class="secondary-content">
-										${serv.APP_DATE}
+										${serv.SERV_DATE}
 									 </span>
 								 </li>
 								 <li class="collection-item dismissable">
