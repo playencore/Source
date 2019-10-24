@@ -1393,11 +1393,11 @@ $(document).ready(function(){
 							"<td>" +suggMap.SUGG_DATE+ "</td>"+
 							"<td>" +suggMap.NAME+"</td>";
 							if (suggMap.AVGSCORE != undefined) {
-				suggListBody +=	"<td>" +suggMap.AVGSCORE+"</td>";
+				suggListBody +=	"<td>" +suggMap.AVGSCORE.toFixed(1)+"</td>";
 							} else {
 				suggListBody +=	"<td>평점 없음</td>";
 							}
-				suggListBody += "<td>" +suggMap.PER_BUD.toFixed(1)+" 원"+"</td>"+
+				suggListBody += "<td>" +suggMap.PER_BUD+" 원"+"</td>"+
 								"<td>" +suggMap.CHOOSE_YN+ "</td>" +
 								"<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"" +
 								" onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">보기</a></td>" +
