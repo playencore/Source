@@ -96,9 +96,9 @@ public class AdminService  {
 			int maxprice = 0 ;
 			for(Map<String,Object> price : priceRange) {
 				int classification = ((BigDecimal)price.get("CLASSIFICATION")).intValue() ;
-				if(classification == 0) {
+				if(classification == 1) {
 					minprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ; 		// 추천 작은 가격
-				}else {
+				}else if(classification == 2) {
 					maxprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ;		// 추천 높은 가격
 				}
 			}
@@ -152,9 +152,9 @@ public class AdminService  {
 			int maxprice = 0 ;
 			for(Map<String,Object> price : priceRange) {
 				int classification = ((BigDecimal)price.get("CLASSIFICATION")).intValue() ;
-				if(classification == 0) {
+				if(classification == 1) {
 					minprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ; 		// 추천 작은 가격
-				}else {
+				}else if(classification == 2) {
 					maxprice = ((BigDecimal)price.get("PREDICTIVE_PRICE")).intValue() ;		// 추천 높은 가격
 				}
 			}
