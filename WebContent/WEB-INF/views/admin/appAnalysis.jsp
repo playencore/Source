@@ -524,7 +524,8 @@ function getAnalysis(){
 	    },
 	    dataType : "json",
 	    error : function(data){
-	        alert('상세정보 조회를 실패하셨습니다.');
+	        alert('기간내 완료된 내용이 없어 상세정보 조회를 실패하셨습니다.');
+	        $("#graphsection").css('display','none')
 	    },
 	    success : function(data){
 	    	if(data.length == 0){
@@ -532,6 +533,7 @@ function getAnalysis(){
 	    		$('#sec_data').css('display','none');
 	    		return;
 	    	}
+	    	$("#graphsection").css('display','block')
 	    	var labelTxt = "[";
 	    	var serieTxt = "[";
 	    	var total = 0;
@@ -662,7 +664,7 @@ function getTable(data) {
 			info = e ;
 			infotabel +="<tr>";
 			infotabel +="<td>" +(data.length-1)+"</td>";
-			infotabel +="<td> " +(info.CHOOSECOUNT / (data.length-1) )*100+"</td>";
+			infotabel +="<td> " +( info.CHOOSECOUNT/(data.length-1.0) )*100+"%</td>";
 			infotabel +="<td> " +info.CHOOSEPRICESCOREAVG+"</td>";
 			infotabel +="<td> " +info.NOTCHOOSEPRICESCOREAVG+"</td>";
 			infotabel +="</tr>";
@@ -714,7 +716,7 @@ function showToast(msg){
 		</div>
 	</div>
 </div>
-<div class = "row">
+<div class = "row" id = "graphsection" style="display: none">
 	<div class = "col s12">
 		<div class="col m12" style="padding: 8px; display: none" id="sec_data">
 	         <div class="card animate fadeUp" style="overflow: hidden;">
@@ -1395,7 +1397,7 @@ $(document).ready(function(){
 							} else {
 				suggListBody +=	"<td>평점 없음</td>";
 							}
-				suggListBody += "<td>" +suggMap.PER_BUD+" 원"+"</td>"+
+				suggListBody += "<td>" +suggMap.PER_BUD.toFixed(1)+" 원"+"</td>"+
 								"<td>" +suggMap.CHOOSE_YN+ "</td>" +
 								"<td><a class=\"waves-effect waves-light btn-small\" style=\"border-radius: 25px;\"" +
 								" onclick=\"openmenu('"+suggMap.SUGG_ID+"','"+suggTotal+"','"+suggMap.SERV_ID+"');\">보기</a></td>" +

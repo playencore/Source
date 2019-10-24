@@ -179,14 +179,16 @@ public class AdminService  {
 						}
 					}
 				}else {
-					if( ! reivew.isEmpty() ) {
-						notchoosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
-						serv.put("SUGG_PER_BUD",((BigDecimal)reivew.get("PRICE_SCORE")).intValue());
-						serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
-						reviewCount++ ;
-					}else {
-						serv.put("SUGG_PER_BUD","등록된 후기가 없습니다.");
-						serv.put("REVIEW_PRICE_SCORE","등록된 후기가 없습니다.") ;
+					if( ((String)sugg.get("CHOOSE_YN")).equals("Y") ){
+						if( ! reivew.isEmpty() ) {
+							notchoosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
+							serv.put("SUGG_PER_BUD", ((BigDecimal)sugg.get("PER_BUD")).intValue() );
+							serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
+							reviewCount++ ;
+						}else {
+							serv.put("SUGG_PER_BUD","등록된 후기가 없습니다.");
+							serv.put("REVIEW_PRICE_SCORE","등록된 후기가 없습니다.") ;
+						}
 					}
 				}
 			}
@@ -195,8 +197,13 @@ public class AdminService  {
 			
 		}
 		value.put("CHOOSECOUNT", choosecount) ;
-		value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/reviewCount) ;
-		value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/reviewCount) ;
+		if(reviewCount == 0) {
+			value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/1) ;
+			value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/1) ;
+		}else {
+			value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/(double)reviewCount) ;
+			value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/(double)reviewCount) ;
+		}
 		dateServList.add(value) ;
 		return dateServList ;
 	}
