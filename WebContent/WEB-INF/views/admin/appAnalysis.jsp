@@ -664,7 +664,7 @@ function getTable(data) {
 			info = e ;
 			infotabel +="<tr>";
 			infotabel +="<td>" +(data.length-1)+"</td>";
-			infotabel +="<td> " +( info.CHOOSECOUNT/(data.length-1.0) )*100+"%</td>";
+			infotabel +="<td> " +( info.CHOOSECOUNT / (data.length-1.0) )*100+"%</td>";
 			infotabel +="<td> " +info.CHOOSEPRICESCOREAVG+"</td>";
 			infotabel +="<td> " +info.NOTCHOOSEPRICESCOREAVG+"</td>";
 			infotabel +="</tr>";
