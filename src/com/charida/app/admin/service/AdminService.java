@@ -140,7 +140,8 @@ public class AdminService  {
 		int choosecount = 0 ;
 		int choosePriceScoreSum = 0 ;
 		int notchoosePriceScoreSum = 0 ;
-		int reviewCount = 0 ;
+		int truereviewCount = 0 ;
+		int falsereviewCount = 0 ;
 		
 		for(Map<String, Object> serv : dateServList) {
 			String serv_id = (String)serv.get("SERV_ID") ;
@@ -172,7 +173,7 @@ public class AdminService  {
 							choosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
 							serv.put("SUGG_PER_BUD", ((BigDecimal)sugg.get("PER_BUD")).intValue() );
 							serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
-							reviewCount++ ;
+							truereviewCount++ ;
 						}
 					}
 				}else {
@@ -181,7 +182,7 @@ public class AdminService  {
 							notchoosePriceScoreSum += ((BigDecimal)reivew.get("PRICE_SCORE")).intValue() ;
 							serv.put("SUGG_PER_BUD", ((BigDecimal)sugg.get("PER_BUD")).intValue() );
 							serv.put("REVIEW_PRICE_SCORE",((BigDecimal)reivew.get("PRICE_SCORE")).intValue()) ;
-							reviewCount++ ;
+							falsereviewCount++ ;
 						}
 					}
 				}
@@ -191,12 +192,12 @@ public class AdminService  {
 			
 		}
 		value.put("CHOOSECOUNT", choosecount) ;
-		if(reviewCount == 0) {
+		if(truereviewCount == 0 && falsereviewCount==0) {
 			value.put("CHOOSEPRICESCOREAVG",0) ;
 			value.put("NOTCHOOSEPRICESCOREAVG",0) ;
 		}else {
-			value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/(double)reviewCount) ;
-			value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/(double)reviewCount) ;
+			value.put("CHOOSEPRICESCOREAVG",choosePriceScoreSum/(double)truereviewCount) ;
+			value.put("NOTCHOOSEPRICESCOREAVG",notchoosePriceScoreSum/(double)falsereviewCount) ;
 		}
 		dateServList.add(value) ;
 		return dateServList ;
