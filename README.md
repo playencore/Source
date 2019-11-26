@@ -12,7 +12,7 @@ How to use
 
 1. clone repository to your local computer
 2. import project on your Eclipse IDE
-3. execute studyloop.sql inside WebContent folder (recommend using sqldeveloper from oracle)
+3. execute charida.sql inside WebContent folder (recommend using sqldeveloper from oracle)
 4. change the server path to path="/" 
    (forlder name: Servers -> Tomcat v9.0 Server at localhost-config -> server.xml)
 
